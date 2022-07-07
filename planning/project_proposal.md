@@ -22,7 +22,7 @@ What is the main purpose of your project? What are the key features your site ha
   - Email Change
   - Connect with Slack (if not signed up with)
   - Connect with Google/Apple
-- Shows what organization you are completing the modules for ( using Slack / Salesforce as an example
+- Shows what organization you are completing the modules for ( e.g. a Salesforce logo on the top right to show that you're completing as a Salesforce new hire )
 
 
 ## Related Work
