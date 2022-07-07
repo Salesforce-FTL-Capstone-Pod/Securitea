@@ -17,7 +17,11 @@ What is the main purpose of your project? What are the key features your site ha
 - Multiple and in-depth topics (possible redirection to other online resources if users want to learn more.)
 - Progress tracking for each module -> When complete we notify them via Slack and send them a survey asking them about their experience with the module (if they found it helpful/liked/learned from it)
 - Standard user options 
-  - dark mode
+  - Dark Mode
+  - Password Reset
+  - Email Change
+  - Connect with Slack (if not signed up with)
+  - Connect with Google/Apple
 
 ## Related Work
 
