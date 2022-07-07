@@ -1,29 +1,28 @@
 # Project Proposal
 
-Pod Members: **Lucas Ribeiro Vidal, Paul Franco, Enrique Rico, Nana Kofi Okae**
+Pod Members: **Enrique Rico, Nana Okae, Lucas Vidal, Paul Franco**
 
 ## Problem Statement
 
-Insert your groups problem statement and target audience.
+With this project we aim to solve the problem with unsafe internet usage and our target demographic is are new company hires and any individual that would like to be safe on the internet.
 
 ## Description
 
 What is the main purpose of your project? What are the key features your site has to offer its users? How will your targeted audience use your website?
+The main purpose of our project is to protect people from internet scams and hackers that try to take advantage of their naiveté. Our targeted audience will be sent by their hiring company to complete their mandatory internet safety training and the individuals that want to learn how to be safe on the internet can just use it without a company.
 
 ## Expected Features List
 
-- Integreation with Slack API for User Authentication (OAuth 2.0), and to send messages via Slack ( Polls, Surveys, and Reminders to complete modules ).
+- Integreation with Slack API for User Authentication (OAuth 2.0), and to send messages via Slack ( Polls, Surveys, and Reminders to complete modules).
 - Interactive learining modules/simulations with explanations and examples.
 - Multiple and in-depth topics (possible redirection to other online resources if users want to learn more.)
 - Progress tracking for each module -> When complete we notify them via Slack and send them a survey asking them about their experience with the module (if they found it helpful/liked/learned from it)
-- Standard user options 
+- Standard user options
   - Dark Mode
   - Password Reset
   - Email Change
   - Connect with Slack (if not signed up with)
   - Connect with Google/Apple
-- Shows what organization you are completing the modules for ( e.g. a Salesforce logo on the top right to show that you're completing as a Salesforce new hire )
-
 
 ## Related Work
 
