@@ -1,6 +1,6 @@
 # Project Proposal
 
-Pod Members: **Add Pod Members Names**
+Pod Members: **Lucas Ribeiro Vidal, Paul Franco, Enrique Rico, Nana Kofi Okae**
 
 ## Problem Statement
 
