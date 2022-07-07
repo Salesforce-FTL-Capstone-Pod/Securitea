@@ -12,7 +12,9 @@ What is the main purpose of your project? What are the key features your site ha
 
 ## Expected Features List
 
-- [] 
+- Integreation with Slack API for User Authentication (OAuth 2.0), and to send messages via Slack ( Polls, Surveys, and Reminders to complete modules).
+- Interactive learining modules/simulations with explanations and examples. 
+- 
 
 ## Related Work
 
