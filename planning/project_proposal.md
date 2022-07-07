@@ -12,7 +12,7 @@ What is the main purpose of your project? What are the key features your site ha
 
 ## Expected Features List
 
-Add a list of your groups's brainstormed features list
+- [] 
 
 ## Related Work
 
