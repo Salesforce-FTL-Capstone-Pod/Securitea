@@ -15,8 +15,7 @@ What is the main purpose of your project? What are the key features your site ha
 - Integreation with Slack API for User Authentication (OAuth 2.0), and to send messages via Slack ( Polls, Surveys, and Reminders to complete modules).
 - Interactive learining modules/simulations with explanations and examples.
 - Multiple and in-depth topics (possible redirection to other online resources if users want to learn more.)
-- Progress tracking for each module -> When complete we notify them via Slack and send them a survey.
-- -
+- Progress tracking for each module - When complete we notify them via Slack and send them a survey.
 
 ## Related Work
 
