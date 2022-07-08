@@ -11,6 +11,8 @@ Problem Statement: Lots of people fall prey to phishing attacks and other types 
 ## Description
 
 What is the main purpose of your project? What are the key features your site has to offer its users? How will your targeted audience use your website?
+
+- The main purpose is to provide interactive learning and simualation on internet safety. 
 - Our Webiste provides users with an efficient interactive interface
 - The user can have notifications on progress and updates from slack using the Slack API
 
@@ -39,3 +41,5 @@ What similar apps and websites? How will your project stand out from these other
 ## Open Questions
 
 What questions do you still have? What topics do you need to research more for your project?
+
+- Market Research needs to be done
