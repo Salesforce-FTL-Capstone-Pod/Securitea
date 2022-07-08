@@ -5,12 +5,14 @@ Pod Members: **Lucas Ribeiro Vidal, Paul Franco, Enrique Rico, Nana Kofi Okae**
 ## Problem Statement
 
 Insert your groups problem statement and target audience.
+Target Audience: New Hires and people looking to become more knowledgeable in internet safety
+Problem Statement: Lots of people fall prey to phishing attacks and other types of cyberscams. How can we make use of game concepts and interactivity to teach people how to be more safe while surfing the web.
 
 ## Description
 
 What is the main purpose of your project? What are the key features your site has to offer its users? How will your targeted audience use your website?
 - Our Webiste provides users with an efficient interactive interface
-- The user can have notificaations on progress and updates from slack using the Slack API
+- The user can have notifications on progress and updates from slack using the Slack API
 
 ## Expected Features List
 
