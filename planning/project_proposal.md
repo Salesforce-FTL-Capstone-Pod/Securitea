@@ -33,6 +33,8 @@ What is the main purpose of your project? What are the key features your site ha
 
 What similar apps and websites? How will your project stand out from these other websites?
 
+- Udemy Business
+- Phishing Box
 
 ## Open Questions
 
