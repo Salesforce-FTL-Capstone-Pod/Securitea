@@ -1,6 +1,6 @@
 # Project Proposal
 
-Pod Members: **Lucas Ribeiro Vidal, Paul Franco, Enrique Rico, Nana Kofi Okae**
+Pod Members: **Lucas Ribeiro Vidal, Enrique Rico, Paul Franco, Nana Kofi Okae**
 
 ## Problem Statement
 
@@ -32,6 +32,7 @@ What is the main purpose of your project? What are the key features your site ha
 ## Related Work
 
 What similar apps and websites? How will your project stand out from these other websites?
+
 
 ## Open Questions
 
