@@ -4,13 +4,7 @@ const db = require("../db");
 
 class User {
   static async register(credentials) {
-    const requiredFields = [
-      "email",
-      "password",
-      "username",
-      "first_name",
-      "last_name",
-    ];
+    const requiredFields = ["email", "password", "first_name", "last_name"];
 
     requiredFields.forEach((property) => {
       if (!credentials.hasOwnProperty(property)) {
@@ -18,6 +12,7 @@ class User {
       }
     });
 
+    //Implement actual email checker
     if (credentials.email.indexOf("@") <= 0) {
       throw new BadRequestError("Invalid email");
     }
@@ -55,6 +50,7 @@ class User {
   static async login(credentials) {
     //LUCAS CODE HERE
   }
+  //
 
   static async fetchUserByEmail(email) {
     if (!email) {
@@ -67,7 +63,7 @@ class User {
   }
 
   static async makePublicUser(user) {
-    const requiredFields = ["email", "password", "first_name", "last_name"];
+    const requiredFields = ["email", "isAdmin", "first_name", "last_name"];
   }
 }
 
