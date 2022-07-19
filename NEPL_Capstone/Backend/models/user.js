@@ -13,7 +13,6 @@ class User {
 			}
 		});
 
-		//TODO: Implement actual email checker
 		const emailRegex = /[^@]+@[^@]+\.[^@]+/;
 
 		function validateEmail(email) {
