@@ -14,3 +14,9 @@ CREATE TABLE modules (
     steps       INT DEFAULT 0
 );
 
+CREATE TABLE modules_n (
+    id          SERIAL PRIMARY KEY,
+    progress    INT DEFAULT 0,
+    user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    module_id   INTEGER NOT NULL REFERENCES modules(id) ON DELETE CASCADE,
+)
