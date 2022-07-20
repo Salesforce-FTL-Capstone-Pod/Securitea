@@ -4,96 +4,105 @@ const db = require("../db");
 const { BadRequestError } = require("../utils/errors");
 
 class User {
-	static async register(credentials) {
-		const requiredFields = ["email", "password", "first_name", "last_name"];
+  static async register(credentials) {
+    const requiredFields = ["email", "password", "first_name", "last_name"];
 
-		requiredFields.forEach((property) => {
-			if (!credentials.hasOwnProperty(property)) {
-				throw new BadRequestError(`Missing ${property} in request body`);
-			}
-		});
+    requiredFields.forEach((property) => {
+      if (!credentials.hasOwnProperty(property)) {
+        throw new BadRequestError(`Missing ${property} in request body`);
+      }
+    });
 
-		const emailRegex = /[^@]+@[^@]+\.[^@]+/;
+    const emailRegex = /[^@]+@[^@]+\.[^@]+/;
 
-		function validateEmail(email) {
-			return String(email).toLowerCase().match(emailRegex);
-		}
+    function validateEmail(email) {
+      return String(email).toLowerCase().match(emailRegex);
+    }
 
-		if (!validateEmail(credentials.email)) {
-			throw new BadRequestError("Invalid email");
-		}
+    if (!validateEmail(credentials.email)) {
+      throw new BadRequestError("Invalid email");
+    }
 
-		const existingUser = await User.fetchUserByEmail(credentials.email);
-		if (existingUser) {
-			throw new BadRequestError("A user already exists with this email");
-		}
+    const existingUser = await User.fetchUserByEmail(credentials.email);
+    if (existingUser) {
+      throw new BadRequestError("A user already exists with this email");
+    }
 
-		const hashedPassword = await bcrypt.hash(
-			credentials.password,
-			BCRYPT_WORK_FACTOR
-		);
+    const hashedPassword = await bcrypt.hash(
+      credentials.password,
+      BCRYPT_WORK_FACTOR
+    );
 
-		const normalizedEmail = credentials.email.toLowerCase();
+    const normalizedEmail = credentials.email.toLowerCase();
 
-		const userResult = await db.query(
-			`INSERT INTO users (email, password, first_name, last_name)
+    const userResult = await db.query(
+      `INSERT INTO users (email, password, first_name, last_name)
         VALUES ($1, $2, $3, $4)
         RETURNING id, email, first_name, last_name
         `,
-			[
-				normalizedEmail,
-				hashedPassword,
-				credentials.first_name,
-				credentials.last_name,
-			]
-		);
+      [
+        normalizedEmail,
+        hashedPassword,
+        credentials.first_name,
+        credentials.last_name,
+      ]
+    );
 
-		const user = userResult.rows[0];
+    const moduleStart = await db.query(`INSERT INTO modules_n`);
 
-		return User.makePublicUser(user);
-	}
+    const user = userResult.rows[0];
 
-	static async login(credentials) {
-		const requiredFields = ["email", "password"];
-		requiredFields.forEach((required) => {
-			if (!credentials.hasOwnProperty(required)) {
-				throw new BadRequestError(`Invalid ${required} provided`);
-			}
-		});
-		const user = await User.fetchUserByEmail(credentials.email.toLowerCase());
+    return User.makePublicUser(user);
+  }
 
-		if (user?.password) {
-			const validPassword = await bcrypt.compare(
-				credentials.password,
-				user.password
-			);
+  static async login(credentials) {
+    const requiredFields = ["email", "password"];
+    requiredFields.forEach((required) => {
+      if (!credentials.hasOwnProperty(required)) {
+        throw new BadRequestError(`Invalid ${required} provided`);
+      }
+    });
+    const user = await User.fetchUserByEmail(credentials.email.toLowerCase());
 
-			if (validPassword) {
-				return User.makePublicUser(user);
-			}
-		}
+    if (user?.password) {
+      const validPassword = await bcrypt.compare(
+        credentials.password,
+        user.password
+      );
 
-		throw new UnauthorizedError("Incorrect Credentials");
-	}
+      if (validPassword) {
+        return User.makePublicUser(user);
+      }
+    }
 
-	static async fetchUserByEmail(email) {
-		if (!email) {
-			throw new BadRequestError("No email was provided");
-		}
-		const query = `SELECT * FROM users WHERE email=$1`;
-		const result = await db.query(query, [email.toLowerCase()]);
-		const user = result.rows[0];
-		return user;
-	}
+    throw new UnauthorizedError("Incorrect Credentials");
+  }
 
-	static async makePublicUser(user) {
-		return {
-			id: user.id,
-			email: user.email,
-			firstName: user.first_name,
-			lastName: user.last_name,
-		};
-	}
+  static async fetchUserByEmail(email) {
+    if (!email) {
+      throw new BadRequestError("No email was provided");
+    }
+    const query = `SELECT * FROM users WHERE email=$1`;
+    const result = await db.query(query, [email.toLowerCase()]);
+    const user = result.rows[0];
+    return user;
+  }
+
+  static async makePublicUser(user) {
+    return {
+      id: user.id,
+      email: user.email,
+      firstName: user.first_name,
+      lastName: user.last_name,
+    };
+  }
+
+  static async getProgress(id) {
+    const query = `SELECT module_id, progress FROM modules_1 WHERE user_id=$1`;
+    const result = await db.query(query, [id]);
+    const progress = result.rows[0];
+    return progress;
+  }
 }
 
 module.exports = User;
