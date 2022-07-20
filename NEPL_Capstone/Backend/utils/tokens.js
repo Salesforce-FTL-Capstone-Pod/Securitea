@@ -1,0 +1,32 @@
+const jwt = require("jsonwebtoken");
+const { SECRET_KEY } = require("../config");
+const { UnauthorizedError } = require("./errors");
+
+function generateToken(data) {
+	const token = jwt.sign(data, SECRET_KEY);
+	return token;
+}
+
+function createUser(user) {
+	const payload = {
+		email: user.email,
+		isAdmin: user.isAdmin || false,
+	};
+
+	return generateToken(payload);
+}
+
+function validateToken(token) {
+	try {
+		const decoded = jwt.verify(token, SECRET_KEY);
+		return decoded;
+	} catch {
+		throw new UnauthorizedError("Invalid Token");
+	}
+}
+
+module.exports = {
+	generateToken,
+	createUser,
+	validateToken,
+};
