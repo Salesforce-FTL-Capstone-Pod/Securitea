@@ -4,8 +4,7 @@ const morgan = require("morgan");
 const { PORT } = require("./config");
 const { NotFoundError } = require("./utils/errors");
 const authRoutes = require("./routes/auth");
-//const security = require("./middleware/security"); TODO: implement security
-
+const security = require("./middleware/security");
 const app = express();
 
 app.listen(PORT, () => {
@@ -15,7 +14,7 @@ app.listen(PORT, () => {
 app.use(morgan("tiny"));
 app.use(express.json());
 app.use(cors());
-//app.use(security.extractUserFromJwt); TODO: implement security
+app.use(security.extractUserFromJwt);
 app.use("/auth", authRoutes);
 
 app.get("/", (req, res) => {

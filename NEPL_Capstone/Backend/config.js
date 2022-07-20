@@ -33,7 +33,6 @@ function randString() {
 	}
 	return result;
 }
-//es
 
 console.log("NEPL config:".yellow);
 console.log("Port:".blue, PORT);
