@@ -4,17 +4,18 @@ const router = express.Router();
 const security = require("../middleware/security");
 
 router.get(
-  "/get_progress",
-  security.requireAuthenticatedUser,
-  async (req, res, next) => {
-    try {
-      const userId = res.locals.user.id;
-      const progress = await User.getProgress(userId);
-      return res.status(200).json({ progress: progress });
-    } catch (err) {
-      next(err);
-    }
-  }
+	"/getProgress",
+	security.requireAuthenticatedUser,
+	async (req, res, next) => {
+		try {
+			const userId = await User.fetchUserByEmail(res.locals.user.email);
+			console.log("This be the user: ", userId.id);
+			const progress = await User.getProgress(userId.id);
+			return res.status(200).json({ progress: progress });
+		} catch (err) {
+			next(err);
+		}
+	}
 );
 
 module.exports = router;
