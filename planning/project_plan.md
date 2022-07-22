@@ -34,7 +34,47 @@ Main Page:
 
 ## Data Model
 
-<img width="887" alt="Screen Shot 2022-07-20 at 3 24 29 PM" src="https://user-images.githubusercontent.com/49778407/180092867-a6eebcb5-836e-4bcc-8ded-7857c497a9af.png">
+Users Table:
+
+| Column Name | Type                 | Desc.                             |
+|-------------|----------------------|-----------------------------------|
+| id          | SERIAL PRIMARY KEY   | user id                           |
+| password    | TEXT NOT NULL        | password                          |
+| first_name  | TEXT NOT NULL        | first name of user                |
+| last_name   | TEXT NOT NULL        | last name of user                 |
+| email       | UNIQUE TEXT NOT NULL | email                             |
+| birthday    | TIMESTAMP NOT NULL   | users birthday                    |
+| title       | TEXT NOT NULL        | Mr/Mrs                            |
+| isAdmin     | BOOLEAN              | Check if user has access to admin |
+
+Modules Table:
+
+| Column Name | Type                 | Desc.                             |
+|-------------|----------------------|-----------------------------------|
+| id          | SERIAL PRIMARY KEY   | module id                         |
+| name        | TEXT NOT NULL        | module name                       |
+| category    | TEXT NOT NULL        | modules category                  |
+| steps       | INT DEFAULT 0        | # of steps in module              |
+
+Module_# Table:
+
+| Column Name | Type                 | Desc.                             |
+|-------------|----------------------|-----------------------------------|
+| id          | SERIAL PRIMARY KEY   | module id                         |
+| progress    | INT DEFAULT 0        | steps completed by user           |
+| user_id     | INT NOT NULL         | id of user currently logged in    |
+| module_id   | INT NOT NULL.        | id of the currrent module         |
+
+Managers Table:
+
+| Column Name | Type                 | Desc.                             |
+|-------------|----------------------|-----------------------------------|
+| id          | SERIAL PRIMARY KEY   | module id                         |
+| user_id     | INT NOT NULL         | id of manager currently logged in |
+| token       | TEXT NOT NULL        | manager token provided            |
+| company     | TEXT NOT NULL        | company manager works for         |
+| usersInPod  | ARRAY                | array of users under the manager  |
+
 
 
 ## Endpoints
