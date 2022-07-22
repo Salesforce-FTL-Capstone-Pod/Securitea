@@ -1,8 +1,9 @@
 require("dotenv").config();
 require("colors");
+const { randomStringGenerator } = require("./utils/logicFunctions");
 
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3001;
-const SECRET_KEY = process.env.SECRET_KEY || randString();
+const SECRET_KEY = process.env.SECRET_KEY || randomStringGenerator(10);
 
 function getDatabaseUri() {
 	const dbUser = process.env.DATABASE_USER || "postgres";
@@ -20,19 +21,6 @@ function getDatabaseUri() {
 }
 
 const BCRYPT_WORK_FACTOR = 10;
-
-//Creates a random string in case SECRET_KEY does not exist
-function randString() {
-	var char =
-		"abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
-	var result = "";
-	var charactersLength = char.length;
-
-	for (var i = 0; i < 10; i++) {
-		result += char.charAt(Math.floor(Math.random() * charactersLength));
-	}
-	return result;
-}
 
 console.log("NEPL config:".yellow);
 console.log("Port:".blue, PORT);
