@@ -26,6 +26,14 @@ CREATE TABLE
     module_id INTEGER NOT NULL REFERENCES modules(id) ON DELETE CASCADE
   );
 
+CREATE TABLE manager (
+  id          SERIAL PRIMARY KEY,
+  user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  token       TEXT NOT NULL,
+  company     TEXT NOT NULL,
+  usersInPod  INTEGER[]
+);
+
 INSERT INTO
   modules (name, category, steps)
 VALUES
