@@ -10,7 +10,9 @@ Phishing, and Social Engineering Attacks. With our website, Securitea, users wil
 ## User Roles
 
 Include at least at least 1,**but no more than 3**, user roles
+
 -Corperate employee(new hire, employee hired a while back)
+
 -Project Manager
 
 ## User Personas
@@ -31,14 +33,23 @@ go hiking with his 2 boys; Jason and Jackson.
 Include at least 10 user stories.
 
 1. **As a user, I want to be able to see my progress**
+
 2. **As a user, I want to be able to share all my progress with my manager**
+
 3. **As a user, I want to know what modules I need to complete by a set date**
+
 4. **As  a user, I want to be able to sign in using slack**
+
 5. **As a user, I want to be able to login**
+
 6. **As a user, I want to be able to register**
+
 7. **As a user, I want to be able to have an easy access to the navigation bar**
+
 8. **As a user, I want to be able to see the exampler clearly to be able to read**
+
 9. **As a user, I want to be able to scroll down on the home page to see more about the website**
+
 10. **As a user, I want to be able to have my profile information saved for easy access to my account**
 
 ## Wireframe (Bonus)
