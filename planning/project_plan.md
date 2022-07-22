@@ -4,7 +4,7 @@ Pod Members: Enrique Rico, Lucas Vidal, Paul Franco, Nana Okae
 
 ## Problem Statement and Description
 
-The internet is a vast and growing environment used by everyone in the world. From big coorperations to a child playing games, these users are all subject to Malware, Phishing, and Social Engineering Attacks. With our website, Securitea, users will be able to gain the knowlege and understanding of how to be safe on the internet through an immersive and easy to use experience.
+The internet is a vast and growing environment used by everyone in the world. From big coorperations to a child playing games, these users are all subject to Malware, Phishing, and Social Engineering Attacks. With our website, SecuriTEA, users will be able to gain the knowlege and understanding of how to be safe on the internet through an immersive and easy to use experience.
 
 ## User Roles and Personas
 
