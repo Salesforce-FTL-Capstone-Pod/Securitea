@@ -40,6 +40,18 @@ Main Page:
 ## Endpoints
 
 List the API endpoints you will need to implement.
+| Name         | Request Type | Request Path          | Return Status | Return JSON            |   |   |   |   |   |
+|--------------|--------------|-----------------------|---------------|------------------------|---|---|---|---|---|
+| Home         | GET          | /                     | 200           | server_is: up          |   |   |   |   |   |
+| Login        | POST         | /auth/login           | 200           | user obj, token string |   |   |   |   |   |
+| Register     | POST         | /auth/register        | 201           | user obj, token string |   |   |   |   |   |
+| Me           | GET          | /auth/me              | 200           | publicUser obj         |   |   |   |   |   |
+| Get Progress | GET          | /progress/getProgress | 200           | progress obj           |   |   |   |   |   |
+|              |              |                       |               |                        |   |   |   |   |   |
+|              |              |                       |               |                        |   |   |   |   |   |
+|              |              |                       |               |                        |   |   |   |   |   |
+|              |              |                       |               |                        |   |   |   |   |   |
+
 
 
 ***Don't forget to set up your Issues, Milestones, and Project Board!***
