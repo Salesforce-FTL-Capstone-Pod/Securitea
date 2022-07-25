@@ -36,7 +36,6 @@ class User {
 				credentials.token,
 			]);
 			const managerInfo = managerInfoRaw.rows[0];
-			console.log(managerInfo);
 			if (!managerInfo) {
 				throw new BadRequestError(
 					`Invalid manager token: ${credentials.token}`
