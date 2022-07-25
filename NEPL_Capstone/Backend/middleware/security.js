@@ -17,7 +17,6 @@ const extractUserFromJwt = (req, res, next) => {
 	try {
 		const token = jwtFrom(req);
 		if (token) {
-			console.log(token);
 			res.locals.user = jwt.verify(token, SECRET_KEY);
 		}
 		return next();
