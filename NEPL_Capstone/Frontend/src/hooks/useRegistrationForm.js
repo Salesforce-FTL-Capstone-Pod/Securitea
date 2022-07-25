@@ -31,7 +31,9 @@ export const useRegistrationForm = () => {
 			birthday: form.birthday,
 		});
 		if (data) {
+			console.log(data);
 			setUser(data.user);
+			console.log(user);
 			apiClient.setToken(data.token);
 		}
 		if (error) {
