@@ -7,6 +7,8 @@ CREATE TABLE
     email TEXT NOT NULL UNIQUE CHECK (POSITION('@' IN email) > 1),
     birthday TIMESTAMP NOT NULL,
     title TEXT NOT NULL,
+    company TEXT,
+    manager TEXT,
     isAdmin BOOLEAN DEFAULT false
   );
 

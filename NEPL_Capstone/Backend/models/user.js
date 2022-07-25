@@ -20,6 +20,39 @@ class User {
 			}
 		});
 
+		// Check if the token input is valid
+		var manager = null;
+		var company = null;
+
+		if (credentials.token) {
+			const getManagerNameQ = `
+			SELECT first_name, last_name, email, manager.company 
+			FROM users
+			JOIN manager on manager.user_id = users.id
+			WHERE manager.token = $1
+			`;
+
+			const managerInfoRaw = await db.query(getManagerNameQ, [
+				credentials.token,
+			]);
+			const managerInfo = managerInfoRaw.rows[0];
+			console.log(managerInfo);
+			if (!managerInfo) {
+				throw new BadRequestError(
+					`Invalid manager token: ${credentials.token}`
+				);
+			}
+
+			manager =
+				managerInfo.first_name +
+				" " +
+				managerInfo.last_name +
+				", " +
+				managerInfo.email;
+
+			company = managerInfo.company;
+		}
+
 		const emailRegex = /[^@]+@[^@]+\.[^@]+/;
 
 		function validateEmail(email) {
@@ -44,8 +77,8 @@ class User {
 		const birthday = new Date(credentials.birthday.toString());
 
 		const userResult = await db.query(
-			`INSERT INTO users (email, password, first_name, last_name, birthday, title)
-        VALUES ($1, $2, $3, $4, $5, $6)
+			`INSERT INTO users (email, password, first_name, last_name, birthday, title, company, manager)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         RETURNING id, email, first_name, last_name;
         `,
 			[
@@ -55,6 +88,8 @@ class User {
 				credentials.last_name,
 				birthday,
 				credentials.title,
+				company,
+				manager,
 			]
 		);
 
@@ -104,18 +139,22 @@ class User {
 	}
 
 	static async makePublicUser(user) {
-		return {
+		const userInfo = {
 			id: user.id,
 			email: user.email,
 			firstName: user.first_name,
 			lastName: user.last_name,
 		};
+
+		if (user.manager) userInfo.manager = user.manager;
+		if (user.company) userInfo.company = user.company;
+
+		return userInfo;
 	}
 
 	static async getProgress(id) {
 		const query = `SELECT module_id, progress FROM modules_1 WHERE user_id=$1;`;
 		const result = await db.query(query, [id]);
-		console.log(result); //FIXME: delete this
 		const progress = result.rows[0];
 		return progress;
 	}
