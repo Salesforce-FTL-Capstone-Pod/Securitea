@@ -10,10 +10,12 @@ function generateRandomString(length) {
 	return result;
 }
 
-function generateManagerToken(organizationInitials, managerId) {
-	const managerToken = `${organizationInitials.toUpperCase()}-${generateRandomString(8)}-${managerId}`;
+function generateManagerToken(organizationInitials) {
+	const managerToken = `${organizationInitials.toUpperCase()}-${generateRandomString(
+		8
+	)}`;
 
-	//Token should look like this: SF-a7dj03m9-1
+	//Token should look like this: SF-a7dj03m9
 
 	return managerToken;
 }

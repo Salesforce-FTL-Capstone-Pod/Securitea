@@ -3,6 +3,18 @@ const { BCRYPT_WORK_FACTOR } = require("../config");
 const db = require("../db");
 const { BadRequestError, UnauthorizedError } = require("../utils/errors");
 
+function getCompanyInitials(company) {
+	if (company == "salesforce") {
+		return "SF";
+	} else if (company == "codepath") {
+		return "CP";
+	} else if (company == "workday") {
+		return "WD";
+	} else {
+		return undefined;
+	}
+}
+
 class User {
 	static async register(credentials) {
 		const requiredFields = [
@@ -49,7 +61,7 @@ class User {
 				", " +
 				managerInfo.email;
 
-			company = managerInfo.company;
+			company = managerInfo.company; //TODO: add user to the manager's usersInPod array
 		}
 
 		const emailRegex = /[^@]+@[^@]+\.[^@]+/;
@@ -93,6 +105,22 @@ class User {
 		);
 
 		const user = userResult.rows[0];
+
+		if (credentials.isManager) {
+			addManagerQ = `
+			INSERT INTO manager
+			VALUES ($1, $2, $3, $4, $5)
+			RETURNING id, user_id, token, company
+			`;
+
+			const rawManagerAdded = await db.query(addManagerQ, [
+				user.id,
+				generateManagerToken(getCompanyInitials(credentials.company)),
+				credentials.company,
+				[],
+			]);
+			const managerAdded = rawManagerAdded.rows[0];
+		}
 
 		const addProgress = `
       INSERT INTO modules_1 (progress, user_id, module_id)
