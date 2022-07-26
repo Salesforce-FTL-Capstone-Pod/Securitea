@@ -5,16 +5,16 @@ const { createUser } = require("../utils/tokens");
 const security = require("../middleware/security");
 
 router.post("/login", async (req, res, next) => {
-  try {
-    const user = await User.login(req.body);
-    const token = createUser(user);
-    res.locals.token = token;
-    res.locals.user = user;
+	try {
+		const user = await User.login(req.body);
+		const token = createUser(user);
+		res.locals.token = token;
+		res.locals.user = user;
 
-    return res.status(200).json({ user, token });
-  } catch (err) {
-    next(err);
-  }
+		return res.status(200).json({ user, token });
+	} catch (err) {
+		next(err);
+	}
 });
 
 router.post("/register", async (req, res, next) => {
@@ -37,18 +37,28 @@ router.post("/register", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+
+});
+
+router.patch("/addToken", async (req, res, next) => {
+	try {
+		const { email } = res.locals.user;
+		const company = User.addUserToken(email);
+	} catch (err) {
+		next(err);
+	}
 });
 
 router.get("/me", security.requireAuthenticatedUser, async (req, res, next) => {
-  try {
-    const { email } = res.locals.user;
-    const user = await User.fetchUserByEmail(email);
+	try {
+		const { email } = res.locals.user;
+		const user = await User.fetchUserByEmail(email);
 
-    const publicUser = await User.makePublicUser(user);
-    return res.status(200).json({ publicUser: publicUser });
-  } catch (err) {
-    next(err);
-  }
+		const publicUser = await User.makePublicUser(user);
+		return res.status(200).json({ publicUser: publicUser });
+	} catch (err) {
+		next(err);
+	}
 });
 
 module.exports = router;
