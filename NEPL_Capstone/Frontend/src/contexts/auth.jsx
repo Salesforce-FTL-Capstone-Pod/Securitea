@@ -14,6 +14,7 @@ export const AuthContextProvider = ({ children }) => {
       const { data } = await apiClient.fetchUserFromToken()
       if (data) {
         setUser(data.user)
+        console.log(data)
       }
       setInitialized(true)
     }
