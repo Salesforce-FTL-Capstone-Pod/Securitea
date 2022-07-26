@@ -2,8 +2,10 @@ const bcrypt = require("bcrypt");
 const { BCRYPT_WORK_FACTOR } = require("../config");
 const db = require("../db");
 const { BadRequestError, UnauthorizedError } = require("../utils/errors");
+const { createToken } = require("../utils/logicFunctions");
 
 class User {
+
 	static async register(credentials) {
 		const requiredFields = [
 			"email",
@@ -69,32 +71,128 @@ class User {
 
 		const userResult = await db.query(
 			`INSERT INTO users (email, password, first_name, last_name, birthday, title, company, manager)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+              VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         RETURNING id, email, first_name, last_name;
         `,
-			[
-				normalizedEmail,
-				hashedPassword,
-				credentials.first_name,
-				credentials.last_name,
-				birthday,
-				credentials.title,
-				company,
-				manager,
-			]
-		);
+      [
+        normalizedEmail,
+        hashedPassword,
+        credentials.first_name,
+        credentials.last_name,
+        birthday,
+        credentials.title,
+        company,
+        manager,
+      ]
+    );
 
-		const user = userResult.rows[0];
+    const user = userResult.rows[0];
 
-		const addProgress = `
+    if (credentials.isManager) {
+      addManagerQ = `
+			INSERT INTO manager
+			VALUES ($1, $2, $3, $4, $5)
+			RETURNING id, user_id, token, company
+			`;
+
+      const rawManagerAdded = await db.query(addManagerQ, [
+        user.id,
+        generateManagerToken(getCompanyInitials(credentials.company)),
+        credentials.company,
+        [],
+      ]);
+      const managerAdded = rawManagerAdded.rows[0];
+    }
+
+    const addProgress = `
       INSERT INTO modules_1 (progress, user_id, module_id)
       VALUES ($1, $2, $3)
       RETURNING progress, user_id, module_id;
     `;
+
 		const moduleStart = await db.query(addProgress, [0, user.id, 1]);
 
 		return User.makePublicUser(user);
 	}
+       
+
+  static async registerManager(credentials) {
+    const requiredFields = [
+      "email",
+      "password",
+      "first_name",
+      "last_name",
+      "birthday",
+      "title",
+      "isManager",
+      "company",
+    ];
+
+    var isManager = credentials.isManager === "true";
+
+    requiredFields.forEach((property) => {
+      if (!credentials.hasOwnProperty(property)) {
+        throw new BadRequestError(`Missing ${property} in request body`);
+      }
+    });
+
+    const emailRegex = /[^@]+@[^@]+\.[^@]+/;
+
+    function validateEmail(email) {
+      return String(email).toLowerCase().match(emailRegex);
+    }
+
+    if (!validateEmail(credentials.email)) {
+      throw new BadRequestError("Invalid email");
+    }
+
+    const existingUser = await User.fetchUserByEmail(credentials.email);
+    if (existingUser) {
+      throw new BadRequestError("A user already exists with this email");
+    }
+
+    const hashedPassword = await bcrypt.hash(
+      credentials.password,
+      BCRYPT_WORK_FACTOR
+    );
+
+    const normalizedEmail = credentials.email.toLowerCase();
+    const birthday = new Date(credentials.birthday.toString());
+
+    const userResult = await db.query(
+      `INSERT INTO users (email, password, first_name, last_name, birthday, title, company, isManager)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      RETURNING id, email, first_name, last_name;`,
+      [
+        normalizedEmail,
+        hashedPassword,
+        credentials.first_name,
+        credentials.last_name,
+        birthday,
+        credentials.title,
+        credentials.company,
+        isManager,
+      ]
+    );
+
+    const user = userResult.rows[0];
+
+    const token = createToken(
+      credentials.company,
+      credentials.first_name,
+      credentials.last_name
+    );
+
+    await db.query(
+      `INSERT INTO manager (user_id, company, token)
+      VALUES($1, $2, $3)
+      RETURNING token, user_id, company;
+      `,
+      [user.id, credentials.company, token]
+    );
+
+    return User.makePublicUser(user);
+  }
 
 	static async login(credentials) {
 		const requiredFields = ["email", "password"];
@@ -221,6 +319,65 @@ class User {
 		const progress = result.rows[0];
 		return progress;
 	}
+
+    const moduleStart = await db.query(addProgress, [0, user.id, 1]);
+
+    return User.makePublicUser(user);
+  }
+
+  static async login(credentials) {
+    const requiredFields = ["email", "password"];
+    requiredFields.forEach((required) => {
+      if (!credentials.hasOwnProperty(required)) {
+        throw new BadRequestError(`Invalid ${required} provided`);
+      }
+    });
+    const user = await User.fetchUserByEmail(credentials.email.toLowerCase());
+
+    if (user?.password) {
+      const validPassword = await bcrypt.compare(
+        credentials.password,
+        user.password
+      );
+
+      if (validPassword) {
+        return User.makePublicUser(user);
+      }
+    }
+
+    throw new UnauthorizedError("Incorrect Credentials");
+  }
+
+  static async fetchUserByEmail(email) {
+    if (!email) {
+      throw new BadRequestError("No email was provided");
+    }
+    const query = `SELECT * FROM users WHERE email=$1`;
+    const result = await db.query(query, [email.toLowerCase()]);
+    const user = result.rows[0];
+    return user;
+  }
+
+  static async makePublicUser(user) {
+    const userInfo = {
+      id: user.id,
+      email: user.email,
+      firstName: user.first_name,
+      last_name: user.last_name,
+    };
+
+    if (user.manager) userInfo.manager = user.manager;
+    if (user.company) userInfo.company = user.company;
+
+    return userInfo;
+  }
+
+  static async getProgress(id) {
+    const query = `SELECT module_id, progress FROM modules_1 WHERE user_id=$1;`;
+    const result = await db.query(query, [id]);
+    const progress = result.rows[0];
+    return progress;
+  }
 }
 
 module.exports = User;

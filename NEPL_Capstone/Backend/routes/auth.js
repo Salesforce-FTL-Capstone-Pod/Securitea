@@ -18,18 +18,29 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.post("/register", async (req, res, next) => {
-	try {
-		const user = await User.register({ ...req.body, isAdmin: false });
-		const token = createUser(user);
-		res.locals.token = token;
-		res.locals.user = user;
-		return res.status(201).json({ user, token });
-	} catch (err) {
-		next(err);
-	}
+  try {
+    var user = null;
+    if (req.body.isManager) {
+      user = await User.registerManager({
+        ...req.body,
+        isAdmin: false,
+      });
+    } else {
+      user = await User.register({ ...req.body, isAdmin: false });
+    }
+
+    const token = createUser(user);
+    res.locals.token = token;
+    res.locals.user = user;
+
+    return res.status(201).json({ user, token });
+  } catch (err) {
+    next(err);
+  }
+
 });
 
-router.patch("addToken", async (req, res, next) => {
+router.patch("/addToken", async (req, res, next) => {
 	try {
 		const { email } = res.locals.user;
 		const company = User.addUserToken(email);

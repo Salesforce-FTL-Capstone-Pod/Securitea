@@ -1,3 +1,6 @@
+import React from 'react'
+import { Link } from "react-router-dom"
+import "./Landing.css"
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
@@ -10,14 +13,18 @@ import Stack from "@mui/material/Stack";
 import { Link, useNavigate } from "react-router-dom";
 import "./Landing.css";
 
+
 export default function Landing() {
   return (
-    <Container maxWidth="xl" disableGutters={true}>
-      <Navbar />
-      <Hero />
-      <SubHero />
-    </Container>
-  );
+    <div className='Landing'>
+        <div className='hero'>
+            <h1>Landing Page</h1>
+            <p>You landed at the landing page.</p>
+            <Link to="/login">Login here.</Link>  <br></br>
+            <Link to="/register">Register here.</Link>
+        </div>
+    </div>
+  )
 }
 
 //Navbar function for the landing page

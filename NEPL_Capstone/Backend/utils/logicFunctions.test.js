@@ -10,7 +10,7 @@ test("testing logic for generateRandomString", () => {
 });
 
 test("testing logic for generating manager token", () => {
-	const tokenRegex = /^\w\w-........-\d+$/;
+	const tokenRegex = /^\w\w-........$/;
 	const managerToken1 = logic.generateManagerToken("SF", 1);
 	const managerToken2 = logic.generateManagerToken("CP", 2);
 	const managerToken3 = logic.generateManagerToken("WD", 3);

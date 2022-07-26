@@ -1,0 +1,5 @@
+html, body, #app, #app>div {
+    min-width: 100%;
+    min-height: 100%;
+    overflow: hidden
+}

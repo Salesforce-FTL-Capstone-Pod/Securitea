@@ -9,6 +9,7 @@ CREATE TABLE
     title TEXT NOT NULL,
     company TEXT,
     manager TEXT,
+    isManager BOOLEAN DEFAULT false,
     isAdmin BOOLEAN DEFAULT false
   );
 
