@@ -1,47 +1,57 @@
-import React from 'react'
-import { Link } from "react-router-dom"
-import "./Landing.css"
 import * as React from "react";
-import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Button,
+  Grid,
+  Container,
+  Box,
+  AppBar,
+  Toolbar,
+  Typography,
+  Stack,
+} from "@mui/material";
+import { Link } from "react-router-dom";
 import "./Landing.css";
-
 
 export default function Landing() {
   return (
-    <div className='Landing'>
-        <div className='hero'>
-            <h1>Landing Page</h1>
-            <p>You landed at the landing page.</p>
-            <Link to="/login">Login here.</Link>  <br></br>
-            <Link to="/register">Register here.</Link>
-        </div>
+    <div className="container">
+      <Navbar />
+      <Hero />
+      <SubHero />
     </div>
-  )
+  );
 }
 
 //Navbar function for the landing page
-function Navbar() {
+export function Navbar() {
   return (
     <Container>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="absolute" style={{ background: "#0E131F" }}>
+        <AppBar position="fixed" style={{ background: "#0E131F" }}>
           <Toolbar style={{ height: "40px" }}>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography
+              variant="h6"
+              color="inherit"
+              sx={{ flexGrow: 1 }}
+              to="/"
+              component={Link}
+              style={{ textDecoration: "none" }}
+            >
               SecuriTEA
             </Typography>
             <Stack direction="row" spacing={3}>
-              <Button color="inherit">Home</Button>
-              <Button color="inherit">Modules</Button>
-              <Button color="inherit">Resources</Button>
-              <Button color="inherit">Contact Us</Button>
+              <Button color="inherit" to="/" component={Link}>
+                Home
+              </Button>
+              <Button color="inherit" to="/modules" component={Link}>
+                Modules
+              </Button>
+              <Button color="inherit" to="/resources" component={Link}>
+                Resources
+              </Button>
+              <Button color="inherit" to="/contant us" component={Link}>
+                Contact Us
+              </Button>
             </Stack>
           </Toolbar>
         </AppBar>
@@ -51,13 +61,13 @@ function Navbar() {
 }
 
 // Hero container for the landing page
-function Hero() {
+export function Hero() {
   return (
-    <Stack direction="row" spacing={3}>
-      <Typography>
+    <Stack direction="column" spacing={3}>
+      <Typography component={"span"}>
         <h1
           style={{
-            position: "absolute",
+            position: "fixed",
             width: "540px",
             height: "16px",
             left: "860px",
@@ -69,7 +79,7 @@ function Hero() {
         </h1>
         <p
           style={{
-            position: "absolute",
+            position: "fixed",
             width: "550px",
             height: "28px",
             left: "860px",
@@ -84,8 +94,10 @@ function Hero() {
         </p>
       </Typography>
       <Button
+        to="/register"
+        component={Link}
         style={{
-          position: "absolute",
+          position: "fixed",
           width: "127px",
           height: "50px",
           left: "1010px",
@@ -95,11 +107,12 @@ function Hero() {
           color: "#FFFFFF",
         }}
       >
-        <Link to="/register">Sign Up</Link>
+        Sign Up
       </Button>
       <Typography
+        component={"span"}
         style={{
-          position: "absolute",
+          position: "fixed",
           width: "150px",
           height: "50px",
           left: "1010px",
@@ -108,59 +121,65 @@ function Hero() {
         }}
       >
         <p>
-          Have an account? <Link to="/login">Sign In</Link>
+          Have an account?
+          <Link style={{ textDecoration: "none" }} to="/login">
+            Sign In
+          </Link>
         </p>
       </Typography>
     </Stack>
   );
 }
 //SubHero for the landing page
-function SubHero() {
+export function SubHero() {
   return (
-    <Container style={{ backgroundColor: "#000000" }}>
-      <Box
-        maxWidth="xl"
+    <Box>
+      <Grid
+        container
+        spacing={7}
         style={{
           backgroundColor: "#D3CFE2",
-
-          width: "500px",
-          height: "50px",
-          left: "598px",
-          top: "390px",
-          fontSize: "18px",
+          position: "fixed",
+          width: "100%",
+          height: "500px",
+          right: "0px",
+          top: "470px",
         }}
-      >
-        <Typography>
-          <h1
-            style={{
-              position: "absolute",
-              width: "230px",
-              height: "50px",
-              left: "598px",
-              top: "390px",
-              fontSize: "18px",
-            }}
-          >
-            Current Modules Available
-          </h1>
-        </Typography>
-        <Grid maxWidth="sm" sx={{ background: "purple" }}></Grid>
-        <Button
+        direction="row"
+      ></Grid>
+      <Typography component={"span"}>
+        <h1
           style={{
-            position: "absolute",
+            position: "fixed",
             width: "230px",
             height: "50px",
             left: "598px",
-            top: "780px",
-            fontSize: "10px",
-            background: "#0E131F",
-            color: "white",
-            boarderRadius: "100px",
+            top: "430px",
+            fontSize: "18px",
+            color: "black",
           }}
         >
-          VIEW ALL MODULES
-        </Button>
-      </Box>
-    </Container>
+          Current Modules Available
+        </h1>
+      </Typography>
+
+      <Button
+        to="/modules"
+        component={Link}
+        style={{
+          position: "fixed",
+          width: "230px",
+          height: "50px",
+          left: "598px",
+          top: "780px",
+          fontSize: "10px",
+          background: "#0E131F",
+          color: "white",
+          boarderRadius: "100px",
+        }}
+      >
+        VIEW ALL MODULES
+      </Button>
+    </Box>
   );
 }
