@@ -6,10 +6,14 @@ import './App.css'
 import Landing from '../Landing/Landing'
 import Login from '../Login/Login'
 import Register from "../Register/Register"
+import UserDashboard from '../UserDashboard/UserDashboard'
+import ModulePage from '../ModulePage/ModulePage'
 //Contexts
 import { AuthContextProvider } from "../../contexts/auth"
+import { useAuthContext } from "../../contexts/auth"
 
 function App() {
+
   return (
     <AuthContextProvider>
       <div className='App'>
@@ -18,6 +22,8 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/UserDashboard/" element={<UserDashboard />} />
+            <Route path="/ModulePage" element={<ModulePage /> } />
           </Routes>
         </BrowserRouter>
       </div>

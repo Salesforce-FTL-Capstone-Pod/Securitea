@@ -15,8 +15,8 @@ export const useAuthenticationForm = ({ user }) => {
   })
 
   useEffect(() => {
-    if (user?.username) {
-      navigate("/")
+    if (user?.email) {
+      navigate("/UserDashboard")
     }
   }, [user, navigate])
 
