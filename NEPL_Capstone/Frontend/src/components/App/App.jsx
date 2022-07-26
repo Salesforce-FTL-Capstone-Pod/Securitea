@@ -9,10 +9,10 @@ import Register from "../Register/Register"
 //Contexts
 import { AuthContextProvider } from "../../contexts/auth"
 
-function App() {
+function App({}) {
   return (
     <AuthContextProvider>
-      <div className='App'>
+      <div className="App">
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Landing />} />
@@ -22,7 +22,7 @@ function App() {
         </BrowserRouter>
       </div>
     </AuthContextProvider>
-    )
+  );
 }
 
 export default App
