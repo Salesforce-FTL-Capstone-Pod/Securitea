@@ -25,17 +25,7 @@ class User {
 		var company = null;
 
 		if (credentials.token) {
-			const getManagerNameQ = `
-			SELECT first_name, last_name, email, manager.company 
-			FROM users
-			JOIN manager on manager.user_id = users.id
-			WHERE manager.token = $1
-			`;
-
-			const managerInfoRaw = await db.query(getManagerNameQ, [
-				credentials.token,
-			]);
-			const managerInfo = managerInfoRaw.rows[0];
+			const managerInfo = fetchManagerByToken(credentials.token);
 			if (!managerInfo) {
 				throw new BadRequestError(
 					`Invalid manager token: ${credentials.token}`
@@ -64,7 +54,9 @@ class User {
 
 		const existingUser = await User.fetchUserByEmail(credentials.email);
 		if (existingUser) {
-			throw new BadRequestError("A user already exists with this email");
+			throw new BadRequestError(
+				`A user already exists with the email ${credentials.email}`
+			);
 		}
 
 		const hashedPassword = await bcrypt.hash(
@@ -127,6 +119,28 @@ class User {
 		throw new UnauthorizedError("Incorrect Credentials");
 	}
 
+	static async addUserToken(token, email) {
+		const manager = fetchManagerByToken(token);
+
+		const addManagerInfoQ = `
+		UPDATE users
+		SET company=$1, manager=$2
+		WHERE email=$3;
+		`;
+		const managerData =
+			manager.firstName + " " + manager.lastName + ", " + manager.email;
+
+		const userData = await db.query(addManagerInfoQ, [
+			manager.company,
+			managerData,
+			email,
+		]);
+
+		addToManagerArray(token, fetchUserByEmail(email).id);
+
+		return userData.rows[0]; //TODO: needs further testing when available
+	}
+
 	static async fetchUserByEmail(email) {
 		if (!email) {
 			throw new BadRequestError("No email was provided");
@@ -135,6 +149,56 @@ class User {
 		const result = await db.query(query, [email.toLowerCase()]);
 		const user = result.rows[0];
 		return user;
+	}
+
+	static async fetchManagerByToken(token) {
+		if (!token) {
+			throw new BadRequestError("No token was provided");
+		}
+
+		const findManager = `
+		SELECT first_name, last_name, email, manager.company 
+			FROM users
+			JOIN manager on manager.user_id = users.id
+			WHERE manager.token = $1;
+		`;
+
+		if (!findManager) {
+			throw new BadRequestError("Token provided is not valid");
+		}
+
+		const rawManagerData = await db.query(findManager, [token]);
+		const managerData = rawManagerData.rows[0];
+		return managerData; //TODO: needs further testing when available
+	}
+
+	static async addToManagerArray(token, userId) {
+		const getManagerArray = `
+		SELECT usersInPod FROM manager
+		FROM manager
+		WHERE token = $1;
+		`;
+
+		const managerArray = await db.query(getManagerArray, [token]).rows[0];
+		var newManagerArray = [];
+		if (!managerArray) {
+			newManagerArray = [userId];
+		} else {
+			newManagerArray = [...managerArray, userId];
+		}
+
+		const updateManagerArray = `
+		UPDATE manager
+		SET usersInPod=$1
+		WHERE token=$2;
+		`;
+
+		const addedManagerArray = await db.query(updateManagerArray, [
+			newManagerArray,
+			token,
+		]);
+
+		return addedManagerArray; //TODO: needs further testing when available
 	}
 
 	static async makePublicUser(user) {
