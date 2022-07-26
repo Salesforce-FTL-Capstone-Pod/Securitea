@@ -9,7 +9,6 @@ router.get(
 	async (req, res, next) => {
 		try {
 			const userId = await User.fetchUserByEmail(res.locals.user.email);
-			console.log("This be the user: ", userId.id);
 			const progress = await User.getProgress(userId.id);
 			return res.status(200).json({ progress: progress });
 		} catch (err) {

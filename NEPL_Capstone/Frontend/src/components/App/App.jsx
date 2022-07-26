@@ -12,11 +12,10 @@ import ModulePage from '../ModulePage/ModulePage'
 import { AuthContextProvider } from "../../contexts/auth"
 import { useAuthContext } from "../../contexts/auth"
 
-function App() {
-
+function App({}) {
   return (
     <AuthContextProvider>
-      <div className='App'>
+      <div className="App">
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Landing />} />
@@ -28,7 +27,7 @@ function App() {
         </BrowserRouter>
       </div>
     </AuthContextProvider>
-    )
+  );
 }
 
 export default App

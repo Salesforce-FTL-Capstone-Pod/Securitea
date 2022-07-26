@@ -2,123 +2,257 @@ const bcrypt = require("bcrypt");
 const { BCRYPT_WORK_FACTOR } = require("../config");
 const db = require("../db");
 const { BadRequestError, UnauthorizedError } = require("../utils/errors");
+const { createToken } = require("../utils/logicFunctions");
 
 class User {
-	static async register(credentials) {
-		const requiredFields = [
-			"email",
-			"password",
-			"first_name",
-			"last_name",
-			"birthday",
-			"title",
-		];
+  static async registerManager(credentials) {
+    const requiredFields = [
+      "email",
+      "password",
+      "first_name",
+      "last_name",
+      "birthday",
+      "title",
+      "isManager",
+      "company",
+    ];
 
-		requiredFields.forEach((property) => {
-			if (!credentials.hasOwnProperty(property)) {
-				throw new BadRequestError(`Missing ${property} in request body`);
-			}
-		});
+    var isManager = credentials.isManager === "true";
 
-		const emailRegex = /[^@]+@[^@]+\.[^@]+/;
+    requiredFields.forEach((property) => {
+      if (!credentials.hasOwnProperty(property)) {
+        throw new BadRequestError(`Missing ${property} in request body`);
+      }
+    });
 
-		function validateEmail(email) {
-			return String(email).toLowerCase().match(emailRegex);
-		}
+    const emailRegex = /[^@]+@[^@]+\.[^@]+/;
 
-		if (!validateEmail(credentials.email)) {
-			throw new BadRequestError("Invalid email");
-		}
+    function validateEmail(email) {
+      return String(email).toLowerCase().match(emailRegex);
+    }
 
-		const existingUser = await User.fetchUserByEmail(credentials.email);
-		if (existingUser) {
-			throw new BadRequestError("A user already exists with this email");
-		}
+    if (!validateEmail(credentials.email)) {
+      throw new BadRequestError("Invalid email");
+    }
 
-		const hashedPassword = await bcrypt.hash(
-			credentials.password,
-			BCRYPT_WORK_FACTOR
-		);
+    const existingUser = await User.fetchUserByEmail(credentials.email);
+    if (existingUser) {
+      throw new BadRequestError("A user already exists with this email");
+    }
 
-		const normalizedEmail = credentials.email.toLowerCase();
-		const birthday = new Date(credentials.birthday.toString());
+    const hashedPassword = await bcrypt.hash(
+      credentials.password,
+      BCRYPT_WORK_FACTOR
+    );
 
-		const userResult = await db.query(
-			`INSERT INTO users (email, password, first_name, last_name, birthday, title)
-        VALUES ($1, $2, $3, $4, $5, $6)
+    const normalizedEmail = credentials.email.toLowerCase();
+    const birthday = new Date(credentials.birthday.toString());
+
+    const userResult = await db.query(
+      `INSERT INTO users (email, password, first_name, last_name, birthday, title, company, isManager)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      RETURNING id, email, first_name, last_name;`,
+      [
+        normalizedEmail,
+        hashedPassword,
+        credentials.first_name,
+        credentials.last_name,
+        birthday,
+        credentials.title,
+        credentials.company,
+        isManager,
+      ]
+    );
+
+    const user = userResult.rows[0];
+
+    const token = createToken(
+      credentials.company,
+      credentials.first_name,
+      credentials.last_name
+    );
+
+    await db.query(
+      `INSERT INTO manager (user_id, company, token)
+      VALUES($1, $2, $3)
+      RETURNING token, user_id, company;
+      `,
+      [user.id, credentials.company, token]
+    );
+
+    return User.makePublicUser(user);
+  }
+
+  static async register(credentials) {
+    const requiredFields = [
+      "email",
+      "password",
+      "first_name",
+      "last_name",
+      "birthday",
+      "title",
+      "isManager",
+    ];
+
+    requiredFields.forEach((property) => {
+      if (!credentials.hasOwnProperty(property)) {
+        throw new BadRequestError(`Missing ${property} in request body`);
+      }
+    });
+
+    // Check if the token input is valid
+    var manager = null;
+    var company = null;
+
+    if (credentials.token) {
+      const getManagerNameQ = `
+			SELECT first_name, last_name, email, manager.company 
+			FROM users
+			JOIN manager on manager.user_id = users.id
+			WHERE manager.token = $1
+			`;
+
+      const managerInfoRaw = await db.query(getManagerNameQ, [
+        credentials.token,
+      ]);
+      const managerInfo = managerInfoRaw.rows[0];
+      if (!managerInfo) {
+        throw new BadRequestError(
+          `Invalid manager token: ${credentials.token}`
+        );
+      }
+
+      manager =
+        managerInfo.first_name +
+        " " +
+        managerInfo.last_name +
+        ", " +
+        managerInfo.email;
+
+      company = managerInfo.company; //TODO: add user to the manager's usersInPod array
+    }
+
+    const emailRegex = /[^@]+@[^@]+\.[^@]+/;
+
+    function validateEmail(email) {
+      return String(email).toLowerCase().match(emailRegex);
+    }
+
+    if (!validateEmail(credentials.email)) {
+      throw new BadRequestError("Invalid email");
+    }
+
+    const existingUser = await User.fetchUserByEmail(credentials.email);
+    if (existingUser) {
+      throw new BadRequestError("A user already exists with this email");
+    }
+
+    const hashedPassword = await bcrypt.hash(
+      credentials.password,
+      BCRYPT_WORK_FACTOR
+    );
+
+    const normalizedEmail = credentials.email.toLowerCase();
+    const birthday = new Date(credentials.birthday.toString());
+
+    const userResult = await db.query(
+      `INSERT INTO users (email, password, first_name, last_name, birthday, title, company, manager)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         RETURNING id, email, first_name, last_name;
         `,
-			[
-				normalizedEmail,
-				hashedPassword,
-				credentials.first_name,
-				credentials.last_name,
-				birthday,
-				credentials.title,
-			]
-		);
+      [
+        normalizedEmail,
+        hashedPassword,
+        credentials.first_name,
+        credentials.last_name,
+        birthday,
+        credentials.title,
+        company,
+        manager,
+      ]
+    );
 
-		const user = userResult.rows[0];
+    const user = userResult.rows[0];
 
-		const addProgress = `
+    if (credentials.isManager) {
+      addManagerQ = `
+			INSERT INTO manager
+			VALUES ($1, $2, $3, $4, $5)
+			RETURNING id, user_id, token, company
+			`;
+
+      const rawManagerAdded = await db.query(addManagerQ, [
+        user.id,
+        generateManagerToken(getCompanyInitials(credentials.company)),
+        credentials.company,
+        [],
+      ]);
+      const managerAdded = rawManagerAdded.rows[0];
+    }
+
+    const addProgress = `
       INSERT INTO modules_1 (progress, user_id, module_id)
       VALUES ($1, $2, $3)
       RETURNING progress, user_id, module_id;
     `;
-		const moduleStart = await db.query(addProgress, [0, user.id, 1]);
+    const moduleStart = await db.query(addProgress, [0, user.id, 1]);
 
-		return User.makePublicUser(user);
-	}
+    return User.makePublicUser(user);
+  }
 
-	static async login(credentials) {
-		const requiredFields = ["email", "password"];
-		requiredFields.forEach((required) => {
-			if (!credentials.hasOwnProperty(required)) {
-				throw new BadRequestError(`Invalid ${required} provided`);
-			}
-		});
-		const user = await User.fetchUserByEmail(credentials.email.toLowerCase());
+  static async login(credentials) {
+    const requiredFields = ["email", "password"];
+    requiredFields.forEach((required) => {
+      if (!credentials.hasOwnProperty(required)) {
+        throw new BadRequestError(`Invalid ${required} provided`);
+      }
+    });
+    const user = await User.fetchUserByEmail(credentials.email.toLowerCase());
 
-		if (user?.password) {
-			const validPassword = await bcrypt.compare(
-				credentials.password,
-				user.password
-			);
+    if (user?.password) {
+      const validPassword = await bcrypt.compare(
+        credentials.password,
+        user.password
+      );
 
-			if (validPassword) {
-				return User.makePublicUser(user);
-			}
-		}
+      if (validPassword) {
+        return User.makePublicUser(user);
+      }
+    }
 
-		throw new UnauthorizedError("Incorrect Credentials");
-	}
+    throw new UnauthorizedError("Incorrect Credentials");
+  }
 
-	static async fetchUserByEmail(email) {
-		if (!email) {
-			throw new BadRequestError("No email was provided");
-		}
-		const query = `SELECT * FROM users WHERE email=$1`;
-		const result = await db.query(query, [email.toLowerCase()]);
-		const user = result.rows[0];
-		return user;
-	}
+  static async fetchUserByEmail(email) {
+    if (!email) {
+      throw new BadRequestError("No email was provided");
+    }
+    const query = `SELECT * FROM users WHERE email=$1`;
+    const result = await db.query(query, [email.toLowerCase()]);
+    const user = result.rows[0];
+    return user;
+  }
 
-	static async makePublicUser(user) {
-		return {
-			id: user.id,
-			email: user.email,
-			firstName: user.first_name,
-			lastName: user.last_name,
-		};
-	}
+  static async makePublicUser(user) {
+    const userInfo = {
+      id: user.id,
+      email: user.email,
+      firstName: user.first_name,
+      last_name: user.last_name,
+    };
 
-	static async getProgress(id) {
-		const query = `SELECT module_id, progress FROM modules_1 WHERE user_id=$1;`;
-		const result = await db.query(query, [id]);
-		console.log(result); //FIXME: delete this
-		const progress = result.rows[0];
-		return progress;
-	}
+    if (user.manager) userInfo.manager = user.manager;
+    if (user.company) userInfo.company = user.company;
+
+    return userInfo;
+  }
+
+  static async getProgress(id) {
+    const query = `SELECT module_id, progress FROM modules_1 WHERE user_id=$1;`;
+    const result = await db.query(query, [id]);
+    const progress = result.rows[0];
+    return progress;
+  }
 }
 
 module.exports = User;
