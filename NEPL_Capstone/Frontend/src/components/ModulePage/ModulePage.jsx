@@ -35,12 +35,20 @@ function Navbar() {
 		<AppBar style={{ background: "#0E131F" }} position="sticky">
 			<Toolbar style={{ height: "40px", justifyContent: "space-between" }}>
 				<div style={{ display: "flex" }}>
-					<img src={Logo}></img>
+					<img src={Logo} style={{ marginRight: "1vw" }} />
 					<Stack direction="row" spacing={3}>
 						<Button color="inherit" to="/" component={Link}>
 							Home
 						</Button>
-						<Button color="inherit" to="/ModulePage" component={Link}>
+						<Button
+							color="inherit"
+							to="/ModulePage"
+							component={Link}
+							sx={{
+								borderBottom: "2px solid #A39EDA",
+								borderRadius: "0px",
+							}}
+						>
 							Modules
 						</Button>
 						<Button color="inherit" to="/resources" component={Link}>
@@ -56,7 +64,7 @@ function Navbar() {
 						color="inherit"
 						to="/Login"
 						component={Link}
-						sx={{ backgroundColor: "#A39EDA", marginRight: "1vw" }}
+						sx={{ border: "2px solid #A39EDA", marginRight: "1vw" }}
 					>
 						Login
 					</Button>
