@@ -1,5 +1,4 @@
-import * as React from "react";
-//MUI imports
+import React from "react";
 import {
   Button,
   Grid,

@@ -163,7 +163,6 @@ export default Register
 
 function Footer(props){
   return (
-    
     <Typography variant="body2" align="center" {...props}>
     {'Made with ❤️ by '}
     <Link color="inherit" href="https://github.com/">

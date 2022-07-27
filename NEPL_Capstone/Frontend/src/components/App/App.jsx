@@ -8,13 +8,26 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import UserDashboard from "../UserDashboard/UserDashboard";
 import ModulePage from "../ModulePage/ModulePage";
+
+//Libraries
+import { NextUIProvider, createTheme } from "@nextui-org/react";
+
 //Contexts
 import { AuthContextProvider } from "../../contexts/auth";
 import { useAuthContext } from "../../contexts/auth";
 
-function App({}) {
+export default function AppContainer() {
 	return (
-		<AuthContextProvider>
+		<NextUIProvider theme={theme}>
+			<AuthContextProvider>
+				<App />
+			</AuthContextProvider>
+		</NextUIProvider>
+	);
+}
+function App() {
+	return (
+		<div className="App">
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Landing />} />
@@ -24,8 +37,24 @@ function App({}) {
 					<Route path="/ModulePage" element={<ModulePage />} />
 				</Routes>
 			</BrowserRouter>
-		</AuthContextProvider>
+		</div>
 	);
 }
 
-export default App;
+const theme = createTheme({
+	type: "light",
+	theme: {
+		colors: {
+			platinum: "#ECEBEB",
+			black: "#0E131F",
+			lightpurple: "#D3CFE2",
+			medpurple: "#BEBAE0",
+			darkpurple: "3E3B62",
+		},
+		space: {},
+		fonts: {
+			wee: "Roboto",
+			mono: "Open Sans",
+		},
+	},
+});
