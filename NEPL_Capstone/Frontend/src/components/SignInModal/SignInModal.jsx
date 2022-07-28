@@ -5,7 +5,16 @@ import { Password } from "./Password";
 import { useLoginForm } from "../../hooks/useLoginForm"
 import { Link } from 'react-router-dom';
 
-export default function SignInModal({ handler, closeHandler, submitForm, visible, setVisible, handleOnInputChange }) {
+export default function SignInModal({ handler, visible, setVisible, handleOnInputChange, handleOnSubmit }) {
+    const closeHandler = () => {
+        setVisible(false);
+      };
+    console.log(visible)
+      const submitForm = () => {
+        handleOnSubmit()
+        setVisible(false)
+      }
+
   return (
     <div>
       <Modal
