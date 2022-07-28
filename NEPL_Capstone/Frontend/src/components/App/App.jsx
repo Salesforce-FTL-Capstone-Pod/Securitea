@@ -34,7 +34,7 @@ function App() {
 					<Route path="/register" element={<Register />} />
 					<Route path="/UserDashboard/" element={<UserDashboard />} />
 					<Route path="/ModulePage" element={<ModulePage />} />
-          <Route path="/Modules" element={<Modules /> } />
+					{/* <Route path="/Modules" element={<Modules /> } /> */}
 				</Routes>
 			</BrowserRouter>
 		</div>
