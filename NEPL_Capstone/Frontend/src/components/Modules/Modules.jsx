@@ -1,14 +1,21 @@
 import React from 'react'
 import { Card, Grid, Text, Button, Row, Spacer, Progress } from "@nextui-org/react";
+import SignInModal from '../SignInModal/SignInModal';
+import { Navbar } from '../Landing/Landing';
+import { useLoginForm } from "../../hooks/useLoginForm"
+
+
 
 function Modules() {
-  return (
+    return (
     <div>
+        <Navbar />  
         <h1>Signed Out Module Card</h1>
         <ModuleCard />
         <br></br>
         <h1>Signed In Module Card</h1>
         <AuthModuleCard />
+
     </div>
   )
 }
@@ -16,6 +23,19 @@ function Modules() {
 export default Modules
 
 function ModuleCard(){
+    const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } = useLoginForm()
+    const [visible, setVisible] = React.useState(false);
+    const handler = () => setVisible(true);
+    const closeHandler = () => {
+        setVisible(false);
+      };
+    
+      const submitForm = () => {
+        handleOnSubmit()
+        setVisible(false)
+      }
+
+
     return(
         <Card isHoverable css={{ mw: "350px", bg: "$black" }}>
           <Card.Header css={{ textAlign: "center" }} >
@@ -34,9 +54,10 @@ function ModuleCard(){
             <Row justify="flex-end">
             <Button size="sm" bordered color="secondary">Learn More</Button>
             <Spacer></Spacer>
-            <Button size="sm" color="secondary">Sign In</Button>
+            <Button size="sm" color="secondary" onClick={handler} >Sign In</Button>
             </Row>
           </Card.Footer>
+          <SignInModal handler={handler} closerHandler={closeHandler} submitForm={submitForm} visible={visible} setVisible={setVisible} handleOnInputChange={handleOnInputChange} />
         </Card>
     )
 }
