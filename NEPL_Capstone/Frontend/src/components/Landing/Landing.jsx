@@ -18,6 +18,7 @@ import Message from "../../assets/Message.svg";
 import Phishing from "../../assets/Phishing.svg";
 import Example from "../../assets/Example.svg";
 import Security from "../../assets/Security.svg";
+import HeroFinal from "../../assets/HeroFinal.svg";
 
 export default function Landing() {
   return (
@@ -25,6 +26,7 @@ export default function Landing() {
       <Navbar />
       <Hero />
       <SubHero />
+      <FinalHero />
     </>
   );
 }
@@ -34,32 +36,50 @@ export function Navbar() {
   return (
     <>
       <AppBar style={{ background: "#0E131F" }} position="sticky">
-        <Toolbar style={{ height: "40px" }}>
-          <img src={Logo}></img>
-          <Typography
-            variant="h6"
-            color="inherit"
-            sx={{ flexGrow: 1 }}
-            to="/"
-            component={Link}
-            style={{ textDecoration: "none" }}
-          >
-            SecuriTEA
-          </Typography>
-          <Stack direction="row" spacing={3}>
-            <Button color="inherit" to="/" component={Link}>
-              Home
+        <Toolbar style={{ height: "40px", justifyContent: "space-between" }}>
+          <div style={{ display: "flex" }}>
+            <img src={Logo} style={{ marginRight: "1vw" }} />
+            <Stack direction="row" spacing={3}>
+              <Button color="inherit" to="/" component={Link}>
+                Home
+              </Button>
+              <Button
+                color="inherit"
+                to="/ModulePage"
+                component={Link}
+                sx={{
+                  borderBottom: "2px solid #A39EDA",
+                  borderRadius: "0px",
+                }}
+              >
+                Modules
+              </Button>
+              <Button color="inherit" to="/resources" component={Link}>
+                Resources
+              </Button>
+              <Button color="inherit" to="/contant us" component={Link}>
+                Contact Us
+              </Button>
+            </Stack>
+          </div>
+          <div>
+            <Button
+              color="inherit"
+              to="/Login"
+              component={Link}
+              sx={{ border: "2px solid #A39EDA", marginRight: "1vw" }}
+            >
+              Login
             </Button>
-            <Button color="inherit" to="/ModulePage" component={Link}>
-              Modules
+            <Button
+              color="inherit"
+              to="/Register"
+              component={Link}
+              sx={{ backgroundColor: "#A39EDA" }}
+            >
+              Register
             </Button>
-            <Button color="inherit" to="/resources" component={Link}>
-              Resources
-            </Button>
-            <Button color="inherit" to="/contant us" component={Link}>
-              Contact Us
-            </Button>
-          </Stack>
+          </div>
         </Toolbar>
       </AppBar>
     </>
@@ -75,6 +95,7 @@ export function Hero() {
           display: "flex",
           marginTop: "3.5vw",
           justifyContent: "space-around",
+          background: "#ECEBEB",
         }}
         maxWidth={false}
       >
@@ -85,7 +106,6 @@ export function Hero() {
             width: "30%",
             display: "flex",
             flexDirection: "column",
-            backgroundColor: "white",
             marginRight: "0",
             justifyContent: "center",
             textAlign: "center",
@@ -265,7 +285,7 @@ export function SubHero() {
             height: "3vw",
             marginTop: "5vw",
             marginLeft: "41vw",
-            fontSize: "10px",
+            fontSize: "92%",
             background: "#0E131F",
             color: "white",
             borderRadius: "5px",
@@ -274,6 +294,63 @@ export function SubHero() {
         >
           VIEW ALL MODULES
         </Button>
+      </Container>
+    </>
+  );
+}
+export function FinalHero() {
+  return (
+    <>
+      <Container
+        sx={{
+          display: "flex",
+          marginTop: "3.5vw",
+          justifyContent: "space-around",
+          background: "#ECEBEB",
+        }}
+        maxWidth={false}
+      >
+        <Container
+          sx={{
+            marginLeft: "0",
+            width: "50%",
+            display: "flex",
+            flexDirection: "column",
+            marginRight: "0",
+            justifyContent: "center",
+            textAlign: "center",
+            alignItems: "center",
+          }}
+        >
+          <Typography>
+            <p style={{ fontSize: "120%" }}>
+              Sed blandit orci ut purus vestibulum tempor. Quisque sit amet
+              faucibus mi. Ut nisi metus, porttitor eu efficitur ut, vestibulum
+              sed sapien.{"  "}Pellentesque sem elit, aliquet in tempor ac,
+              lacinia vel ipsum. Donec dignissim, eros nec sodales consectetur,
+              tellus tellus vulputate eros,
+            </p>
+          </Typography>
+          <Button
+            to="/resources"
+            component={Link}
+            style={{
+              width: "16vw",
+              height: "3vw",
+              marginTop: "5vw",
+              fontSize: "92%",
+              background: "#0E131F",
+              color: "white",
+              borderRadius: "5px",
+              justifyContent: "center",
+              textAlign: "center",
+              alignItems: "center",
+            }}
+          >
+            VIEW RESOURCES
+          </Button>
+        </Container>
+        <img src={HeroFinal} width="40%" sx={{}} />
       </Container>
     </>
   );
