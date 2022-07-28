@@ -7,8 +7,7 @@ import Landing from "../Landing/Landing";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import UserDashboard from "../UserDashboard/UserDashboard";
-import ModulePage from "../ModulePage/ModulePage";
-import Modules from "../Modules/Modules"
+import ModulePage from "../ModulePage/ModulePagePhishing";
 //Libraries
 import { NextUIProvider, createTheme } from "@nextui-org/react";
 
