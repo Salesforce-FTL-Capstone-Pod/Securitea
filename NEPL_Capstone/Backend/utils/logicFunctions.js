@@ -1,6 +1,7 @@
 function generateRandomString(length) {
   var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   var charactersLen = chars.length;
+  var result = "";
   for (var i = 0; i < length; i++) {
     result += chars.charAt(Math.floor(Math.random() * charactersLen));
   }
