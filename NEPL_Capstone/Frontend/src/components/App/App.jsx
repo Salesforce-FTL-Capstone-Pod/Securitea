@@ -8,7 +8,6 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import UserDashboard from "../UserDashboard/UserDashboard";
 import ModulePage from "../ModulePage/ModulePagePhishing";
-
 //Libraries
 import { NextUIProvider, createTheme } from "@nextui-org/react";
 
@@ -35,6 +34,7 @@ function App() {
 					<Route path="/register" element={<Register />} />
 					<Route path="/UserDashboard/" element={<UserDashboard />} />
 					<Route path="/ModulePage" element={<ModulePage />} />
+          <Route path="/Modules" element={<Modules /> } />
 				</Routes>
 			</BrowserRouter>
 		</div>
