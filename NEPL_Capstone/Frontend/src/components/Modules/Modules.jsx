@@ -26,15 +26,6 @@ function ModuleCard(){
     const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } = useLoginForm()
     const [visible, setVisible] = React.useState(false);
     const handler = () => setVisible(true);
-    const closeHandler = () => {
-        setVisible(false);
-      };
-    
-      const submitForm = () => {
-        handleOnSubmit()
-        setVisible(false)
-      }
-
 
     return(
         <Card isHoverable css={{ mw: "350px", bg: "$black" }}>
@@ -57,7 +48,7 @@ function ModuleCard(){
             <Button size="sm" color="secondary" onClick={handler} >Sign In</Button>
             </Row>
           </Card.Footer>
-          <SignInModal handler={handler} closerHandler={closeHandler} submitForm={submitForm} visible={visible} setVisible={setVisible} handleOnInputChange={handleOnInputChange} />
+          <SignInModal handler={handler} visible={visible} setVisible={setVisible} handleOnInputChange={handleOnInputChange} handleOnSubmit={handleOnSubmit} />
         </Card>
     )
 }
