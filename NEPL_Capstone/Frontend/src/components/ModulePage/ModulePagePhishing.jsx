@@ -83,7 +83,7 @@ function Overview() {
 				<Container
 					sx={{
 						display: "flex",
-						borderBottom: `3px solid ${color.languidLavender}`,
+						borderBottom: `3px solid ${color.blueBell}`,
 						width: "fit-content",
 						marginLeft: "0px",
 						marginBottom: "1vw",
@@ -96,9 +96,7 @@ function Overview() {
 							marginRight: "3vw",
 							cursor: "pointer",
 							marginBottom: "0px",
-							borderBottom: isOverview
-								? `solid 2px ${color.languidLavender}`
-								: "0px",
+							borderBottom: isOverview ? `solid 2px ${color.blueBell}` : "0px",
 						}}
 						onClick={() => {
 							setIsOverview(true);
@@ -110,9 +108,7 @@ function Overview() {
 						style={{
 							cursor: "pointer",
 							marginBottom: "0px",
-							borderBottom: !isOverview
-								? `solid 2px ${color.languidLavender}`
-								: "0px",
+							borderBottom: !isOverview ? `solid 2px ${color.blueBell}` : "0px",
 						}}
 						onClick={() => setIsOverview(false)}
 					>
