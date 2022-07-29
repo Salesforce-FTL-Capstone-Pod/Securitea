@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+import * as color from "../../assets/colorPalette";
 
 //Components
 import Landing from "../Landing/Landing";
@@ -9,7 +10,6 @@ import Register from "../Register/Register";
 import UserDashboard from "../UserDashboard/UserDashboard";
 import ModulePagePhishing from "../ModulePage/ModulePagePhishing";
 import Modules from "../Modules/Modules";
-import * as color from "../../assets/colorPalette";
 //Libraries
 import { NextUIProvider, createTheme } from "@nextui-org/react";
 
@@ -47,11 +47,11 @@ const theme = createTheme({
 	type: "light",
 	theme: {
 		colors: {
-			platinum: "#ECEBEB",
-			black: "#0E131F",
-			lightpurple: "#D3CFE2",
-			medpurple: "#BEBAE0",
-			darkpurple: "3E3B62",
+			platinum: color.platinum,
+			black: color.richBlackFogra,
+			lightpurple: color.languidLavender,
+			medpurple: color.blueBell,
+			darkpurple: color.maximumBluePurple,
 		},
 		space: {},
 		fonts: {
