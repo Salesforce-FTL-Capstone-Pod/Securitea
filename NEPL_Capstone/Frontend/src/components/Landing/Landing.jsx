@@ -10,8 +10,8 @@ import {
 	Stack,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import Footer from "../Footer/Footer";
 //svg files
-import Logo from "../../assets/Logo.svg";
 import HeroImage from "../../assets/HeroImage.svg";
 import Message from "../../assets/Message.svg";
 import Phishing from "../../assets/Phishing.svg";
@@ -21,6 +21,7 @@ import HeroFinal from "../../assets/HeroFinal.svg";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import Tea from "../../assets/Tea.svg";
+import Logo from "../../assets/Logo.svg";
 export default function Landing() {
   return (
     <>
@@ -32,8 +33,6 @@ export default function Landing() {
     </>
   );
 }
-
-
 // Hero container for the landing page
 export function Hero() {
 	return (
