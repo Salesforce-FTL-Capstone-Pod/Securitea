@@ -21,7 +21,7 @@ export default function Navbar() {
 						}}
 						to="/"
 					>
-						<img src={Logo} />
+						<img src={Logo} width="50vw" style={{ marginRight: "0.5vw" }} />
 						<h3 style={{ margin: "0" }}>SecuriTEA</h3>
 					</Link>
 					<Stack direction="row" spacing={3}>
