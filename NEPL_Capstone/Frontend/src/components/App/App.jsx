@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+import * as color from "../../assets/colorPalette";
 
 //Components
 import Landing from "../Landing/Landing";
@@ -14,7 +15,6 @@ import AuthRoute from "../AuthRoute/AuthRoute";
 import ModulePagePhishing from "../ModulePage/ModulePagePhishing";
 import ModulePageTips from "../ModulePage/ModulePageTips";
 import Modules from "../Modules/Modules";
-import * as color from "../../assets/colorPalette";
 
 //Libraries
 import { NextUIProvider, createTheme } from "@nextui-org/react";
@@ -52,19 +52,19 @@ function App() {
 }
 
 const theme = createTheme({
-  type: "light",
-  theme: {
-    colors: {
-      platinum: "#ECEBEB",
-      black: "#0E131F",
-      lightpurple: "#D3CFE2",
-      medpurple: "#BEBAE0",
-      darkpurple: "3E3B62",
-    },
-    space: {},
-    fonts: {
-      wee: "Roboto",
-      mono: "Open Sans",
-    },
-  },
+	type: "light",
+	theme: {
+		colors: {
+			platinum: color.platinum,
+			black: color.richBlackFogra,
+			lightpurple: color.languidLavender,
+			medpurple: color.blueBell,
+			darkpurple: color.maximumBluePurple,
+		},
+		space: {},
+		fonts: {
+			wee: "Roboto",
+			mono: "Open Sans",
+		},
+	},
 });
