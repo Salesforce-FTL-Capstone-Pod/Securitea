@@ -19,6 +19,7 @@ import Example from "../../assets/Example.svg";
 import Security from "../../assets/Security.svg";
 import HeroFinal from "../../assets/HeroFinal.svg";
 import Footer from "../Footer/Footer"
+import Tea from "../../assets/Tea.svg";
 export default function Landing() {
   return (
     <>
@@ -37,7 +38,7 @@ export function Navbar() {
       <AppBar style={{ background: "#0E131F" }} position="sticky">
         <Toolbar style={{ height: "40px", justifyContent: "space-between" }}>
           <div style={{ display: "flex" }}>
-            <img src={Logo} style={{ marginRight: "1vw" }} />
+            <img src={Tea} style={{ marginRight: "1vw" }} />
             <Stack direction="row" spacing={3}>
               <Button color="inherit" to="/" component={Link}>
                 Home
