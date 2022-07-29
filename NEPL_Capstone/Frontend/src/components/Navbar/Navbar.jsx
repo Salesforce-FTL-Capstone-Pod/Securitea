@@ -14,14 +14,18 @@ export default function Navbar() {
 						<Button color="inherit" to="/" component={Link}>
 							Home
 						</Button>
-						<Button color="inherit" to="/ModulePage" component={Link}>
+						<Button color="inherit" to="/Modules" component={Link}>
 							Modules
 						</Button>
-						<Button color="inherit" to="/resources" component={Link}>
+						<Button color="inherit" to="/Resources" component={Link}>
 							Resources
 						</Button>
-						<Button color="inherit" to="/contant us" component={Link}>
+						<Button color="inherit" to="/Contact-us" component={Link}>
 							Contact Us
+						</Button>
+
+						<Button color="inherit" to="/ModulePhishing" component={Link}>
+							PROVISORY (TAKES YOU TO PHSHING)
 						</Button>
 					</Stack>
 				</div>

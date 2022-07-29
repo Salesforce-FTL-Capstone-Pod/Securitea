@@ -1,18 +1,15 @@
 import React from "react";
 import "./ModulePage.css";
 import Navbar from "../Navbar/Navbar.jsx";
-import {
-	Container,
-	Button,
-	Link,
-	Box,
-	formHelperTextClasses,
-} from "@mui/material";
+import { Container, Button, Box } from "@mui/material";
+import { Link } from "react-router-dom";
 import * as color from "../../assets/colorPalette";
+import { useLoginForm } from "../../hooks/useLoginForm";
+import SignInModal from "../SignInModal/SignInModal";
 
 const sizeBox = "65vw";
 
-export default function ModulePage() {
+export default function ModulePagePhishing() {
 	return (
 		<Container maxWidth={false} disableGutters>
 			<Navbar />
@@ -23,6 +20,10 @@ export default function ModulePage() {
 }
 
 function ModuleOverview() {
+	const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } =
+		useLoginForm();
+	const [visible, setVisible] = React.useState(false);
+	const handler = () => setVisible(true);
 	return (
 		<Container
 			maxWidth={false}
@@ -47,8 +48,7 @@ function ModuleOverview() {
 				</h3>
 				<Button
 					color="inherit"
-					to="/Login"
-					component={Link}
+					onClick={handler}
 					sx={{
 						border: `2px solid ${color.languidLavender}`,
 						marginRight: "1vw",
@@ -71,6 +71,14 @@ function ModuleOverview() {
 					Sign Up
 				</Button>
 			</Container>
+
+			<SignInModal
+				handler={handler}
+				visible={visible}
+				setVisible={setVisible}
+				handleOnInputChange={handleOnInputChange}
+				handleOnSubmit={handleOnSubmit}
+			/>
 		</Container>
 	);
 }
@@ -260,7 +268,9 @@ function Overview() {
 						justifyContent: "center",
 					}}
 				>
-					<h3>FACT! FACT! FACT!</h3>
+					<h3 style={{ marginTop: "5%", marginBottom: "0%" }}>
+						FACT! FACT! FACT!
+					</h3>
 					<h2>Statistic!</h2>
 				</Container>
 				<Container
@@ -272,7 +282,9 @@ function Overview() {
 						justifyContent: "center",
 					}}
 				>
-					<h3>FACT! FACT! FACT!</h3>
+					<h3 style={{ marginTop: "5%", marginBottom: "0%" }}>
+						FACT! FACT! FACT!
+					</h3>
 					<h2>Statistic!</h2>
 				</Container>
 				<Container
@@ -284,7 +296,9 @@ function Overview() {
 						justifyContent: "center",
 					}}
 				>
-					<h3>FACT! FACT! FACT!</h3>
+					<h3 style={{ marginTop: "5%", marginBottom: "0%" }}>
+						FACT! FACT! FACT!
+					</h3>
 					<h2>Statistic!</h2>
 				</Container>
 				<Container
@@ -295,7 +309,9 @@ function Overview() {
 						justifyContent: "center",
 					}}
 				>
-					<h3>FACT! FACT FACT!</h3>
+					<h3 style={{ marginTop: "5%", marginBottom: "0%" }}>
+						FACT! FACT FACT!
+					</h3>
 					<h2>Statistic!</h2>
 				</Container>
 			</Box>
