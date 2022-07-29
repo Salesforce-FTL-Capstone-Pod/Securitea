@@ -6,7 +6,7 @@ class ApiClient {
   constructor(remoteHostUrl) {
     this.remoteHostUrl = remoteHostUrl
     this.token = null
-    this.tokenName = "lifetracker_token"
+    this.tokenName = "nepl-token"
   }
 
   setToken(token) {

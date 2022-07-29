@@ -3,7 +3,7 @@ import { Card, Grid, Text, Button, Row, Spacer, Progress } from "@nextui-org/rea
 import SignInModal from '../SignInModal/SignInModal';
 import { Navbar } from '../Landing/Landing';
 import { useLoginForm } from "../../hooks/useLoginForm"
-
+import { Link } from "react-router-dom"
 
 
 function Modules() {
@@ -43,7 +43,7 @@ function ModuleCard(){
           <Card.Divider />
           <Card.Footer>
             <Row justify="flex-end">
-            <Button size="sm" bordered color="secondary">Learn More</Button>
+            <Button size="sm" bordered color="secondary"><Link to="/ModulePage">Learn More</Link></Button>
             <Spacer></Spacer>
             <Button size="sm" color="secondary" onClick={handler} >Sign In</Button>
             </Row>
