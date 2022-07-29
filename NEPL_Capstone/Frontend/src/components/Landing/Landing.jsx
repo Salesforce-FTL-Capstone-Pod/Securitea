@@ -10,16 +10,16 @@ import {
   Stack,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import Footer from "../Footer/Footer";
 //svg files
-import Logo from "../../assets/Logo.svg";
 import HeroImage from "../../assets/HeroImage.svg";
 import Message from "../../assets/Message.svg";
 import Phishing from "../../assets/Phishing.svg";
 import Example from "../../assets/Example.svg";
 import Security from "../../assets/Security.svg";
 import HeroFinal from "../../assets/HeroFinal.svg";
-import Footer from "../Footer/Footer"
-import Tea from "../../assets/Tea.svg";
+import Logo from "../../assets/Logo.svg";
+import Navbar from "../Navbar/Navbar";
 export default function Landing() {
   return (
     <>
@@ -31,60 +31,7 @@ export default function Landing() {
     </>
   );
 }
-//Navbar function for the landing page
-export function Navbar() {
-  return (
-    <>
-      <AppBar style={{ background: "#0E131F" }} position="sticky">
-        <Toolbar style={{ height: "40px", justifyContent: "space-between" }}>
-          <div style={{ display: "flex" }}>
-            <img src={Tea} style={{ marginRight: "1vw" }} />
-            <Stack direction="row" spacing={3}>
-              <Button color="inherit" to="/" component={Link}>
-                Home
-              </Button>
-              <Button
-                color="inherit"
-                to="/ModulePage"
-                component={Link}
-                sx={{
-                  borderBottom: "2px solid #A39EDA",
-                  borderRadius: "0px",
-                }}
-              >
-                Modules
-              </Button>
-              <Button color="inherit" to="/resources" component={Link}>
-                Resources
-              </Button>
-              <Button color="inherit" to="/contant us" component={Link}>
-                Contact Us
-              </Button>
-            </Stack>
-          </div>
-          <div>
-            <Button
-              color="inherit"
-              to="/Login"
-              component={Link}
-              sx={{ border: "2px solid #A39EDA", marginRight: "1vw" }}
-            >
-              Login
-            </Button>
-            <Button
-              color="inherit"
-              to="/Register"
-              component={Link}
-              sx={{ backgroundColor: "#A39EDA" }}
-            >
-              Register
-            </Button>
-          </div>
-        </Toolbar>
-      </AppBar>
-    </>
-  );
-}
+
 // Hero container for the landing page
 export function Hero() {
   return (
