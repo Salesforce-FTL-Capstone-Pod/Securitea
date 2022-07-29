@@ -10,7 +10,6 @@ import {
   Stack,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import "./Landing.css";
 //svg files
 import Logo from "../../assets/Logo.svg";
 import HeroImage from "../../assets/HeroImage.svg";
@@ -19,7 +18,7 @@ import Phishing from "../../assets/Phishing.svg";
 import Example from "../../assets/Example.svg";
 import Security from "../../assets/Security.svg";
 import HeroFinal from "../../assets/HeroFinal.svg";
-
+import Footer from "../Footer/Footer"
 export default function Landing() {
   return (
     <>
@@ -27,10 +26,10 @@ export default function Landing() {
       <Hero />
       <SubHero />
       <FinalHero />
+      <Footer />
     </>
   );
 }
-
 //Navbar function for the landing page
 export function Navbar() {
   return (
@@ -85,7 +84,6 @@ export function Navbar() {
     </>
   );
 }
-
 // Hero container for the landing page
 export function Hero() {
   return (
@@ -96,10 +94,11 @@ export function Hero() {
           marginTop: "3.5vw",
           justifyContent: "space-around",
           background: "#ECEBEB",
+          height:"8%"
         }}
         maxWidth={false}
       >
-        <img src={HeroImage} width="30%" />
+        <img src={HeroImage} width="29%" />
         <Container
           sx={{
             marginLeft: "0",
@@ -132,7 +131,6 @@ export function Hero() {
             ipsum. Donec dignissim, eros nec sodales consectetur, tellus tellus
             vulputate eros
           </p>
-
           <Button
             to="/register"
             component={Link}
@@ -142,13 +140,11 @@ export function Hero() {
               fontSize: "65%",
               background: "#A39EDA",
               color: "#FFFFFF",
-
               marginTop: "2vw",
             }}
           >
             Sign Up
           </Button>
-
           <Typography
             component={"span"}
             style={{
@@ -179,7 +175,7 @@ export function SubHero() {
           margin: "0%",
           display: "flex",
           flexDirection: "column",
-          marginTop: "4vw",
+          marginTop: "2vw",
         }}
         maxWidth={false}
       >
@@ -209,7 +205,7 @@ export function SubHero() {
               display: "flex",
               flexDirection: "column",
               borderRadius: "10px",
-              backgroundColor: "#a39eda",
+              backgroundColor: "#A39EDA",
               height: "18vw",
               width: "18vw",
               justifyContent: "center",
@@ -218,7 +214,7 @@ export function SubHero() {
             }}
           >
             <img src={Phishing} style={{ width: "50%" }} />
-            <Typography>
+            <Typography component={"span"}>
               <h2>Phishing</h2>
             </Typography>
           </Box>
@@ -227,7 +223,7 @@ export function SubHero() {
               display: "flex",
               flexDirection: "column",
               borderRadius: "10px",
-              backgroundColor: "#a39eda",
+              backgroundColor: "#A39EDA",
               height: "18vw",
               width: "18vw",
               justifyContent: "center",
@@ -236,7 +232,7 @@ export function SubHero() {
             }}
           >
             <img src={Security} style={{ width: "40%" }} />
-            <Typography>
+            <Typography component={"span"}>
               <h2>Account Security</h2>
             </Typography>
           </Box>
@@ -245,7 +241,7 @@ export function SubHero() {
               display: "flex",
               flexDirection: "column",
               borderRadius: "10px",
-              backgroundColor: "#a39eda",
+              backgroundColor: "#A39EDA",
               height: "18vw",
               width: "18vw",
               justifyContent: "center",
@@ -254,7 +250,7 @@ export function SubHero() {
             }}
           >
             <img src={Example} style={{ width: "50%" }} />
-            <Typography>
+            <Typography component={"span"}>
               <h2>Examples</h2>
             </Typography>
           </Box>
@@ -263,7 +259,7 @@ export function SubHero() {
               display: "flex",
               flexDirection: "column",
               borderRadius: "10px",
-              backgroundColor: "#a39eda",
+              backgroundColor: "#A39EDA",
               height: "18vw",
               width: "18vw",
               justifyContent: "center",
@@ -272,8 +268,8 @@ export function SubHero() {
             }}
           >
             <img src={Message} style={{ width: "50%" }} />
-            <Typography>
-              <h2>Messages</h2>
+            <Typography component={"span"}>
+              <h2 >Messages</h2>
             </Typography>
           </Box>
         </Container>
@@ -322,7 +318,7 @@ export function FinalHero() {
             alignItems: "center",
           }}
         >
-          <Typography>
+          <Typography component={"span"}>
             <p style={{ fontSize: "120%" }}>
               Sed blandit orci ut purus vestibulum tempor. Quisque sit amet
               faucibus mi. Ut nisi metus, porttitor eu efficitur ut, vestibulum
@@ -355,3 +351,16 @@ export function FinalHero() {
     </>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
