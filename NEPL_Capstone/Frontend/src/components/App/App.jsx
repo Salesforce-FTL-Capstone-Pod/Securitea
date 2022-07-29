@@ -9,9 +9,7 @@ import Register from "../Register/Register";
 import UserDashboard from "../UserDashboard/UserDashboard";
 
 import ModulePage from "../ModulePage/ModulePagePhishing";
-import Modules from "../Modules/Modules"
 import AuthRoute from "../AuthRoute/AuthRoute";
-
 
 import ModulePagePhishing from "../ModulePage/ModulePagePhishing";
 import ModulePageTips from "../ModulePage/ModulePageTips";
@@ -35,7 +33,6 @@ export default function AppContainer() {
   );
 }
 function App() {
-
   return (
     <div className="App">
       <BrowserRouter>
@@ -52,7 +49,6 @@ function App() {
       </BrowserRouter>
     </div>
   );
-
 }
 
 const theme = createTheme({
