@@ -6,7 +6,7 @@ import { useAuthContext } from "../../contexts/auth";
 import * as color from "../../assets/colorPalette.jsx";
 
 export default function Navbar() {
-	const { user, handleLogout } = useAuthContext()
+	const { user, handleLogout } = useAuthContext();
 	return (
 		<AppBar style={{ background: color.richBlackFogra }} position="sticky">
 			<Toolbar style={{ height: "40px", justifyContent: "space-between" }}>
@@ -21,7 +21,7 @@ export default function Navbar() {
 						}}
 						to="/"
 					>
-						<img src={Logo} />
+						<img src={Logo} width="50vw" style={{ marginRight: "0.5vw" }} />
 						<h3 style={{ margin: "0" }}>SecuriTEA</h3>
 					</Link>
 					<Stack direction="row" spacing={3}>
@@ -42,47 +42,48 @@ export default function Navbar() {
 				</div>
 				<div>
 					{user?.email ? (
-					<>
-						<Button
-							variant="contained"
-							to="/Register"
-							component={Link}
-							sx={{
-								backgroundColor: color.languidLavender,
-								color: color.richBlackFogra,
-							}}
-							onClick={handleLogout}
-						>
-							Log out
-						</Button>
-					</>
-					):(
-					<>
-						<Button
-							color="inherit"
-							to="/Login"
-							component={Link}
-							sx={{
-								border: `2px solid ${color.languidLavender}`,
-								marginRight: "1vw",
-								paddingLeft: "1vw",
-								paddingRight: "1vw",
-							}}
-						>
-							Login
-						</Button>
-						<Button
-							variant="contained"
-							to="/Register"
-							component={Link}
-							sx={{
-								backgroundColor: color.languidLavender,
-								color: color.richBlackFogra,
-							}}
-						>
-							Sign Up
-						</Button>
-					</>)}
+						<>
+							<Button
+								variant="contained"
+								to="/Register"
+								component={Link}
+								sx={{
+									backgroundColor: color.languidLavender,
+									color: color.richBlackFogra,
+								}}
+								onClick={handleLogout}
+							>
+								Log out
+							</Button>
+						</>
+					) : (
+						<>
+							<Button
+								color="inherit"
+								to="/Login"
+								component={Link}
+								sx={{
+									border: `2px solid ${color.languidLavender}`,
+									marginRight: "1vw",
+									paddingLeft: "1vw",
+									paddingRight: "1vw",
+								}}
+							>
+								Login
+							</Button>
+							<Button
+								variant="contained"
+								to="/Register"
+								component={Link}
+								sx={{
+									backgroundColor: color.languidLavender,
+									color: color.richBlackFogra,
+								}}
+							>
+								Sign Up
+							</Button>
+						</>
+					)}
 				</div>
 			</Toolbar>
 		</AppBar>
