@@ -22,7 +22,7 @@ function Modules() {
 
 export default Modules
 
-function ModuleCard(){
+export function ModuleCard(){
     const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } = useLoginForm()
     const [visible, setVisible] = React.useState(false);
     const handler = () => setVisible(true);
@@ -53,7 +53,7 @@ function ModuleCard(){
     )
 }
 
-function AuthModuleCard(){
+export function AuthModuleCard(){
     return(
         <Card isHoverable css={{ mw: "350px", bg: "$black" }}>
           <Card.Header css={{ textAlign: "center" }} >
