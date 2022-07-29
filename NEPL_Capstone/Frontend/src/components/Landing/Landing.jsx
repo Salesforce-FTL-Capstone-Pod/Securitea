@@ -18,7 +18,7 @@ import Phishing from "../../assets/Phishing.svg";
 import Example from "../../assets/Example.svg";
 import Security from "../../assets/Security.svg";
 import HeroFinal from "../../assets/HeroFinal.svg";
-import Footer from "../Footer/Footer"
+import Footer from "../Footer/Footer";
 export default function Landing() {
   return (
     <>
@@ -94,7 +94,7 @@ export function Hero() {
           marginTop: "3.5vw",
           justifyContent: "space-around",
           background: "#ECEBEB",
-          height:"8%"
+          height: "8%",
         }}
         maxWidth={false}
       >
@@ -135,9 +135,9 @@ export function Hero() {
             to="/register"
             component={Link}
             style={{
-              width: "6vw",
-              height: "3vw",
-              fontSize: "65%",
+              width: "5.5vw",
+              height: "2.5vw",
+              fontSize: "120%",
               background: "#A39EDA",
               color: "#FFFFFF",
               marginTop: "2vw",
@@ -269,7 +269,7 @@ export function SubHero() {
           >
             <img src={Message} style={{ width: "50%" }} />
             <Typography component={"span"}>
-              <h2 >Messages</h2>
+              <h2>Messages</h2>
             </Typography>
           </Box>
         </Container>
@@ -351,16 +351,3 @@ export function FinalHero() {
     </>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
