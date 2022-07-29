@@ -8,13 +8,12 @@ const AuthContext = createContext(null)
 export const AuthContextProvider = ({ children }) => {
   const [initialized, setInitialized] = useState(false)
   const [user, setUser] = useState({})
-
   useEffect(() => {
     const fetchUser = async () => {
       const { data } = await apiClient.fetchUserFromToken()
+      console.log(data)
       if (data) {
-        setUser(data.user)
-        console.log(data)
+        setUser(data.publicUser)
       }
       setInitialized(true)
     }

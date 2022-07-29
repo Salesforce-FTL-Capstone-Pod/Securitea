@@ -11,6 +11,7 @@ import {
 import SignInModal from "../SignInModal/SignInModal";
 import Navbar from "../Navbar/Navbar";
 import { useLoginForm } from "../../hooks/useLoginForm";
+import { Link } from "react-router-dom"
 
 function Modules() {
 	return (
@@ -24,6 +25,7 @@ function Modules() {
 		</div>
 	);
 }
+
 
 export default Modules;
 
@@ -97,17 +99,33 @@ function AuthModuleCard() {
 
 			<Card.Divider />
 
-			<Card.Footer>
-				<Row justify="flex-end">
-					<Button size="sm" bordered color="secondary">
-						Learn More
-					</Button>
-					<Spacer></Spacer>
-					<Button size="sm" color="secondary">
-						Continue
-					</Button>
-				</Row>
-			</Card.Footer>
-		</Card>
-	);
+
+    return(
+        <Card isHoverable css={{ mw: "350px", bg: "$black" }}>
+          <Card.Header css={{ textAlign: "center" }} >
+            <Text css={{ textAlign: "center", color: "$white"}} size={30} b> Phishing </Text> 
+          </Card.Header>
+          <Card.Divider />
+          <Card.Body css={{ py: "$10"}}>
+            <Text css={{ color: "$white" }}>
+              Something about the module. Something about the module.  Something about the module. 
+              Something about the module. Something about the module. Something about the module. 
+              Something about the module. Something about the module. Something about the module.  
+            </Text>
+          </Card.Body>
+          <Card.Divider />
+          <Card.Footer>
+            <Row justify="flex-end">
+					    <Button size="sm" bordered color="secondary">
+						    Learn More
+					    </Button>
+					    <Spacer></Spacer>
+					    <Button size="sm" color="secondary">
+						    Continue
+					    </Button>
+				    </Row>
+			    </Card.Footer>
+          <SignInModal handler={handler} visible={visible} setVisible={setVisible} handleOnInputChange={handleOnInputChange} handleOnSubmit={handleOnSubmit} />
+        </Card>
+    );
 }
