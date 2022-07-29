@@ -1,9 +1,9 @@
 require("dotenv").config();
 require("colors");
-const { randomStringGenerator } = require("./utils/logicFunctions");
+const { generateRandomString } = require("./utils/logicFunctions");
 
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3001;
-const SECRET_KEY = process.env.SECRET_KEY || randomStringGenerator(10);
+const SECRET_KEY = process.env.SECRET_KEY || generateRandomString(10);
 
 function getDatabaseUri() {
   const dbUser = process.env.DATABASE_USER || "postgres";

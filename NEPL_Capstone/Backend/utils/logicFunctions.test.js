@@ -1,21 +1,21 @@
 const logic = require("./logicFunctions");
 
 test("testing logic for generateRandomString", () => {
-	const first = logic.generateRandomString(10);
-	const second = logic.generateRandomString(10);
+  const first = logic.generateRandomString(10);
+  const second = logic.generateRandomString(10);
 
-	expect(first.length).toBe(10);
-	expect(second.length).toBe(10);
-	expect(first).not.toBe(second);
+  expect(first.length).toBe(10);
+  expect(second.length).toBe(10);
+  expect(first).not.toBe(second);
 });
 
-test("testing logic for generating manager token", () => {
-	const tokenRegex = /^\w\w-........$/;
-	const managerToken1 = logic.generateManagerToken("SF", 1);
-	const managerToken2 = logic.generateManagerToken("CP", 2);
-	const managerToken3 = logic.generateManagerToken("WD", 3);
+test("testing token logic", () => {
+  const tokenRegex = /^\w+-........-\w_\w+$/;
+  const first = logic.createToken("Salesforce", "enrique", "rico");
+  const second = logic.createToken();
+  const third = logic.createToken("", 11, "22");
 
-	expect(...managerToken1.match(tokenRegex)).toBeTruthy();
-	expect(...managerToken2.match(tokenRegex)).toBeTruthy();
-	expect(...managerToken3.match(tokenRegex)).toBeTruthy();
+  expect(...first.match(tokenRegex)).toBeTruthy();
+  expect(...second.match(tokenRegex)).toBeTruthy();
+  expect(...third.match(tokenRegex)).toBeTruthy();
 });

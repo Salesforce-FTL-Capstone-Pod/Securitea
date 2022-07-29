@@ -19,7 +19,6 @@ import Example from "../../assets/Example.svg";
 import Security from "../../assets/Security.svg";
 import HeroFinal from "../../assets/HeroFinal.svg";
 import Footer from "../Footer/Footer"
-
 export default function Landing() {
   return (
     <>
@@ -31,7 +30,6 @@ export default function Landing() {
     </>
   );
 }
-
 //Navbar function for the landing page
 export function Navbar() {
   return (
@@ -86,7 +84,6 @@ export function Navbar() {
     </>
   );
 }
-
 // Hero container for the landing page
 export function Hero() {
   return (
@@ -134,7 +131,6 @@ export function Hero() {
             ipsum. Donec dignissim, eros nec sodales consectetur, tellus tellus
             vulputate eros
           </p>
-
           <Button
             to="/register"
             component={Link}
@@ -144,13 +140,11 @@ export function Hero() {
               fontSize: "65%",
               background: "#A39EDA",
               color: "#FFFFFF",
-
               marginTop: "2vw",
             }}
           >
             Sign Up
           </Button>
-
           <Typography
             component={"span"}
             style={{
@@ -211,7 +205,7 @@ export function SubHero() {
               display: "flex",
               flexDirection: "column",
               borderRadius: "10px",
-              backgroundColor: "#a39eda",
+              backgroundColor: "#A39EDA",
               height: "18vw",
               width: "18vw",
               justifyContent: "center",
@@ -229,7 +223,7 @@ export function SubHero() {
               display: "flex",
               flexDirection: "column",
               borderRadius: "10px",
-              backgroundColor: "#a39eda",
+              backgroundColor: "#A39EDA",
               height: "18vw",
               width: "18vw",
               justifyContent: "center",
@@ -247,7 +241,7 @@ export function SubHero() {
               display: "flex",
               flexDirection: "column",
               borderRadius: "10px",
-              backgroundColor: "#a39eda",
+              backgroundColor: "#A39EDA",
               height: "18vw",
               width: "18vw",
               justifyContent: "center",
@@ -265,7 +259,7 @@ export function SubHero() {
               display: "flex",
               flexDirection: "column",
               borderRadius: "10px",
-              backgroundColor: "#a39eda",
+              backgroundColor: "#A39EDA",
               height: "18vw",
               width: "18vw",
               justifyContent: "center",
@@ -277,7 +271,6 @@ export function SubHero() {
             <Typography component={"span"}>
               <h2 >Messages</h2>
             </Typography>
-
           </Box>
         </Container>
         <Button
@@ -358,3 +351,16 @@ export function FinalHero() {
     </>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
