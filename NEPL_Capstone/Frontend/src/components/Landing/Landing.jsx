@@ -220,7 +220,7 @@ export function SubHero() {
             }}
           >
             <img src={Phishing} style={{ width: "50%" }} />
-            <Typography>
+            <Typography component={"span"}>
               <h2>Phishing</h2>
             </Typography>
           </Box>
@@ -238,7 +238,7 @@ export function SubHero() {
             }}
           >
             <img src={Security} style={{ width: "40%" }} />
-            <Typography>
+            <Typography component={"span"}>
               <h2>Account Security</h2>
             </Typography>
           </Box>
@@ -256,7 +256,7 @@ export function SubHero() {
             }}
           >
             <img src={Example} style={{ width: "50%" }} />
-            <Typography>
+            <Typography component={"span"}>
               <h2>Examples</h2>
             </Typography>
           </Box>
@@ -274,9 +274,10 @@ export function SubHero() {
             }}
           >
             <img src={Message} style={{ width: "50%" }} />
-            <Typography>
-              <h2>Messages</h2>
+            <Typography component={"span"}>
+              <h2 >Messages</h2>
             </Typography>
+
           </Box>
         </Container>
         <Button
@@ -324,7 +325,7 @@ export function FinalHero() {
             alignItems: "center",
           }}
         >
-          <Typography>
+          <Typography component={"span"}>
             <p style={{ fontSize: "120%" }}>
               Sed blandit orci ut purus vestibulum tempor. Quisque sit amet
               faucibus mi. Ut nisi metus, porttitor eu efficitur ut, vestibulum

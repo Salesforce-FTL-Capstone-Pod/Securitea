@@ -49,7 +49,6 @@ export default function Footer() {
                 Basic short text about whatver this is
               </p>
               <Container
-                flexDirection="column"
                 style={{ marginTop: "1.2vw" }}
                 disableGutters
               >
