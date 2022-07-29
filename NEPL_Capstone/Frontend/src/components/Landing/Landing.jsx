@@ -20,17 +20,19 @@ import Security from "../../assets/Security.svg";
 import HeroFinal from "../../assets/HeroFinal.svg";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
+import Tea from "../../assets/Tea.svg";
 export default function Landing() {
-	return (
-		<>
-			<Navbar />
-			<Hero />
-			<SubHero />
-			<FinalHero />
-			<Footer />
-		</>
-	);
+  return (
+    <>
+      <Navbar />
+      <Hero />
+      <SubHero />
+      <FinalHero />
+      <Footer />
+    </>
+  );
 }
+
 
 // Hero container for the landing page
 export function Hero() {
