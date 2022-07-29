@@ -15,7 +15,8 @@ import AuthRoute from "../AuthRoute/AuthRoute";
 import ModulePagePhishing from "../ModulePage/ModulePagePhishing";
 import ModulePageTips from "../ModulePage/ModulePageTips";
 import Modules from "../Modules/Modules";
-
+import PageNotFound from "../PageNotFound/PageNotFound";
+import * as color from "../../assets/colorPalette";
 //Libraries
 import { NextUIProvider, createTheme } from "@nextui-org/react";
 
@@ -24,31 +25,32 @@ import { AuthContextProvider } from "../../contexts/auth";
 import { useAuthContext } from "../../contexts/auth";
 
 export default function AppContainer() {
-  return (
-    <NextUIProvider theme={theme}>
-      <AuthContextProvider>
-        <App />
-      </AuthContextProvider>
-    </NextUIProvider>
-  );
+	return (
+		<NextUIProvider theme={theme}>
+			<AuthContextProvider>
+				<App />
+			</AuthContextProvider>
+		</NextUIProvider>
+	);
 }
 function App() {
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/UserDashboard/" element={<UserDashboard />} />
-          <Route path="/ModulePage" element={<ModulePage />} />
-          <Route path="/ModulePhishing" element={<ModulePagePhishing />} />
-          <Route path="/ModuleTips" element={<ModulePageTips />} />
-          <Route path="/Modules" element={<Modules />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+	return (
+		<div className="App">
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Landing />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/register" element={<Register />} />
+					<Route path="/UserDashboard/" element={<UserDashboard />} />
+					<Route path="/ModulePhishing" element={<ModulePagePhishing />} />
+					<Route path="/ModuleTips" element={<ModulePageTips />} />
+					<Route path="/Modules" element={<Modules />} />
+					<Route path="*" element={<PageNotFound />} />
+				</Routes>
+			</BrowserRouter>
+		</div>
+	);
+
 }
 
 const theme = createTheme({
