@@ -10,7 +10,6 @@ import {
   Stack,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import "./Landing.css";
 //svg files
 import Logo from "../../assets/Logo.svg";
 import HeroImage from "../../assets/HeroImage.svg";
@@ -19,6 +18,7 @@ import Phishing from "../../assets/Phishing.svg";
 import Example from "../../assets/Example.svg";
 import Security from "../../assets/Security.svg";
 import HeroFinal from "../../assets/HeroFinal.svg";
+import Footer from "../Footer/Footer"
 
 export default function Landing() {
   return (
@@ -27,6 +27,7 @@ export default function Landing() {
       <Hero />
       <SubHero />
       <FinalHero />
+      <Footer />
     </>
   );
 }
@@ -96,10 +97,11 @@ export function Hero() {
           marginTop: "3.5vw",
           justifyContent: "space-around",
           background: "#ECEBEB",
+          height:"8%"
         }}
         maxWidth={false}
       >
-        <img src={HeroImage} width="30%" />
+        <img src={HeroImage} width="29%" />
         <Container
           sx={{
             marginLeft: "0",
@@ -179,7 +181,7 @@ export function SubHero() {
           margin: "0%",
           display: "flex",
           flexDirection: "column",
-          marginTop: "4vw",
+          marginTop: "2vw",
         }}
         maxWidth={false}
       >
