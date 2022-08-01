@@ -10,6 +10,7 @@ import Register from "../Register/Register";
 import UserDashboard from "../UserDashboard/UserDashboard";
 
 import ModulePage from "../ModulePage/ModulePagePhishing";
+import ResourcePage from "../ResourcePage/ResourcePage";
 import AuthRoute from "../AuthRoute/AuthRoute";
 
 import ModulePagePhishing from "../ModulePage/ModulePagePhishing";
@@ -23,6 +24,7 @@ import { NextUIProvider, createTheme } from "@nextui-org/react";
 //Contexts
 import { AuthContextProvider } from "../../contexts/auth";
 import { useAuthContext } from "../../contexts/auth";
+
 
 export default function AppContainer() {
   return (
@@ -45,6 +47,7 @@ function App() {
           <Route path="/ModulePhishing" element={<ModulePagePhishing />} />
           <Route path="/ModuleTips" element={<ModulePageTips />} />
           <Route path="/Modules" element={<Modules />} />
+          <Route path="/Resources" element={<ResourcePage/>}/>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
