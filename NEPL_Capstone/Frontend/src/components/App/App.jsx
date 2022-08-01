@@ -25,47 +25,47 @@ import { AuthContextProvider } from "../../contexts/auth";
 import { useAuthContext } from "../../contexts/auth";
 
 export default function AppContainer() {
-  return (
-    <NextUIProvider theme={theme}>
-      <AuthContextProvider>
-        <App />
-      </AuthContextProvider>
-    </NextUIProvider>
-  );
+	return (
+		<NextUIProvider theme={theme}>
+			<AuthContextProvider>
+				<App />
+			</AuthContextProvider>
+		</NextUIProvider>
+	);
 }
 function App() {
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/UserDashboard/" element={<UserDashboard />} />
-          <Route path="/ModulePhishing" element={<ModulePagePhishing />} />
-          <Route path="/ModuleTips" element={<ModulePageTips />} />
-          <Route path="/Modules" element={<Modules />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+	return (
+		<div className="App">
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Landing />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/register" element={<Register />} />
+					<Route path="/UserDashboard" element={<UserDashboard />} />
+					<Route path="/ModulePhishing" element={<ModulePagePhishing />} />
+					<Route path="/ModuleTips" element={<ModulePageTips />} />
+					<Route path="/Modules" element={<Modules />} />
+					<Route path="*" element={<PageNotFound />} />
+				</Routes>
+			</BrowserRouter>
+		</div>
+	);
 }
 
 const theme = createTheme({
-  type: "light",
-  theme: {
-    colors: {
-      platinum: color.platinum,
-      black: color.richBlackFogra,
-      lightpurple: color.languidLavender,
-      medpurple: color.blueBell,
-      darkpurple: color.maximumBluePurple,
-    },
-    space: {},
-    fonts: {
-      wee: "Roboto",
-      mono: "Open Sans",
-    },
-  },
+	type: "light",
+	theme: {
+		colors: {
+			platinum: color.platinum,
+			black: color.richBlackFogra,
+			lightpurple: color.languidLavender,
+			medpurple: color.blueBell,
+			darkpurple: color.maximumBluePurple,
+		},
+		space: {},
+		fonts: {
+			wee: "Roboto",
+			mono: "Open Sans",
+		},
+	},
 });
