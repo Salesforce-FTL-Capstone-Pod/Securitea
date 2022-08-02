@@ -24,8 +24,7 @@ export default function Footer() {
           margin: "0%",
           display: "flex",
           flexDirection: "row",
-          marginTop: "4vw",
-          height: "17vw",
+          height: "32.5vh",
          
         }}
         maxWidth={false}
