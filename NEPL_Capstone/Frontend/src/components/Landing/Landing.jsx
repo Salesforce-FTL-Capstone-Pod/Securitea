@@ -221,7 +221,7 @@ export function SubHero() {
 					</Box>
 				</Container>
 				<Button
-					to="/ModulePage"
+					to="/Modules"
 					component={Link}
 					style={{
 						width: "16vw",

@@ -71,7 +71,7 @@ function Register() {
 							backgroundColor: color.platinum,
 							padding: "5vw",
 							borderRadius: "10px",
-							height: "40vh",
+							height: "50vh",
 							width: "40vw",
 						}}
 					>

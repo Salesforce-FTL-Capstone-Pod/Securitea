@@ -30,6 +30,10 @@ export const useAuthenticationForm = ({ user }) => {
 	const handleOnInputChange = (event) => {
 		if (event.target.name == "isManagerName") {
 			setForm((f) => ({ ...f, isManager: event.target.checked }));
+
+			//Resets the fields that are exclusive to a type of user
+			if (!event.target.checked) setForm((f) => ({ ...f, ["company"]: "" })); //If user, reset company
+			if (event.target.checked) setForm((f) => ({ ...f, ["token"]: "" })); //If manager, reset token
 		}
 
 		if (event.target.name === "email") {
@@ -54,7 +58,6 @@ export const useAuthenticationForm = ({ user }) => {
 		}
 
 		setForm((f) => ({ ...f, [event.target.name]: event.target.value }));
-		console.log(form);
 	};
 
 	return {
