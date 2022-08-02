@@ -9,10 +9,10 @@ export default function ContactUs() {
 	return (
 		<Container maxWidth={false} disableGutters>
 			<Navbar />
-			<Container>
+			<Container maxWidth={false}>
 				<h1 style={{ textAlign: "center" }}>Contact Us</h1>
-				<Container>
-					<h3>
+				<Container maxWidth={false}>
+					<h3 style={{ marginLeft: "10vw" }}>
 						Check out our public repo{" "}
 						<a
 							href="https://github.com/Salesforce-FTL-Capstone-Pod/Securitea"
@@ -22,7 +22,7 @@ export default function ContactUs() {
 						</a>
 					</h3>
 
-					<h3 style={{ marginTop: "5vw" }}>Meet NEPL:</h3>
+					<h3 style={{ marginTop: "5vh", marginLeft: "10vw" }}>Meet NEPL:</h3>
 					<Container
 						maxWidth={false}
 						sx={{
@@ -30,6 +30,7 @@ export default function ContactUs() {
 							justifyContent: "space-between",
 							width: "70vw",
 						}}
+						disableGutters
 					>
 						<Container
 							sx={{
