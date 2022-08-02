@@ -1,14 +1,14 @@
 import React from "react";
 import {
-	Button,
-	Grid,
-	Container,
-	Box,
-	AppBar,
-	Toolbar,
-	Typography,
-	Stack,
-	getLinkUtilityClass,
+  Button,
+  Grid,
+  Container,
+  Box,
+  AppBar,
+  Toolbar,
+  Typography,
+  Stack,
+  getLinkUtilityClass,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import * as color from "../../assets/colorPalette";
