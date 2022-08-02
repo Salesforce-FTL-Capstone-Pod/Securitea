@@ -55,9 +55,9 @@ function Sidebar(){
           </IconButton>
         </div>
         <Divider />
-        <List>WHY ISNT THIS WORKING</List>
+        <List>Test</List>
         <Divider />
-        <List>HELLO</List>
+        <List>Test</List>
       </Drawer>
   )
 }
