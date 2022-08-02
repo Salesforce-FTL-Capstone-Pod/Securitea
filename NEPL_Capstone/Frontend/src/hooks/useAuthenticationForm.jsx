@@ -28,7 +28,7 @@ export const useAuthenticationForm = ({ user }) => {
 	}
 
 	const handleOnInputChange = (event) => {
-		if (event.target.name == "isManagerName") {
+		if (event.target?.name == "isManagerName") {
 			setForm((f) => ({ ...f, isManager: event.target.checked }));
 
 			//Resets the fields that are exclusive to a type of user
@@ -36,7 +36,11 @@ export const useAuthenticationForm = ({ user }) => {
 			if (event.target.checked) setForm((f) => ({ ...f, ["token"]: "" })); //If manager, reset token
 		}
 
-		if (event.target.name === "email") {
+		if (event.constructor.name == "Date") {
+			setForm((f) => ({ ...f, birthday: new Date(event) }));
+		}
+
+		if (event.target?.name === "email") {
 			if (!validateEmail(event.target.value)) {
 				setErrors((e) => ({ ...e, email: "Please enter a valid email." }));
 			} else {
@@ -44,8 +48,8 @@ export const useAuthenticationForm = ({ user }) => {
 			}
 		}
 		if (
-			event.target.name === "password" ||
-			event.target.name === "passwordConfirm"
+			event.target?.name === "password" ||
+			event.target?.name === "passwordConfirm"
 		) {
 			if (event.target.value !== form.password) {
 				setErrors((e) => ({
@@ -57,7 +61,7 @@ export const useAuthenticationForm = ({ user }) => {
 			}
 		}
 
-		setForm((f) => ({ ...f, [event.target.name]: event.target.value }));
+		setForm((f) => ({ ...f, [event.target?.name]: event.target?.value }));
 	};
 
 	return {
