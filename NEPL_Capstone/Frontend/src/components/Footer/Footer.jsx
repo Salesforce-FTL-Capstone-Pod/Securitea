@@ -1,19 +1,21 @@
 import React from "react";
 import {
-  Button,
-  Grid,
-  Container,
-  Box,
-  AppBar,
-  Toolbar,
-  Typography,
-  Stack,
-  getLinkUtilityClass,
+	Button,
+	Grid,
+	Container,
+	Box,
+	AppBar,
+	Toolbar,
+	Typography,
+	Stack,
+	getLinkUtilityClass,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import * as color from "../../assets/colorPalette";
 
 import Linkdin from "../../assets/Linkdin.svg";
 import GithubIcon from "../../assets/GithubIcon.svg";
+import { richBlackFogra } from "../../assets/colorPalette";
 
 export default function Footer() {
   return (

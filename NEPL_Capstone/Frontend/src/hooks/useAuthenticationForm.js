@@ -1,48 +1,66 @@
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const useAuthenticationForm = ({ user }) => {
-  const navigate = useNavigate()
-  const [errors, setErrors] = useState({})
-  const [form, setForm] = useState({
-    email: "",
-    first_name: "",
-    last_name: "",
-    password: "",
-    passwordConfirm: "",
-    title: "mrs.",
-    birthday: ""
-  })
+	const navigate = useNavigate();
+	const [errors, setErrors] = useState({});
+	const [form, setForm] = useState({
+		email: "",
+		first_name: "",
+		last_name: "",
+		password: "",
+		passwordConfirm: "",
+		title: "",
+		birthday: "",
+		isManager: false,
+	});
 
-  useEffect(() => {
-    if (user?.email) {
-      navigate("/UserDashboard")
-    }
-  }, [user, navigate])
+	useEffect(() => {
+		if (user?.email) {
+			navigate("/UserDashboard");
+		}
+	}, [user, navigate]);
 
-  const handleOnInputChange = (event) => {
-    if (event.target.name === "email") {
-      if (event.target.value.indexOf("@") === -1) {
-        setErrors((e) => ({ ...e, email: "Please enter a valid email." }))
-      } else {
-        setErrors((e) => ({ ...e, email: null }))
-      }
-    }
-    if (event.target.name === "password" || event.target.name === "passwordConfirm") {
-      if (event.target.value !== form.password) {
-        setErrors((e) => ({ ...e, passwordConfirm: "Passwords do not match." }))
-      } else {
-        setErrors((e) => ({ ...e, passwordConfirm: null }))
-      }
-    }
+	const emailRegex = /[^@]+@[^@]+\.[^@]+/;
 
-    setForm((f) => ({ ...f, [event.target.name]: event.target.value }))
-  }
+	function validateEmail(email) {
+		return String(email).toLowerCase().match(emailRegex);
+	}
 
-  return {
-    form,
-    errors,
-    setErrors,
-    handleOnInputChange,
-  }
-}
+	const handleOnInputChange = (event) => {
+		if (event.target.name == "isManagerName") {
+			setForm((f) => ({ ...f, isManager: event.target.checked }));
+		}
+
+		if (event.target.name === "email") {
+			if (!validateEmail(event.target.value)) {
+				setErrors((e) => ({ ...e, email: "Please enter a valid email." }));
+			} else {
+				delete errors.email;
+			}
+		}
+		if (
+			event.target.name === "password" ||
+			event.target.name === "passwordConfirm"
+		) {
+			if (event.target.value !== form.password) {
+				setErrors((e) => ({
+					...e,
+					passwordConfirm: "Passwords do not match.",
+				}));
+			} else {
+				delete errors.passwordConfirm;
+			}
+		}
+
+		setForm((f) => ({ ...f, [event.target.name]: event.target.value }));
+		console.log(form);
+	};
+
+	return {
+		form,
+		errors,
+		setErrors,
+		handleOnInputChange,
+	};
+};
