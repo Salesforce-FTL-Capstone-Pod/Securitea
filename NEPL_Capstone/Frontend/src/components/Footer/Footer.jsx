@@ -27,7 +27,6 @@ export default function Footer() {
           display: "flex",
           flexDirection: "row",
           height: "32.5vh",
-         
         }}
         maxWidth={false}
       >
@@ -41,18 +40,19 @@ export default function Footer() {
           }}
         >
           <Container
-            sx={{ display: "flex",width: "100%", justifyContent: "space-between" }}
+            sx={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "space-between",
+            }}
             maxWidth={false}
           >
-            <Container sx={{ width: "fit-content",marginRight:"30vw" }}>
+            <Container sx={{ width: "fit-content", marginRight: "30vw" }}>
               <h1 style={{ fontSize: "1.3vw" }}>SecuriTEA</h1>
               <p style={{ margin: "0" }}>
                 Basic short text about whatver this is
               </p>
-              <Container
-                style={{ marginTop: "1.2vw" }}
-                disableGutters
-              >
+              <Container style={{ marginTop: "1.2vw" }} disableGutters>
                 <a href="https://www.linkedin.com/" target="_blank">
                   <img src={Linkdin} width="20vw" />
                 </a>

@@ -4,5 +4,5 @@ export const languidLavender = "#D3CFE2";
 export const maximumBluePurple = "#B7B5E4";
 export const blueBell = "#A39EDA";
 export const platinum = "#ECEBEB";
-
+export const success = "#A39EDA";
 export const errorRed = "#FF6565";
