@@ -17,6 +17,7 @@ import ModulePagePhishing from "../ModulePage/ModulePagePhishing";
 import ModulePageTips from "../ModulePage/ModulePageTips";
 import Modules from "../Modules/Modules";
 import PageNotFound from "../PageNotFound/PageNotFound";
+import SimulationPage from "../SimulationPage/SimulationPage";
 
 //Libraries
 import { NextUIProvider, createTheme } from "@nextui-org/react";
@@ -48,6 +49,7 @@ function App() {
           <Route path="/ModuleTips" element={<ModulePageTips />} />
           <Route path="/Modules" element={<Modules />} />
           <Route path="/Resources" element={<ResourcePage/>}/>
+          <Route path="/Simulation" element={<SimulationPage />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
