@@ -18,6 +18,7 @@ import ModulePagePhishing from "../ModulePage/ModulePagePhishing";
 import ModulePageTips from "../ModulePage/ModulePageTips";
 import Modules from "../Modules/Modules";
 import PageNotFound from "../PageNotFound/PageNotFound";
+import SimulationPage from "../SimulationPage/SimulationPage";
 
 //Libraries
 import { NextUIProvider, createTheme } from "@nextui-org/react";
@@ -36,6 +37,7 @@ export default function AppContainer() {
 	);
 }
 function App() {
+
 	return (
 		<div className="App">
 			<BrowserRouter>
@@ -48,12 +50,14 @@ function App() {
 					<Route path="/ModuleTips" element={<ModulePageTips />} />
 					<Route path="/Modules" element={<Modules />} />
 					<Route path="/Resources" element={<ResourcePage />} />
+          <Route path="/Simulation" element={<SimulationPage />} />
 					<Route path="/Contact-Us" element={<ContactUs />} />
 					<Route path="*" element={<PageNotFound />} />
 				</Routes>
 			</BrowserRouter>
 		</div>
 	);
+
 }
 
 const theme = createTheme({
