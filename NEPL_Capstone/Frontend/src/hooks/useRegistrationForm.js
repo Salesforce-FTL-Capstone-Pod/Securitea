@@ -29,6 +29,7 @@ export const useRegistrationForm = () => {
 			last_name: form.last_name,
 			title: "mrs.",
 			birthday: form.birthday,
+			isManager: form.isManager,
 		});
 		if (data) {
 			console.log(data);

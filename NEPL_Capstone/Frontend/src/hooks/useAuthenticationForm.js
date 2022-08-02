@@ -10,8 +10,9 @@ export const useAuthenticationForm = ({ user }) => {
 		last_name: "",
 		password: "",
 		passwordConfirm: "",
-		title: "mrs.",
+		title: "",
 		birthday: "",
+		isManager: false,
 	});
 
 	useEffect(() => {
@@ -27,6 +28,10 @@ export const useAuthenticationForm = ({ user }) => {
 	}
 
 	const handleOnInputChange = (event) => {
+		if (event.target.name == "isManagerName") {
+			setForm((f) => ({ ...f, isManager: event.target.checked }));
+		}
+
 		if (event.target.name === "email") {
 			if (!validateEmail(event.target.value)) {
 				setErrors((e) => ({ ...e, email: "Please enter a valid email." }));
@@ -49,6 +54,7 @@ export const useAuthenticationForm = ({ user }) => {
 		}
 
 		setForm((f) => ({ ...f, [event.target.name]: event.target.value }));
+		console.log(form);
 	};
 
 	return {

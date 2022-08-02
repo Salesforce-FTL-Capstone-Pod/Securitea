@@ -20,6 +20,11 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
+import { InputLabel } from "@mui/material";
+
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -139,14 +144,6 @@ function Register() {
 									/>
 								</Grid>
 
-								<Grid item xs={6}>
-									<FormControlLabel
-										control={
-											<Checkbox value="allowExtraEmails" color="primary" />
-										}
-										label="I am a manager"
-									/>
-								</Grid>
 								<Grid item xs={12} sm={6}>
 									<TextField
 										required
@@ -156,9 +153,52 @@ function Register() {
 										name="birthday"
 										type="date"
 										placeholder="aaaaa"
-										value="2001-01-01"
+										value={form.birthday || "2001-01-01"}
 										onChange={handleOnInputChange}
 									/>
+								</Grid>
+								<Grid item xs={6}>
+									<FormControl required fullWidth>
+										<InputLabel id="pref-title">Preferred Title</InputLabel>
+										<Select
+											labelId="pref-title"
+											id="title"
+											name="title"
+											value={form.title || ""}
+											label="Preferred Title"
+											onChange={handleOnInputChange}
+										>
+											<MenuItem value={"Mr."}>Mr.</MenuItem>
+											<MenuItem value={"Ms."}>Ms.</MenuItem>
+											<MenuItem value={"Mx."}>Mx.</MenuItem>
+											<MenuItem value={"Mrs."}>Mrs.</MenuItem>
+											<MenuItem value={"Miss"}>Miss</MenuItem>
+										</Select>
+									</FormControl>
+								</Grid>
+								<Grid item xs={6}>
+									<FormControlLabel
+										control={
+											<Checkbox
+												color="primary"
+												name="isManagerName"
+												onChange={handleOnInputChange}
+											/>
+										}
+										label="I am a manager"
+									/>
+								</Grid>
+								<Grid item xs={12} sm={6}>
+									{form.isManager ? (
+										<ManagerRegisterExtra
+											form={form}
+											handleOnInputChange={handleOnInputChange}
+										/>
+									) : (
+										<RegularRegisterExtra
+											handleOnInputChange={handleOnInputChange}
+										/>
+									)}
 								</Grid>
 							</Grid>
 							<Button
@@ -191,6 +231,38 @@ function Register() {
 }
 
 export default Register;
+
+function ManagerRegisterExtra(props) {
+	return (
+		<FormControl required fullWidth>
+			<InputLabel id="company-name">Company Name</InputLabel>
+			<Select
+				labelId="company-name"
+				id="company"
+				name="company"
+				value={props.form.company || ""}
+				label="Company Name"
+				onChange={props.handleOnInputChange}
+			>
+				<MenuItem value={"salesforce"}>Salesforce</MenuItem>
+				<MenuItem value={"codepath"}>Codepath</MenuItem>
+				<MenuItem value={"Workday"}>Workday</MenuItem>
+			</Select>
+		</FormControl>
+	);
+}
+
+function RegularRegisterExtra(props) {
+	return (
+		<TextField
+			fullWidth
+			color="primary"
+			label="Manager Token (optional)"
+			name="token"
+			onChange={props.handleOnInputChange}
+		/>
+	);
+}
 
 function Footer(props) {
 	return (
