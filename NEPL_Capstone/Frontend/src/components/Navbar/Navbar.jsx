@@ -16,7 +16,7 @@ export default function Navbar() {
 	const handler = () => setVisible(true);
 	return (
 		<AppBar sx={{ background: color.richBlackFogra }} position="sticky">
-			<Toolbar sx={{ height: "4vw", justifyContent: "space-between" }}>
+			<Toolbar sx={{ height: "8vh", justifyContent: "space-between" }}>
 				<div style={{ display: "flex" }}>
 					<Link
 						style={{
