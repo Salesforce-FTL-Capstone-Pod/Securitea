@@ -1,18 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import AuthNavbar from "../AuthNavbar/AuthNavbar";
+import Navbar from "../Navbar/Navbar";
 import { Container } from "@mui/material";
 import { Avatar, Grid } from "@nextui-org/react";
 import { Container as NextContainer, Card, Row, Text } from "@nextui-org/react";
 import { Drawer, IconButton, List, Divider } from "@mui/material";
 import { useState } from "react";
 import { AuthModuleCard } from "../Modules/Modules";
+import "./UserDashboard.css";
 function UserDashboard() {
 	return (
 		<>
-			<AuthNavbar />
 			<Sidebar />
-			<Container disableGutters maxWidth={false} sx={{ marginLeft: "10vw" }}>
+			<Container
+				maxWidth={false}
+				disableGutters
+				sx={{ marginLeft: "10vw", width: "90vw" }}
+			>
+				<Navbar />
 				<Hero />
 				<ModuleDisplay />
 				<ModulesComplete />
@@ -51,6 +56,9 @@ function Sidebar() {
 			ModalProps={{
 				keepMounted: true,
 			}}
+			paper={{
+				width: "10vw",
+			}}
 		>
 			<div>
 				<IconButton>
@@ -58,7 +66,7 @@ function Sidebar() {
 				</IconButton>
 			</div>
 			<Divider />
-			<List>WHY ISNT THIS WORKING</List>
+			<List>WHY ISNT THIalfhhfalkf.nad adafajjfadaS </List>
 			<Divider />
 			<List>HELLO</List>
 		</Drawer>

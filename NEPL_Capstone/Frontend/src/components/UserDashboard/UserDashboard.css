@@ -1,0 +1,6 @@
+.MuiDrawer-paper {
+	width: 10vw;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+}
