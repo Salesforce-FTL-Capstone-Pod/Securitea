@@ -94,7 +94,7 @@ export default function Navbar() {
 }
 
 export function UserDropdown({ user, handleLogout }) {
-	const fullName = `${user.firstName} ${user.last_name}`;
+	const fullName = `${user.firstName} ${user.lastName}`;
 	var logo =
 		"https://www.nicepng.com/png/detail/16-160412_teacup-png-clipart-tea-coffee-clip-art-tea.png";
 	if (user.company) {

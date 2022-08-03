@@ -8,17 +8,18 @@ const AuthContext = createContext(null)
 export const AuthContextProvider = ({ children }) => {
   const [initialized, setInitialized] = useState(false)
   const [user, setUser] = useState({})
+  console.log(user)
   useEffect(() => {
     const fetchUser = async () => {
       const { data } = await apiClient.fetchUserFromToken()
-      console.log(data)
+
       if (data) {
         setUser(data.publicUser)
       }
       setInitialized(true)
     }
 
-    const token = localStorage.getItem("nepl-token")
+    const token = localStorage.getItem("token")
     if (token) {
       apiClient.setToken(token)
       fetchUser()

@@ -6,13 +6,12 @@ class ApiClient {
   constructor(remoteHostUrl) {
     this.remoteHostUrl = remoteHostUrl
     this.token = null
-    this.tokenName = "nepl-token"
+    this.tokenName = "token"
   }
 
   setToken(token) {
     this.token = token
     localStorage.setItem(this.tokenName, token)
-    console.log(this.token)
   }
 
   async request({ endpoint, method = `GET`, data = {} }) {
@@ -47,6 +46,9 @@ class ApiClient {
 
   }
 
+  async fetchProgress(credentials) {
+    return await this.request({endpoint: `progress/getProgress`, method: `GET` })
+  }
   async logoutUser() {
     this.setToken(null)
     localStorage.setItem(this.tokenName, "")
