@@ -4,42 +4,42 @@ import apiClient from "../services/apiClient";
 const AuthContext = createContext(null);
 
 export const AuthContextProvider = ({ children }) => {
-	const [initialized, setInitialized] = useState(false);
-	const [user, setUser] = useState({});
-	useEffect(() => {
-		const fetchUser = async () => {
-			const { data } = await apiClient.fetchUserFromToken();
-			console.log(data);
-			if (data) {
-				setUser(data.publicUser);
-			}
-			setInitialized(true);
-		};
+  const [initialized, setInitialized] = useState(false)
+  const [user, setUser] = useState({})
+  console.log(user)
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data } = await apiClient.fetchUserFromToken()
 
-		const token = localStorage.getItem("nepl-token");
-		if (token) {
-			apiClient.setToken(token);
-			fetchUser();
-		} else {
-			setInitialized(true);
-		}
-	}, [setUser]);
+      if (data) {
+        setUser(data.publicUser)
+      }
+      setInitialized(true)
+    }
 
-	const handleLogout = async () => {
-		await apiClient.logoutUser();
-		setUser({});
-	};
+    const token = localStorage.getItem("token")
+    if (token) {
+      apiClient.setToken(token)
+      fetchUser()
+    } else {
+      setInitialized(true)
+    }
+  }, [setUser])
 
-	const authValue = { user, setUser, handleLogout, initialized };
+  const handleLogout = async () => {
+    await apiClient.logoutUser()
+    setUser({})
+  }
 
-	return (
-		<AuthContext.Provider value={authValue}>
-			<>{children}</>
-		</AuthContext.Provider>
-	);
-};
+  const authValue = { user, setUser, handleLogout, initialized }
 
-export const useAuthContext = () => useContext(AuthContext);
+  return (
+    <AuthContext.Provider value={authValue}>
+      <>{children}</>
+    </AuthContext.Provider>
+  )
+}
 
-export const selectIsUserAuthenticated = (user, initialized) =>
-	initialized && user?.username;
+export const useAuthContext = () => useContext(AuthContext)
+
+export const selectIsUserAuthenticated = (user, initialized) => initialized && user?.username
