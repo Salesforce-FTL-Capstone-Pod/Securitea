@@ -19,7 +19,6 @@ function SettingsModal({ handler, visible, setVisible }) {
 
 	function testCheck() {
 		setChecked(!checked);
-		console.log(checked);
 	}
 	return (
 		<div>
