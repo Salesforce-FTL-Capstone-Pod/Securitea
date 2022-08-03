@@ -53,8 +53,7 @@ class ApiClient {
 	}
 
 	async logoutUser() {
-		this.setToken(null);
-		localStorage.setItem(this.tokenName, "");
+		localStorage.removeItem(this.tokenName);
 	}
 }
 

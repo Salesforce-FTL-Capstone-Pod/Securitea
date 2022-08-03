@@ -16,7 +16,7 @@ export const AuthContextProvider = ({ children }) => {
 			setInitialized(true);
 		};
 
-		const token = localStorage.getItem("nepl-token");
+		const token = localStorage.getItem("token");
 		if (token) {
 			apiClient.setToken(token);
 			fetchUser();
