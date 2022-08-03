@@ -57,7 +57,6 @@ export default function SignInModal({
 	const closeHandler = () => {
 		setVisible(false);
 	};
-	console.log(visible);
 	const submitForm = () => {
 		handleOnSubmit();
 		setVisible(false);

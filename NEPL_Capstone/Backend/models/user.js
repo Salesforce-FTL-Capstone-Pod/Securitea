@@ -27,7 +27,6 @@ class User {
 
 		if (credentials.token) {
 			const managerInfo = await User.fetchManagerByToken(credentials.token);
-			console.log("manager: ", managerInfo);
 			if (!managerInfo) {
 				throw new BadRequestError(
 					`Invalid manager token: ${credentials.token}`
@@ -88,22 +87,6 @@ class User {
 
 		const user = userResult.rows[0];
 
-		if (credentials.isManager) {
-			addManagerQ = `
-			INSERT INTO manager
-			VALUES ($1, $2, $3, $4, $5)
-			RETURNING id, user_id, token, company
-			`;
-
-			const rawManagerAdded = await db.query(addManagerQ, [
-				user.id,
-				generateManagerToken(getCompanyInitials(credentials.company)),
-				credentials.company,
-				[],
-			]);
-			const managerAdded = rawManagerAdded.rows[0];
-		}
-
 		const addProgress = `
       INSERT INTO modules_1 (progress, user_id, module_id)
       VALUES ($1, $2, $3)
@@ -111,6 +94,18 @@ class User {
     `;
 
 		const moduleStart = await db.query(addProgress, [0, user.id, 1]);
+
+		const addProgress2 = `
+    INSERT INTO modules_2 (progress, user_id, module_id)
+    VALUES ($1, $2, $3)
+    RETURNING progress, user_id, module_id;
+  `;
+
+		const moduleStart2 = await db.query(addProgress, [0, user.id, 2]);
+
+		if (credentials.token) {
+			User.addToManagerArray(credentials.token, user.id);
+		}
 
 		return User.makePublicUser(user);
 	}
@@ -181,8 +176,6 @@ class User {
 			credentials.first_name,
 			credentials.last_name
 		);
-
-		console.log("TOKEN HERE: ", token);
 
 		await db.query(
 			`INSERT INTO manager (user_id, company, token)
@@ -268,18 +261,18 @@ class User {
 		if (!managerData) {
 			throw new BadRequestError("Token provided is not valid");
 		}
-		return managerData; //TODO: needs further testing when available
+		return managerData;
 	}
 
 	static async addToManagerArray(token, userId) {
-		//FIXME: aint working
 		const getManagerArray = `
-		SELECT usersInPod FROM manager
+		SELECT usersInPod
 		FROM manager
 		WHERE token = $1;
 		`;
 
-		const managerArray = await db.query(getManagerArray, [token]).rows[0];
+		const managerArrayRaw = await db.query(getManagerArray, [token]);
+		const managerArray = managerArrayRaw.rows[0].usersinpod;
 		var newManagerArray = [];
 		if (!managerArray) {
 			newManagerArray = [userId];
@@ -298,7 +291,7 @@ class User {
 			token,
 		]);
 
-		return addedManagerArray; //TODO: needs further testing when available
+		return addedManagerArray;
 	}
 
 	static async makePublicUser(user) {
