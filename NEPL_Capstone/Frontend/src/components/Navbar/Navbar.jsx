@@ -128,7 +128,11 @@ export function UserDropdown({ user, handleLogout }) {
 				/>
 			</Dropdown.Trigger>
 			<Dropdown.Menu color="primary" aria-label="User Actions">
-				<Dropdown.Item key="profile" css={{ height: "$18" }}>
+				<Dropdown.Item
+					key="profile"
+					css={{ height: "$18" }}
+					textValue="Profile"
+				>
 					<Link to="/UserDashboard" sx={{ width: "100%" }}>
 						<Text b color="inherit" css={{ d: "flex" }}>
 							Signed in as {fullName}
@@ -139,11 +143,18 @@ export function UserDropdown({ user, handleLogout }) {
 					</Link>
 				</Dropdown.Item>
 
-				<Dropdown.Item key="settings" withDivider>
+				<Dropdown.Item key="settings" withDivider textValue="Settings">
 					<Text>Settings</Text>
 				</Dropdown.Item>
-				<Dropdown.Item key="help_and_feedback">Help & Feedback</Dropdown.Item>
-				<Dropdown.Item key="logout" color="error" withDivider>
+				<Dropdown.Item key="help_and_feedback" textValue="Help and Feedback">
+					Help & Feedback
+				</Dropdown.Item>
+				<Dropdown.Item
+					key="logout"
+					color="error"
+					withDivider
+					textValue="Logout"
+				>
 					<Text onClick={handleLogout}>Log Out</Text>
 				</Dropdown.Item>
 			</Dropdown.Menu>

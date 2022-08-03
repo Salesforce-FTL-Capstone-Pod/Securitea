@@ -11,10 +11,10 @@ import { useAuthContext } from "../../contexts/auth"
 import axios from "axios";
 import apiClient from "../../services/apiClient"
 import { useEffect } from "react";
-
 function UserDashboard() {
-  const { user } = useAuthContext();
-  const [selectedTab, setselectedTab] = useState("Modules")
+	const { user } = useAuthContext();
+	const [selectedTab, setselectedTab] = useState("Modules");
+
 
   return (
     <>
@@ -36,6 +36,7 @@ function UserDashboard() {
 export default UserDashboard;
 
 function Hero({ user }) {
+
   const greetingText = `Good afternoon, ${user.title} ${user.firstName} ${user.lastName}`;
   var logo =
   "https://www.nicepng.com/png/detail/16-160412_teacup-png-clipart-tea-coffee-clip-art-tea.png";
@@ -77,69 +78,70 @@ function Hero({ user }) {
       </Card>
     </Container>
   );
-}
 
+}
 
 function Sidebar({ selectedTab, setselectedTab }) {
-  function setTab(e){
-    setselectedTab(e.currentKey)
-  }  
-  if (!selectedTab){
-    setselectedTab("Modules")
-  }
-  console.log(selectedTab)
-  return (
-    <NextContainer css={{ marginLeft: "0px", width: "20%"}} fluid>
-    <Table
-    defaultSelectedKeys={[selectedTab]}
-    selectedKeys={[selectedTab]}
-    disallowEmptySelection
-    onSelectionChange={(e) => setTab(e)}
-    aria-label="My Stuff Table"
-    css={{
-      height: "auto",
-      minWidth: "20%",
-    }}
-    selectionMode="single"
-    >
-      <Table.Header>
-        <Table.Column>My Stuff</Table.Column>
-      </Table.Header>
-      <Table.Body>
-        <Table.Row key="Modules">
-          <Table.Cell>Modules</Table.Cell>
-        </Table.Row>
-      </Table.Body>
-    </Table>
-    <Spacer></Spacer>
-    <Table
-    aria-label="My Account Table"
-    css={{
-      height: "auto",
-      minWidth: "20%",
-    }}
-    selectionMode="single"
-    selectedKeys={[selectedTab]}
-    onSelectionChange={(e) => setTab(e)}
-    >
-      <Table.Header>
-        <Table.Column>My Account</Table.Column>
-      </Table.Header>
-      <Table.Body>
-        <Table.Row key="Settings">
-          <Table.Cell>Settings</Table.Cell>
-        </Table.Row>
-        <Table.Row key="Progress">
-          <Table.Cell>Progress</Table.Cell>
-        </Table.Row>
-        <Table.Row key="Profile">
-          <Table.Cell>Profile</Table.Cell>
-        </Table.Row>
-      </Table.Body>
-    </Table>
-    </NextContainer>
-  );
+	function setTab(e) {
+		setselectedTab(e.currentKey);
+	}
+	if (!selectedTab) {
+		setselectedTab("Modules");
+	}
+	console.log(selectedTab);
+	return (
+		<NextContainer css={{ marginLeft: "0px", width: "20%" }} fluid>
+			<Table
+				defaultSelectedKeys={[selectedTab]}
+				selectedKeys={[selectedTab]}
+				disallowEmptySelection
+				onSelectionChange={(e) => setTab(e)}
+				aria-label="My Stuff Table"
+				css={{
+					height: "auto",
+					minWidth: "20%",
+				}}
+				selectionMode="single"
+			>
+				<Table.Header>
+					<Table.Column>My Stuff</Table.Column>
+				</Table.Header>
+				<Table.Body>
+					<Table.Row key="Modules">
+						<Table.Cell>Modules</Table.Cell>
+					</Table.Row>
+				</Table.Body>
+			</Table>
+			<Spacer></Spacer>
+			<Table
+				aria-label="My Account Table"
+				css={{
+					height: "auto",
+					minWidth: "20%",
+				}}
+				selectionMode="single"
+				selectedKeys={[selectedTab]}
+				onSelectionChange={(e) => setTab(e)}
+			>
+				<Table.Header>
+					<Table.Column>My Account</Table.Column>
+				</Table.Header>
+				<Table.Body>
+					<Table.Row key="Settings">
+						<Table.Cell>Settings</Table.Cell>
+					</Table.Row>
+					<Table.Row key="Progress">
+						<Table.Cell>Progress</Table.Cell>
+					</Table.Row>
+					<Table.Row key="Profile">
+						<Table.Cell>Profile</Table.Cell>
+					</Table.Row>
+				</Table.Body>
+			</Table>
+		</NextContainer>
+	);
 }
+
 
 function Modules({ ModuleDisplay, ModulesComplete }){
   return(
@@ -154,117 +156,107 @@ function Modules({ ModuleDisplay, ModulesComplete }){
   )
 }
 function ModuleDisplay() {
-  return (
-    <NextContainer fluid>
-      <Text h1 b>
-        My Modules
-      </Text>
-      <Grid.Container gap={2}>
-        <Grid>
-          <AuthModuleCard />
-        </Grid>
-        <Grid>
-          <AuthModuleCard />
-        </Grid>
-        <Grid>
-          <AuthModuleCard />
-        </Grid>
-      </Grid.Container>
-    </NextContainer>
-  );
+	return (
+		<NextContainer fluid>
+			<Text h1 b>
+				My Modules
+			</Text>
+			<Grid.Container gap={2}>
+				<Grid>
+					<AuthModuleCard />
+				</Grid>
+				<Grid>
+					<AuthModuleCard />
+				</Grid>
+				<Grid>
+					<AuthModuleCard />
+				</Grid>
+			</Grid.Container>
+		</NextContainer>
+	);
 }
 
 function ModulesComplete() {
-  return (
-    <NextContainer fluid>
-      <Text h1 b>
-        Modules completed
-      </Text>
-      <Grid.Container justify="left">
-        <Grid>
-          <Text>None completed yet.</Text>
-        </Grid>
-      </Grid.Container>
-    </NextContainer>
-  );
+	return (
+		<NextContainer fluid>
+			<Text h1 b>
+				Modules completed
+			</Text>
+			<Grid.Container justify="left">
+				<Grid>
+					<Text>None completed yet.</Text>
+				</Grid>
+			</Grid.Container>
+		</NextContainer>
+	);
 }
 
-function AuthModuleCard(){
-  return(
-      <Card isHoverable css={{ mw: "350px", bg: "$black" }}>
-        <Card.Header css={{ textAlign: "center" }} >
-          <Text css={{ textAlign: "center", color: "$white"}} size={30} b> Phishing </Text> 
-        </Card.Header>
-        <Card.Divider />
-        <Card.Body css={{ py: "$10"}}>
-          <Text css={{ color: "$white" }}>
-            Something about the module. Something about the module.  Something about the module. 
-            Something about the module. Something about the module. Something about the module. 
-            Something about the module. Something about the module. Something about the module.  
-          </Text>
-          <Spacer></Spacer>
-          <Progress color="primary" value={75} />
-          <Text css={{ color: "$white" }} > 3/4 Simulations Complete</Text>
-        </Card.Body>
+function AuthModuleCard() {
+	return (
+		<Card isHoverable css={{ mw: "350px", bg: "$black" }}>
+			<Card.Header css={{ textAlign: "center" }}>
+				<Text css={{ textAlign: "center", color: "$white" }} size={30} b>
+					{" "}
+					Phishing{" "}
+				</Text>
+			</Card.Header>
+			<Card.Divider />
+			<Card.Body css={{ py: "$10" }}>
+				<Text css={{ color: "$white" }}>
+					Something about the module. Something about the module. Something
+					about the module. Something about the module. Something about the
+					module. Something about the module. Something about the module.
+					Something about the module. Something about the module.
+				</Text>
+				<Spacer></Spacer>
+				<Progress color="primary" value={75} />
+				<Text css={{ color: "$white" }}> 3/4 Simulations Complete</Text>
+			</Card.Body>
 
-        <Card.Divider />
+			<Card.Divider />
 
-        <Card.Footer>
-          <Row justify="flex-end">
-          <Button size="sm" bordered color="secondary">Learn More</Button>
-          <Spacer></Spacer>
-          <Button size="sm" color="secondary">Continue</Button>
-          </Row>
-        </Card.Footer>
-      </Card>
-  )
+			<Card.Footer>
+				<Row justify="flex-end">
+					<Button size="sm" bordered color="secondary">
+						Learn More
+					</Button>
+					<Spacer></Spacer>
+					<Button size="sm" color="secondary">
+						Continue
+					</Button>
+				</Row>
+			</Card.Footer>
+		</Card>
+	);
 }
 
-function Settings({ user }){
-  return(
-    <>
-      <Grid>
-      <NextContainer fluid>
-      <Text h1 b>
-        Settings
-      </Text>
-        <Grid>
-          <Text h2 Body>Account Info</Text>
-          <AccountInfo user={user} />
-        </Grid>
-       
-      <Grid>
-          <Text h2 Body>Notification Preferences</Text>
-          <Notifications user={user}/>
-        </Grid>
-    </NextContainer>
-      </Grid>
-    </>
-  )
-  }
+function Settings({ user }) {
+	return (
+		<>
+			<Grid>
+				<NextContainer fluid>
+					<Text h1 b>
+						Settings
+					</Text>
+					<Grid>
+						<Text h2 Body>
+							Account Info
+						</Text>
+						<AccountInfo user={user} />
+					</Grid>
 
-  function AccountInfo({user}){
-    return(
-        <Card css={{ bg: "$colors$darkpurple", mw: "100%"}}>
-          <Card.Divider />
-          <Card.Body css={{ py: "$10"}}>
-            <Text css={{ color: "$white" }} h3>
-              Email {user.email} 
-            </Text>
-            <Text css={{ color: "blue"}}>
-              Change email
-            </Text>
-            <Spacer></Spacer>
-            <Text css={{ color: "$white" }} h3>
-              Password ******************
-            </Text>
-            <Text css={{ color: "blue"}}>
-              Change password
-            </Text>
-          </Card.Body>
-        </Card>
-    )
-  }
+					<Grid>
+						<Text h2 Body>
+							Notification Preferences
+						</Text>
+						<Notifications user={user} />
+					</Grid>
+				</NextContainer>
+			</Grid>
+		</>
+	);
+}
+
 
   function Notifications({user}){
     return(
