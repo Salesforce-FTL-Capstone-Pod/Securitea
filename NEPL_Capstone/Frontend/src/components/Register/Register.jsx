@@ -254,7 +254,7 @@ function ManagerRegisterExtra(props) {
 			>
 				<MenuItem value={"salesforce"}>Salesforce</MenuItem>
 				<MenuItem value={"codepath"}>Codepath</MenuItem>
-				<MenuItem value={"Workday"}>Workday</MenuItem>
+				<MenuItem value={"workday"}>Workday</MenuItem>
 			</Select>
 		</FormControl>
 	);

@@ -29,6 +29,8 @@ export const useRegistrationForm = () => {
 			last_name: form.last_name,
 			title: "mrs.",
 			birthday: form.birthday,
+			token: form.token || null,
+			company: form.company || null,
 			isManager: form.isManager,
 		});
 		if (data) {
