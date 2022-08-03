@@ -262,7 +262,6 @@ export function SubHero() {
       </Container>
     </>
   );
-
 }
 export function FinalHero() {
   return (
