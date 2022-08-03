@@ -144,21 +144,22 @@ export function SubHero() {
           display: "flex",
           flexDirection: "column",
           marginTop: "2vw",
+          textAlign: "left",
         }}
         maxWidth={false}
       >
-        <Typography component={"div"}>
-          <h1
-            style={{
-              height: "50px",
-              fontSize: "120%",
-              color: "black",
-              marginLeft: "41vw",
-              marginTop: "2vw",
-            }}
-          >
-            Current Modules Available
-          </h1>
+        <Typography
+          component={"div"}
+          align="center"
+          style={{
+            height: "50px",
+            fontSize: "120%",
+            color: "black",
+
+            marginTop: "20px",
+          }}
+        >
+          Current Modules Available
         </Typography>
         <Container
           sx={{
@@ -242,7 +243,7 @@ export function SubHero() {
           </Box>
         </Container>
         <Button
-          to="/ModulePage"
+          to="/Modules"
           component={Link}
           style={{
             width: "16vw",
