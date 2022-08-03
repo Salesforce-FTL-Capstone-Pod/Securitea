@@ -24,6 +24,9 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import { InputLabel } from "@mui/material";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -71,7 +74,7 @@ function Register() {
 							backgroundColor: color.platinum,
 							padding: "5vw",
 							borderRadius: "10px",
-							height: "40vh",
+							height: "50vh",
 							width: "40vw",
 						}}
 					>
@@ -124,7 +127,6 @@ function Register() {
 										fullWidth
 										color="primary"
 										label="Password"
-										autoFocus
 										onChange={handleOnInputChange}
 										error={Boolean(errors?.passwordConfirm)}
 										type="password"
@@ -137,6 +139,7 @@ function Register() {
 										fullWidth
 										label="Confirm Password"
 										name="passwordConfirm"
+										disabled={form.password.length == 0}
 										onChange={handleOnInputChange}
 										type="password"
 										error={Boolean(errors?.passwordConfirm)}
@@ -145,17 +148,22 @@ function Register() {
 								</Grid>
 
 								<Grid item xs={12} sm={6}>
-									<TextField
-										required
-										fullWidth
-										id="birthday"
-										label="Birthday"
-										name="birthday"
-										type="date"
-										placeholder="aaaaa"
-										value={form.birthday || "2001-01-01"}
-										onChange={handleOnInputChange}
-									/>
+									<FormControl required fullWidth>
+										<LocalizationProvider dateAdapter={AdapterDateFns}>
+											<DatePicker
+												label="Birthday"
+												name="birthday"
+												value={form.birthday || null}
+												disableFuture
+												mask="__/__/____"
+												onChange={(evt) => {
+													console.log(evt);
+													handleOnInputChange(evt);
+												}}
+												renderInput={(params) => <TextField {...params} />}
+											/>
+										</LocalizationProvider>
+									</FormControl>
 								</Grid>
 								<Grid item xs={6}>
 									<FormControl required fullWidth>

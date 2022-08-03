@@ -135,132 +135,132 @@ export function Hero() {
 }
 //SubHero for the landing page
 export function SubHero() {
-  return (
-    <>
-      <Container
-        style={{
-          backgroundColor: "#D3CFE2",
-          margin: "0%",
-          display: "flex",
-          flexDirection: "column",
-          marginTop: "2vw",
-        }}
-        maxWidth={false}
-      >
-        <Typography component={"div"}>
-          <h1
-            style={{
-              height: "50px",
-              fontSize: "120%",
-              color: "black",
-              marginLeft: "41vw",
-              marginTop: "2vw",
-            }}
-          >
-            Current Modules Available
-          </h1>
-        </Typography>
-        <Container
-          sx={{
-            display: "flex",
-            marginRight: "100vw",
-            justifyContent: "space-around",
-          }}
-          maxWidth={false}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              borderRadius: "10px",
-              backgroundColor: "#A39EDA",
-              height: "18vw",
-              width: "18vw",
-              justifyContent: "center",
-              textAlign: "center",
-              alignItems: "center",
-            }}
-          >
-            <img src={Phishing} style={{ width: "50%" }} />
-            <Typography component={"span"}>
-              <h2>Phishing</h2>
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              borderRadius: "10px",
-              backgroundColor: "#A39EDA",
-              height: "18vw",
-              width: "18vw",
-              justifyContent: "center",
-              textAlign: "center",
-              alignItems: "center",
-            }}
-          >
-            <img src={Security} style={{ width: "40%" }} />
-            <Typography component={"span"}>
-              <h2>Account Security</h2>
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              borderRadius: "10px",
-              backgroundColor: "#A39EDA",
-              height: "18vw",
-              width: "18vw",
-              justifyContent: "center",
-              textAlign: "center",
-              alignItems: "center",
-            }}
-          >
-            <img src={Example} style={{ width: "50%" }} />
-            <Typography component={"span"}>
-              <h2>Examples</h2>
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              borderRadius: "10px",
-              backgroundColor: "#A39EDA",
-              height: "18vw",
-              width: "18vw",
-              justifyContent: "center",
-              textAlign: "center",
-              alignItems: "center",
-            }}
-          >
-            <img src={Message} style={{ width: "50%" }} />
-            <Typography component={"span"}>
-              <h2>Messages</h2>
-            </Typography>
-          </Box>
-        </Container>
-        <Button
-          to="/ModulePage"
-          component={Link}
-          style={{
-            width: "16vw",
-            height: "3vw",
-            marginTop: "5vw",
-            marginLeft: "41vw",
-            fontSize: "92%",
-            background: "#0E131F",
-            color: "white",
-            borderRadius: "5px",
-            marginBottom: "2vw",
-          }}
-        >
-          VIEW ALL MODULES
-        </Button>
-      </Container>
-    </>
-  );
+	return (
+		<>
+			<Container
+				style={{
+					backgroundColor: "#D3CFE2",
+					margin: "0%",
+					display: "flex",
+					flexDirection: "column",
+					marginTop: "2vw",
+				}}
+				maxWidth={false}
+			>
+				<Typography component={"div"}>
+					<h1
+						style={{
+							height: "50px",
+							fontSize: "120%",
+							color: "black",
+							marginLeft: "41vw",
+							marginTop: "2vw",
+						}}
+					>
+						Current Modules Available
+					</h1>
+				</Typography>
+				<Container
+					sx={{
+						display: "flex",
+						marginRight: "100vw",
+						justifyContent: "space-around",
+					}}
+					maxWidth={false}
+				>
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "column",
+							borderRadius: "10px",
+							backgroundColor: "#A39EDA",
+							height: "18vw",
+							width: "18vw",
+							justifyContent: "center",
+							textAlign: "center",
+							alignItems: "center",
+						}}
+					>
+						<img src={Phishing} style={{ width: "50%" }} />
+						<Typography component={"span"}>
+							<h2>Phishing</h2>
+						</Typography>
+					</Box>
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "column",
+							borderRadius: "10px",
+							backgroundColor: "#A39EDA",
+							height: "18vw",
+							width: "18vw",
+							justifyContent: "center",
+							textAlign: "center",
+							alignItems: "center",
+						}}
+					>
+						<img src={Security} style={{ width: "40%" }} />
+						<Typography component={"span"}>
+							<h2>Account Security</h2>
+						</Typography>
+					</Box>
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "column",
+							borderRadius: "10px",
+							backgroundColor: "#A39EDA",
+							height: "18vw",
+							width: "18vw",
+							justifyContent: "center",
+							textAlign: "center",
+							alignItems: "center",
+						}}
+					>
+						<img src={Example} style={{ width: "50%" }} />
+						<Typography component={"span"}>
+							<h2>Examples</h2>
+						</Typography>
+					</Box>
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "column",
+							borderRadius: "10px",
+							backgroundColor: "#A39EDA",
+							height: "18vw",
+							width: "18vw",
+							justifyContent: "center",
+							textAlign: "center",
+							alignItems: "center",
+						}}
+					>
+						<img src={Message} style={{ width: "50%" }} />
+						<Typography component={"span"}>
+							<h2>Messages</h2>
+						</Typography>
+					</Box>
+				</Container>
+				<Button
+					to="/Modules"
+					component={Link}
+					style={{
+						width: "16vw",
+						height: "3vw",
+						marginTop: "5vw",
+						marginLeft: "41vw",
+						fontSize: "92%",
+						background: "#0E131F",
+						color: "white",
+						borderRadius: "5px",
+						marginBottom: "2vw",
+					}}
+				>
+					VIEW ALL MODULES
+				</Button>
+			</Container>
+		</>
+	);
 }
 export function FinalHero() {
   return (
