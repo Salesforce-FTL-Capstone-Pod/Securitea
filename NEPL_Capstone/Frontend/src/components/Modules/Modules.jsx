@@ -166,13 +166,17 @@ export function LockedCard() {
       }}
     >
       <Card.Header css={{ textAlign: "center" }}>
-        <Text css={{ textAlign: "center", color: "$black" }} size={30} b>
+        <Text
+          css={{ textAlign: "center", color: "$black", opacity: "0.5" }}
+          size={30}
+          b
+        >
           {" "}
           Coming Soon!{" "}
         </Text>
       </Card.Header>
       <Card.Divider />
-      <Card.Image src={Lock} width="100%" />
+      <Card.Image src={Lock} width="100%" css={{ opacity: "0.5" }} />
 
       <Card.Body css={{ py: "$10" }}></Card.Body>
     </Card>
