@@ -37,23 +37,11 @@ function Simulation() {
       style={{
         display: "flex",
         flexDirection: "column",
-        backgroundColor: color.platinum,
+        backgroundColor: "white",
         height: "150vh",
       }}
     >
-      <Container
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          backgroundColor: "white",
-          height: "145vh",
-          width: "50vw",
-          marginTop: "1vw",
-          borderLeft: 6,
-          borderBottom: 6,
-          borderColor: "black",
-        }}
-      >
+     
         <p>Unit Simulation</p>
         <h1 style={{ marginTop: "-1vw" }}>Email Phishing</h1>
         <Container style={{ display: "flex", flexDirection: "row" }}>
@@ -79,7 +67,7 @@ function Simulation() {
         </p>
         <Container
           sx={{
-           position: "relative",
+            position: "relative",
             // flexDirection: "column",
             backgroundColor: color.maximumBluePurple,
             height: "89vh",
@@ -115,15 +103,14 @@ function Simulation() {
             <img
               src={Question}
               style={{
-              position: "absolute",
+                position: "absolute",
                 width: "2vw",
-                bottom:"2%",
-                right:"5%"
+                bottom: "2%",
+                right: "5%",
               }}
             />
           </Container>
         </Container>
-      </Container>
     </Container>
   );
 }
