@@ -54,6 +54,7 @@ function App() {
           <Route path="/Modules" element={<Modules />} />
           <Route path="/Resources" element={<ResourcePage />} />
           <Route path="/Modules/demo" element={<SimulationPage />} />
+          {/* <Route path="/Modules/tips" element={} */}
           <Route path="/Contact-Us" element={<ContactUs />} />
           <Route path="*" element={<PageNotFound />} />
 		  <Route path="/Skeleton" element={<Skeleton /> } />
