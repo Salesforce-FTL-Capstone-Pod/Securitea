@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container as NextContainer, Card, Row, Text, Table, Spacer, Progress, Button, Checkbox, Textarea, Loading, Avatar, Grid } from "@nextui-org/react";
 import { useProgressContext } from '../../contexts/progress';
+import { Link } from 'react-router-dom';
 
 function ModulesTab() {
   return (
@@ -53,6 +54,7 @@ function ModulesComplete() {
 
 function AuthModuleCard(){
   const {progress} = useProgressContext()
+  
   return(
       <Card isHoverable css={{ mw: "350px", bg: "$black" }}>
         <Card.Header css={{ textAlign: "center" }} >
@@ -76,12 +78,15 @@ function AuthModuleCard(){
           <Row justify="flex-end">
           <Button size="sm" bordered color="secondary">Learn More</Button>
           <Spacer></Spacer>
-          <Button size="sm" color="secondary">Continue</Button>
+    
+            <Button size="sm" color="secondary"><Link to="/Skeleton" style={{ color: '#FFF' }}>Continue</Link></Button>
+
           </Row>
         </Card.Footer>
       </Card>
   )
 }
+
 
 
 export default ModulesTab

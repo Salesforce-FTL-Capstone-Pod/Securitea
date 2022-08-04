@@ -20,6 +20,8 @@ import Modules from "../Modules/Modules";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import SimulationPage from "../SimulationPage/SimulationPage";
 
+import Skeleton from "../AuthModulePage/Skeleton";
+
 //Libraries
 import { NextUIProvider, createTheme, Progress } from "@nextui-org/react";
 
@@ -46,7 +48,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/UserDashboard/" element={<UserDashboard />} />
+          <Route path="/UserDashboard/" element={<AuthRoute element={<UserDashboard />} /> } />
           <Route path="/ModulePhishing" element={<ModulePagePhishing />} />
           <Route path="/ModuleTips" element={<ModulePageTips />} />
           <Route path="/Modules" element={<Modules />} />
@@ -54,6 +56,7 @@ function App() {
           <Route path="/Modules/demo" element={<SimulationPage />} />
           <Route path="/Contact-Us" element={<ContactUs />} />
           <Route path="*" element={<PageNotFound />} />
+		  <Route path="/Skeleton" element={<Skeleton /> } />
         </Routes>
       </BrowserRouter>
     </div>

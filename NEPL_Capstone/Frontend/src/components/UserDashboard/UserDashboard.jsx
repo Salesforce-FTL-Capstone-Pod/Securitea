@@ -17,8 +17,6 @@ import Navbar from "../Navbar/Navbar";
 function UserDashboard() {
 	const { user } = useAuthContext();
 	const [selectedTab, setselectedTab] = useState("Modules");
-
-
   return (
     <>
       <Navbar />
