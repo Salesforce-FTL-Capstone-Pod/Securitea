@@ -1,16 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Navbar from "../Navbar/Navbar";
-import { Container } from "@mui/material";
-import { Avatar, Grid } from "@nextui-org/react";
-import { Container as NextContainer, Card, Row, Text, Table, Spacer, Progress, Button, Checkbox, Textarea, Loading } from "@nextui-org/react";
 import { useState } from "react";
 import "./UserDashboard.css";
-import Footer from "../Footer/Footer";
+import { Container } from "@mui/material";
+//Libraries
+import { Container as NextContainer, Card, Row, Text, Table, Spacer, Progress, Button, Checkbox, Textarea, Loading, Avatar, Grid  } from "@nextui-org/react";
+//Contexts
 import { useAuthContext } from "../../contexts/auth"
-import axios from "axios";
-import apiClient from "../../services/apiClient"
-import { useEffect } from "react";
+//Components 
+import ModulesTab from "./ModulesTab";
+import SettingsTab from "./SettingsTab";
+import ProgressTab from "./ProgressTab";
+import ProfileTab from "./ProfileTab"; 
+import Footer from "../Footer/Footer";
+import Navbar from "../Navbar/Navbar";
 
 function UserDashboard() {
   const { user } = useAuthContext();
@@ -23,10 +25,10 @@ function UserDashboard() {
       <Container maxWidth={false} disableGutters sx={{display: "flex", justifyContent: "center", minHeight: "100vh" }}>
         <Sidebar selectedTab={selectedTab} setselectedTab={setselectedTab} />
         <Grid.Container gap={2} css={{flexDirection: "column"}}>
-          {selectedTab == "Modules" ? <Modules ModuleDisplay={ModuleDisplay} ModulesComplete={ModulesComplete}/> : <></>}
-          {selectedTab == "Settings" ? <Settings user={user} /> : <></>}
+          {selectedTab == "Modules" ? <ModulesTab /> : <></>}
+          {selectedTab == "Settings" ? <SettingsTab user={user} /> : <></>}
           {selectedTab == "Progress" ? <ProgressTab /> : <></>}
-          {selectedTab == "Profile" ? <h1>Profile</h1> : <></>}
+          {selectedTab == "Profile" ? <ProfileTab /> : <></>}
         </Grid.Container>
       </Container>
       <Footer />
@@ -87,7 +89,6 @@ function Sidebar({ selectedTab, setselectedTab }) {
   if (!selectedTab){
     setselectedTab("Modules")
   }
-  console.log(selectedTab)
   return (
     <NextContainer css={{ marginLeft: "0px", width: "20%"}} fluid>
     <Table
@@ -140,210 +141,3 @@ function Sidebar({ selectedTab, setselectedTab }) {
     </NextContainer>
   );
 }
-
-function Modules({ ModuleDisplay, ModulesComplete }){
-  return(
-    <>
-          <Grid>
-            <ModuleDisplay />
-          </Grid>
-          <Grid>
-            <ModulesComplete />
-          </Grid>
-    </>
-  )
-}
-function ModuleDisplay() {
-  return (
-    <NextContainer fluid>
-      <Text h1 b>
-        My Modules
-      </Text>
-      <Grid.Container gap={2}>
-        <Grid>
-          <AuthModuleCard />
-        </Grid>
-        <Grid>
-          <AuthModuleCard />
-        </Grid>
-        <Grid>
-          <AuthModuleCard />
-        </Grid>
-      </Grid.Container>
-    </NextContainer>
-  );
-}
-
-function ModulesComplete() {
-  return (
-    <NextContainer fluid>
-      <Text h1 b>
-        Modules completed
-      </Text>
-      <Grid.Container justify="left">
-        <Grid>
-          <Text>None completed yet.</Text>
-        </Grid>
-      </Grid.Container>
-    </NextContainer>
-  );
-}
-
-function AuthModuleCard(){
-  return(
-      <Card isHoverable css={{ mw: "350px", bg: "$black" }}>
-        <Card.Header css={{ textAlign: "center" }} >
-          <Text css={{ textAlign: "center", color: "$white"}} size={30} b> Phishing </Text> 
-        </Card.Header>
-        <Card.Divider />
-        <Card.Body css={{ py: "$10"}}>
-          <Text css={{ color: "$white" }}>
-            Something about the module. Something about the module.  Something about the module. 
-            Something about the module. Something about the module. Something about the module. 
-            Something about the module. Something about the module. Something about the module.  
-          </Text>
-          <Spacer></Spacer>
-          <Progress color="primary" value={75} />
-          <Text css={{ color: "$white" }} > 3/4 Simulations Complete</Text>
-        </Card.Body>
-
-        <Card.Divider />
-
-        <Card.Footer>
-          <Row justify="flex-end">
-          <Button size="sm" bordered color="secondary">Learn More</Button>
-          <Spacer></Spacer>
-          <Button size="sm" color="secondary">Continue</Button>
-          </Row>
-        </Card.Footer>
-      </Card>
-  )
-}
-
-function Settings({ user }){
-  return(
-    <>
-      <Grid>
-      <NextContainer fluid>
-      <Text h1 b>
-        Settings
-      </Text>
-        <Grid>
-          <Text h2 Body>Account Info</Text>
-          <AccountInfo user={user} />
-        </Grid>
-       
-      <Grid>
-          <Text h2 Body>Notification Preferences</Text>
-          <Notifications user={user}/>
-        </Grid>
-    </NextContainer>
-      </Grid>
-    </>
-  )
-  }
-
-  function AccountInfo({user}){
-    return(
-        <Card css={{ bg: "$colors$darkpurple", mw: "100%"}}>
-          <Card.Divider />
-          <Card.Body css={{ py: "$10"}}>
-            <Text css={{ color: "$white" }} h3>
-              Email {user.email} 
-            </Text>
-            <Text css={{ color: "blue"}}>
-              Change email
-            </Text>
-            <Spacer></Spacer>
-            <Text css={{ color: "$white" }} h3>
-              Password ******************
-            </Text>
-            <Text css={{ color: "blue"}}>
-              Change password
-            </Text>
-          </Card.Body>
-        </Card>
-    )
-  }
-
-  function Notifications({user}){
-    return(
-      <Card css={{ bg: "$colors$darkpurple", mw: "100%"}}>
-      <Card.Divider />
-      <Card.Body css={{ py: "$10"}}>
-        <Text css={{ color: "$white" }} h3>
-         Email notification preferences
-        </Text>
-          <Checkbox.Group
-            size="xs"
-            color="secondary"
-            defaultValue={["1"]}
-            label="Select which email notifications you would like to receive"
-          > 
-            <Checkbox value="1">Updates on new modules</Checkbox>
-            <Checkbox value="2">Surveys for completed modules</Checkbox>
-            <Checkbox value="3">Something</Checkbox>
-            <Checkbox value="4">Something else</Checkbox>
-          </Checkbox.Group>
-        <Spacer></Spacer>
-        <Text css={{ color: "$white" }} h3>
-          Default notifcation email <br></br>
-          <Row>
-           <Textarea disabled  status="primary" placeholder={user.email} rows={1}/> <Spacer> </Spacer><Button size="xs" css={{ bg: "$black"}}>Update</Button>
-          </Row>
-        </Text>
-      </Card.Body>
-    </Card>
-    )
-  }
-
-  function ProgressTab(){
-    const [loading, setLoading] = useState(false)
-    const [progress, setProgress] = useState(
-    {
-      module_name: "Phishing",
-      module_id: "",
-      progress: ""
-    })
-    console.log(progress)
-    useEffect(() => {
-      setLoading(true)
-      const fetchProgress = async () => {
-        const { data } = await apiClient.fetchProgress()
-  
-        if (data) {
-          setProgress({
-            module_name: "Phishing",
-            module_id: data.progress.module_id,
-            progress: data.progress.progress
-          })
-        }
-      }
-      fetchProgress()
-      setLoading(false)
-    }, [])
-  
-    return(
-      <>
-        <Grid>
-        <NextContainer fluid>
-        <Text h1 b>
-          Progress
-        </Text>
-        
-        <Card css={{ bg: "$colors$darkpurple", mw: "100%"}}>
-          <Card.Divider />
-          <Card.Body css={{ py: "$10"}}>
-            <Spacer></Spacer>
-            <Text h2 b>{progress.module_name} Module Progress</Text>
-            <Spacer></Spacer>
-            <Progress value={progress.progress} shadow color="secondary" status="secondary" />
-            <Spacer></Spacer>
-          </Card.Body>
-        </Card>
-    
-      </NextContainer>
-        </Grid>
-      </>
-    )
-    }
