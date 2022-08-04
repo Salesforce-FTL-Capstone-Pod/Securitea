@@ -1,12 +1,13 @@
-import { createContext, useState, useContext, useEffect } from "react";
-import apiClient from "../services/apiClient";
 
-const AuthContext = createContext(null);
+
+import { createContext, useState, useContext, useEffect } from "react"
+import apiClient from "../services/apiClient"
+
+const AuthContext = createContext(null)
 
 export const AuthContextProvider = ({ children }) => {
   const [initialized, setInitialized] = useState(false)
   const [user, setUser] = useState({})
-  console.log(user)
   useEffect(() => {
     const fetchUser = async () => {
       const { data } = await apiClient.fetchUserFromToken()

@@ -15,11 +15,11 @@ export const useAuthenticationForm = ({ user }) => {
 		isManager: false,
 	});
 
-	useEffect(() => {
-		if (user?.email) {
-			navigate("/UserDashboard");
-		}
-	}, [user, navigate]);
+	// useEffect(() => {
+	// 	if (user?.email) {
+	// 		navigate("/UserDashboard");
+	// 	}
+	// }, [user, navigate]);
 
 	const emailRegex = /[^@]+@[^@]+\.[^@]+/;
 
