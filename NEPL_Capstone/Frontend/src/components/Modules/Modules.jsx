@@ -190,114 +190,6 @@ export function LockedCard() {
   );
 }
 
-export function ModuleCard() {
-  const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } =
-    useLoginForm();
-  const [visible, setVisible] = React.useState(false);
-  const handler = () => setVisible(true);
-
-  return (
-    <Card
-      isHoverable
-      css={{
-        bg: "#A39EDA",
-        width: " var(--container-width)",
-        margin: "1em",
-      }}
-    >
-      <Card.Header css={{ textAlign: "center" }}>
-        <Text css={{ textAlign: "center", color: "$black" }} size={30} b>
-          {" "}
-          Phishing{" "}
-        </Text>
-      </Card.Header>
-      <Card.Divider />
-      <Card.Body css={{ py: "$10" }}>
-        <Text css={{ color: "$black" }}>
-          Something about the module. Something about the module. Something
-          about the module. Something about the module. Something about the
-          module. Something about the module. Something about the module.
-          Something about the module. Something about the module.
-        </Text>
-      </Card.Body>
-      <Card.Divider />
-      <Card.Footer>
-        <Row justify="flex-end">
-          <Link to="/ModulePhishing">
-            <Button size="sm" bordered color="secondary">
-              Learn More
-            </Button>
-          </Link>
-          <Spacer></Spacer>
-          <Button size="sm" color="secondary" onClick={handler}>
-            Sign In
-          </Button>
-        </Row>
-      </Card.Footer>
-      <SignInModal
-        handler={handler}
-        visible={visible}
-        setVisible={setVisible}
-        handleOnInputChange={handleOnInputChange}
-        handleOnSubmit={handleOnSubmit}
-      />
-    </Card>
-  );
-}
-
-export function SafetyModuleCard() {
-  const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } =
-    useLoginForm();
-  const [visible, setVisible] = React.useState(false);
-  const handler = () => setVisible(true);
-
-  return (
-    <Card
-      isHoverable
-      css={{
-        bg: "#A39EDA",
-        width: " var(--container-width)",
-        margin: "1em",
-      }}
-    >
-      <Card.Header css={{ textAlign: "center" }}>
-        <Text css={{ textAlign: "center", color: "$black" }} size={30} b>
-          {" "}
-          Safety Tips{" "}
-        </Text>
-      </Card.Header>
-      <Card.Divider />
-      <Card.Body css={{ py: "$10" }}>
-        <Text css={{ color: "$black" }}>
-          Here you will find basic tips on how to keep you and your data safe on
-          the internet!
-        </Text>
-      </Card.Body>
-      <Card.Divider />
-      <Card.Footer>
-        <Row justify="flex-end">
-          <Link to="/ModuleTips">
-            <Button size="sm" bordered color="secondary">
-              Learn More
-            </Button>
-          </Link>
-          <Spacer></Spacer>
-          <Button size="sm" color="secondary" onClick={handler}>
-            Sign In
-          </Button>
-        </Row>
-      </Card.Footer>
-      <SignInModal
-        handler={handler}
-        visible={visible}
-        setVisible={setVisible}
-        handleOnInputChange={handleOnInputChange}
-        handleOnSubmit={handleOnSubmit}
-      />
-    </Card>
-  );
-}
-
 export function AuthModuleCard() {
   const { user, handleLogout } = useAuthContext();
   const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } =
@@ -433,7 +325,7 @@ export function TipsModuleCard() {
       {user?.email ? (
         <Card.Footer>
           <Row justify="flex-end">
-            <Link to="/ModulePhishing">
+            <Link to="/ModuleTips">
               <Button size="sm" bordered color="secondary">
                 Learn More
               </Button>
@@ -452,7 +344,7 @@ export function TipsModuleCard() {
         <div>
           <Card.Footer>
             <Row justify="flex-end">
-              <Link to="/ModulePhishing">
+              <Link to="/ModuleTips">
                 <Button size="sm" bordered color="secondary">
                   Learn More
                 </Button>
