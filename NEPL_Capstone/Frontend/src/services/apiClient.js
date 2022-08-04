@@ -55,6 +55,7 @@ class ApiClient {
 	async logoutUser() {
 		localStorage.removeItem(this.tokenName);
 	}
+
 }
 
 const API = new ApiClient("http://localhost:3001");

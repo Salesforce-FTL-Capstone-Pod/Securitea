@@ -1,7 +1,9 @@
-import { createContext, useState, useContext, useEffect } from "react";
-import apiClient from "../services/apiClient";
 
-const AuthContext = createContext(null);
+
+import { createContext, useState, useContext, useEffect } from "react"
+import apiClient from "../services/apiClient"
+
+const AuthContext = createContext(null)
 
 export const AuthContextProvider = ({ children }) => {
 	const [initialized, setInitialized] = useState(false);
@@ -43,3 +45,4 @@ export const useAuthContext = () => useContext(AuthContext);
 
 export const selectIsUserAuthenticated = (user, initialized) =>
 	initialized && user?.username;
+
