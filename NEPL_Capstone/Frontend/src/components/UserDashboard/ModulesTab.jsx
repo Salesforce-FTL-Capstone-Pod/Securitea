@@ -78,9 +78,9 @@ function AuthModuleCard(){
           <Row justify="flex-end">
           <Button size="sm" bordered color="secondary">Learn More</Button>
           <Spacer></Spacer>
-    
-            <Button size="sm" color="secondary"><Link to="/Skeleton" style={{ color: '#FFF' }}>Continue</Link></Button>
-
+            <Link to="/Skeleton" style={{ color: '#FFF' }}>
+            <Button size="sm" color="secondary">Continue</Button>
+            </Link>
           </Row>
         </Card.Footer>
       </Card>

@@ -27,7 +27,7 @@ function UserDashboard() {
           {selectedTab == "Modules" ? <ModulesTab /> : <></>}
           {selectedTab == "Settings" ? <SettingsTab user={user} /> : <></>}
           {selectedTab == "Progress" ? <ProgressTab /> : <></>}
-          {selectedTab == "Profile" ? <ProfileTab /> : <></>}
+          {selectedTab == "Profile" ? <ProfileTab user={user} /> : <></>}
         </Grid.Container>
       </Container>
       <Footer />

@@ -21,7 +21,7 @@ function ProgressTab(){
           <Text h2 b>{progress.module_name}</Text>
           <Spacer></Spacer>
 
-          <Progress value={50} shadow color="secondary" status="secondary" />
+          <Progress color="gradient" size="lg" value={50}/>
 
           <Spacer></Spacer>
           
