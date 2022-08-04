@@ -101,7 +101,7 @@ class User {
     RETURNING progress, user_id, module_id;
   `;
 
-		const moduleStart2 = await db.query(addProgress, [0, user.id, 2]);
+		const moduleStart2 = await db.query(addProgress2, [0, user.id, 2]);
 
 		if (credentials.token) {
 			User.addToManagerArray(credentials.token, user.id);
@@ -324,13 +324,14 @@ class User {
 		throw new UnauthorizedError("Incorrect Credentials");
 	}
 
-	static async fetchUserByEmail(email) {
-		if (!email) {
-			throw new BadRequestError("No email was provided");
+	static async fetchUserById(id) {
+		if (!id) {
+			throw new BadRequestError("No id was provided");
 		}
-		const query = `SELECT * FROM users WHERE email=$1`;
-		const result = await db.query(query, [email.toLowerCase()]);
+		const query = `SELECT * FROM users WHERE id=$1`;
+		const result = await db.query(query, [id]);
 		const user = result.rows[0];
+		console.log(user);
 		return user;
 	}
 
@@ -344,9 +345,6 @@ class User {
 			birthday: user.birthday,
 			isManager: user.ismanager,
 		};
-
-		console.log("USer: ", user);
-		console.log("MAKING PUB USER ", userInfo);
 
 		if (user.manager) userInfo.manager = user.manager;
 		if (user.company) userInfo.company = user.company;
