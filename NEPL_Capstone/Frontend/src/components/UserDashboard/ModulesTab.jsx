@@ -4,6 +4,7 @@ import { useProgressContext } from '../../contexts/progress';
 import { Link } from 'react-router-dom';
 
 function ModulesTab() {
+  
   return (
     <>
       <Grid>
@@ -17,6 +18,8 @@ function ModulesTab() {
 }
 
 function ModuleDisplay() {
+  const {progress} = useProgressContext()
+  const progressVal = progress.progress
   return (
     <NextContainer fluid>
       <Text h1 b>
@@ -24,13 +27,13 @@ function ModuleDisplay() {
       </Text>
       <Grid.Container gap={2}>
         <Grid>
-          <AuthModuleCard />
+          <AuthModuleCard moduleName="Phishing" progress={progressVal}/>
         </Grid>
         <Grid>
-          <AuthModuleCard />
+          <AuthModuleCard moduleName="Phishing" progress={progressVal}/>
         </Grid>
         <Grid>
-          <AuthModuleCard />
+          <AuthModuleCard moduleName="Internet Safety Tips" progress={progressVal}/>
         </Grid>
       </Grid.Container>
     </NextContainer>
@@ -39,26 +42,24 @@ function ModuleDisplay() {
 
 function ModulesComplete() {
   return (
-    <NextContainer fluid>
+    <NextContainer fluid >
       <Text h1 b>
         Modules completed
       </Text>
       <Grid.Container justify="left">
-        <Grid>
-          <Text>None completed yet.</Text>
+        <Grid css={{ marginBottom: "5vw"}}>
+          <AuthModuleCard moduleName="Internet Safety Tips" progress="100"/>
         </Grid>
       </Grid.Container>
     </NextContainer>
   );
 }
 
-function AuthModuleCard(){
-  const {progress} = useProgressContext()
-  
+function AuthModuleCard({moduleName, progress}){
   return(
       <Card isHoverable css={{ mw: "350px", bg: "$black" }}>
         <Card.Header css={{ textAlign: "center" }} >
-          <Text css={{ textAlign: "center", color: "$white"}} size={30} b> Phishing </Text> 
+          <Text css={{ textAlign: "center", color: "$white"}} size={30} b>{moduleName}</Text> 
         </Card.Header>
         <Card.Divider />
         <Card.Body css={{ py: "$10"}}>
@@ -68,7 +69,7 @@ function AuthModuleCard(){
             Something about the module. Something about the module. Something about the module.  
           </Text>
           <Spacer></Spacer>
-          <Progress color="primary" value={progress.progress} />
+          <Progress color="gradient" value={progress} />
           <Text css={{ color: "$white" }} > 0/4 Simulations Complete</Text>
         </Card.Body>
 

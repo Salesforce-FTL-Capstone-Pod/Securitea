@@ -13,6 +13,7 @@ import ProgressTab from "./ProgressTab";
 import ProfileTab from "./ProfileTab"; 
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
+import ManagerDashboard from "../ManagerDashboard/ManagerDashboard";
 
 function UserDashboard() {
 	const { user } = useAuthContext();
@@ -22,12 +23,13 @@ function UserDashboard() {
       <Navbar />
       <Hero user={user} />
       <Container maxWidth={false} disableGutters sx={{display: "flex", justifyContent: "center", minHeight: "100vh" }}>
-        <Sidebar selectedTab={selectedTab} setselectedTab={setselectedTab} />
+        <Sidebar user={user} selectedTab={selectedTab} setselectedTab={setselectedTab} />
         <Grid.Container gap={2} css={{flexDirection: "column"}}>
           {selectedTab == "Modules" ? <ModulesTab /> : <></>}
           {selectedTab == "Settings" ? <SettingsTab user={user} /> : <></>}
           {selectedTab == "Progress" ? <ProgressTab /> : <></>}
           {selectedTab == "Profile" ? <ProfileTab user={user} /> : <></>}
+          {selectedTab == "ManagerDashboard" ? <ManagerDashboard /> : <></>}
         </Grid.Container>
       </Container>
       <Footer />
@@ -68,13 +70,17 @@ function Hero({ user }) {
         }}
       >
         <Card.Body>
-        <Avatar
-                css={{ size: "$20"}}
-                src={logo}
-                color="gradient"
-                bordered
-        />
-        <Text h1>{greetingText}</Text>
+
+        <Row css={{ marginTop: "1vw"}}>
+          <Avatar
+                  css={{ size: "$20", marginLeft: "1vw", marginTop: "0.5vw"}}
+                  src={logo}
+                  color="gradient"
+                  bordered
+          />
+          <Spacer></Spacer>
+          <Text h1>{greetingText}</Text>
+        </Row>
         </Card.Body>
       </Card>
     </Container>
@@ -82,7 +88,7 @@ function Hero({ user }) {
 
 }
 
-function Sidebar({ selectedTab, setselectedTab }) {
+function Sidebar({ selectedTab, setselectedTab, user }) {
   function setTab(e){
     setselectedTab(e.currentKey)
   }  
@@ -93,7 +99,6 @@ function Sidebar({ selectedTab, setselectedTab }) {
     <NextContainer css={{ marginLeft: "0px", width: "20%"}} fluid>
     <Table
     defaultSelectedKeys={[selectedTab]}
-    selectedKeys={[selectedTab]}
     disallowEmptySelection
     onSelectionChange={(e) => setTab(e)}
     aria-label="My Stuff Table"
@@ -104,12 +109,17 @@ function Sidebar({ selectedTab, setselectedTab }) {
     selectionMode="single"
     >
       <Table.Header>
-        <Table.Column>My Stuff</Table.Column>
+        <Table.Column><Text h5 weight="normal">My Stuff</Text></Table.Column>
       </Table.Header>
       <Table.Body>
         <Table.Row key="Modules">
           <Table.Cell>Modules</Table.Cell>
         </Table.Row>
+        {user?.company ? 
+          <Table.Row key="ManagerDashboard">
+          <Table.Cell>Manager Dashboard</Table.Cell>
+        </Table.Row>
+        : <></>}
       </Table.Body>
     </Table>
     <Spacer></Spacer>
@@ -124,7 +134,7 @@ function Sidebar({ selectedTab, setselectedTab }) {
     onSelectionChange={(e) => setTab(e)}
     >
       <Table.Header>
-        <Table.Column>My Account</Table.Column>
+        <Table.Column><Text h5 weight="normal">My Account</Text></Table.Column>
       </Table.Header>
       <Table.Body>
         <Table.Row key="Settings">
