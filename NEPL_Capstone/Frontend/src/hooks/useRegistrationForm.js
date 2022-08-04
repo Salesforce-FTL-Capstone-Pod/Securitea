@@ -34,9 +34,7 @@ export const useRegistrationForm = () => {
 			isManager: form.isManager,
 		});
 		if (data) {
-			console.log(data);
 			setUser(data.user);
-			console.log(user);
 			apiClient.setToken(data.token);
 		}
 		if (error) {
