@@ -274,9 +274,11 @@ export function AuthModuleCard() {
             Learn More
           </Button>
           <Spacer></Spacer>
-          <Button size="sm" color="secondary">
-            Continue
-          </Button>
+          <Link to="/Modules/demo">
+            <Button size="sm" color="secondary">
+              Continue
+            </Button>
+          </Link>
         </Row>
       </Card.Footer>
     </Card>

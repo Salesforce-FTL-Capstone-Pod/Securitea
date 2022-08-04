@@ -29,6 +29,15 @@ CREATE TABLE
     module_id INTEGER NOT NULL REFERENCES modules(id) ON DELETE CASCADE
   );
 
+
+CREATE TABLE
+  modules_2 (
+    id SERIAL PRIMARY KEY,
+    progress INT DEFAULT 0,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    module_id INTEGER NOT NULL REFERENCES modules(id) ON DELETE CASCADE
+  );
+
 CREATE TABLE manager (
   id          SERIAL PRIMARY KEY,
   user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -41,3 +50,8 @@ INSERT INTO
   modules (name, category, steps)
 VALUES
   ('Phishing', 'Scam', 7);
+
+INSERT INTO
+  modules (name, category, steps)
+VALUES
+  ('Safety Tips', 'Tips', 7);

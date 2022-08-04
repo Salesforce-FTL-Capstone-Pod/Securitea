@@ -1,6 +1,4 @@
-
-
-import axios from "axios"
+import axios from "axios";
 
 class ApiClient {
   constructor(remoteHostUrl) {
@@ -55,6 +53,6 @@ class ApiClient {
   }
 }
 
-const API = new ApiClient("http://localhost:3001")
+const API = new ApiClient("http://localhost:3001");
 
-export default API
+export default API;

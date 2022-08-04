@@ -157,7 +157,6 @@ function Register() {
 												disableFuture
 												mask="__/__/____"
 												onChange={(evt) => {
-													console.log(evt);
 													handleOnInputChange(evt);
 												}}
 												renderInput={(params) => <TextField {...params} />}

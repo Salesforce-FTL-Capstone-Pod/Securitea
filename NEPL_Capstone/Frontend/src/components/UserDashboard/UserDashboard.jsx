@@ -15,8 +15,9 @@ import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 
 function UserDashboard() {
-  const { user } = useAuthContext();
-  const [selectedTab, setselectedTab] = useState("Modules")
+	const { user } = useAuthContext();
+	const [selectedTab, setselectedTab] = useState("Modules");
+
 
   return (
     <>
@@ -38,6 +39,7 @@ function UserDashboard() {
 export default UserDashboard;
 
 function Hero({ user }) {
+
   const greetingText = `Good afternoon, ${user.title} ${user.firstName} ${user.lastName}`;
   var logo =
   "https://www.nicepng.com/png/detail/16-160412_teacup-png-clipart-tea-coffee-clip-art-tea.png";
@@ -79,8 +81,8 @@ function Hero({ user }) {
       </Card>
     </Container>
   );
-}
 
+}
 
 function Sidebar({ selectedTab, setselectedTab }) {
   function setTab(e){
