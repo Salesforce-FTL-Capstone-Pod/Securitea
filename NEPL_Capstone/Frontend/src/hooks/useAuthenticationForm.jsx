@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const useAuthenticationForm = ({ user }) => {
-  const navigate = useNavigate();
-  const [errors, setErrors] = useState({});
-  const [form, setForm] = useState({
-    email: "",
-    first_name: "",
-    last_name: "",
-    password: "",
-    passwordConfirm: "",
-    title: "",
-    birthday: "",
-    isManager: false,
-  });
+	const navigate = useNavigate();
+	const [errors, setErrors] = useState({});
+	const [form, setForm] = useState({
+		email: "",
+		first_name: "",
+		last_name: "",
+		password: "",
+		passwordConfirm: "",
+		title: "",
+		birthday: "",
+		isManager: "",
+	});
 
   // useEffect(() => {
   // 	if (user?.email) {
@@ -26,7 +26,6 @@ export const useAuthenticationForm = ({ user }) => {
   function validateEmail(email) {
     return String(email).toLowerCase().match(emailRegex);
   }
-
   const handleOnInputChange = (event) => {
     if (event.target?.name == "isManagerName") {
       setForm((f) => ({ ...f, isManager: event.target.checked }));

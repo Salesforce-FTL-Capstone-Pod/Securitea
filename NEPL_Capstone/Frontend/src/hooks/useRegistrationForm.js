@@ -8,7 +8,7 @@ export const useRegistrationForm = () => {
 	const { form, errors, setErrors, handleOnInputChange } =
 		useAuthenticationForm({ user });
 	const [isProcessing, setIsProcessing] = useState(false);
-
+	console.log(user);
 	const handleOnSubmit = async () => {
 		setIsProcessing(true);
 		setErrors((e) => ({ ...e, form: null }));
@@ -27,7 +27,7 @@ export const useRegistrationForm = () => {
 			username: form.username,
 			first_name: form.first_name,
 			last_name: form.last_name,
-			title: "mrs.",
+			title: form.title,
 			birthday: form.birthday,
 			token: form.token || null,
 			company: form.company || null,
@@ -42,6 +42,8 @@ export const useRegistrationForm = () => {
 		}
 
 		setIsProcessing(false);
+
+		console.log(form);
 	};
 
 	return {
