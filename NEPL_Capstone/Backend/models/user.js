@@ -122,7 +122,7 @@ class User {
 			"company",
 		];
 
-		var isManager = credentials.isManager === "true";
+		var isManager = credentials.isManager;
 
 		requiredFields.forEach((property) => {
 			if (!credentials.hasOwnProperty(property)) {
@@ -294,29 +294,11 @@ class User {
 		return addedManagerArray;
 	}
 
-	static async makePublicUser(user) {
-		const userInfo = {
-			id: user.id,
-			email: user.email,
-			firstName: user.first_name,
-			lastName: user.last_name,
-		};
-
-		if (user.manager) userInfo.manager = user.manager;
-		if (user.company) userInfo.company = user.company;
-
-		return userInfo;
-	}
-
 	static async getProgress(id) {
 		const query = `SELECT module_id, progress FROM modules_1 WHERE user_id=$1;`;
 		const result = await db.query(query, [id]);
 		const progress = result.rows[0];
 		return progress;
-
-		const moduleStart = await db.query(addProgress, [0, user.id, 1]);
-
-		return User.makePublicUser(user);
 	}
 
 	static async login(credentials) {
@@ -360,7 +342,11 @@ class User {
 			lastName: user.last_name,
 			title: user.title,
 			birthday: user.birthday,
+			isManager: user.ismanager,
 		};
+
+		console.log("USer: ", user);
+		console.log("MAKING PUB USER ", userInfo);
 
 		if (user.manager) userInfo.manager = user.manager;
 		if (user.company) userInfo.company = user.company;

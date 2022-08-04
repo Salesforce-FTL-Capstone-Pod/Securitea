@@ -56,6 +56,12 @@ class ApiClient {
 		localStorage.removeItem(this.tokenName);
 	}
 
+	async fetchProgress(credentials) {
+		return await this.request({
+			endpoint: `progress/getProgress`,
+			method: `GET`,
+		});
+	}
 }
 
 const API = new ApiClient("http://localhost:3001");

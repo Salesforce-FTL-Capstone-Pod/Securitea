@@ -12,7 +12,7 @@ export const useAuthenticationForm = ({ user }) => {
 		passwordConfirm: "",
 		title: "",
 		birthday: "",
-		isManager: false,
+		isManager: "",
 	});
 
 	// useEffect(() => {
@@ -30,6 +30,7 @@ export const useAuthenticationForm = ({ user }) => {
 	const handleOnInputChange = (event) => {
 		if (event?.target?.name == "isManagerName") {
 			setForm((f) => ({ ...f, isManager: event.target.checked }));
+			console.log(form.isManager);
 
 			//Resets the fields that are exclusive to a type of user
 			if (!event.target.checked) setForm((f) => ({ ...f, ["company"]: "" })); //If user, reset company
