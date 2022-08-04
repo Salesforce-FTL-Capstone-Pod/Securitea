@@ -21,17 +21,19 @@ import PageNotFound from "../PageNotFound/PageNotFound";
 import SimulationPage from "../SimulationPage/SimulationPage";
 
 //Libraries
-import { NextUIProvider, createTheme } from "@nextui-org/react";
+import { NextUIProvider, createTheme, Progress } from "@nextui-org/react";
 
 //Contexts
 import { AuthContextProvider } from "../../contexts/auth";
-import { useAuthContext } from "../../contexts/auth";
+import { ProgressContextProvider } from "../../contexts/progress";
 
 export default function AppContainer() {
   return (
     <NextUIProvider theme={theme}>
       <AuthContextProvider>
-        <App />
+		<ProgressContextProvider>
+			<App />
+		</ProgressContextProvider>
       </AuthContextProvider>
     </NextUIProvider>
   );

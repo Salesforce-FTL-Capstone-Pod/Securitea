@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container as NextContainer, Card, Row, Text, Table, Spacer, Progress, Button, Checkbox, Textarea, Loading, Avatar, Grid } from "@nextui-org/react";
+import { useProgressContext } from '../../contexts/progress';
 
 function ModulesTab() {
   return (
@@ -51,6 +52,7 @@ function ModulesComplete() {
 }
 
 function AuthModuleCard(){
+  const {progress} = useProgressContext()
   return(
       <Card isHoverable css={{ mw: "350px", bg: "$black" }}>
         <Card.Header css={{ textAlign: "center" }} >
@@ -64,8 +66,8 @@ function AuthModuleCard(){
             Something about the module. Something about the module. Something about the module.  
           </Text>
           <Spacer></Spacer>
-          <Progress color="primary" value={75} />
-          <Text css={{ color: "$white" }} > 3/4 Simulations Complete</Text>
+          <Progress color="primary" value={progress.progress} />
+          <Text css={{ color: "$white" }} > 0/4 Simulations Complete</Text>
         </Card.Body>
 
         <Card.Divider />

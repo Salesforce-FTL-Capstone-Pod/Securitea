@@ -1,43 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Navbar from "../Navbar/Navbar";
-import { Container } from "@mui/material";
-import { Avatar, Grid } from "@nextui-org/react";
-import { Container as NextContainer, Card, Row, Text, Table, Spacer, Progress, Button, Checkbox, Textarea, Loading } from "@nextui-org/react";
-import { useState } from "react";
+import { Container as NextContainer, Card, Text, Spacer, Progress, Grid, Collapse, Tooltip } from "@nextui-org/react";
 import "./UserDashboard.css";
-import Footer from "../Footer/Footer";
-import { useAuthContext } from "../../contexts/auth"
-import axios from "axios";
-import apiClient from "../../services/apiClient"
-import { useEffect } from "react";
+import { useProgressContext } from "../../contexts/progress"
 
 function ProgressTab(){
-  const [loading, setLoading] = useState(false)
-  const [progress, setProgress] = useState(
-  {
-    module_name: "Phishing",
-    module_id: "",
-    progress: ""
-  })
-  console.log(progress)
-  useEffect(() => {
-    setLoading(true)
-    const fetchProgress = async () => {
-      const { data } = await apiClient.fetchProgress()
-
-      if (data) {
-        setProgress({
-          module_name: "Phishing",
-          module_id: data.progress.module_id,
-          progress: data.progress.progress
-        })
-      }
-    }
-    fetchProgress()
-    setLoading(false)
-  }, [])
-
+  const { progress } = useProgressContext()
   return(
     <>
       <Grid>
@@ -50,13 +17,44 @@ function ProgressTab(){
         <Card.Divider />
         <Card.Body css={{ py: "$10"}}>
           <Spacer></Spacer>
-          <Text h2 b>{progress.module_name} Module Progress</Text>
+          <Text h4 b>Module Progress</Text>
+          <Text h2 b>{progress.module_name}</Text>
           <Spacer></Spacer>
-          <Progress value={progress.progress} shadow color="secondary" status="secondary" />
+
+          <Progress value={50} shadow color="secondary" status="secondary" />
+
           <Spacer></Spacer>
+          
+          <Collapse.Group splitted>
+          <Collapse title="Unit 1: WHATEVER">
+            <Text>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </Text>
+          </Collapse>
+          <Collapse title="Unit 2: WHATEVER AGAIN">
+            <Text>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </Text>
+          </Collapse>
+          <Collapse title="Unit 3: WHATEVER AGAIN AGAIN">
+            <Text>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </Text>
+          </Collapse>
+        </Collapse.Group>
         </Card.Body>
       </Card>
-  
+    
+        
     </NextContainer>
       </Grid>
     </>
