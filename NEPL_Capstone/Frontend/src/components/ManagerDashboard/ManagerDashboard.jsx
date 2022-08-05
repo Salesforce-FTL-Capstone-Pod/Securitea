@@ -1,32 +1,46 @@
 import React from "react";
+import { useState} from "react";
 import Navbar from "../Navbar/Navbar.jsx";
 import { Container, Box} from "@mui/material";
 import { Link } from "react-router-dom";
 import * as color from "../../assets/colorPalette";
 import Footer from "../Footer/Footer.jsx";
-import { Text, Button, Progress, Collapse, Row, Grid, Card } from "@nextui-org/react"
+import { Text, Button, Progress, Collapse, Row, Grid, Card, Container as NextContainer, Table, Spacer } from "@nextui-org/react"
 import { useAuthContext } from "../../contexts/auth.jsx";
+import DashboardOverview from "./EmployeeTable/DashboardOverview.jsx";
+import Sidebar from "./Sidebar.jsx";
 import EmployeeTable from "./EmployeeTable/EmployeeTable.jsx";
-
+import { useNavigate } from "react-router-dom";
 const sizeBox = "65vw";
 
-
 export default function ManagerDashboard() {
-    const {user} = useAuthContext()
-
+  const {user} = useAuthContext()
+  const [selectedTab, setselectedTab] = useState("Overview");
+  const navigate = useNavigate()
   return (
     <Container maxWidth={false} disableGutters>
       <Navbar />
       <Overview user={user}/>
-      <Content user={user}/>
+      <Grid.Container css={{flexDirection: "row"}}>
+        <Grid>
+            <Sidebar selectedTab={selectedTab} setselectedTab={setselectedTab} />
+        </Grid>
+        <Grid css={{ marginLeft: "25vh"}}>
+            <NextContainer fluid>
+                {selectedTab == "Employee Activity" ? <EmployeeTable company="Salesforce" /> : <></>}
+                {selectedTab == "Overview" ? <DashboardOverview /> : <></>}
+                {selectedTab == "Modules Assigned" ? <h1>Modules Assigned</h1> : <></>}
+                {selectedTab == "Token Management" ? <h1>Token Management</h1>: <></>}
+                {selectedTab == "User Dashboard" ? navigate('/UserDashboard') : <></>}
+            </NextContainer>
+        </Grid>
+      </Grid.Container>
       <Footer />
     </Container>
   );
 }
 
 function Overview({ user }) {
-
-
   return (
     <Container
       maxWidth={false}
@@ -47,26 +61,10 @@ function Overview({ user }) {
   );
 }
 
-function Content({ user }) {
-    //Capitalizing Company Name ( salesforce -> Salesforce )
-    function capitalizeFirstLetter(string) {
-        return string[0].toUpperCase() + string.slice(1);
-    }
-    const company = capitalizeFirstLetter(user.company)
-
-  return (
-
-    <Container sx={{ display: "flex", minHeight: "100vh", marginBottom: "10vh"}} disableGutters>
-      <Container>
+{/*
         <EmployeeTable company={company} />
 
-      </Container>
-    </Container>
-
-  );
-}
-
-{/* <Collapse.Group splitted>
+<Collapse.Group splitted>
 <Collapse  title="Intro to Phishing" subtitle="2 Lessons, 1 Quiz, 2 Additional Resources">
   <Text>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

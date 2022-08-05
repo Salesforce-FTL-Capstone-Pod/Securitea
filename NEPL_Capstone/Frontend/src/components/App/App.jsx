@@ -19,6 +19,7 @@ import ModulePageTips from "../ModulePage/ModulePageTips";
 import Modules from "../Modules/Modules";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import SimulationPage from "../SimulationPage/SimulationPage";
+import EmployeeProgress from "../ManagerDashboard/EmployeeProgress/EmployeeProgress";
 
 import Skeleton from "../AuthModulePage/Skeleton";
 
@@ -58,7 +59,8 @@ function App() {
           <Route path="/Contact-Us" element={<ContactUs />} />
           <Route path="*" element={<PageNotFound />} />
 		  <Route path="/Skeleton" element={<AuthRoute element={<Skeleton /> } /> } />
-		  <Route path="/ManagerDashboard" element={<AuthRoute element={<ManagerDashboard />} /> } />
+		  <Route path="/ManagerDashboard/*" element={<AuthRoute element={<ManagerDashboard />} /> } />
+		  <Route path="/EmployeeProgress" element={<AuthRoute element={<EmployeeProgress />} /> } />
         </Routes>
       </BrowserRouter>
     </div>

@@ -7,7 +7,7 @@ import { DeleteIcon } from "./DeleteIcon";
 import { useNavigate } from "react-router-dom";
 import EmployeeProgress from "../EmployeeProgress/EmployeeProgress";
 
-export default function EmployeeTable({ company }) {
+export default function RepTable() {
   const navigate = useNavigate()
   const columns = [
     { name: "NAME", uid: "name" },
@@ -21,7 +21,7 @@ export default function EmployeeTable({ company }) {
       name: "Tony Reichert",
       role: "CEO",
       team: "Management",
-      status: "active",
+      status: "paused",
       age: "29",
       avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
       email: "tony.reichert@example.com",
@@ -41,7 +41,7 @@ export default function EmployeeTable({ company }) {
       name: "Jane Fisher",
       role: "Senior Developer",
       team: "Development",
-      status: "active",
+      status: "paused",
       age: "22",
       avatar: "https://i.pravatar.cc/150?u=a04258114e29026702d",
       email: "jane.fisher@example.com",
@@ -51,7 +51,7 @@ export default function EmployeeTable({ company }) {
       name: "William Howard",
       role: "Community Manager",
       team: "Marketing",
-      status: "vacation",
+      status: "paused",
       age: "28",
       avatar: "https://i.pravatar.cc/150?u=a048581f4e29026701d",
       email: "william.howard@example.com",
@@ -61,7 +61,7 @@ export default function EmployeeTable({ company }) {
       name: "Kristen Copper",
       role: "Sales Manager",
       team: "Sales",
-      status: "active",
+      status: "paused",
       age: "24",
       avatar: "https://i.pravatar.cc/150?u=a092581d4ef9026700d",
       email: "kristen.cooper@example.com",
@@ -123,12 +123,11 @@ export default function EmployeeTable({ company }) {
   };
   return (
     <>
-    <Text h2 css={{ marginTop: "1vw"}}>{company} Employees Under Management</Text>
     <Table
       aria-label="Employee Table"
       css={{
         height: "auto",
-        minWidth: "100vh",
+        minWidth: "45vh",
       }}
       selectionMode="single"
       showSelectionCheckboxes={false}

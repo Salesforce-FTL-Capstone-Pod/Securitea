@@ -14,10 +14,12 @@ import ProfileTab from "./ProfileTab";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import ManagerDashboard from "../ManagerDashboard/ManagerDashboard";
+import { useNavigate } from "react-router-dom";
 
 function UserDashboard() {
 	const { user } = useAuthContext();
 	const [selectedTab, setselectedTab] = useState("Modules");
+  const navigate = useNavigate()
   return (
     <>
       <Navbar />
@@ -29,7 +31,7 @@ function UserDashboard() {
           {selectedTab == "Settings" ? <SettingsTab user={user} /> : <></>}
           {selectedTab == "Progress" ? <ProgressTab /> : <></>}
           {selectedTab == "Profile" ? <ProfileTab user={user} /> : <></>}
-          {selectedTab == "ManagerDashboard" ? <ManagerDashboard /> : <></>}
+          {selectedTab == "ManagerDashboard" ? navigate('/ManagerDashboard') : <></>}
         </Grid.Container>
       </Container>
       <Footer />
@@ -100,6 +102,7 @@ function Sidebar({ selectedTab, setselectedTab, user }) {
     <Table
     defaultSelectedKeys={[selectedTab]}
     disallowEmptySelection
+    selectedKeys={[selectedTab]}
     onSelectionChange={(e) => setTab(e)}
     aria-label="My Stuff Table"
     css={{

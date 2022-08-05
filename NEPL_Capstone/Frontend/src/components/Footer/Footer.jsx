@@ -22,7 +22,7 @@ export default function Footer() {
     <>
       <Container
         style={{
-          backgroundColor: "black",
+          background: color.richBlackFogra,
           margin: "0%",
           display: "flex",
           flexDirection: "row",
