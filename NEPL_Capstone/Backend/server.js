@@ -5,6 +5,7 @@ const { PORT } = require("./config");
 const { NotFoundError } = require("./utils/errors");
 const authRoutes = require("./routes/auth");
 const progressAuth = require("./routes/progress");
+const managerRoutes = require("./routes/manage");
 const security = require("./middleware/security");
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(cors());
 app.use(security.extractUserFromJwt);
 app.use("/auth", authRoutes);
 app.use("/progress", progressAuth);
+app.use("/manage", managerRoutes);
 
 app.get("/", (req, res) => {
 	res.status(200).send({ server_is: "up" });

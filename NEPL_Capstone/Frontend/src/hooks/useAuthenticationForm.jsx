@@ -12,7 +12,7 @@ export const useAuthenticationForm = ({ user }) => {
 		passwordConfirm: "",
 		title: "",
 		birthday: "",
-		isManager: "",
+		isManager: false,
 	});
 
   // useEffect(() => {
