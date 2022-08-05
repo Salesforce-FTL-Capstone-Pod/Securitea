@@ -2,55 +2,57 @@ import { useState } from "react";
 import { useAuthenticationForm } from "../hooks/useAuthenticationForm";
 import { useAuthContext } from "../contexts/auth";
 import apiClient from "../services/apiClient";
+import { useNavigate } from "react-router-dom";
 
 export const useRegistrationForm = () => {
-	const { user, setUser } = useAuthContext();
-	const { form, errors, setErrors, handleOnInputChange } =
-		useAuthenticationForm({ user });
-	const [isProcessing, setIsProcessing] = useState(false);
-	console.log(user);
-	const handleOnSubmit = async () => {
-		setIsProcessing(true);
-		setErrors((e) => ({ ...e, form: null }));
+  const { user, setUser } = useAuthContext();
+  const { form, errors, setErrors, handleOnInputChange } =
+    useAuthenticationForm({ user });
+  const [isProcessing, setIsProcessing] = useState(false);
+  const navigate = useNavigate();
 
-		if (form.passwordConfirm !== form.password) {
-			setErrors((e) => ({ ...e, passwordConfirm: "Passwords do not match." }));
-			setIsProcessing(false);
-			return;
-		} else {
-			setErrors((e) => ({ ...e, passwordConfirm: null }));
-		}
+  const handleOnSubmit = async () => {
+    setIsProcessing(true);
+    setErrors((e) => ({ ...e, form: null }));
 
-		const { data, error } = await apiClient.signupUser({
-			email: form.email,
-			password: form.password,
-			username: form.username,
-			first_name: form.first_name,
-			last_name: form.last_name,
-			title: form.title,
-			birthday: form.birthday,
-			token: form.token || null,
-			company: form.company || null,
-			isManager: form.isManager,
-		});
-		if (data) {
-			setUser(data.user);
-			apiClient.setToken(data.token);
-		}
-		if (error) {
-			setErrors((e) => ({ ...e, form: error }));
-		}
+    if (form.passwordConfirm !== form.password) {
+      setErrors((e) => ({ ...e, passwordConfirm: "Passwords do not match." }));
+      setIsProcessing(false);
+      return;
+    } else {
+      setErrors((e) => ({ ...e, passwordConfirm: null }));
+    }
 
-		setIsProcessing(false);
+    const { data, error } = await apiClient.signupUser({
+      email: form.email,
+      password: form.password,
+      first_name: form.first_name,
+      last_name: form.last_name,
+      title: form.title,
+      birthday: form.birthday,
+      token: form.token || null,
+      company: form.company || null,
+      isManager: form.isManager,
+    });
+    if (data) {
+      setUser(data.user);
+      apiClient.setToken(data.token);
+      navigate("/UserDashboard");
+    }
+    if (error) {
+      setErrors((e) => ({ ...e, form: error }));
+    }
 
-		console.log(form);
-	};
+    setIsProcessing(false);
 
-	return {
-		form,
-		errors,
-		isProcessing,
-		handleOnInputChange,
-		handleOnSubmit,
-	};
+    console.log(form);
+  };
+
+  return {
+    form,
+    errors,
+    isProcessing,
+    handleOnInputChange,
+    handleOnSubmit,
+  };
 };
