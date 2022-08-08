@@ -11,7 +11,6 @@ export const ProgressContextProvider = ({ children }) => {
       module_id: "",
       progress: ""
     })
-    console.log(progress)
     useEffect(() => {
       setLoading(true)
       const fetchProgress = async () => {

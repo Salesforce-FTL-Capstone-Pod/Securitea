@@ -122,7 +122,7 @@ export function UserDropdown({ user, handleLogout }) {
 					as="button"
 					size="lg"
 					color="gradient"
-					name={fullName}
+					name={<><Text css={{ color: "white"}}>{fullName}</Text></>}
 					description={user.email}
 					src={logo}
 				/>

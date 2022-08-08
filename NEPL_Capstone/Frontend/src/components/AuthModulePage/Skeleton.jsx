@@ -4,6 +4,7 @@ import { Container, Box} from "@mui/material";
 import { Link } from "react-router-dom";
 import * as color from "../../assets/colorPalette";
 import Footer from "../Footer/Footer.jsx";
+import { useNavigate } from "react-router-dom";
 import { Text, Button, Progress, Collapse, Row, Grid, Card } from "@nextui-org/react"
 const sizeBox = "65vw";
 
@@ -20,8 +21,7 @@ export default function ModulePagePhishing() {
 }
 
 function Overview() {
-
-
+  const navigate = useNavigate()
   return (
     <Container
       maxWidth={false}
@@ -38,11 +38,12 @@ function Overview() {
         <Text h3 weight="light" css={{ color: "$colors$platinum", marginBottom: "0vw"}}>Module</Text>
         <Text h1 css={{ color: "$colors$platinum", marginTop: "-0.5vw", marginBottom: "0vw"}}>Phishing</Text>
         <Button color="secondary" css={{ marginTop: "0.5vw", height: "2vw"}}>
-            <Text h4 weight="bold" css={{ color: "$colors$platinum", marginBottom: "0vw"}}>Continue</Text>
+            <Link to="/Modules/demo">
+                <Text h4 weight="bold" css={{ color: "$colors$platinum", marginBottom: "0vw"}}>Continue</Text>
+            </Link>
         </Button>
         <Text h3 css={{ color: "$colors$platinum", marginTop: "1vw", marginBottom: "1vw"}} weight="light">Learn how to protect yourself from phishing attempts.</Text>
         <Progress color="gradient" size="lg" value={30} css={{ width: "50%"}}/>
-
       </Container>
     </Container>
   );
@@ -127,6 +128,18 @@ function Content() {
             </Grid.Container>
           </Collapse>
           
+        </Collapse.Group>
+
+        <Text h1 css={{ marginTop: "1vw"}}>Additional Resources</Text>
+        <Collapse.Group splitted>
+          <Collapse  title="Something" subtitle="*Sources">
+            <Text>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </Text>
+          </Collapse>
         </Collapse.Group>
       </Container>
     </Container>

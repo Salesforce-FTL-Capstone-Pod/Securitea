@@ -26,7 +26,7 @@ function ProgressTab(){
           <Spacer></Spacer>
           
           <Collapse.Group splitted>
-          <Collapse title="Unit 1: WHATEVER">
+          <Collapse title="Unit 1: SOMETHING">
             <Text>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -34,7 +34,7 @@ function ProgressTab(){
               nisi ut aliquip ex ea commodo consequat.
             </Text>
           </Collapse>
-          <Collapse title="Unit 2: WHATEVER AGAIN">
+          <Collapse title="Unit 2: SOMETHInG AGAIN">
             <Text>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -42,7 +42,7 @@ function ProgressTab(){
               nisi ut aliquip ex ea commodo consequat.
             </Text>
           </Collapse>
-          <Collapse title="Unit 3: WHATEVER AGAIN AGAIN">
+          <Collapse title="Unit 3: SOMETHING AGAIN AGAIN">
             <Text>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
