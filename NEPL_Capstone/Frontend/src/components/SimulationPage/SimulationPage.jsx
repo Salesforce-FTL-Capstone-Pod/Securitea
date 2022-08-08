@@ -9,14 +9,21 @@ import {
   Typography,
   Stack,
   colors,
+  TextareaAutosize,
 } from "@mui/material";
 import * as color from "../../assets/colorPalette";
-import { Link } from "react-router-dom";
+import { Link, renderMatches } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
+import { useState } from "react";
 
 import Question from "../../assets/Question.svg";
+import EmailImg from "../../assets/EmailImg.svg";
+import PhisingImg from "../../assets/PhisingImg.svg";
+import EmailButton from "../../assets/EmailButton.svg";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { borderRadius } from "@mui/system";
+import { StyledBadge } from "../ManagerDashboard/EmployeeTable/StyledBadge";
 
 export default function SimulationPage() {
   return (
@@ -29,6 +36,8 @@ export default function SimulationPage() {
 }
 
 function Simulation() {
+  const [isStarted, setIsStarted] = useState(false);
+  const [clicked, setClicked] = useState(false);
   return (
     <Container
       maxWidth={false}
@@ -68,7 +77,7 @@ function Simulation() {
         maxWidth={false}
         sx={{
           position: "relative",
-          backgroundColor: color.maximumBluePurple,
+          backgroundColor: color.blueBell,
           height: "89vh",
           borderRadius: "2vw",
           width: "100%",
@@ -84,19 +93,27 @@ function Simulation() {
             height: "86vh",
           }}
         >
-          <Button
-            style={{
-              display: "flex",
-              backgroundColor: "black",
-              color: "white",
-              height: "6vh",
-              width: "7vw",
-              borderLeft: "4px solid white",
-              borderBottom: "4px solid white",
-            }}
-          >
-            Start Simulation
-          </Button>
+          {!isStarted ? (
+            <Button
+              style={{
+                display: "flex",
+                backgroundColor: "black",
+                color: "white",
+                height: "6vh",
+                width: "7vw",
+                borderLeft: "4px solid white",
+                borderBottom: "4px solid white",
+              }}
+              onClick={() => {
+                setIsStarted(!isStarted);
+                setClicked(true);
+              }}
+            >
+              Start Simulation
+            </Button>
+          ) : null}
+          {isStarted ? <EmailRender /> : null}
+
           <img
             src={Question}
             style={{
@@ -111,3 +128,32 @@ function Simulation() {
     </Container>
   );
 }
+
+
+function EmailRender() {
+  const [isClicked, setIsClicked] = useState(false);
+  return (
+    <Container>
+      <Button
+        onClick={() => setIsClicked(!isClicked)}
+        style={{ width: "57%" }}
+        sx={{
+          display: "flex",
+          position: "absolute",
+          top: "10.5vw",
+          right: "9.4vw",
+        }}
+      >
+        {!isClicked ? (
+          <img src={EmailButton} style={{ display: "flex", width: "100%" }} />
+        ) : null}
+      </Button>
+      {isClicked ? (
+        <img src={PhisingImg} style={{ width: "100%" }} />
+      ) : (
+        <img src={EmailImg} style={{ display: "flex", width: "100%" }}/>
+      )}
+    </Container>
+  );
+}
+
