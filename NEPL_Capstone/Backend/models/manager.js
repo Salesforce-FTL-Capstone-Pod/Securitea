@@ -77,13 +77,15 @@ class Manager {
 	}
 
 	static async getPodMembers(userId) {
+		const us = await User.fetchUserByEmail(userId);
 		const getPodQuery = `
         SELECT usersinpod
         FROM manager
         WHERE user_id = $1;
         `;
-
-		const podRaw = await db.query(getPodQuery, [userId.id]);
+		console.log(userId);
+		const podRaw = await db.query(getPodQuery, [us.id]);
+		console.log(podRaw);
 		const pod = podRaw.rows[0].usersinpod;
 		return pod;
 	}
