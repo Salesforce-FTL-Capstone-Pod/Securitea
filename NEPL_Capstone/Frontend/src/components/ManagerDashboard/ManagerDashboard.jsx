@@ -11,6 +11,7 @@ import DashboardOverview from "./EmployeeTable/DashboardOverview.jsx";
 import Sidebar from "./Sidebar.jsx";
 import EmployeeTable from "./EmployeeTable/EmployeeTable.jsx";
 import { useNavigate } from "react-router-dom";
+import AssignedModules from "./AssignedModules/AssignedModules.jsx";
 const sizeBox = "65vw";
 
 export default function ManagerDashboard() {
@@ -29,7 +30,7 @@ export default function ManagerDashboard() {
             <NextContainer fluid>
                 {selectedTab == "Employee Activity" ? <EmployeeTable company="Salesforce" /> : <></>}
                 {selectedTab == "Overview" ? <DashboardOverview /> : <></>}
-                {selectedTab == "Modules Assigned" ? <h1>Modules Assigned</h1> : <></>}
+                {selectedTab == "Modules Assigned" ? <AssignedModules /> : <></>}
                 {selectedTab == "Token Management" ? <h1>Token Management</h1>: <></>}
                 {selectedTab == "User Dashboard" ? navigate('/UserDashboard') : <></>}
             </NextContainer>

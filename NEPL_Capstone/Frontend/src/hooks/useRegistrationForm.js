@@ -10,7 +10,6 @@ export const useRegistrationForm = () => {
 		useAuthenticationForm({ user });
 	const [isProcessing, setIsProcessing] = useState(false);
 	const navigate = useNavigate();
-
 	const handleOnSubmit = async () => {
 		setIsProcessing(true);
 		setErrors((e) => ({ ...e, form: null }));
@@ -35,7 +34,8 @@ export const useRegistrationForm = () => {
 			isManager: form.isManager,
 		});
 		if (data) {
-			setUser(data.user);
+			console.log(data)
+			setUser(data.User)
 			apiClient.setToken(data.token);
 			navigate("/UserDashboard");
 		}

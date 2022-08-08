@@ -17,7 +17,7 @@ function ModulesTab() {
   )
 }
 
-function ModuleDisplay() {
+export function ModuleDisplay() {
   const {progress} = useProgressContext()
   const progressVal = progress.progress
   return (
