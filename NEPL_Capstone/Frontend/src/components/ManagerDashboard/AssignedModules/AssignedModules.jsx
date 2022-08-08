@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import { Link } from "react-router-dom"
-import { Dropdown, Grid, Card, Row, Button, Spacer, Text, Container, Modal } from "@nextui-org/react"
+import { Dropdown, Grid, Card, Row, Button, Spacer, Text, Container, Modal, Loading } from "@nextui-org/react"
 
 function AssignedModules() {
   return (
@@ -24,7 +24,7 @@ export function AssignDropdown(){
             setVisible(true)
         }
       }  
-    return(
+    return (
     <>
     <Dropdown>
     <Dropdown.Button color="secondary" flat>Assign Module</Dropdown.Button>
@@ -32,7 +32,6 @@ export function AssignDropdown(){
       disabledKeys={[]}
       aria-label="AssignDropdown"
       selectionMode="single"
-      selectedKeys={[selectedTab]}
       onSelectionChange={(e) => setTab(e)}
     >
       <Dropdown.Item key="assignAll"><Text>Assign to All Employees</Text></Dropdown.Item>
@@ -94,14 +93,18 @@ function ModuleCard({ moduleName }){
 }
 
 function ConfirmModal({ visible, setVisible }){
-    const [checked, setChecked] = useState(false);
 	const closeHandler = () => {
 		setVisible(false);
 	};
-
-	function testCheck() {
-		setChecked(!checked);
-	}
+    const pressed = (e) => {
+        if (e == "cancel"){
+            console.log("cancelled")
+            setVisible(false)
+        }
+        if (e == "confirm"){
+            console.log("confirmed")
+        }
+    };
 	return (
 		<div>
 			<Modal
@@ -110,15 +113,23 @@ function ConfirmModal({ visible, setVisible }){
 				open={visible}
 				onClose={closeHandler}
 			>
-				<Modal.Header>
-					<Text id="modal-title" size={18}>
-						Assign Module to All Employees
-					</Text>
-				</Modal.Header>
 				<Modal.Body>
-					<Row justify="space-between">
-						<Text>Dark Mode </Text>
-					</Row>
+                <Row justify="center" align="center">
+                    <Text b>Confirm Action</Text>
+                </Row>
+                <Row>
+                    <Text css={{ textAlign: "center"}}>
+                    Are you sure you want assign this module to all your employees? By doing this, they will receieve a notification to complete the module by a certain time.
+                    </Text>
+                </Row>
+                <Row justify='space-between' align="center">
+                <Button auto color="error" key="cancel" onClick={() => pressed("cancel")}>
+                    Cancel
+                </Button>
+                <Button auto css={{ background: "green"}} key="confirm" onClick={() => pressed("confirm")}>
+                    Confirm
+                </Button>
+                </Row>
 				</Modal.Body>
 				<Modal.Footer></Modal.Footer>
 			</Modal>
