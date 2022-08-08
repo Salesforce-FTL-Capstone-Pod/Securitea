@@ -139,7 +139,7 @@ function Register() {
 										fullWidth
 										label="Confirm Password"
 										name="passwordConfirm"
-										disabled={form.password.length == 0}
+										disabled={form.password?.length == 0}
 										onChange={handleOnInputChange}
 										type="password"
 										error={Boolean(errors?.passwordConfirm)}
@@ -208,17 +208,28 @@ function Register() {
 									)}
 								</Grid>
 							</Grid>
-							<Button
-								type="submit"
-								fullWidth
-								variant="contained"
-								disableRipple
-								color="primary"
-								sx={{ mt: 3, mb: 2 }}
-								onClick={handleOnSubmit}
+							<Container
+								disableGutters
+								sx={{
+									marginTop: "2vh",
+									display: "flex",
+									flexDirection: "column",
+									textAlign: "center",
+								}}
 							>
-								<b style={{ color: color.platinum }}>Sign Up</b>
-							</Button>
+								<div style={{ color: color.errorRed }}>{errors.form}</div>
+								<Button
+									type="submit"
+									fullWidth
+									variant="contained"
+									disableRipple
+									color="primary"
+									sx={{ mt: 3, mb: 2 }}
+									onClick={handleOnSubmit}
+								>
+									<b style={{ color: color.platinum }}>Sign Up</b>
+								</Button>
+							</Container>
 							<Grid container>
 								<Grid item>
 									<Typography variant="body2">Have an account?</Typography>
