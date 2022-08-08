@@ -75,6 +75,13 @@ class ApiClient {
 			method: `GET`,
 		})
 	}
+
+	async pingAllEmployees(){
+		return await this.request({
+			endpoint: `manage/pingAll`,
+			method: `PATCH`
+		})
+	}
 }
 
 const API = new ApiClient("http://localhost:3001");
