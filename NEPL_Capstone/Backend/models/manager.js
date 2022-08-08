@@ -7,7 +7,8 @@ class Manager {
 	static async getPodMembers(email) {
 		const userId = await User.fetchUserByEmail(email);
 
-		const pod = await Manager.getPodMembers(userId);
+		const pod = await this.getPod(userId);
+		console.log("here");
 
 		var membersAndProgress = {};
 		const getFirstProgress = `
@@ -40,6 +41,7 @@ class Manager {
 
 			let rawProgressOne = await db.query(getFirstProgress, [id]);
 			let progressOne = rawProgressOne.rows[0];
+			console.log("p one: ", progressOne);
 
 			let rawProgressTwo = await db.query(getSecondProgress, [id]);
 			let progressTwo = rawProgressTwo.rows[0];
@@ -76,16 +78,13 @@ class Manager {
 		return { podProgress: membersAndProgress, totalMembers: pod.length };
 	}
 
-	static async getPodMembers(userId) {
-		const us = await User.fetchUserByEmail(userId);
+	static async getPod(userId) {
 		const getPodQuery = `
         SELECT usersinpod
         FROM manager
         WHERE user_id = $1;
         `;
-		console.log(userId);
-		const podRaw = await db.query(getPodQuery, [us.id]);
-		console.log(podRaw);
+		const podRaw = await db.query(getPodQuery, [userId.id]);
 		const pod = podRaw.rows[0].usersinpod;
 		return pod;
 	}
