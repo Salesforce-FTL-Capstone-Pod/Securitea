@@ -1,10 +1,11 @@
 const db = require("../db");
 const { BadRequestError, UnauthorizedError } = require("../utils/errors");
 const User = require("./user");
+const Logic = require("../utils/logicFunctions.js");
 
 class Manager {
-	static async getPodMembers() {
-		const userId = await User.fetchUserByEmail(res.locals.user.email);
+	static async getPodMembers(email) {
+		const userId = await User.fetchUserByEmail(email);
 
 		const getPodQuery = `
             SELECT usersinpod
@@ -12,7 +13,7 @@ class Manager {
             WHERE user_id = $1;
             `;
 
-		const podRaw = await db.query(getPodQuery, [userId]);
+		const podRaw = await db.query(getPodQuery, [userId.id]);
 		const pod = podRaw.rows[0].usersinpod;
 
 		console.log(pod);
@@ -72,6 +73,21 @@ class Manager {
 		}
 
 		return { podProgress: membersAndProgress, totalMembers: pod.length };
+	}
+
+	static async getAccessToken(email) {
+		const manager = await User.fetchUserByEmail(email);
+
+		const fetchTokenQuery = `
+        SELECT token 
+        FROM manager
+        WHERE user_id = $1;
+        `;
+
+		const responseRaw = await db.query(fetchTokenQuery, [manager.id]);
+		const response = responseRaw.rows[0];
+
+		return response.token;
 	}
 }
 
