@@ -96,6 +96,7 @@ function ConfirmModal({ visible, setVisible }){
 	const closeHandler = () => {
 		setVisible(false);
 	};
+
     const pressed = (e) => {
         if (e == "cancel"){
             console.log("cancelled")
@@ -103,7 +104,12 @@ function ConfirmModal({ visible, setVisible }){
         }
         if (e == "confirm"){
             console.log("confirmed")
-            apiClient.pingAllEmployees()
+            async function ping(){
+              const res = await apiClient.pingAllEmployees()
+              console.log(res)
+              console.log("end")
+            }
+            ping()
             // console.log(res)
             // setVisible(false)
         }
