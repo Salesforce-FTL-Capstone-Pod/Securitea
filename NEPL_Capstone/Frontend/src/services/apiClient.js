@@ -10,7 +10,6 @@ class ApiClient {
 	setToken(token) {
 		this.token = token;
 		localStorage.setItem(this.tokenName, token);
-		console.log(token);
 	}
 
 	async request({ endpoint, method = `GET`, data = {} }) {
@@ -56,11 +55,25 @@ class ApiClient {
 		localStorage.removeItem(this.tokenName);
 	}
 
-	async fetchProgress(credentials) {
+	async fetchProgress() {
 		return await this.request({
 			endpoint: `progress/getProgress`,
 			method: `GET`,
 		});
+	}
+
+	async fetchManagerToken(){
+		return await this.request({
+			endpoint: `manage/getAccessToken`,
+			method: `GET`,
+		});
+	}
+
+	async fetchEmployees(){
+		return await this.request({
+			endpoint: `manage/getPeople`,
+			method: `GET`,
+		})
 	}
 }
 
