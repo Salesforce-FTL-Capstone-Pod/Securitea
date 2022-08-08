@@ -19,6 +19,7 @@ import ModulePageTips from "../ModulePage/ModulePageTips";
 import Modules from "../Modules/Modules";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import SimulationPage from "../SimulationPage/SimulationPage";
+import TipsPage from "../InternetTips/InternetTips";
 
 import Skeleton from "../AuthModulePage/Skeleton";
 
@@ -33,9 +34,9 @@ export default function AppContainer() {
   return (
     <NextUIProvider theme={theme}>
       <AuthContextProvider>
-		<ProgressContextProvider>
-			<App />
-		</ProgressContextProvider>
+        <ProgressContextProvider>
+          <App />
+        </ProgressContextProvider>
       </AuthContextProvider>
     </NextUIProvider>
   );
@@ -48,16 +49,19 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/UserDashboard/" element={<AuthRoute element={<UserDashboard />} /> } />
+          <Route
+            path="/UserDashboard/"
+            element={<AuthRoute element={<UserDashboard />} />}
+          />
           <Route path="/ModulePhishing" element={<ModulePagePhishing />} />
           <Route path="/ModuleTips" element={<ModulePageTips />} />
           <Route path="/Modules" element={<Modules />} />
           <Route path="/Resources" element={<ResourcePage />} />
           <Route path="/Modules/demo" element={<SimulationPage />} />
-          {/* <Route path="/Modules/tips" element={} */}
+          <Route path="/Modules/tips" element={<TipsPage />} />
           <Route path="/Contact-Us" element={<ContactUs />} />
           <Route path="*" element={<PageNotFound />} />
-		  <Route path="/Skeleton" element={<Skeleton /> } />
+          <Route path="/Skeleton" element={<Skeleton />} />
         </Routes>
       </BrowserRouter>
     </div>
