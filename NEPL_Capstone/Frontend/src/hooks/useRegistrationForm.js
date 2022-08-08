@@ -8,7 +8,6 @@ export const useRegistrationForm = () => {
 	const { form, errors, setErrors, handleOnInputChange } =
 		useAuthenticationForm({ user });
 	const [isProcessing, setIsProcessing] = useState(false);
-	console.log(user);
 	const handleOnSubmit = async () => {
 		setIsProcessing(true);
 		setErrors((e) => ({ ...e, form: null }));
@@ -34,7 +33,8 @@ export const useRegistrationForm = () => {
 			isManager: form.isManager,
 		});
 		if (data) {
-			setUser(data.user);
+			console.log(data)
+			setUser(data.User)
 			apiClient.setToken(data.token);
 		}
 		if (error) {

@@ -14,6 +14,7 @@ export const useLoginForm = () => {
     
         const { data, error } = await apiClient.loginUser({ email: form.email, password: form.password })
         if (data) {
+          console.log(data)
           setUser(data.user)
           apiClient.setToken(data.token)
         }
