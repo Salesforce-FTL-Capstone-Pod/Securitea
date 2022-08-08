@@ -7,14 +7,7 @@ class Manager {
 	static async getPodMembers(email) {
 		const userId = await User.fetchUserByEmail(email);
 
-		const getPodQuery = `
-            SELECT usersinpod
-            FROM manager
-            WHERE user_id = $1;
-            `;
-
-		const podRaw = await db.query(getPodQuery, [userId.id]);
-		const pod = podRaw.rows[0].usersinpod;
+		const pod = await Manager.getPodMembers(userId);
 
 		var membersAndProgress = {};
 		const getFirstProgress = `
@@ -83,6 +76,18 @@ class Manager {
 		return { podProgress: membersAndProgress, totalMembers: pod.length };
 	}
 
+	static async getPodMembers(userId) {
+		const getPodQuery = `
+        SELECT usersinpod
+        FROM manager
+        WHERE user_id = $1;
+        `;
+
+		const podRaw = await db.query(getPodQuery, [userId.id]);
+		const pod = podRaw.rows[0].usersinpod;
+		return pod;
+	}
+
 	static async getAccessToken(email) {
 		const manager = await User.fetchUserByEmail(email);
 
@@ -139,6 +144,19 @@ class Manager {
 		const response = responseRaw.rows[0];
 
 		return response;
+	}
+
+	static async pingAll(email) {
+		const userId = await User.fetchUserByEmail(email);
+		const pod = await this.getPodMembers(userId);
+		for (let i = 0; i < pod.length; i++) {
+			let id = pod[i];
+			let user = await User.fetchUserById(id);
+
+			this.pingUser(user.email);
+		}
+
+		return true;
 	}
 }
 
