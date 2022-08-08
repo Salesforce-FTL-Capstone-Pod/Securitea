@@ -1,10 +1,11 @@
 const db = require("../db");
 const { BadRequestError, UnauthorizedError } = require("../utils/errors");
 const User = require("./user");
+const Logic = require("../utils/logicFunctions.js");
 
 class Manager {
-	static async getPodMembers() {
-		const userId = await User.fetchUserByEmail(res.locals.user.email);
+	static async getPodMembers(email) {
+		const userId = await User.fetchUserByEmail(email);
 
 		const getPodQuery = `
             SELECT usersinpod
@@ -12,10 +13,8 @@ class Manager {
             WHERE user_id = $1;
             `;
 
-		const podRaw = await db.query(getPodQuery, [userId]);
+		const podRaw = await db.query(getPodQuery, [userId.id]);
 		const pod = podRaw.rows[0].usersinpod;
-
-		console.log(pod);
 
 		var membersAndProgress = {};
 		const getFirstProgress = `
@@ -35,6 +34,12 @@ class Manager {
         WHERE id=$1;
         `;
 
+		const areTheyPingedQuery = `
+        SELECT wasPinged
+        FROM users
+        WHERE id = $1;
+        `;
+
 		for (var i = 0; i < pod.length; i++) {
 			let id = pod[i];
 			let user = await User.fetchUserById(id);
@@ -52,9 +57,13 @@ class Manager {
 			let nameStepsOne = rawNameStepsOne.rows[0];
 			let nameStepsTwo = rawNameStepsTwo.rows[0];
 
+			let rawIsPinged = await db.query(areTheyPingedQuery, [id]);
+			let isPinged = rawIsPinged.rows[0];
+
 			membersAndProgress = {
 				...membersAndProgress,
 				[i]: {
+					wasPinged: isPinged,
 					email: user.email,
 					name: fullName,
 					1: {
@@ -72,6 +81,64 @@ class Manager {
 		}
 
 		return { podProgress: membersAndProgress, totalMembers: pod.length };
+	}
+
+	static async getAccessToken(email) {
+		const manager = await User.fetchUserByEmail(email);
+
+		const fetchTokenQuery = `
+        SELECT token 
+        FROM manager
+        WHERE user_id = $1;
+        `;
+
+		const responseRaw = await db.query(fetchTokenQuery, [manager.id]);
+		const response = responseRaw.rows[0];
+
+		return response.token;
+	}
+
+	static async pingUser(userEmail) {
+		const userToPing = await User.fetchUserByEmail(userEmail);
+		const pingUserQuery = `
+        UPDATE users
+        SET wasPinged = true
+        WHERE id = $1;
+        `;
+
+		const responseRaw = await db.query(pingUserQuery, [userToPing.id]);
+		const response = responseRaw.rows[0];
+
+		return true;
+	}
+
+	static async unpingUser(userEmail) {
+		const userToUnping = await User.fetchUserByEmail(userEmail);
+		const unpingUserQuery = `
+        UPDATE users
+        SET wasPinged = false
+        WHERE id = $1;
+        `;
+
+		const responseRaw = await db.query(unpingUserQuery, [userToUnping.id]);
+		const response = responseRaw.rows[0];
+
+		return true;
+	}
+
+	static async wasIPinged(email) {
+		const user = await User.fetchUserByEmail(email);
+
+		const wasIPingedQuery = `
+        SELECT wasPinged
+        FROM users
+        WHERE id = $1;
+        `;
+
+		const responseRaw = await db.query(wasIPingedQuery, [user.id]);
+		const response = responseRaw.rows[0];
+
+		return response;
 	}
 }
 

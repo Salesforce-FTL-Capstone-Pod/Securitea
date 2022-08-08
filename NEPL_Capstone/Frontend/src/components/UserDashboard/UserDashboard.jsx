@@ -33,24 +33,36 @@ import { useNavigate } from "react-router-dom";
 function UserDashboard() {
 	const { user } = useAuthContext();
 	const [selectedTab, setselectedTab] = useState("Modules");
-  const navigate = useNavigate()
-  return (
-    <>
-      <Navbar />
-      <Hero user={user} />
-      <Container maxWidth={false} disableGutters sx={{display: "flex", justifyContent: "center", minHeight: "100vh" }}>
-        <Sidebar user={user} selectedTab={selectedTab} setselectedTab={setselectedTab} />
-        <Grid.Container gap={2} css={{flexDirection: "column"}}>
-          {selectedTab == "Modules" ? <ModulesTab /> : <></>}
-          {selectedTab == "Settings" ? <SettingsTab user={user} /> : <></>}
-          {selectedTab == "Progress" ? <ProgressTab /> : <></>}
-          {selectedTab == "Profile" ? <ProfileTab user={user} /> : <></>}
-          {selectedTab == "ManagerDashboard" ? navigate('/ManagerDashboard') : <></>}
-        </Grid.Container>
-      </Container>
-      <Footer />
-    </>
-  );
+	const navigate = useNavigate();
+	return (
+		<>
+			<Navbar />
+			<Hero user={user} />
+			<Container
+				maxWidth={false}
+				disableGutters
+				sx={{ display: "flex", justifyContent: "center", minHeight: "100vh" }}
+			>
+				<Sidebar
+					user={user}
+					selectedTab={selectedTab}
+					setselectedTab={setselectedTab}
+				/>
+				<Grid.Container gap={2} css={{ flexDirection: "column" }}>
+					{selectedTab == "Modules" ? <ModulesTab /> : <></>}
+					{selectedTab == "Settings" ? <SettingsTab user={user} /> : <></>}
+					{selectedTab == "Progress" ? <ProgressTab /> : <></>}
+					{selectedTab == "Profile" ? <ProfileTab user={user} /> : <></>}
+					{selectedTab == "ManagerDashboard" ? (
+						navigate("/ManagerDashboard")
+					) : (
+						<></>
+					)}
+				</Grid.Container>
+			</Container>
+			<Footer />
+		</>
+	);
 }
 export default UserDashboard;
 
@@ -101,7 +113,6 @@ function Hero({ user }) {
     </Container>
   );
 }
-
 
 function Sidebar({ selectedTab, setselectedTab, user }) {
   function setTab(e){
