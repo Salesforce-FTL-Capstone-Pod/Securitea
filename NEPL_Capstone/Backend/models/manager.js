@@ -16,8 +16,6 @@ class Manager {
 		const podRaw = await db.query(getPodQuery, [userId.id]);
 		const pod = podRaw.rows[0].usersinpod;
 
-		console.log(pod);
-
 		var membersAndProgress = {};
 		const getFirstProgress = `
         SELECT progress
@@ -34,6 +32,12 @@ class Manager {
         SELECT name, steps
         FROM modules
         WHERE id=$1;
+        `;
+
+		const areTheyPingedQuery = `
+        SELECT wasPinged
+        FROM users
+        WHERE id = $1;
         `;
 
 		for (var i = 0; i < pod.length; i++) {
@@ -53,9 +57,13 @@ class Manager {
 			let nameStepsOne = rawNameStepsOne.rows[0];
 			let nameStepsTwo = rawNameStepsTwo.rows[0];
 
+			let rawIsPinged = await db.query(areTheyPingedQuery, [id]);
+			let isPinged = rawIsPinged.rows[0];
+
 			membersAndProgress = {
 				...membersAndProgress,
 				[i]: {
+					wasPinged: isPinged,
 					email: user.email,
 					name: fullName,
 					1: {
@@ -88,6 +96,49 @@ class Manager {
 		const response = responseRaw.rows[0];
 
 		return response.token;
+	}
+
+	static async pingUser(userEmail) {
+		const userToPing = await User.fetchUserByEmail(userEmail);
+		const pingUserQuery = `
+        UPDATE users
+        SET wasPinged = true
+        WHERE id = $1;
+        `;
+
+		const responseRaw = await db.query(pingUserQuery, [userToPing.id]);
+		const response = responseRaw.rows[0];
+
+		return true;
+	}
+
+	static async unpingUser(userEmail) {
+		const userToUnping = await User.fetchUserByEmail(userEmail);
+		const unpingUserQuery = `
+        UPDATE users
+        SET wasPinged = false
+        WHERE id = $1;
+        `;
+
+		const responseRaw = await db.query(unpingUserQuery, [userToUnping.id]);
+		const response = responseRaw.rows[0];
+
+		return true;
+	}
+
+	static async wasIPinged(email) {
+		const user = await User.fetchUserByEmail(email);
+
+		const wasIPingedQuery = `
+        SELECT wasPinged
+        FROM users
+        WHERE id = $1;
+        `;
+
+		const responseRaw = await db.query(wasIPingedQuery, [user.id]);
+		const response = responseRaw.rows[0];
+
+		return response;
 	}
 }
 

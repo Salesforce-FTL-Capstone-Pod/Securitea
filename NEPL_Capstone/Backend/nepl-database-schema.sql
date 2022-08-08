@@ -10,7 +10,8 @@ CREATE TABLE
     company TEXT,
     manager TEXT,
     isManager BOOLEAN DEFAULT false,
-    isAdmin BOOLEAN DEFAULT false
+    isAdmin BOOLEAN DEFAULT false,
+    wasPinged BOOLEAN DEFAULT false
   );
 
 CREATE TABLE
