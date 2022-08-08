@@ -105,15 +105,18 @@ class Manager {
 	}
 
 	static async pingUser(userEmail) {
+		console.log("email ", userEmail);
 		const userToPing = await User.fetchUserByEmail(userEmail);
 		const pingUserQuery = `
         UPDATE users
-        SET wasPinged = true
-        WHERE id = $1;
+        SET waspinged = true
+        WHERE id = $1
+        RETURNING waspinged;
         `;
-
+		console.log("PIN GPING ", userToPing);
 		const responseRaw = await db.query(pingUserQuery, [userToPing.id]);
 		const response = responseRaw.rows[0];
+		console.log(response);
 
 		return true;
 	}
@@ -136,7 +139,7 @@ class Manager {
 		const user = await User.fetchUserByEmail(email);
 
 		const wasIPingedQuery = `
-        SELECT wasPinged
+        SELECT waspinged
         FROM users
         WHERE id = $1;
         `;
@@ -148,13 +151,14 @@ class Manager {
 	}
 
 	static async pingAll(email) {
-		console.log("Herer: ", email);
 		const userId = await User.fetchUserByEmail(email);
-		console.log("also here: ", userId);
-		const pod = await this.getPodMembers(userId.email);
+		const pod = await this.getPod(userId);
+		console.log("POD HERE:", pod);
 		for (let i = 0; i < pod.length; i++) {
 			let id = pod[i];
+			console.log("OD HERE:", id);
 			let user = await User.fetchUserById(id);
+			console.log("This is a user: ", user);
 
 			this.pingUser(user.email);
 		}
