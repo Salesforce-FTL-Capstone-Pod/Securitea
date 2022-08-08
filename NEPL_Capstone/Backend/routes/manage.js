@@ -47,6 +47,20 @@ router.patch(
 );
 
 router.patch(
+	"/pingAll",
+	security.requireAuthenticatedUser,
+	async (req, res, next) => {
+		try {
+			const allPinged = await Manager.pingAll(res.locals.user.email);
+
+			return res.status(200).json({ allPinged });
+		} catch (err) {
+			next(err);
+		}
+	}
+);
+
+router.patch(
 	"/unpingUser",
 	security.requireAuthenticatedUser,
 	async (req, res, next) => {
