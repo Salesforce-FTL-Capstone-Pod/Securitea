@@ -101,7 +101,7 @@ class User {
     RETURNING progress, user_id, module_id;
   `;
 
-		const moduleStart2 = await db.query(addProgress, [0, user.id, 2]);
+		const moduleStart2 = await db.query(addProgress2, [0, user.id, 2]);
 
 		if (credentials.token) {
 			User.addToManagerArray(credentials.token, user.id);
@@ -122,7 +122,7 @@ class User {
 			"company",
 		];
 
-		var isManager = credentials.isManager === "true";
+		var isManager = credentials.isManager;
 
 		requiredFields.forEach((property) => {
 			if (!credentials.hasOwnProperty(property)) {
@@ -294,29 +294,11 @@ class User {
 		return addedManagerArray;
 	}
 
-	static async makePublicUser(user) {
-		const userInfo = {
-			id: user.id,
-			email: user.email,
-			firstName: user.first_name,
-			lastName: user.last_name,
-		};
-
-		if (user.manager) userInfo.manager = user.manager;
-		if (user.company) userInfo.company = user.company;
-
-		return userInfo;
-	}
-
 	static async getProgress(id) {
 		const query = `SELECT module_id, progress FROM modules_1 WHERE user_id=$1;`;
 		const result = await db.query(query, [id]);
 		const progress = result.rows[0];
 		return progress;
-
-		const moduleStart = await db.query(addProgress, [0, user.id, 1]);
-
-		return User.makePublicUser(user);
 	}
 
 	static async login(credentials) {
@@ -342,13 +324,14 @@ class User {
 		throw new UnauthorizedError("Incorrect Credentials");
 	}
 
-	static async fetchUserByEmail(email) {
-		if (!email) {
-			throw new BadRequestError("No email was provided");
+	static async fetchUserById(id) {
+		if (!id) {
+			throw new BadRequestError("No id was provided");
 		}
-		const query = `SELECT * FROM users WHERE email=$1`;
-		const result = await db.query(query, [email.toLowerCase()]);
+		const query = `SELECT * FROM users WHERE id=$1`;
+		const result = await db.query(query, [id]);
 		const user = result.rows[0];
+		console.log(user);
 		return user;
 	}
 
@@ -360,6 +343,7 @@ class User {
 			lastName: user.last_name,
 			title: user.title,
 			birthday: user.birthday,
+			isManager: user.ismanager,
 		};
 
 		if (user.manager) userInfo.manager = user.manager;

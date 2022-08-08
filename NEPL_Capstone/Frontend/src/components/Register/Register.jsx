@@ -216,7 +216,6 @@ function Register() {
 								color="primary"
 								sx={{ mt: 3, mb: 2 }}
 								onClick={handleOnSubmit}
-								disabled={Object.keys(errors).length > 0}
 							>
 								<b style={{ color: color.platinum }}>Sign Up</b>
 							</Button>
