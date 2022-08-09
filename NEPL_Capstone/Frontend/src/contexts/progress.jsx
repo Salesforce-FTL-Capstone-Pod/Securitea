@@ -12,17 +12,17 @@ export const ProgressContextProvider = ({ children }) => {
       module_id: "",
       progress: ""
     })
-    // useEffect(() => {
-    //   if (user?.title){
-    //     setLoading(true)
-    //     const fetchProgress = async () => {
-    //       const { data } = await apiClient.fetchProgress()
-
-    //     }
-    //     fetchProgress()
-    //     setLoading(false)
-    //   }
-    // }, [user])
+    useEffect(() => {
+      if (user?.title){
+        setLoading(true)
+        const fetchProgress = async () => {
+          const data = await apiClient.fetchProgress()
+          console.log(data)
+        }
+        fetchProgress()
+        setLoading(false)
+      }
+    }, [user])
 
   const progressValue = { progress }
 

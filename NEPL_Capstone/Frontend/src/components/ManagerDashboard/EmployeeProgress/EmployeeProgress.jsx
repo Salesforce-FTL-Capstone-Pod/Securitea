@@ -13,34 +13,7 @@ const sizeBox = "65vw";
 
 export default function EmployeeProgress() {
   return (
-    <Container maxWidth={false} disableGutters>
-      <Navbar />
-      <Overview />
-      <Content />
-      <Footer />
-    </Container>
-  );
-}
-
-function Overview() {
-
-
-  return (
-    <Container
-      maxWidth={false}
-      disableGutters
-      sx={{
-        backgroundColor: color.richBlackFogra,
-        display: "flex",
-        justifyContent: "center",
-    }}
-    >
-      <Container
-        style={{ marginBottom: "4vw", marginTop: "1vw", width: sizeBox }}
-      >
-
-      </Container>
-    </Container>
+    <Content />
   );
 }
 
