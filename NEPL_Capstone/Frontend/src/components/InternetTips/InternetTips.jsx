@@ -17,7 +17,7 @@ import * as color from "../../assets/colorPalette";
 import { Link } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
-import PWCheck from "../PWCheck/PWCheck";
+
 import Speaker from "../../assets/Speaker.svg";
 import { useLoginForm } from "../../hooks/useLoginForm";
 import PasswordStrengthBar from "react-password-strength-bar";
@@ -28,6 +28,7 @@ import Question from "../../assets/Question.svg";
 import { borderRadius } from "@mui/system";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Spacer } from "@nextui-org/react";
 
 export default function TipsPage() {
   return (
@@ -51,6 +52,31 @@ function InternetTips() {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
+  const [generatedPassword, setGeneratedPassword] = useState("");
+
+  const Allowed = {
+    Uppers: "QWERTYUIOPASDFGHJKLZXCVBNM",
+    Lowers: "qwertyuiopasdfghjklzxcvbnm",
+    Numbers: "1234567890",
+    Symbols: "!@#$%^&*",
+  };
+
+  const getRandomChar = (str) =>
+    str.charAt(Math.floor(Math.random() * str.length));
+
+  const generatePassword = (length = 12) => {
+    let pwd = "";
+    pwd += getRandomChar(Allowed.Uppers);
+    pwd += getRandomChar(Allowed.Lowers);
+    pwd += getRandomChar(Allowed.Numbers);
+    pwd += getRandomChar(Allowed.Symbols);
+
+    for (let i = pwd.length; i < 12; i++) {
+      pwd += getRandomChar(Object.values(Allowed).join(""));
+    }
+
+    setGeneratedPassword(pwd);
+  };
 
   return (
     <Container
@@ -59,7 +85,7 @@ function InternetTips() {
         display: "flex ",
         flexDirection: "column",
         backgroundColor: color.platinum,
-        height: "125vh",
+        height: "135vh",
         width: "75%",
         marginTop: "100px",
         marginBottom: "100px",
@@ -102,9 +128,7 @@ function InternetTips() {
           <li>Use any easily accesible information</li>
         </Container>
       </Container>
-
       <h3>Try it Out!</h3>
-
       <Container>
         <TextField
           margin="normal"
@@ -130,6 +154,49 @@ function InternetTips() {
           }}
         ></TextField>
         <PasswordStrengthBar password={password} />
+      </Container>
+      <h3>Or let us create one for you!</h3>
+      <Container
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          disableRipple
+          color="primary"
+          sx={{ mt: 3, mb: 2 }}
+          onClick={generatePassword}
+        >
+          Create!
+        </Button>
+        <Spacer></Spacer>
+        <Container
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "row",
+          }}
+        >
+          <Typography
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              fontSize: "20px",
+            }}
+          >
+            {generatedPassword}
+          </Typography>
+        </Container>
+        <Button
+          onClick={() => navigator.clipboard.writeText(generatedPassword)}
+        >
+          Copy to Clipboard
+        </Button>
       </Container>
     </Container>
   );
