@@ -10,13 +10,19 @@ import {
   Stack,
   colors,
   TextField,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
 import * as color from "../../assets/colorPalette";
 import { Link } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
+import PWCheck from "../PWCheck/PWCheck";
 import Speaker from "../../assets/Speaker.svg";
 import { useLoginForm } from "../../hooks/useLoginForm";
+import PasswordStrengthBar from "react-password-strength-bar";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import Question from "../../assets/Question.svg";
 import { borderRadius } from "@mui/system";
@@ -33,14 +39,18 @@ export default function TipsPage() {
   );
 }
 
-const speak = (evt) => {
-  //Add tts functionality here
-  console.log("here");
-};
+// const speak = (evt) => {
+//   //Add tts functionality here
+//   console.log("here");
+// };
 
 function InternetTips() {
   const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } =
     useLoginForm();
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   return (
     <Container
@@ -101,15 +111,25 @@ function InternetTips() {
           required
           fullWidth
           label="Enter your password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           name="password"
-          id="passwordEx"
           autoFocus
-          onChange={handleOnInputChange}
+          onChange={(e) => setPassword(e.target.value)}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         ></TextField>
-        <Button type="submit" fullWidth variant="contained" color="primary">
-          Submit
-        </Button>
+        <PasswordStrengthBar password={password} />
       </Container>
     </Container>
   );
