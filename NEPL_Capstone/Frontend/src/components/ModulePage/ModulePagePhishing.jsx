@@ -24,26 +24,28 @@ import { useProgressContext } from "../../contexts/progress";
 
 export default function ModulePagePhishing() {
 	const { progress } = useProgressContext();
+	const progressOne = progress.progress["1"];
+	const progressPercent =
+		(progressOne?.progress / progressOne?.steps) * 100 || 0;
 
 	return (
 		<Container maxWidth={false} disableGutters>
 			<Navbar />
-			<Overview progress={progress} />
-			<Content />
+			<Overview progressPercent={progressPercent} />
+			<Content progressOne={progressOne} />
 			<Footer />
 		</Container>
 	);
 }
 
-function Overview({ progress }) {
+function Overview({ progressPercent }) {
 	const navigate = useNavigate();
 	const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } =
 		useLoginForm();
 	const [visible, setVisible] = React.useState(false);
 	const handler = () => setVisible(true);
 	const { user, handleLogout } = useAuthContext();
-	const progressOne = progress.progress["1"];
-	const progressPercent = (progressOne.progress / progressOne.steps) * 100;
+
 	return (
 		<Container
 			maxWidth={false}
@@ -130,7 +132,19 @@ function Overview({ progress }) {
 	);
 }
 
-function Content() {
+function Content({ progressOne }) {
+	function getCurrent() {
+		switch (progressOne?.progress || 0) {
+			case 0:
+				return <IntroToPhishing />;
+			case 1:
+				return <PhishingFirstSim />;
+			case 2:
+				return <PhishingSecondSim />;
+			case 3:
+				return <PhishingThirdSim />;
+		}
+	}
 	return (
 		<Container
 			sx={{ display: "flex", minHeight: "100vh", marginBottom: "10vh" }}
@@ -140,9 +154,7 @@ function Content() {
 				<Text h1 css={{ marginTop: "1vw" }}>
 					Current Unit
 				</Text>
-				<Collapse.Group splitted>
-					<IntroToPhishing />
-				</Collapse.Group>
+				<Collapse.Group splitted>{getCurrent()}</Collapse.Group>
 
 				<Text h1 css={{ marginTop: "1vw" }}>
 					Curriculum
