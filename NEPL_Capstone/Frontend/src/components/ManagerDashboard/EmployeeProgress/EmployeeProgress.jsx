@@ -53,6 +53,7 @@ function Content() {
     setValid(true)
 }
 
+
   return (
     <Container sx={{ display: "flex", minHeight: "100vh", marginBottom: "10vh"}} disableGutters>
       <Container>
@@ -82,9 +83,9 @@ export function Tayble({ employees, valid }) {
   const rows = []
   if (valid == true){
   for (const employee in employees.info.podProgress){
-    let pingStatus = false
+    let pingStatus = "Not Pinged"
     if (employees.info.podProgress[employee].wasPinged.waspinged == true){
-      pingStatus = true
+      pingStatus = "Pinged"
     }
     rows.push({
       key: employee,
