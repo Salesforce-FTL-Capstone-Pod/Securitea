@@ -19,7 +19,11 @@ import ModulePageTips from "../ModulePage/ModulePageTips";
 import Modules from "../Modules/Modules";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import SimulationPage from "../SimulationPage/SimulationPage";
+
 import TipsPage from "../InternetTips/InternetTips";
+
+import EmployeeProgress from "../ManagerDashboard/EmployeeProgress/EmployeeProgress";
+
 
 import Skeleton from "../AuthModulePage/Skeleton";
 
@@ -29,6 +33,7 @@ import { NextUIProvider, createTheme, Progress } from "@nextui-org/react";
 //Contexts
 import { AuthContextProvider } from "../../contexts/auth";
 import { ProgressContextProvider } from "../../contexts/progress";
+import ManagerDashboard from "../ManagerDashboard/ManagerDashboard";
 
 export default function AppContainer() {
   return (
@@ -61,7 +66,10 @@ function App() {
           <Route path="/Modules/tips" element={<TipsPage />} />
           <Route path="/Contact-Us" element={<ContactUs />} />
           <Route path="*" element={<PageNotFound />} />
-          <Route path="/Skeleton" element={<Skeleton />} />
+		      <Route path="/Skeleton" element={<AuthRoute element={<Skeleton /> } /> } />
+		      <Route path="/ManagerDashboard/*" element={<AuthRoute element={<ManagerDashboard />} /> } />
+		      <Route path="/EmployeeProgress" element={<AuthRoute element={<EmployeeProgress />} /> } />
+
         </Routes>
       </BrowserRouter>
     </div>
