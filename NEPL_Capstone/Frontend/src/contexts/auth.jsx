@@ -35,10 +35,10 @@ export const AuthContextProvider = ({ children }) => {
 
       if (data) {
         setUser(data.publicUser)
+      }
+      if(data.publicUser.isManager == true){
         const mangData  = await apiClient.fetchManagerToken()
-        if (mangData){
-          setManagerToken(mangData.data.managerToken)
-        }
+        setManagerToken(mangData.data.managerToken)
       }
       setInitialized(true)
     }
@@ -55,7 +55,6 @@ export const AuthContextProvider = ({ children }) => {
     await apiClient.logoutUser()
     setUser({})
   }
-
   const authValue = { user, setUser, handleLogout, initialized, managerToken }
 
   return (
