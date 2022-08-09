@@ -26,7 +26,7 @@ function DashboardOverview({ employees, token, company}) {
       };
 
   return (
-    <Container css={{marginBototm: "10vh"}} fluid>
+    <Container css={{marginBototm: "10vh", marginLeft: "10vh"}} fluid>
     <Grid.Container gap={2} justify="space-between">
     <Grid xs={4}>
       <OverviewCard header="Total Employees Under You" content={employeeCount} />

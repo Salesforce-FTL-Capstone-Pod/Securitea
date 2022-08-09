@@ -40,7 +40,7 @@ export default function ManagerDashboard() {
         <Grid>
             <Sidebar selectedTab={selectedTab} setselectedTab={setselectedTab} />
         </Grid>
-        <Grid css={{ marginLeft: "25vh"}}>
+        <Grid css={{ marginLeft: "1vh"}}>
             <NextContainer fluid>
                 {selectedTab == "Employee Activity" ? <EmployeeProgress /> : <></>}
                 {selectedTab == "Overview" ? <DashboardOverview employees={employees} token={managerToken} company={user.company} /> : <></>}
