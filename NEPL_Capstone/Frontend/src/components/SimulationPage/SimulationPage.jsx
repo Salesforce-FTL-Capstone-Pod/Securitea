@@ -18,10 +18,11 @@ import Navbar from "../Navbar/Navbar";
 import { useState } from "react";
 
 import Question from "../../assets/Question.svg";
-import EmailImg from "../../assets/EmailImg.svg";
+import EmailSim from "../../assets/EmailSim.svg";
 import PhisingImg from "../../assets/PhisingImg.svg";
 import EmailButton from "../../assets/EmailButton.svg";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import LinkButton from "../../assets/LinkButton.svg";
+import Wrong from "../../assets/Wrong.svg";
 import { borderRadius } from "@mui/system";
 import { StyledBadge } from "../ManagerDashboard/EmployeeTable/StyledBadge";
 
@@ -37,7 +38,6 @@ export default function SimulationPage() {
 
 function Simulation() {
   const [isStarted, setIsStarted] = useState(false);
-  const [clicked, setClicked] = useState(false);
   return (
     <Container
       maxWidth={false}
@@ -106,7 +106,7 @@ function Simulation() {
               }}
               onClick={() => {
                 setIsStarted(!isStarted);
-                setClicked(true);
+               
               }}
             >
               Start Simulation
@@ -129,19 +129,18 @@ function Simulation() {
   );
 }
 
-
 function EmailRender() {
   const [isClicked, setIsClicked] = useState(false);
+  const [isWrong, setIsWrong] = useState(false)
   return (
     <Container>
       <Button
         onClick={() => setIsClicked(!isClicked)}
-        style={{ width: "57%" }}
+        style={{ width: "76.4%", background: "none" }}
         sx={{
-          display: "flex",
-          position: "absolute",
-          top: "10.5vw",
-          right: "9.4vw",
+          position: "relative",
+          top: " 25.5%",
+          left: "11.2%",
         }}
       >
         {!isClicked ? (
@@ -151,8 +150,23 @@ function EmailRender() {
       {isClicked ? (
         <img src={PhisingImg} style={{ width: "100%" }} />
       ) : (
-        <img src={EmailImg} style={{ display: "flex", width: "100%" }}/>
+        <img src={EmailSim} style={{ display: "flex", width: "100%" }} />
       )}
+      <Button
+        onClick={() => setIsClicked(!isClicked)}
+        sx={{
+          position: "relative",
+          bottom: "46.1%",
+          left: "6%",
+          width: "40%",
+        }}
+        style={{ background: "none" }}
+      >
+        {isClicked ? (
+          <img src={LinkButton} style={{ display: "flex", fontSize: "100%" }} />
+        ) : null}
+      </Button>
+    
     </Container>
   );
 }
