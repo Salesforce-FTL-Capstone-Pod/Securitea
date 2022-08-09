@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { Grid, Card, Text, Container } from "@nextui-org/react"
+import { Grid, Card, Text, Container, Tooltip } from "@nextui-org/react"
 import RepTable from '../EmployeeTable/RepTable.jsx';
 function DashboardOverview({ employees, token, company}) {
   let employeeCount = 0
@@ -11,13 +11,16 @@ function DashboardOverview({ employees, token, company}) {
       const [tokenText, settokenText] = useState("View Token")
       function changeText(e){
         settokenText(content)
+        navigator.clipboard.writeText(content)
       }
+      //navigator.clipboard.writeText(this.state.textToCopy)
         return (
           <Card css={{ minHeight: "$24", $$cardColor: '$colors$white', minWidth: "30vh" }}>
+            
             <Card.Body>
               <Text color="black" weight="normal" h6 size={18} css={{ mt: 0, textAlign: "center" }}>
                 {header}
-                <br></br>
+                <br></br>git a
                 {type == "hidden" ? <Text h5 size={18} color="navy" css={{cursor: "pointer"}} onClick={(e) => changeText(e)}>{tokenText}</Text> : <Text h5 size={18} color="black">{content}</Text>}
               </Text>
             </Card.Body>
