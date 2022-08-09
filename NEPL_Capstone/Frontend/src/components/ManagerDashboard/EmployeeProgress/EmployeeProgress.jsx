@@ -82,12 +82,15 @@ export function Tayble({ employees, valid }) {
   const rows = []
   if (valid == true){
   for (const employee in employees.info.podProgress){
+    let pingStatus = false
+    if (employees.info.podProgress[employee].wasPinged.waspinged == true){
+      pingStatus = true
+    }
     rows.push({
       key: employee,
       name: employees.info.podProgress[employee].name,
       email: employees.info.podProgress[employee].email,
-      status: "Not Pinged"
-      // status: employees.info.podProgress[employee].wasPinged.waspinged
+      status: pingStatus
     })
     console.log(employees.info.podProgress[employee].wasPinged)
   }
