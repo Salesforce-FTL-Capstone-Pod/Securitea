@@ -20,7 +20,7 @@ function DashboardOverview({ employees, token, company}) {
             <Card.Body>
               <Text color="black" weight="normal" h6 size={18} css={{ mt: 0, textAlign: "center" }}>
                 {header}
-                <br></br>git a
+                <br></br>
                 {type == "hidden" ? <Text h5 size={18} color="navy" css={{cursor: "pointer"}} onClick={(e) => changeText(e)}>{tokenText}</Text> : <Text h5 size={18} color="black">{content}</Text>}
               </Text>
             </Card.Body>
