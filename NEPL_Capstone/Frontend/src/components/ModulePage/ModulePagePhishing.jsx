@@ -20,6 +20,7 @@ import SignInModal from "../SignInModal/SignInModal";
 import { Container as MUIContainer } from "@mui/material";
 import { Button as MUIButton } from "@mui/material";
 import { useAuthContext } from "../../contexts/auth";
+import { useProgressContext } from "../../contexts/progress";
 
 export default function ModulePagePhishing() {
 	return (
@@ -39,6 +40,7 @@ function Overview() {
 	const [visible, setVisible] = React.useState(false);
 	const handler = () => setVisible(true);
 	const { user, handleLogout } = useAuthContext();
+	const { progress } = useProgressContext();
 	return (
 		<Container
 			maxWidth={false}
@@ -110,7 +112,7 @@ function Overview() {
 				<Progress
 					color="gradient"
 					size="lg"
-					value={30}
+					value={progress}
 					css={{ width: "50%" }}
 				/>
 			</Container>
