@@ -299,41 +299,31 @@ class User {
 	static async getProgress(id) {
 		const query1 = `SELECT module_id, progress FROM modules_1 WHERE user_id=$1;`;
 		const result1 = await db.query(query1, [id]);
-		const progress1 = result1.rows[0];
+		let progress1 = result1.rows[0];
+
+		const query12 = `SELECT steps FROM modules WHERE id=$1`;
+		const result12 = await db.query(query12, [progress1.module_id]);
+		const steps1 = result12.rows[0];
+
+		progress1.steps = steps1.steps;
 
 		const query2 = `SELECT module_id, progress FROM modules_2 WHERE user_id=$1;`;
 		const result2 = await db.query(query2, [id]);
 		const progress2 = result2.rows[0];
+
+		const query22 = `SELECT steps FROM modules WHERE id=$1`;
+		const result22 = await db.query(query22, [progress2.module_id]);
+		const steps2 = result22.rows[0];
+
+		progress2.steps = steps2.steps;
 
 		const progress = {
 			1: progress1,
 			2: progress2,
 		};
 
+		console.log(progress);
 		return progress;
-	}
-
-	static async login(credentials) {
-		const requiredFields = ["email", "password"];
-		requiredFields.forEach((required) => {
-			if (!credentials.hasOwnProperty(required)) {
-				throw new BadRequestError(`Invalid ${required} provided`);
-			}
-		});
-		const user = await User.fetchUserByEmail(credentials.email.toLowerCase());
-
-		if (user?.password) {
-			const validPassword = await bcrypt.compare(
-				credentials.password,
-				user.password
-			);
-
-			if (validPassword) {
-				return User.makePublicUser(user);
-			}
-		}
-
-		throw new UnauthorizedError("Incorrect Credentials");
 	}
 
 	static async fetchUserById(id) {
@@ -363,23 +353,6 @@ class User {
 		if (user.token) userInfo.token = user.token;
 
 		return userInfo;
-	}
-
-	static async getProgress(id) {
-		const query1 = `SELECT module_id, progress FROM modules_1 WHERE user_id=$1;`;
-		const result1 = await db.query(query1, [id]);
-		const progress1 = result1.rows[0];
-
-		const query2 = `SELECT module_id, progress FROM modules_2 WHERE user_id=$1;`;
-		const result2 = await db.query(query2, [id]);
-		const progress2 = result2.rows[0];
-
-		const progress = {
-			1: result1.rows[0],
-			2: result2.rows[0],
-		};
-		console.log(progress)
-		return progress;
 	}
 }
 
