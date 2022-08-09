@@ -12,6 +12,8 @@ import Sidebar from "./Sidebar.jsx";
 import EmployeeTable from "./EmployeeTable/EmployeeTable.jsx";
 import { useNavigate } from "react-router-dom";
 import AssignedModules from "./AssignedModules/AssignedModules.jsx";
+import TokenManagement from "./TokenManagement/TokenManagement.jsx";
+import EmployeeProgress from "./EmployeeProgress/EmployeeProgress.jsx";
 const sizeBox = "65vw";
 
 export default function ManagerDashboard() {
@@ -28,10 +30,10 @@ export default function ManagerDashboard() {
         </Grid>
         <Grid css={{ marginLeft: "25vh"}}>
             <NextContainer fluid>
-                {selectedTab == "Employee Activity" ? <EmployeeTable company="Salesforce" /> : <></>}
+                {selectedTab == "Employee Activity" ? navigate('/EmployeeProgress'): <></>}
                 {selectedTab == "Overview" ? <DashboardOverview /> : <></>}
                 {selectedTab == "Modules Assigned" ? <AssignedModules /> : <></>}
-                {selectedTab == "Token Management" ? <h1>Token Management</h1>: <></>}
+                {selectedTab == "Token Management" ? <TokenManagement /> : <></>}
                 {selectedTab == "User Dashboard" ? navigate('/UserDashboard') : <></>}
             </NextContainer>
         </Grid>

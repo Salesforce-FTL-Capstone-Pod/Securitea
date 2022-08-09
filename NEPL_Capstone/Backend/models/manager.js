@@ -7,7 +7,8 @@ class Manager {
 	static async getPodMembers(email) {
 		const userId = await User.fetchUserByEmail(email);
 
-		const pod = await Manager.getPodMembers(userId);
+		const pod = await this.getPod(userId);
+		console.log("here");
 
 		var membersAndProgress = {};
 		const getFirstProgress = `
@@ -40,6 +41,7 @@ class Manager {
 
 			let rawProgressOne = await db.query(getFirstProgress, [id]);
 			let progressOne = rawProgressOne.rows[0];
+			console.log("p one: ", progressOne);
 
 			let rawProgressTwo = await db.query(getSecondProgress, [id]);
 			let progressTwo = rawProgressTwo.rows[0];
@@ -76,13 +78,12 @@ class Manager {
 		return { podProgress: membersAndProgress, totalMembers: pod.length };
 	}
 
-	static async getPodMembers(userId) {
+	static async getPod(userId) {
 		const getPodQuery = `
         SELECT usersinpod
         FROM manager
         WHERE user_id = $1;
         `;
-
 		const podRaw = await db.query(getPodQuery, [userId.id]);
 		const pod = podRaw.rows[0].usersinpod;
 		return pod;
@@ -104,15 +105,18 @@ class Manager {
 	}
 
 	static async pingUser(userEmail) {
+		console.log("email ", userEmail);
 		const userToPing = await User.fetchUserByEmail(userEmail);
 		const pingUserQuery = `
         UPDATE users
-        SET wasPinged = true
-        WHERE id = $1;
+        SET waspinged = true
+        WHERE id = $1
+        RETURNING waspinged;
         `;
-
+		console.log("PIN GPING ", userToPing);
 		const responseRaw = await db.query(pingUserQuery, [userToPing.id]);
 		const response = responseRaw.rows[0];
+		console.log(response);
 
 		return true;
 	}
@@ -135,7 +139,7 @@ class Manager {
 		const user = await User.fetchUserByEmail(email);
 
 		const wasIPingedQuery = `
-        SELECT wasPinged
+        SELECT waspinged
         FROM users
         WHERE id = $1;
         `;
@@ -148,10 +152,13 @@ class Manager {
 
 	static async pingAll(email) {
 		const userId = await User.fetchUserByEmail(email);
-		const pod = await this.getPodMembers(userId);
+		const pod = await this.getPod(userId);
+		console.log("POD HERE:", pod);
 		for (let i = 0; i < pod.length; i++) {
 			let id = pod[i];
+			console.log("OD HERE:", id);
 			let user = await User.fetchUserById(id);
+			console.log("This is a user: ", user);
 
 			this.pingUser(user.email);
 		}

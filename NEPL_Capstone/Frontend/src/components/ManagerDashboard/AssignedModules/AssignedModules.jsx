@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { Link } from "react-router-dom"
 import { Dropdown, Grid, Card, Row, Button, Spacer, Text, Container, Modal, Loading } from "@nextui-org/react"
-
+import apiClient from '../../../services/apiClient';
 function AssignedModules() {
   return (
     <>
@@ -96,6 +96,7 @@ function ConfirmModal({ visible, setVisible }){
 	const closeHandler = () => {
 		setVisible(false);
 	};
+
     const pressed = (e) => {
         if (e == "cancel"){
             console.log("cancelled")
@@ -103,8 +104,17 @@ function ConfirmModal({ visible, setVisible }){
         }
         if (e == "confirm"){
             console.log("confirmed")
+            async function ping(){
+              const res = await apiClient.pingAllEmployees()
+              console.log(res)
+              console.log("end")
+            }
+            ping()
+            // console.log(res)
+            // setVisible(false)
         }
     };
+    
 	return (
 		<div>
 			<Modal

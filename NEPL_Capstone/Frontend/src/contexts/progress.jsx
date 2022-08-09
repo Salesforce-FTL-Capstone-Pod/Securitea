@@ -1,9 +1,10 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import apiClient from "../services/apiClient";
-
+import { useAuthContext } from "./auth";
 const ProgressContext = createContext(null);
 
 export const ProgressContextProvider = ({ children }) => {
+  const {user} = useAuthContext()
   const [loading, setLoading] = useState(false)
   const [progress, setProgress] = useState(
     {
@@ -11,22 +12,17 @@ export const ProgressContextProvider = ({ children }) => {
       module_id: "",
       progress: ""
     })
-    useEffect(() => {
-      setLoading(true)
-      const fetchProgress = async () => {
-        const { data } = await apiClient.fetchProgress()
-  
-        if (data) {
-          setProgress({
-            module_name: "Phishing",
-            module_id: data.progress.module_id,
-            progress: data.progress.progress
-          })
-        }
-      }
-      fetchProgress()
-      setLoading(false)
-    }, [])
+    // useEffect(() => {
+    //   if (user?.title){
+    //     setLoading(true)
+    //     const fetchProgress = async () => {
+    //       const { data } = await apiClient.fetchProgress()
+
+    //     }
+    //     fetchProgress()
+    //     setLoading(false)
+    //   }
+    // }, [user])
 
   const progressValue = { progress }
 

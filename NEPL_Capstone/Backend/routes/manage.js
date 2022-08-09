@@ -51,6 +51,7 @@ router.patch(
 	security.requireAuthenticatedUser,
 	async (req, res, next) => {
 		try {
+			console.log(res.locals.user.email)
 			const allPinged = await Manager.pingAll(res.locals.user.email);
 
 			return res.status(200).json({ allPinged });
