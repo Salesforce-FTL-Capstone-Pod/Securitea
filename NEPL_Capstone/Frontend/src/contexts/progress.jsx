@@ -6,23 +6,18 @@ const ProgressContext = createContext(null);
 export const ProgressContextProvider = ({ children }) => {
 	const { user } = useAuthContext();
 	const [loading, setLoading] = useState(false);
-	const [progress, setProgress] = useState({
-		module_id: "",
-		progress: "",
-	});
+	const [progress, setProgress] = useState({ progress: "" });
 	useEffect(() => {
-		if (user?.title) {
-			setLoading(true);
-			const fetchProgress = async () => {
-				const { data } = await apiClient.fetchProgress();
-				console.log(data);
-			};
-			fetchProgress();
-			setLoading(false);
+		async function fetchProg() {
+			const { data } = await apiClient.fetchProgress();
+			setProgress(data);
 		}
-	}, [user]);
+		fetchProg();
+		console.log("data:", progress);
+	}, []);
 
 	const progressValue = { progress };
+	console.log(progressValue, " HREERERERERER");
 	return (
 		<ProgressContext.Provider value={progressValue}>
 			<>{children}</>
