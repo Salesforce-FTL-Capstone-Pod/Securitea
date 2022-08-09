@@ -31,7 +31,6 @@ export const AuthContextProvider = ({ children }) => {
 			const { data } = await apiClient.fetchUserFromToken();
 
 			if (data) {
-				console.log("DATA HERE ", data);
 				setUser(data.publicUser);
 			}
 			setInitialized(true);

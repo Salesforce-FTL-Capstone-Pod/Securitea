@@ -59,9 +59,9 @@ function App() {
           {/* <Route path="/Modules/tips" element={} */}
           <Route path="/Contact-Us" element={<ContactUs />} />
           <Route path="*" element={<PageNotFound />} />
-		  <Route path="/Skeleton" element={<AuthRoute element={<Skeleton /> } /> } />
-		  <Route path="/ManagerDashboard/*" element={<AuthRoute element={<ManagerDashboard />} /> } />
-		  <Route path="/EmployeeProgress" element={<AuthRoute element={<EmployeeProgress />} /> } />
+		      <Route path="/Skeleton" element={<AuthRoute element={<Skeleton /> } /> } />
+		      <Route path="/ManagerDashboard/*" element={<AuthRoute element={<ManagerDashboard />} /> } />
+		      <Route path="/EmployeeProgress" element={<AuthRoute element={<EmployeeProgress />} /> } />
         </Routes>
       </BrowserRouter>
     </div>

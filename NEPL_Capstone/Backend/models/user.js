@@ -239,7 +239,9 @@ class User {
 			throw new BadRequestError("No email was provided");
 		}
 		const query = `SELECT * FROM users WHERE email=$1`;
-		const result = await db.query(query, [email.toLowerCase()]);
+		const normalizedEmail = email.toLowerCase();
+
+		const result = await db.query(query, [normalizedEmail]);
 		const user = result.rows[0];
 		return user;
 	}
