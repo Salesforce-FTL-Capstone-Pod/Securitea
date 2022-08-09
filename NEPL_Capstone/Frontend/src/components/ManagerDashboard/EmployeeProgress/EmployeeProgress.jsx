@@ -13,34 +13,7 @@ const sizeBox = "65vw";
 
 export default function EmployeeProgress() {
   return (
-    <Container maxWidth={false} disableGutters>
-      <Navbar />
-      <Overview />
-      <Content />
-      <Footer />
-    </Container>
-  );
-}
-
-function Overview() {
-
-
-  return (
-    <Container
-      maxWidth={false}
-      disableGutters
-      sx={{
-        backgroundColor: color.richBlackFogra,
-        display: "flex",
-        justifyContent: "center",
-    }}
-    >
-      <Container
-        style={{ marginBottom: "4vw", marginTop: "1vw", width: sizeBox }}
-      >
-
-      </Container>
-    </Container>
+    <Content />
   );
 }
 
@@ -52,6 +25,7 @@ function Content() {
     setEmployees(data)
     setValid(true)
 }
+
 
   return (
     <Container sx={{ display: "flex", minHeight: "100vh", marginBottom: "10vh"}} disableGutters>
@@ -82,9 +56,9 @@ export function Tayble({ employees, valid }) {
   const rows = []
   if (valid == true){
   for (const employee in employees.info.podProgress){
-    let pingStatus = false
+    let pingStatus = "Not Pinged"
     if (employees.info.podProgress[employee].wasPinged.waspinged == true){
-      pingStatus = true
+      pingStatus = "Pinged"
     }
     rows.push({
       key: employee,

@@ -23,7 +23,6 @@ export const ProgressContextProvider = ({ children }) => {
 	}, [user]);
 
 	const progressValue = { progress };
-
 	return (
 		<ProgressContext.Provider value={progressValue}>
 			<>{children}</>

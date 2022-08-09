@@ -366,9 +366,19 @@ class User {
 	}
 
 	static async getProgress(id) {
-		const query = `SELECT module_id, progress FROM modules_1 WHERE user_id=$1;`;
-		const result = await db.query(query, [id]);
-		const progress = result.rows[0];
+		const query1 = `SELECT module_id, progress FROM modules_1 WHERE user_id=$1;`;
+		const result1 = await db.query(query1, [id]);
+		const progress1 = result1.rows[0];
+
+		const query2 = `SELECT module_id, progress FROM modules_2 WHERE user_id=$1;`;
+		const result2 = await db.query(query2, [id]);
+		const progress2 = result2.rows[0];
+
+		const progress = {
+			1: result1.rows[0],
+			2: result2.rows[0],
+		};
+		console.log(progress)
 		return progress;
 	}
 }
