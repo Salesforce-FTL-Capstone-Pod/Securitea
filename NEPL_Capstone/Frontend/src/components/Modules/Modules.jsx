@@ -51,7 +51,6 @@ export default function Modules() {
 			<Navbar />
 			<Hero user={user} />
 			<CardContainer />
-			<SubHero />
 			<Footer />
 		</>
 	);
@@ -129,36 +128,6 @@ export function CardContainer() {
 				<LockedCard />
 			</Container>
 		</div>
-	);
-}
-
-export function SubHero() {
-	return (
-		<>
-			<Container
-				style={{
-					backgroundColor: "#D3CFE2",
-					margin: "0%",
-					display: "flex",
-					flexDirection: "column",
-					marginTop: "2vw",
-					justifyContent: "center",
-					textAlign: "center",
-				}}
-				maxWidth={false}
-			>
-				<h3>Our content is sourced from</h3>
-				<p>
-					Id aliquet risus feugiat in ante metus dictum at.something
-					<br></br>
-					something!Id aliquet risus feugiat in ante metus dictum at.something
-					<br></br>
-					something!Id aliquet risus feugiat in ante metus dictum at.something
-					<br></br>
-					something!
-				</p>
-			</Container>
-		</>
 	);
 }
 
