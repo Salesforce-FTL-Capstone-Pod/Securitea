@@ -6,6 +6,7 @@ const AuthContext = createContext(null);
 export const AuthContextProvider = ({ children }) => {
 	const [initialized, setInitialized] = useState(false);
 	const [user, setUser] = useState({});
+	const [managerToken, setmanagerToken] = useState()
 	var logo =
 		"https://www.nicepng.com/png/detail/16-160412_teacup-png-clipart-tea-coffee-clip-art-tea.png";
 	if (user?.company) {
@@ -25,13 +26,16 @@ export const AuthContextProvider = ({ children }) => {
 		}
 		user["logo"] = logo;
 	}
-	console.log(user);
 	useEffect(() => {
 		const fetchUser = async () => {
 			const { data } = await apiClient.fetchUserFromToken();
 
 			if (data) {
 				setUser(data.publicUser);
+				if(data.publicUser.isManager == true){
+				const token = await apiClient.fetchManagerToken();
+				setmanagerToken(token.data.managerToken)
+				}
 			}
 			setInitialized(true);
 		};
@@ -50,7 +54,7 @@ export const AuthContextProvider = ({ children }) => {
 		setUser({});
 	};
 
-	const authValue = { user, setUser, handleLogout, initialized };
+	const authValue = { user, setUser, handleLogout, initialized, managerToken };
 
 	return (
 		<AuthContext.Provider value={authValue}>
