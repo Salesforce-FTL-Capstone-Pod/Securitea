@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Button,
   Grid,
   Container,
   Box,
@@ -32,6 +31,7 @@ import {
   Modal,
   Dropdown,
   Text,
+  Button
 } from "@nextui-org/react";
 
 export default function SimulationPage() {
@@ -143,22 +143,25 @@ function EmailRender() {
   const [isWrong, setIsWrong] = useState(false);
   const [isToggled, setIsToggled] = useState(false);
     const [visible, setVisible] = React.useState(false);
+    const [report, setReport] = useState(false);
     const handler = () => setVisible(true);
   return (
     <Container>
+      {!isClicked ? (
       <Button
         onClick={() => setIsClicked(!isClicked)}
         style={{ width: "76.4%", background: "none" }}
-        sx={{
+        size="md"
+        css={{
           position: "relative",
-          top: " 25.5%",
-          left: "11.2%",
+          top: " 24.5%",
+          left: "19.2%",
         }}
       >
-        {!isClicked ? (
-          <img src={EmailButton} style={{ display: "flex", width: "100%" }} />
-        ) : null}
-      </Button>
+        
+          <img src={EmailButton} style={{ display: "flex", width: "100%", height:"100%" }} />
+        
+      </Button>) : null}
       {isClicked ? (
         <img src={PhishingImg} style={{ width: "100%" }} />
       ) : (
@@ -166,11 +169,11 @@ function EmailRender() {
       )}
       <Button
         onClick={() => setVisible(!visible)}
-        sx={{
+        css={{
           position: "relative",
-          bottom: "44.5%",
-          left: "8%",
-          width: "28%",
+          bottom: "46%",
+          left: "40%",
+          width: "30%",
         }}
         style={{ background: "none" }}
       >
@@ -178,24 +181,17 @@ function EmailRender() {
           <img src={LinkButton} style={{ display: "flex", size: "100%" }} />
         ) : null}
       </Button>
-      <Button
-        onClick={() => setIsToggled(!isToggled)}
-        style={{ background: "none" }}
-        sx={{
-          position: "relative",
-          bottom: "68.4%",
-          left: "29%",
-          width: "1%",
-        }}
-      >
+    
         {isClicked ? (
           <RightAnswer
             handler={handler}
             visible={visible}
             setVisible={setVisible}
+            report={report}
+            setReport={setReport}
           />
         ) : null}
-      </Button>
+      {/* </Button> */}
       {/* {isClicked ? (
         isToggled ? (
           <Button
@@ -233,8 +229,8 @@ function WrongPopUp({ handler, visible, setVisible }) {
         aria-labelledby="modal-title"
         open={visible}
         onClose={closeHandler}
-       width="35%"
-       css={{display: 'flex', justifyContent: 'center'}}
+        width="35%"
+        css={{ display: "flex", justifyContent: "center" }}
       >
         <Modal.Header></Modal.Header>
         <Modal.Body>
@@ -250,7 +246,9 @@ function WrongPopUp({ handler, visible, setVisible }) {
           <Button auto flat color="error" onClick={closeHandler}>
             Close
           </Button>
-          <Button>Next</Button>
+          <Button auto flat color={color.languidLavender}>
+            Next
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>
@@ -260,19 +258,20 @@ function RightAnswer(){
   const [report, setReport] = useState(false);
   return (
     <Dropdown>
-      <Dropdown.Button size="xs" css={{ position: "relative", top: "22%" }}>
+      <Dropdown.Button
+        size="xs"
+        color={color.platinum}
+        style={{ position: "relative", left: "94%", bottom: "72.2%" }}
+      >
         <img
           src={dots}
           style={{ display: "flex", fontSize: "100%", width: "100%" }}
         />
       </Dropdown.Button>
-      <Dropdown.Menu aria-label="Static Actions">
-        <Dropdown.Item onClick={() => setReport(!report)} key="new">
+      <Dropdown.Menu  aria-label="Static Actions">
+        <Dropdown.Item >
           Report
         </Dropdown.Item>
-        {report ? (
-          <img src={RightCard} style={{ display: "flex", size: "100%" }} />
-        ) : null}
       </Dropdown.Menu>
     </Dropdown>
   );
