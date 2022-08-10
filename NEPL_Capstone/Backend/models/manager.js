@@ -153,12 +153,9 @@ class Manager {
 	static async pingAll(email) {
 		const userId = await User.fetchUserByEmail(email);
 		const pod = await this.getPod(userId);
-		console.log("POD HERE:", pod);
 		for (let i = 0; i < pod.length; i++) {
 			let id = pod[i];
-			console.log("OD HERE:", id);
 			let user = await User.fetchUserById(id);
-			console.log("This is a user: ", user);
 
 			this.pingUser(user.email);
 		}

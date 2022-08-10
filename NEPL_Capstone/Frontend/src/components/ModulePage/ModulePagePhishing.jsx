@@ -24,7 +24,7 @@ import { useProgressContext } from "../../contexts/progress";
 
 export default function ModulePagePhishing() {
 	const { progress } = useProgressContext();
-	const progressOne = progress.progress["1"];
+	const progressOne = progress?.progress["1"] || 0;
 	const progressPercent =
 		(progressOne?.progress / progressOne?.steps) * 100 || 0;
 
@@ -76,7 +76,6 @@ function Overview({ progressPercent }) {
 				>
 					Phishing
 				</Text>
-
 				{user?.email ? (
 					<Button color="secondary" css={{ marginTop: "0.5vw", height: "2vw" }}>
 						<Link to="/Modules/demo">
@@ -102,7 +101,6 @@ function Overview({ progressPercent }) {
 						Login
 					</Button>
 				)}
-
 				<Text
 					h3
 					css={{
@@ -114,12 +112,14 @@ function Overview({ progressPercent }) {
 				>
 					Learn how to protect yourself from phishing attempts.
 				</Text>
-				<Progress
-					color="gradient"
-					size="lg"
-					value={progressPercent}
-					css={{ width: "50%" }}
-				/>
+				{progressPercent > 0 ? (
+					<Progress
+						color="gradient"
+						size="lg"
+						value={progressPercent}
+						css={{ width: "50%" }}
+					/>
+				) : null}
 			</Container>
 			<SignInModal
 				handler={handler}

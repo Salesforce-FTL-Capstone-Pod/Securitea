@@ -17,8 +17,6 @@ import {
 const sizeBox = "65vw";
 import { useLoginForm } from "../../hooks/useLoginForm";
 import SignInModal from "../SignInModal/SignInModal";
-import { Container as MUIContainer } from "@mui/material";
-import { Button as MUIButton } from "@mui/material";
 import { useAuthContext } from "../../contexts/auth";
 import { useProgressContext } from "../../contexts/progress";
 
@@ -42,7 +40,7 @@ function Overview({ progress }) {
 	const [visible, setVisible] = React.useState(false);
 	const handler = () => setVisible(true);
 	const { user, handleLogout } = useAuthContext();
-	const progressTwo = progress.progress["2"];
+	const progressTwo = progress?.progress["2"] || 0;
 	const progressPercent =
 		(progressTwo?.progress / progressTwo?.steps) * 100 || 0;
 	return (
@@ -113,12 +111,14 @@ function Overview({ progress }) {
 				>
 					Learn how to surf the web while remaining safe.
 				</Text>
-				<Progress
-					color="gradient"
-					size="lg"
-					value={progressPercent}
-					css={{ width: "50%" }}
-				/>
+				{progressPercent > 0 ? (
+					<Progress
+						color="gradient"
+						size="lg"
+						value={progressPercent}
+						css={{ width: "50%" }}
+					/>
+				) : null}
 			</Container>
 			<SignInModal
 				handler={handler}
