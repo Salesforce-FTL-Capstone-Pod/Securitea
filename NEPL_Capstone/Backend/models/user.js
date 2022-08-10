@@ -326,6 +326,41 @@ class User {
 		return progress;
 	}
 
+	static async increaseProgress(module_id, user_id) {
+		const moduleName = "modules_" + module_id;
+
+		const maxProgressQuery = `
+		SELECT steps FROM modules WHERE id = $1;
+		`;
+		const maxProgressRaw = await db.query(maxProgressQuery, [module_id]);
+		const maxProgress = maxProgressRaw.rows[0].steps;
+
+		const currentProgressQuery = `
+		SELECT progress FROM ${moduleName} WHERE user_id=$1;
+		`;
+
+		const progressRaw = await db.query(currentProgressQuery, [user_id]);
+		const progress = progressRaw.rows[0].progress;
+
+		const newProgress = parseInt(progress) + 1;
+
+		if (newProgress > maxProgress) {
+			return "Module already completed!!";
+		}
+
+		const addProgressQuery = `
+		UPDATE ${moduleName}
+        SET progress = $1
+        WHERE user_id = $2
+        RETURNING progress, module_id;
+		`;
+
+		const newProgRaw = await db.query(addProgressQuery, [newProgress, user_id]);
+		const newProg = newProgRaw.rows[0];
+
+		return newProg;
+	}
+
 	static async fetchUserById(id) {
 		if (!id) {
 			throw new BadRequestError("No id was provided");

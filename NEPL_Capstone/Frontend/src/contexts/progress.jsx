@@ -13,11 +13,21 @@ export const ProgressContextProvider = ({ children }) => {
 			setProgress(data);
 		}
 		fetchProg();
-		console.log("data:", progress);
-	}, []);
+	}, [user]);
 
-	const progressValue = { progress };
-	console.log(progressValue, " HREERERERERER");
+	const progressOne = progress?.progress["1"] || 0;
+	const progressPercentOne =
+		(progressOne?.progress / progressOne?.steps) * 100 || 0;
+
+	const progressTwo = progress?.progress["2"] || 0;
+	const progressPercentTwo =
+		(progressTwo?.progress / progressTwo?.steps) * 100 || 0;
+
+	const progressValue = {
+		progress: progress,
+		percentOne: progressPercentOne,
+		percentTwo: progressPercentTwo,
+	};
 	return (
 		<ProgressContext.Provider value={progressValue}>
 			<>{children}</>

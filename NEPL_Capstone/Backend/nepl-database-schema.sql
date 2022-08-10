@@ -55,4 +55,4 @@ VALUES
 INSERT INTO
   modules (name, category, steps)
 VALUES
-  ('Safety Tips', 'Tips', 7);
+  ('Safety Tips', 'Tips', 2);

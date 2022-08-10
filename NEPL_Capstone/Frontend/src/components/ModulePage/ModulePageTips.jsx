@@ -19,9 +19,12 @@ import { useLoginForm } from "../../hooks/useLoginForm";
 import SignInModal from "../SignInModal/SignInModal";
 import { useAuthContext } from "../../contexts/auth";
 import { useProgressContext } from "../../contexts/progress";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
 export default function ModulePageTips() {
-	const { progress } = useProgressContext();
+	const progress = useProgressContext();
+
+	const progressTwo = progress.progress.progress["2"] || 0;
 
 	return (
 		<Container maxWidth={false} disableGutters>
@@ -40,9 +43,7 @@ function Overview({ progress }) {
 	const [visible, setVisible] = React.useState(false);
 	const handler = () => setVisible(true);
 	const { user, handleLogout } = useAuthContext();
-	const progressTwo = progress?.progress["2"] || 0;
-	const progressPercent =
-		(progressTwo?.progress / progressTwo?.steps) * 100 || 0;
+
 	return (
 		<Container
 			maxWidth={false}
@@ -73,7 +74,6 @@ function Overview({ progress }) {
 				>
 					Internet Safety Tips
 				</Text>
-
 				{user?.email ? (
 					<Button color="secondary" css={{ marginTop: "0.5vw", height: "2vw" }}>
 						<Link to="/Modules/demo">
@@ -99,7 +99,6 @@ function Overview({ progress }) {
 						Login
 					</Button>
 				)}
-
 				<Text
 					h3
 					css={{
@@ -111,14 +110,20 @@ function Overview({ progress }) {
 				>
 					Learn how to surf the web while remaining safe.
 				</Text>
-				{progressPercent > 0 ? (
+				(
+				<Container sx={{ display: "flex" }} disableGutters>
 					<Progress
 						color="gradient"
 						size="lg"
-						value={progressPercent}
+						value={progress.percentTwo}
 						css={{ width: "50%" }}
 					/>
-				) : null}
+
+					{progress.percentTwo === 100 ? (
+						<TaskAltIcon sx={{ color: color.platinum, marginLeft: "1vw" }} />
+					) : null}
+				</Container>
+				)
 			</Container>
 			<SignInModal
 				handler={handler}
