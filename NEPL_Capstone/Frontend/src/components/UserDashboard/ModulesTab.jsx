@@ -32,7 +32,7 @@ function ModulesTab() {
 
 export function ModuleDisplay() {
 	const { progress } = useProgressContext();
-	const progressVal = progress.progress;
+	const progressVal = progress?.progress || 0;
 	return (
 		<NextContainer fluid>
 			<Text h1 b>
