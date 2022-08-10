@@ -7,6 +7,7 @@ import * as color from "../../assets/colorPalette";
 import { useLoginForm } from "../../hooks/useLoginForm";
 import SignInModal from "../SignInModal/SignInModal";
 
+
 const sizeBox = "65vw";
 
 export default function ModulePagePhishing() {

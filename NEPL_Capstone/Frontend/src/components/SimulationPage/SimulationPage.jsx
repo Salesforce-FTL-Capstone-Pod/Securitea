@@ -19,12 +19,18 @@ import { useState } from "react";
 
 import Question from "../../assets/Question.svg";
 import EmailSim from "../../assets/EmailSim.svg";
-import PhisingImg from "../../assets/PhisingImg.svg";
+import PhishingImg from "../../assets/PhishingImg.svg";
 import EmailButton from "../../assets/EmailButton.svg";
 import LinkButton from "../../assets/LinkButton.svg";
 import Wrong from "../../assets/Wrong.svg";
+import ReportButton from "../../assets/ReportButton.svg";
+import RightCard from "../../assets/RightCard.svg";
+import dots from "../../assets/dots.svg";
 import { borderRadius } from "@mui/system";
 import { StyledBadge } from "../ManagerDashboard/EmployeeTable/StyledBadge";
+import {
+  Modal,
+} from "@nextui-org/react";
 
 export default function SimulationPage() {
   return (
@@ -77,7 +83,7 @@ function Simulation() {
         maxWidth={false}
         sx={{
           position: "relative",
-          backgroundColor: color.blueBell,
+          backgroundColor: color.languidLavender,
           height: "89vh",
           borderRadius: "2vw",
           width: "100%",
@@ -131,7 +137,11 @@ function Simulation() {
 
 function EmailRender() {
   const [isClicked, setIsClicked] = useState(false);
-  const [isWrong, setIsWrong] = useState(false)
+  const [isRight, setIsRight] = useState(false);
+  const [isWrong, setIsWrong] = useState(false);
+  const [isToggled, setIsToggled] = useState(false);
+    const [visible, setVisible] = React.useState(false);
+    const handler = () => setVisible(true);
   return (
     <Container>
       <Button
@@ -148,17 +158,17 @@ function EmailRender() {
         ) : null}
       </Button>
       {isClicked ? (
-        <img src={PhisingImg} style={{ width: "100%" }} />
+        <img src={PhishingImg} style={{ width: "100%" }} />
       ) : (
         <img src={EmailSim} style={{ display: "flex", width: "100%" }} />
       )}
       <Button
-        onClick={() => setIsClicked(!isClicked)}
+        onClick={() => setVisible(!visible)}
         sx={{
           position: "relative",
           bottom: "46.1%",
-          left: "6%",
-          width: "40%",
+          left: "10%",
+          width: "35%",
         }}
         style={{ background: "none" }}
       >
@@ -166,8 +176,80 @@ function EmailRender() {
           <img src={LinkButton} style={{ display: "flex", fontSize: "100%" }} />
         ) : null}
       </Button>
-    
+      <Button
+        onClick={() => setIsToggled(!isToggled)}
+        style={{ background: "none" }}
+        sx={{
+          position: "relative",
+          bottom: "68.4%",
+          left: "29%",
+          width: "1%",
+        }}
+      >
+        {isClicked ? (
+          <img
+            src={dots}
+            style={{ display: "flex", fontSize: "100%", width: "14%" }}
+          />
+        ) : null}
+      </Button>
+      {isClicked ? (
+        isToggled ? (
+          <Button
+            onClick={() => setIsRight(!isRight)}
+            style={{
+              position: "absolute",
+              bottom: "64%",
+              left: "86%",
+              width: "5%",
+            }}
+          >
+            <img src={ReportButton} style={{ width: "100%" }} />
+            {isRight ? <img src={RightCard} /> : null}
+          </Button>
+        ) : null
+      ) : null}
+      <ErrorPopUp
+        handler={handler}
+        visible={visible}
+        setVisible={setVisible}
+        style={{ width: "10%" }}
+      />
     </Container>
   );
 }
 
+function ErrorPopUp({ handler, visible, setVisible }) {
+  const closeHandler = () => {
+    setVisible(false);
+  };
+  return (
+    <div>
+      <Modal
+        closeButton
+        aria-labelledby="modal-title"
+        open={visible}
+        onClose={closeHandler}
+       width="35%"
+       css={{display: 'flex', justifyContent: 'center'}}
+      >
+        <Modal.Header></Modal.Header>
+        <Modal.Body>
+          <img
+            src={Wrong}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button auto flat color="error" onClick={closeHandler}>
+            Close
+          </Button>
+          <Button>Next</Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
+}
