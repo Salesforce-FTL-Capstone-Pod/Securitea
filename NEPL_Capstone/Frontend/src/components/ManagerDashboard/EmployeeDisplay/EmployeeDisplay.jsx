@@ -4,19 +4,20 @@ import { useState } from 'react';
 import { Container, Box} from "@mui/material";
 import { Link } from "react-router-dom";
 import * as color from "../../../assets/colorPalette"
-import { Text, Button, Spacer, Progress, Collapse, Row, Grid, Card, Table, Container as NextContainer, Modal } from "@nextui-org/react"
+import { Text, Button, Spacer, Row, Progress, Collapse, Avatar, Grid, Card, Table, Container as NextContainer, Modal } from "@nextui-org/react"
 import apiClient from "../../../services/apiClient"
-
+import { StyledBadge } from "../EmployeeTable/StyledBadge";
 const sizeBox = "65vw";
 
 
-export default function EmployeeDisplay({ employees, company }) {
+export default function EmployeeDisplay({ employees, company, logo }) {
+
   return (
-    <Content employees={employees} company={company} />
+    <Content employees={employees} company={company} logo={logo} />
   );
 }
 
-function Content({ employees, company }) {
+function Content({ employees, company, logo }) {
   return (
     <NextContainer css={{marginBototm: "10vh", marginLeft: "10vh", minWidth: "100vh"}} fluid>
       <Spacer></Spacer>
@@ -32,7 +33,7 @@ function Content({ employees, company }) {
           </Text>
           <Card css={{ minHeight: "40vh", $$cardColor: '$colors$darkpurple', minWidth: "100vh" }}>
             <Card.Body>
-              <Tayble employees={employees} valid={true} />
+              <Tayble employees={employees} valid={true} logo={logo} />
             </Card.Body>
           </Card>
     </Grid>
@@ -51,8 +52,7 @@ function Content({ employees, company }) {
   // );
 }
 
-export function Tayble({ employees, valid }) {
-  const [visible, setVisible] = useState(false)
+export function Tayble({ employees, valid, logo }) {
   const columns = [
     {
       key: "name",
@@ -76,12 +76,25 @@ export function Tayble({ employees, valid }) {
     }
     rows.push({
       key: employee,
+      progress: employees.info.podProgress[employee],
       name: employees.info.podProgress[employee].name,
       email: employees.info.podProgress[employee].email,
       status: pingStatus
     })
   }
   }
+  const [visible, setVisible] = useState(false)
+  const [selectedEmployee, setselectedEmployee] = useState()
+  function displayModal(e){
+    setselectedEmployee(e.currentKey)
+    setVisible(true)
+    if(e.size == 0){
+      setVisible(false)
+    }
+    if (e.size == 1){
+    }
+  }
+
   return (
     <>
     <Table
@@ -92,7 +105,7 @@ export function Tayble({ employees, valid }) {
         background: "white"
       }}
       selectionMode="single"
-      onSelectionChange={(e) => console.log(e)}
+      onSelectionChange={(e) => displayModal(e)}
       showSelectionCheckboxes={false}
     >
       <Table.Header columns={columns}>
@@ -102,226 +115,87 @@ export function Tayble({ employees, valid }) {
       </Table.Header>
       <Table.Body items={rows}>
         {(item) => (
-          <Table.Row key={item.email} onClick={(e) => console.log(e)}>
-            {(columnKey) => <Table.Cell onClick={(e) => console.log(e)}>{item[columnKey]}</Table.Cell>}
+          <Table.Row key={item.key}>
+            {(columnKey) => <Table.Cell>{item[columnKey]}</Table.Cell>}
           </Table.Row>
         )}
       </Table.Body>
     </Table>
-    <EmployeeModal visible={visible} setVisible={setVisible} />
+    {selectedEmployee == undefined ? <></> : <><EmployeeModal visible={visible} setVisible={setVisible} employees={rows} selectedEmployee={selectedEmployee} logo={logo} /></>}
     </>
   );
 }
 
 
-export function EmployeeModal({visible}){
+export function EmployeeModal({ visible, setVisible, employees, selectedEmployee, logo}){
+  const employee = {
+    name: employees[selectedEmployee].progress.name,
+    email: employees[selectedEmployee].progress.email,
+    pingStatus: employees[selectedEmployee].progress.wasPinged.waspinged.toString(),
+    phishingProgress: employees[selectedEmployee].progress[1],
+    safetyProgress: employees[selectedEmployee].progress[2]
+  }
+  
+
   return(
     <Modal
     scroll
-    width="600px"
+    width="40%"
     aria-labelledby="modal-title"
     aria-describedby="modal-description"
-    visible={visible}
+    open={visible}
+    onClose={() => setVisible(false)}
   >
       <Modal.Header>
-        <Text id="modal-title" size={18}>
-          Modal with a lot of content
+        <Text id="modal-title" weight="normal" size={18}>
+          Viewing information for <Text weight="semibold"  size={22} >{employee.name}</Text>
         </Text>
       </Modal.Header>
       <Modal.Body>
-        <Text id="modal-description">
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-          ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-          purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-          egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-          vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-          nisl consectetur et. Cras mattis consectetur purus sit amet
-          fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-          ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-          purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-          egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-          vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-          nisl consectetur et. Cras mattis consectetur purus sit amet
-          fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-          ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-          purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-          egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-          vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-          nisl consectetur et. Cras mattis consectetur purus sit amet
-          fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-          ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-          purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-          egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-          vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-          nisl consectetur et. Cras mattis consectetur purus sit amet
-          fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-          ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-          purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-          egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-          vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-          nisl consectetur et. Cras mattis consectetur purus sit amet
-          fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-          ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-          purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-          egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-          vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-          nisl consectetur et. Cras mattis consectetur purus sit amet
-          fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-          ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-          purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-          egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-          vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-          nisl consectetur et. Cras mattis consectetur purus sit amet
-          fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-          ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-          purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-          egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-          vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-          nisl consectetur et. Cras mattis consectetur purus sit amet
-          fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-          ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-          purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-          egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-          vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-          nisl consectetur et. Cras mattis consectetur purus sit amet
-          fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-          ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-          purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-          egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-          vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-          nisl consectetur et. Cras mattis consectetur purus sit amet
-          fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-          ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-          purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-          egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-          vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-          nisl consectetur et. Cras mattis consectetur purus sit amet
-          fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-          ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-          purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-          egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-          vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-          nisl consectetur et. Cras mattis consectetur purus sit amet
-          fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-          ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-          purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-          egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-          vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-          nisl consectetur et. Cras mattis consectetur purus sit amet
-          fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-          ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-          purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-          egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-          vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-          nisl consectetur et. Cras mattis consectetur purus sit amet
-          fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-          ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-          purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-          egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-          vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-          nisl consectetur et. Cras mattis consectetur purus sit amet
-          fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-          ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-          purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-          egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-          vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-          nisl consectetur et. Cras mattis consectetur purus sit amet
-          fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
-          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-          ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
-          purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-          egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-          vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
-          nisl consectetur et.
+      <Text id="modal-description">
+          
         </Text>
+        
+        <Row justify="center" css={{ marginLeft: "6vh"}} >
+        <Avatar
+                  css={{ size: "$20",}}
+                  src={logo}
+                  color="gradient"
+                  bordered
+          />
+          
+          <Card variant="flat" css={{ marginLeft: "0.5vh", background: "white", maxWidth: "50%"}}>
+            
+          <Text id="modal-title" weight="thin" size={15}>
+            
+            Name <Text weight="semibold"  size={20} >{employee.name}</Text>
+          </Text>
+
+          <Text id="modal-title" weight="thin" size={15}>
+            Email <Text weight="semibold"  size={20} >{employee.email}</Text>
+            <StyledBadge type="active">PINGED: {employee.pingStatus}</StyledBadge>
+          </Text>
+          
+          </Card>
+
+        </Row>
+
+          <Collapse.Group accordion={false}>
+            <Collapse title="Module Phishing Progress">
+              <Text>
+                Progress/Steps 
+              </Text>
+            </Collapse>
+            <Collapse title="Module Safety Tips Progress">
+              <Text>
+                Progress/Steps
+              </Text>
+            </Collapse>
+          </Collapse.Group>
       </Modal.Body>
       <Modal.Footer>
         <Button auto flat color="error" onClick={() => setVisible(false)}>
           Close
-        </Button>
-        <Button auto onClick={() => setVisible(false)}>
-          Agree
         </Button>
       </Modal.Footer>
     </Modal>

@@ -31,7 +31,6 @@ export default function ManagerDashboard() {
   useEffect(() => {
     fetchEmployees()
   }, [selectedTab])
-
   return (
     <Container maxWidth={false} disableGutters>
       <Navbar />
@@ -42,7 +41,7 @@ export default function ManagerDashboard() {
         </Grid>
         <Grid css={{ marginLeft: "1vh"}}>
             <NextContainer css={{ minWidth: "100vh" }} fluid>
-                {selectedTab == "Employee Activity" ? <EmployeeDisplay employees={employees} company={user.company} /> : <></>}
+                {selectedTab == "Employee Activity" ? <EmployeeDisplay employees={employees} company={user.company} logo={user.logo} /> : <></>}
                 {selectedTab == "Overview" ? <DashboardOverview employees={employees} token={managerToken} company={user.company} /> : <></>}
                 {selectedTab == "Modules Assigned" ? <AssignedModules /> : <></>}
                 {selectedTab == "Token Management" ? <TokenManagement /> : <></>}

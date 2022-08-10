@@ -58,7 +58,7 @@ function DashboardOverview({ employees, token, company}) {
    <Grid.Container justify='space-between'>
     <Grid>
           <Text h3 weight="light" css={{marginTop: "2vh", marginLeft: "1vh"}}>Inactive Employees</Text>
-          {/* <RepTable /> */}
+          <RepTable />
     </Grid>
     <Grid>
           <Text h3 weight="light" css={{marginTop: "2vh", marginLeft: "1vh"}}>Placeholder</Text>
