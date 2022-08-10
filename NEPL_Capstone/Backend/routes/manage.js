@@ -37,7 +37,10 @@ router.patch(
 	security.requireAuthenticatedUser,
 	async (req, res, next) => {
 		try {
-			const userPinged = await Manager.pingUser(req.body.userEmail);
+			const userPinged = await Manager.pingUser(
+				req.body.userEmail,
+				req.body.module
+			);
 
 			return res.status(200).json({ userPinged });
 		} catch (err) {
@@ -51,8 +54,11 @@ router.patch(
 	security.requireAuthenticatedUser,
 	async (req, res, next) => {
 		try {
-			console.log(res.locals.user.email)
-			const allPinged = await Manager.pingAll(res.locals.user.email);
+			console.log(res.locals.user.email);
+			const allPinged = await Manager.pingAll(
+				res.locals.user.email,
+				req.body.module
+			);
 
 			return res.status(200).json({ allPinged });
 		} catch (err) {
@@ -67,7 +73,7 @@ router.patch(
 	async (req, res, next) => {
 		try {
 			const email = res.locals.user.email;
-			const userUnpinged = await Manager.unpingUser(email);
+			const userUnpinged = await Manager.unpingUser(email, req.body.module);
 
 			return res.status(200).json({ userUnpinged });
 		} catch (err) {
@@ -82,7 +88,10 @@ router.get(
 	security.requireAuthenticatedUser,
 	async (req, res, next) => {
 		try {
-			const amPinged = await Manager.wasIPinged(res.locals.user.email);
+			const amPinged = await Manager.wasIPinged(
+				res.locals.user.email,
+				req.body.module
+			);
 
 			return res.status(200).json({ amPinged });
 		} catch (err) {

@@ -171,6 +171,22 @@ class User {
 
 		const user = userResult.rows[0];
 
+		const addProgress = `
+		INSERT INTO modules_1 (progress, user_id, module_id)
+		VALUES ($1, $2, $3)
+		RETURNING progress, user_id, module_id;
+	  `;
+
+		const moduleStart = await db.query(addProgress, [0, user.id, 1]);
+
+		const addProgress2 = `
+	  INSERT INTO modules_2 (progress, user_id, module_id)
+	  VALUES ($1, $2, $3)
+	  RETURNING progress, user_id, module_id;
+	`;
+
+		const moduleStart2 = await db.query(addProgress2, [0, user.id, 2]);
+
 		const token = createToken(
 			credentials.company,
 			credentials.first_name,
