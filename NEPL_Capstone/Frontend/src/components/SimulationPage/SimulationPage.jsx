@@ -26,10 +26,12 @@ import Wrong from "../../assets/Wrong.svg";
 import ReportButton from "../../assets/ReportButton.svg";
 import RightCard from "../../assets/RightCard.svg";
 import dots from "../../assets/dots.svg";
-import { borderRadius } from "@mui/system";
+
 import { StyledBadge } from "../ManagerDashboard/EmployeeTable/StyledBadge";
 import {
   Modal,
+  Dropdown,
+  Text,
 } from "@nextui-org/react";
 
 export default function SimulationPage() {
@@ -166,14 +168,14 @@ function EmailRender() {
         onClick={() => setVisible(!visible)}
         sx={{
           position: "relative",
-          bottom: "46.1%",
-          left: "10%",
-          width: "35%",
+          bottom: "44.5%",
+          left: "8%",
+          width: "28%",
         }}
         style={{ background: "none" }}
       >
         {isClicked ? (
-          <img src={LinkButton} style={{ display: "flex", fontSize: "100%" }} />
+          <img src={LinkButton} style={{ display: "flex", size: "100%" }} />
         ) : null}
       </Button>
       <Button
@@ -187,13 +189,14 @@ function EmailRender() {
         }}
       >
         {isClicked ? (
-          <img
-            src={dots}
-            style={{ display: "flex", fontSize: "100%", width: "14%" }}
+          <RightAnswer
+            handler={handler}
+            visible={visible}
+            setVisible={setVisible}
           />
         ) : null}
       </Button>
-      {isClicked ? (
+      {/* {isClicked ? (
         isToggled ? (
           <Button
             onClick={() => setIsRight(!isRight)}
@@ -206,10 +209,10 @@ function EmailRender() {
           >
             <img src={ReportButton} style={{ width: "100%" }} />
             {isRight ? <img src={RightCard} /> : null}
-          </Button>
-        ) : null
-      ) : null}
-      <ErrorPopUp
+          </Button> */}
+        {/* ) : null
+      ) : null} */}
+      <WrongPopUp
         handler={handler}
         visible={visible}
         setVisible={setVisible}
@@ -219,7 +222,7 @@ function EmailRender() {
   );
 }
 
-function ErrorPopUp({ handler, visible, setVisible }) {
+function WrongPopUp({ handler, visible, setVisible }) {
   const closeHandler = () => {
     setVisible(false);
   };
@@ -251,5 +254,26 @@ function ErrorPopUp({ handler, visible, setVisible }) {
         </Modal.Footer>
       </Modal>
     </div>
+  );
+}
+function RightAnswer(){
+  const [report, setReport] = useState(false);
+  return (
+    <Dropdown>
+      <Dropdown.Button size="xs" css={{ position: "relative", top: "22%" }}>
+        <img
+          src={dots}
+          style={{ display: "flex", fontSize: "100%", width: "100%" }}
+        />
+      </Dropdown.Button>
+      <Dropdown.Menu aria-label="Static Actions">
+        <Dropdown.Item onClick={() => setReport(!report)} key="new">
+          Report
+        </Dropdown.Item>
+        {report ? (
+          <img src={RightCard} style={{ display: "flex", size: "100%" }} />
+        ) : null}
+      </Dropdown.Menu>
+    </Dropdown>
   );
 }
