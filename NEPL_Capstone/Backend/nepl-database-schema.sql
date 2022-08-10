@@ -10,7 +10,9 @@ CREATE TABLE
     company TEXT,
     manager TEXT,
     isManager BOOLEAN DEFAULT false,
-    isAdmin BOOLEAN DEFAULT false
+    isAdmin BOOLEAN DEFAULT false,
+    waspinged1 BOOLEAN DEFAULT false,
+    waspinged2 BOOLEAN DEFAULT false
   );
 
 CREATE TABLE
@@ -49,9 +51,9 @@ CREATE TABLE manager (
 INSERT INTO
   modules (name, category, steps)
 VALUES
-  ('Phishing', 'Scam', 7);
+  ('Phishing', 'Scam', 4);
 
 INSERT INTO
   modules (name, category, steps)
 VALUES
-  ('Safety Tips', 'Tips', 7);
+  ('Safety Tips', 'Tips', 2);

@@ -41,10 +41,6 @@ export default function Navbar() {
 						<Button color="inherit" to="/Contact-us" component={Link}>
 							Contact Us
 						</Button>
-
-						<Button color="inherit" to="/ModulePhishing" component={Link}>
-							PROVISORY (TAKES YOU TO PHSHING)
-						</Button>
 					</Stack>
 				</div>
 				<div>
@@ -122,7 +118,11 @@ export function UserDropdown({ user, handleLogout }) {
 					as="button"
 					size="lg"
 					color="gradient"
-					name={<><Text css={{ color: "white"}}>{fullName}</Text></>}
+					name={
+						<>
+							<Text css={{ color: "white" }}>{fullName}</Text>
+						</>
+					}
 					description={user.email}
 					src={logo}
 				/>

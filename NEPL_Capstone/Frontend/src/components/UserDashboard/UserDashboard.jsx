@@ -145,13 +145,7 @@ function Sidebar({ selectedTab, setselectedTab, user }) {
 					<Table.Row key="Modules">
 						<Table.Cell>Modules</Table.Cell>
 					</Table.Row>
-					{user?.company ? (
-						<Table.Row key="ManagerDashboard">
-							<Table.Cell>Manager Dashboard</Table.Cell>
-						</Table.Row>
-					) : (
-						<></>
-					)}
+					{ManagerRow(user)}
 				</Table.Body>
 			</Table>
 			<Spacer></Spacer>
@@ -186,4 +180,14 @@ function Sidebar({ selectedTab, setselectedTab, user }) {
 			</Table>
 		</NextContainer>
 	);
+}
+
+function ManagerRow(user) {
+	if (user.isManager == true) {
+		return (
+			<Table.Row key="ManagerDashboard">
+				<Table.Cell>Manager Dashboard</Table.Cell>
+			</Table.Row>
+		);
+	}
 }

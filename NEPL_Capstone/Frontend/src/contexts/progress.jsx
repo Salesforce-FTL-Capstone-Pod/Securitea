@@ -1,40 +1,38 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import apiClient from "../services/apiClient";
-
+import { useAuthContext } from "./auth";
 const ProgressContext = createContext(null);
 
 export const ProgressContextProvider = ({ children }) => {
-  const [loading, setLoading] = useState(false)
-  const [progress, setProgress] = useState(
-    {
-      module_name: "Phishing",
-      module_id: "",
-      progress: ""
-    })
-    useEffect(() => {
-      setLoading(true)
-      const fetchProgress = async () => {
-        const { data } = await apiClient.fetchProgress()
-  
-        if (data) {
-          setProgress({
-            module_name: "Phishing",
-            module_id: data.progress.module_id,
-            progress: data.progress.progress
-          })
-        }
-      }
-      fetchProgress()
-      setLoading(false)
-    }, [])
+	const { user } = useAuthContext();
+	const [loading, setLoading] = useState(false);
+	const [progress, setProgress] = useState({ progress: "" });
+	useEffect(() => {
+		async function fetchProg() {
+			const { data } = await apiClient.fetchProgress();
+			setProgress(data);
+		}
+		fetchProg();
+	}, [user]);
 
-  const progressValue = { progress }
+	const progressOne = progress?.progress["1"] || 0;
+	const progressPercentOne =
+		(progressOne?.progress / progressOne?.steps) * 100 || 0;
 
-  return (
-    <ProgressContext.Provider value={progressValue}>
-      <>{children}</>
-    </ProgressContext.Provider>
-  )
-}
+	const progressTwo = progress?.progress["2"] || 0;
+	const progressPercentTwo =
+		(progressTwo?.progress / progressTwo?.steps) * 100 || 0;
 
-export const useProgressContext = () => useContext(ProgressContext)
+	const progressValue = {
+		progress: progress,
+		percentOne: progressPercentOne,
+		percentTwo: progressPercentTwo,
+	};
+	return (
+		<ProgressContext.Provider value={progressValue}>
+			<>{children}</>
+		</ProgressContext.Provider>
+	);
+};
+
+export const useProgressContext = () => useContext(ProgressContext);

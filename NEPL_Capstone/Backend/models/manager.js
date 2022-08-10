@@ -1,21 +1,14 @@
 const db = require("../db");
 const { BadRequestError, UnauthorizedError } = require("../utils/errors");
 const User = require("./user");
+const Logic = require("../utils/logicFunctions.js");
 
 class Manager {
-	static async getPodMembers() {
-		const userId = await User.fetchUserByEmail(res.locals.user.email);
+	static async getPodMembers(email) {
+		const userId = await User.fetchUserByEmail(email);
 
-		const getPodQuery = `
-            SELECT usersinpod
-            FROM manager
-            WHERE user_id = $1;
-            `;
-
-		const podRaw = await db.query(getPodQuery, [userId]);
-		const pod = podRaw.rows[0].usersinpod;
-
-		console.log(pod);
+		const pod = await this.getPod(userId);
+		console.log("here");
 
 		var membersAndProgress = {};
 		const getFirstProgress = `
@@ -35,6 +28,12 @@ class Manager {
         WHERE id=$1;
         `;
 
+		const areTheyPingedQuery = `
+        SELECT wasPinged
+        FROM users
+        WHERE id = $1;
+        `;
+
 		for (var i = 0; i < pod.length; i++) {
 			let id = pod[i];
 			let user = await User.fetchUserById(id);
@@ -42,6 +41,7 @@ class Manager {
 
 			let rawProgressOne = await db.query(getFirstProgress, [id]);
 			let progressOne = rawProgressOne.rows[0];
+			console.log("p one: ", progressOne);
 
 			let rawProgressTwo = await db.query(getSecondProgress, [id]);
 			let progressTwo = rawProgressTwo.rows[0];
@@ -52,9 +52,13 @@ class Manager {
 			let nameStepsOne = rawNameStepsOne.rows[0];
 			let nameStepsTwo = rawNameStepsTwo.rows[0];
 
+			let rawIsPinged = await db.query(areTheyPingedQuery, [id]);
+			let isPinged = rawIsPinged.rows[0];
+
 			membersAndProgress = {
 				...membersAndProgress,
 				[i]: {
+					wasPinged: isPinged,
 					email: user.email,
 					name: fullName,
 					1: {
@@ -72,6 +76,92 @@ class Manager {
 		}
 
 		return { podProgress: membersAndProgress, totalMembers: pod.length };
+	}
+
+	static async getPod(userId) {
+		const getPodQuery = `
+        SELECT usersinpod
+        FROM manager
+        WHERE user_id = $1;
+        `;
+		const podRaw = await db.query(getPodQuery, [userId.id]);
+		const pod = podRaw.rows[0].usersinpod;
+		return pod;
+	}
+
+	static async getAccessToken(email) {
+		const manager = await User.fetchUserByEmail(email);
+
+		const fetchTokenQuery = `
+        SELECT token 
+        FROM manager
+        WHERE user_id = $1;
+        `;
+
+		const responseRaw = await db.query(fetchTokenQuery, [manager.id]);
+		const response = responseRaw.rows[0];
+
+		return response.token;
+	}
+
+	static async pingUser(userEmail, module) {
+		const userToPing = await User.fetchUserByEmail(userEmail);
+		const modulePing = "waspinged" + module;
+		const pingUserQuery = `
+        UPDATE users
+        SET ${modulePing} = true
+        WHERE id = $1
+        RETURNING ${modulePing};
+        `;
+
+		const responseRaw = await db.query(pingUserQuery, [userToPing.id]);
+		const response = responseRaw.rows[0];
+
+		return response;
+	}
+
+	static async unpingUser(userEmail, module) {
+		const userToUnping = await User.fetchUserByEmail(userEmail);
+		const moduleName = "waspinged" + module;
+		const unpingUserQuery = `
+        UPDATE users
+        SET ${moduleName} = false
+        WHERE id = $1;
+        `;
+
+		const responseRaw = await db.query(unpingUserQuery, [userToUnping.id]);
+		const response = responseRaw.rows[0];
+
+		return response;
+	}
+
+	static async wasIPinged(email, module) {
+		const user = await User.fetchUserByEmail(email);
+		const wasping = "waspinged" + module;
+
+		const wasIPingedQuery = `
+        SELECT ${wasping}
+        FROM users
+        WHERE id = $1;
+        `;
+
+		const responseRaw = await db.query(wasIPingedQuery, [user.id]);
+		const response = responseRaw.rows[0];
+
+		return response;
+	}
+
+	static async pingAll(email, module) {
+		const userId = await User.fetchUserByEmail(email);
+		const pod = await this.getPod(userId);
+		for (let i = 0; i < pod.length; i++) {
+			let id = pod[i];
+			let user = await User.fetchUserById(id);
+
+			this.pingUser(user.email, module);
+		}
+
+		return true;
 	}
 }
 

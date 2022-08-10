@@ -7,16 +7,30 @@ import * as color from "../../assets/colorPalette";
 import Footer from "../Footer/Footer.jsx";
 import { Text, Button, Progress, Collapse, Row, Grid, Card, Container as NextContainer, Table, Spacer } from "@nextui-org/react"
 import { useAuthContext } from "../../contexts/auth.jsx";
-import DashboardOverview from "./EmployeeTable/DashboardOverview.jsx";
+import DashboardOverview from "./DashboardOverview/DashboardOverview.jsx";
 import Sidebar from "./Sidebar.jsx";
 import EmployeeTable from "./EmployeeTable/EmployeeTable.jsx";
 import { useNavigate } from "react-router-dom";
+import AssignedModules from "./AssignedModules/AssignedModules.jsx";
+import TokenManagement from "./TokenManagement/TokenManagement.jsx";
+import EmployeeDisplay from "./EmployeeDisplay/EmployeeDisplay.jsx";
+import apiClient from "../../services/apiClient"
+import { useEffect } from "react";
 const sizeBox = "65vw";
 
 export default function ManagerDashboard() {
-  const {user} = useAuthContext()
+  const {user, managerToken} = useAuthContext()
   const [selectedTab, setselectedTab] = useState("Overview");
   const navigate = useNavigate()
+  const [employees, setEmployees] = useState()
+  async function fetchEmployees(){
+    const { data } = await apiClient.fetchEmployees()
+    setEmployees(data)
+}
+
+  useEffect(() => {
+    fetchEmployees()
+  }, [selectedTab])
   return (
     <Container maxWidth={false} disableGutters>
       <Navbar />
@@ -25,12 +39,12 @@ export default function ManagerDashboard() {
         <Grid>
             <Sidebar selectedTab={selectedTab} setselectedTab={setselectedTab} />
         </Grid>
-        <Grid css={{ marginLeft: "25vh"}}>
-            <NextContainer fluid>
-                {selectedTab == "Employee Activity" ? <EmployeeTable company="Salesforce" /> : <></>}
-                {selectedTab == "Overview" ? <DashboardOverview /> : <></>}
-                {selectedTab == "Modules Assigned" ? <h1>Modules Assigned</h1> : <></>}
-                {selectedTab == "Token Management" ? <h1>Token Management</h1>: <></>}
+        <Grid css={{ marginLeft: "1vh"}}>
+            <NextContainer css={{ minWidth: "100vh" }} fluid>
+                {selectedTab == "Employee Activity" ? <EmployeeDisplay employees={employees} company={user.company} logo={user.logo} /> : <></>}
+                {selectedTab == "Overview" ? <DashboardOverview employees={employees} token={managerToken} company={user.company} /> : <></>}
+                {selectedTab == "Modules Assigned" ? <AssignedModules /> : <></>}
+                {selectedTab == "Token Management" ? <TokenManagement /> : <></>}
                 {selectedTab == "User Dashboard" ? navigate('/UserDashboard') : <></>}
             </NextContainer>
         </Grid>
@@ -60,6 +74,21 @@ function Overview({ user }) {
     </Container>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 {/*
         <EmployeeTable company={company} />

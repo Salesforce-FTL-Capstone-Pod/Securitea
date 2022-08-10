@@ -5,7 +5,7 @@ import { EyeIcon } from "./EyeIcon";
 import { EditIcon } from "./EditIcon";
 import { DeleteIcon } from "./DeleteIcon";
 import { useNavigate } from "react-router-dom";
-import EmployeeProgress from "../EmployeeProgress/EmployeeProgress";
+import EmployeeDisplay from "../EmployeeDisplay/EmployeeDisplay";
 
 export default function EmployeeTable({ company }) {
   const navigate = useNavigate()
