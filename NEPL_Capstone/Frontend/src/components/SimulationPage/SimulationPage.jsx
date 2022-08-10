@@ -23,16 +23,11 @@ import EmailButton from "../../assets/EmailButton.svg";
 import LinkButton from "../../assets/LinkButton.svg";
 import Wrong from "../../assets/Wrong.svg";
 import ReportButton from "../../assets/ReportButton.svg";
-import RightCard from "../../assets/RightCard.svg";
+import Right from "../../assets/Right.svg";
 import dots from "../../assets/dots.svg";
 
 import { StyledBadge } from "../ManagerDashboard/EmployeeTable/StyledBadge";
-import {
-  Modal,
-  Dropdown,
-  Text,
-  Button
-} from "@nextui-org/react";
+import { Modal, Dropdown, Text, Button } from "@nextui-org/react";
 
 export default function SimulationPage() {
   return (
@@ -114,7 +109,6 @@ function Simulation() {
               }}
               onClick={() => {
                 setIsStarted(!isStarted);
-               
               }}
             >
               Start Simulation
@@ -142,76 +136,82 @@ function EmailRender() {
   const [isRight, setIsRight] = useState(false);
   const [isWrong, setIsWrong] = useState(false);
   const [isToggled, setIsToggled] = useState(false);
-    const [visible, setVisible] = React.useState(false);
-    const [report, setReport] = useState(false);
-    const handler = () => setVisible(true);
+  const [visible, setVisible] = React.useState(false);
+  const [visible2, setVisible2] = React.useState(false);
+  const handler = () => setVisible(true);
   return (
     <Container>
       {!isClicked ? (
-      <Button
-        onClick={() => setIsClicked(!isClicked)}
-        style={{ width: "76.4%", background: "none" }}
-        size="md"
-        css={{
-          position: "relative",
-          top: " 24.5%",
-          left: "19.2%",
-        }}
-      >
-        
-          <img src={EmailButton} style={{ display: "flex", width: "100%", height:"100%" }} />
-        
-      </Button>) : null}
+        <Button
+          onClick={() => setIsClicked(!isClicked)}
+          css={{
+            position: "relative",
+            top: " 24.5%",
+            background: "none",
+            height:"8%",
+            width:"100%",
+          }}
+        >
+          <img src={EmailButton} style={{width:"100%"}}/>
+        </Button>
+      ) : null}
       {isClicked ? (
         <img src={PhishingImg} style={{ width: "100%" }} />
       ) : (
         <img src={EmailSim} style={{ display: "flex", width: "100%" }} />
       )}
-      <Button
-        onClick={() => setVisible(!visible)}
-        css={{
-          position: "relative",
-          bottom: "46%",
-          left: "40%",
-          width: "30%",
-        }}
-        style={{ background: "none" }}
-      >
-        {isClicked ? (
+      {isClicked ? (
+        <Button
+          onClick={() => setVisible(!visible)}
+          css={{
+            position: "relative",
+            bottom: "46%",
+            left: "40%",
+            width: "30%",
+          }}
+          style={{ background: "none" }}
+        >
           <img src={LinkButton} style={{ display: "flex", size: "100%" }} />
-        ) : null}
-      </Button>
-    
-        {isClicked ? (
-          <RightAnswer
-            handler={handler}
-            visible={visible}
-            setVisible={setVisible}
-            report={report}
-            setReport={setReport}
-          />
-        ) : null}
-      {/* </Button> */}
-      {/* {isClicked ? (
-        isToggled ? (
-          <Button
-            onClick={() => setIsRight(!isRight)}
-            style={{
-              position: "absolute",
-              bottom: "64%",
-              left: "86%",
-              width: "5%",
-            }}
+        </Button>
+      ) : null}
+
+      {isClicked ? (
+        <Dropdown>
+          <Dropdown.Button
+            size="xs"
+            color={color.platinum}
+            style={{ position: "relative", left: "94%", bottom: "72.2%" }}
           >
-            <img src={ReportButton} style={{ width: "100%" }} />
-            {isRight ? <img src={RightCard} /> : null}
-          </Button> */}
-        {/* ) : null
-      ) : null} */}
+            <img
+              src={dots}
+              style={{ display: "flex",  }}
+            />
+          </Dropdown.Button>
+          <Dropdown.Menu aria-label="Static Actions">
+            <Dropdown.Item>
+              <Button
+                auto
+                color="transparent"
+                onClick={() => setVisible2(true)}
+                css={{ width: "100%", background: "none" }}
+              >
+                Report
+              </Button>
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      ) : null}
+
       <WrongPopUp
         handler={handler}
         visible={visible}
         setVisible={setVisible}
+        style={{ width: "10%" }}
+      />
+      <RightAnswer
+        handler={handler}
+        visible={visible2}
+        setVisible={setVisible2}
         style={{ width: "10%" }}
       />
     </Container>
@@ -246,33 +246,45 @@ function WrongPopUp({ handler, visible, setVisible }) {
           <Button auto flat color="error" onClick={closeHandler}>
             Close
           </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
+}
+function RightAnswer({ handler, visible, setVisible }) {
+  const closeHandler = () => {
+    setVisible(false);
+    console.log(".log");
+  };
+  return (
+    <div>
+      <Modal
+        closeButton
+        aria-labelledby="modal-title"
+        open={visible}
+        onClose={closeHandler}
+        width="35%"
+        css={{ display: "flex", justifyContent: "center" }}
+      >
+        <Modal.Header></Modal.Header>
+        <Modal.Body>
+          <img
+            src={Right}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button auto flat color="error" onClick={closeHandler}>
+            Close
+          </Button>
           <Button auto flat color={color.languidLavender}>
             Next
           </Button>
         </Modal.Footer>
       </Modal>
     </div>
-  );
-}
-function RightAnswer(){
-  const [report, setReport] = useState(false);
-  return (
-    <Dropdown>
-      <Dropdown.Button
-        size="xs"
-        color={color.platinum}
-        style={{ position: "relative", left: "94%", bottom: "72.2%" }}
-      >
-        <img
-          src={dots}
-          style={{ display: "flex", fontSize: "100%", width: "100%" }}
-        />
-      </Dropdown.Button>
-      <Dropdown.Menu  aria-label="Static Actions">
-        <Dropdown.Item >
-          Report
-        </Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
   );
 }
