@@ -116,8 +116,6 @@ function ConfirmModal({ visible, setVisible }){
               setConfirmation(true)
             }
             ping()
-            // console.log(res)
-            // setVisible(false)
         }
     };
     

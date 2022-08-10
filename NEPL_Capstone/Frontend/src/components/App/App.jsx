@@ -22,9 +22,6 @@ import SimulationPage from "../SimulationPage/SimulationPage";
 
 import TipsPage from "../InternetTips/InternetTips";
 
-import EmployeeProgress from "../ManagerDashboard/EmployeeProgress/EmployeeProgress";
-
-
 import Skeleton from "../AuthModulePage/Skeleton";
 
 //Libraries
@@ -68,8 +65,6 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
 		      <Route path="/Skeleton" element={<AuthRoute element={<Skeleton /> } /> } />
 		      <Route path="/ManagerDashboard/*" element={<AuthRoute element={<ManagerDashboard />} /> } />
-		      <Route path="/EmployeeProgress" element={<AuthRoute element={<EmployeeProgress />} /> } />
-
         </Routes>
       </BrowserRouter>
     </div>
