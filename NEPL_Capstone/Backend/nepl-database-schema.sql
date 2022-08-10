@@ -11,7 +11,8 @@ CREATE TABLE
     manager TEXT,
     isManager BOOLEAN DEFAULT false,
     isAdmin BOOLEAN DEFAULT false,
-    wasPinged BOOLEAN DEFAULT false
+    waspinged1 BOOLEAN DEFAULT false,
+    waspinged2 BOOLEAN DEFAULT false
   );
 
 CREATE TABLE

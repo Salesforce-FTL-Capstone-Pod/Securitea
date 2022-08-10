@@ -71,8 +71,8 @@ export function ModuleDisplay({
 					<Grid>
 						<AuthModuleCard
 							moduleName="Phishing"
-							progressPercent={progressVal.percentOne}
-							progress={progressVal.progress.progress["1"]}
+							progressPercent={progressVal?.percentOne}
+							progress={progressVal?.progress?.progress["1"]}
 							description={descriptionPhishing}
 							route="/ModulePhishing"
 						/>
@@ -82,8 +82,8 @@ export function ModuleDisplay({
 					<Grid>
 						<AuthModuleCard
 							moduleName="Internet Safety Tips"
-							progressPercent={progressVal.percentTwo}
-							progress={progressVal.progress.progress["2"]}
+							progressPercent={progressVal?.percentTwo}
+							progress={progressVal?.progress?.progress["2"]}
 							description={descriptionTips}
 							route="/ModuleTips"
 						/>
@@ -111,8 +111,8 @@ function ModulesComplete({
 					<Grid>
 						<AuthModuleCard
 							moduleName="Phishing"
-							progressPercent={progressVal.percentOne}
-							progress={progressVal.progress.progress["1"]}
+							progressPercent={progressVal?.percentOne}
+							progress={progressVal?.progress?.progress["1"]}
 							description={descriptionPhishing}
 							route="/ModulePhishing"
 						/>
@@ -122,8 +122,8 @@ function ModulesComplete({
 					<Grid>
 						<AuthModuleCard
 							moduleName="Internet Safety Tips"
-							progressPercent={progressVal.percentTwo}
-							progress={progressVal.progress.progress["2"]}
+							progressPercent={progressVal?.percentTwo}
+							progress={progressVal?.progress?.progress["2"]}
 							description={descriptionTips}
 							route="/ModuleTips"
 						/>
@@ -154,8 +154,7 @@ function AuthModuleCard({
 				<Spacer></Spacer>
 				<Progress color="gradient" value={progressPercent} />
 				<Text css={{ color: "$white" }}>
-					{" "}
-					{progress.progress}/{progress.steps} Steps Complete
+					{progress?.progress}/{progress?.steps} Steps Complete
 				</Text>
 			</Card.Body>
 
