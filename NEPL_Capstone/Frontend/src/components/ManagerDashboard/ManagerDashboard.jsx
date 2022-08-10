@@ -13,7 +13,7 @@ import EmployeeTable from "./EmployeeTable/EmployeeTable.jsx";
 import { useNavigate } from "react-router-dom";
 import AssignedModules from "./AssignedModules/AssignedModules.jsx";
 import TokenManagement from "./TokenManagement/TokenManagement.jsx";
-import EmployeeProgress from "./EmployeeProgress/EmployeeProgress.jsx";
+import EmployeeDisplay from "./EmployeeDisplay/EmployeeDisplay.jsx";
 import apiClient from "../../services/apiClient"
 import { useEffect } from "react";
 const sizeBox = "65vw";
@@ -31,7 +31,6 @@ export default function ManagerDashboard() {
   useEffect(() => {
     fetchEmployees()
   }, [selectedTab])
-
   return (
     <Container maxWidth={false} disableGutters>
       <Navbar />
@@ -41,8 +40,8 @@ export default function ManagerDashboard() {
             <Sidebar selectedTab={selectedTab} setselectedTab={setselectedTab} />
         </Grid>
         <Grid css={{ marginLeft: "1vh"}}>
-            <NextContainer fluid>
-                {selectedTab == "Employee Activity" ? <EmployeeProgress /> : <></>}
+            <NextContainer css={{ minWidth: "100vh" }} fluid>
+                {selectedTab == "Employee Activity" ? <EmployeeDisplay employees={employees} company={user.company} logo={user.logo} /> : <></>}
                 {selectedTab == "Overview" ? <DashboardOverview employees={employees} token={managerToken} company={user.company} /> : <></>}
                 {selectedTab == "Modules Assigned" ? <AssignedModules /> : <></>}
                 {selectedTab == "Token Management" ? <TokenManagement /> : <></>}

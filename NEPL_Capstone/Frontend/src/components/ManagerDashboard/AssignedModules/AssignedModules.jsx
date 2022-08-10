@@ -93,25 +93,29 @@ function ModuleCard({ moduleName }){
 }
 
 function ConfirmModal({ visible, setVisible }){
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+
+
+  const [loading, setLoading] = useState(false)
+  const [confirmation, setConfirmation] = useState(false)
 	const closeHandler = () => {
 		setVisible(false);
 	};
 
     const pressed = (e) => {
         if (e == "cancel"){
-            console.log("cancelled")
             setVisible(false)
         }
         if (e == "confirm"){
-            console.log("confirmed")
             async function ping(){
+              setLoading(true)
               const res = await apiClient.pingAllEmployees()
               console.log(res)
-              console.log("end")
+              await delay(2000);
+              setLoading(false)
+              setConfirmation(true)
             }
             ping()
-            // console.log(res)
-            // setVisible(false)
         }
     };
     
@@ -124,6 +128,7 @@ function ConfirmModal({ visible, setVisible }){
 				onClose={closeHandler}
 			>
 				<Modal.Body>
+          {loading == false && confirmation == false ? <>
                 <Row justify="center" align="center">
                     <Text b>Confirm Action</Text>
                 </Row>
@@ -139,7 +144,13 @@ function ConfirmModal({ visible, setVisible }){
                 <Button auto css={{ background: "green"}} key="confirm" onClick={() => pressed("confirm")}>
                     Confirm
                 </Button>
+                </Row></> : 
+                <>{confirmation == true ? <></> : <Loading>Pinging all employees</Loading>}</>}
+          {confirmation == true && loading == false ? <>
+            <Row justify="center" align="center">
+                    <Text css={{ marginBottom: "0vh"}} b>All employees were successfully pinged!</Text>
                 </Row>
+              </>:<></>}
 				</Modal.Body>
 				<Modal.Footer></Modal.Footer>
 			</Modal>
