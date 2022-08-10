@@ -21,17 +21,16 @@ import { Container as MUIContainer } from "@mui/material";
 import { Button as MUIButton } from "@mui/material";
 import { useAuthContext } from "../../contexts/auth";
 import { useProgressContext } from "../../contexts/progress";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
 export default function ModulePagePhishing() {
-	const { progress } = useProgressContext();
-	const progressOne = progress?.progress["1"] || 0;
-	const progressPercent =
-		(progressOne?.progress / progressOne?.steps) * 100 || 0;
+	const progress = useProgressContext();
 
+	const progressOne = progress.progress.progress["1"] || 0;
 	return (
 		<Container maxWidth={false} disableGutters>
 			<Navbar />
-			<Overview progressPercent={progressPercent} />
+			<Overview progressPercent={progress.percentOne} />
 			<Content progressOne={progressOne} />
 			<Footer />
 		</Container>
@@ -112,14 +111,19 @@ function Overview({ progressPercent }) {
 				>
 					Learn how to protect yourself from phishing attempts.
 				</Text>
-				{progressPercent > 0 ? (
+
+				<Container sx={{ display: "flex" }} disableGutters>
 					<Progress
 						color="gradient"
 						size="lg"
 						value={progressPercent}
 						css={{ width: "50%" }}
 					/>
-				) : null}
+
+					{progressPercent === 100 ? (
+						<TaskAltIcon sx={{ color: color.platinum, marginLeft: "1vw" }} />
+					) : null}
+				</Container>
 			</Container>
 			<SignInModal
 				handler={handler}
