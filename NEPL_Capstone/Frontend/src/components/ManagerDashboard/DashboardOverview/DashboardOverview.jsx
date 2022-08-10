@@ -12,6 +12,9 @@ function DashboardOverview({ employees, token, company}) {
       function changeText(e){
         settokenText(content)
         navigator.clipboard.writeText(content)
+        if (tokenText == content){
+          settokenText("View Token")
+        }
       }
       //navigator.clipboard.writeText(this.state.textToCopy)
         return (
