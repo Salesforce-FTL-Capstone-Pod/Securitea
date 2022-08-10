@@ -45,15 +45,6 @@ function DashboardOverview({ employees, token, company}) {
     </Grid>
    </Grid.Container>
    <Grid.Container justify='center'>
-    <Grid>
-          <Card css={{ minHeight: "40vh", $$cardColor: '$colors$medpurple', minWidth: "100vh" }}>
-            <Card.Body>
-              <Text color="white" weight="normal" h6 size={18} css={{ mt: 0, textAlign: "center" }}>
-                Placeholder
-              </Text>
-            </Card.Body>
-          </Card>
-    </Grid>
    </Grid.Container>
    <Grid.Container justify='space-between'>
     <Grid>

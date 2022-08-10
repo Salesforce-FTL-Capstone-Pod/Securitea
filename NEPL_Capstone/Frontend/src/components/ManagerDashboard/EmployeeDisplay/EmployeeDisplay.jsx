@@ -19,7 +19,7 @@ export default function EmployeeDisplay({ employees, company, logo }) {
 
 function Content({ employees, company, logo }) {
   return (
-    <NextContainer css={{marginBototm: "10vh", marginLeft: "10vh", minWidth: "100vh"}} fluid>
+    <NextContainer css={{marginBototm: "10vh", marginLeft: "10vh", minWidth: "100vh" }} fluid>
       <Spacer></Spacer>
       <Spacer></Spacer>
    <Grid.Container justify='center'>
@@ -136,7 +136,7 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
     safetyProgress: employees[selectedEmployee].progress[2]
   }
   
-
+  console.log(employee.safetyProgress)
   return(
     <Modal
     scroll
@@ -173,7 +173,7 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
 
           <Text id="modal-title" weight="thin" size={15}>
             Email <Text weight="semibold"  size={20} >{employee.email}</Text>
-            <StyledBadge type="active">PINGED: {employee.pingStatus}</StyledBadge>
+            <StyledBadge type={employee.pingStatus == "true" ? "active" : "paused"}>PINGED: {employee.pingStatus}</StyledBadge>
           </Text>
           
           </Card>
@@ -182,14 +182,24 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
 
           <Collapse.Group accordion={false}>
             <Collapse title="Module Phishing Progress">
-              <Text>
-                Progress/Steps 
-              </Text>
+              <Row justify="space-between">
+                <Text>
+                  {employee.phishingProgress.progress} out of {employee.phishingProgress.steps} Steps Completed
+                </Text>
+                <Button>
+                  Ping to Complete
+                </Button>
+              </Row>
             </Collapse>
             <Collapse title="Module Safety Tips Progress">
+              <Row justify="space-between">
               <Text>
-                Progress/Steps
+                {employee.safetyProgress.progress} out of {employee.safetyProgress.steps} Steps Completed
               </Text>
+              <Button>
+                Ping to Complete
+              </Button>
+              </Row>
             </Collapse>
           </Collapse.Group>
       </Modal.Body>
