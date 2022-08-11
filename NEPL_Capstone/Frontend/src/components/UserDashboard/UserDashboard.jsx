@@ -32,6 +32,7 @@ import { useNavigate } from "react-router-dom";
 
 function UserDashboard() {
 	const { user } = useAuthContext();
+  console.log(user)
 	const [selectedTab, setselectedTab] = useState("Modules");
 	const navigate = useNavigate();
 	return (

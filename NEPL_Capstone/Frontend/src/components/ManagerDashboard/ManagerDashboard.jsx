@@ -28,6 +28,13 @@ export default function ManagerDashboard() {
     setEmployees(data)
 }
 
+// silly little function to capitalize first letter in company name for simiplicity on the backend
+
+function capitalizeCompany(company){
+  return company.charAt(0).toUpperCase() + company.slice(1);
+}
+console.log(capitalizeCompany(user.company))
+
   useEffect(() => {
     fetchEmployees()
   }, [selectedTab])
@@ -41,9 +48,9 @@ export default function ManagerDashboard() {
         </Grid>
         <Grid css={{ marginLeft: "1vh"}}>
             <NextContainer css={{ minWidth: "100vh" }} fluid>
-                {selectedTab == "Employee Activity" ? <EmployeeDisplay employees={employees} company={user.company} logo={user.logo} /> : <></>}
-                {selectedTab == "Overview" ? <DashboardOverview employees={employees} token={managerToken} company={user.company} /> : <></>}
-                {selectedTab == "Modules Assigned" ? <AssignedModules /> : <></>}
+                {/* {selectedTab == "Employee Activity" ? <EmployeeDisplay employees={employees} company={capitalizeCompany(user.company)} logo={user.logo} /> : <></>} */}
+                {selectedTab == "Overview" ? <DashboardOverview employees={employees} token={managerToken} company={capitalizeCompany(user.company)} logo={user.logo} /> : <></>}
+                {selectedTab == "Modules Assigned" ? <AssignedModules employees={employees} logo={user.logo} /> : <></>}
                 {selectedTab == "Token Management" ? <TokenManagement /> : <></>}
                 {selectedTab == "User Dashboard" ? navigate('/UserDashboard') : <></>}
             </NextContainer>

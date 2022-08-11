@@ -7,8 +7,6 @@ import * as color from "../../../assets/colorPalette"
 import { Text, Button, Spacer, Row, Progress, User, Collapse, Avatar, Grid, Card, Table, Container as NextContainer, Modal } from "@nextui-org/react"
 import apiClient from "../../../services/apiClient"
 import { StyledBadge } from "../EmployeeTable/StyledBadge";
-const sizeBox = "65vw";
-
 
 export default function EmployeeDisplay({ employees, company, logo }) {
 
@@ -19,23 +17,18 @@ export default function EmployeeDisplay({ employees, company, logo }) {
 
 function Content({ employees, company, logo }) {
   return (
-    <NextContainer css={{marginBototm: "10vh", marginLeft: "10vh", minWidth: "100vh" }} fluid>
+    <NextContainer css={{marginBototm: "10vh", minWidth: "100vh" }} fluid>
       <Spacer></Spacer>
       <Spacer></Spacer>
    <Grid.Container justify='center'>
     <Grid>
-          <Text color="black" weight="medium" h1 size={35} css={{ mt: 0, textAlign: "center", textGradient: "45deg, $blue600 -20%, $pink600 50%" }}>
-            Employees Under Your Management at {company}
-            
-          </Text>
-          <Text color="black" weight="medium" h3 size={35} css={{ mt: 0, textAlign: "center", textGradient: "45deg, $colors$medpurple -20%, $success 50%" }}>
-            {company} Employees Under Your Management
-          </Text>
-          <Card css={{ minHeight: "40vh", $$cardColor: '$colors$darkpurple', minWidth: "100vh" }}>
-            <Card.Body>
-              <Tayble employees={employees} valid={true} logo={logo} />
-            </Card.Body>
-          </Card>
+      <Row justify="center">
+
+      <Text color="black" weight="medium" h3 size={30} css={{ textAlign: "center", marginTop: "-4vh"}}>
+          {company} Employees Under Your Management
+      </Text>
+      </Row>
+          <Tayble employees={employees} valid={true} logo={logo} showBox={false} />
     </Grid>
    </Grid.Container>
    </NextContainer>
@@ -52,7 +45,7 @@ function Content({ employees, company, logo }) {
   // );
 }
 
-export function Tayble({ employees, valid, logo }) {
+export function Tayble({ employees, valid, logo, showBox }) {
   const columns = [
     {
       key: "name",
@@ -104,12 +97,12 @@ export function Tayble({ employees, valid, logo }) {
       aria-label="Example table with dynamic content"
       css={{
         height: "auto",
-        minWidth: "100%",
+        minWidth: "90vh",
         background: "white"
       }}
       selectionMode="single"
       onSelectionChange={(e) => displayModal(e)}
-      showSelectionCheckboxes={false}
+      showSelectionCheckboxes={showBox}
     >
       <Table.Header columns={columns}>
         {(column) => (

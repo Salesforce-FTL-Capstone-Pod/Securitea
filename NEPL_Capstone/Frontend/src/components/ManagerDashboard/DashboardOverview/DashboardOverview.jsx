@@ -2,7 +2,8 @@ import React from 'react'
 import { useState } from 'react'
 import { Grid, Card, Text, Container, Tooltip } from "@nextui-org/react"
 import RepTable from '../EmployeeTable/RepTable.jsx';
-function DashboardOverview({ employees, token, company}) {
+import EmployeeDisplay from '../EmployeeDisplay/EmployeeDisplay.jsx';
+function DashboardOverview({ employees, token, company, logo}) {
   let employeeCount = 0
   if (employees){
     employeeCount = employees.info.totalMembers
@@ -45,20 +46,9 @@ function DashboardOverview({ employees, token, company}) {
    </Grid.Container>
    <Grid.Container justify='center'>
    </Grid.Container>
-   <Grid.Container justify='space-between'>
+   <Grid.Container justify='center'>
     <Grid>
-          <Text h3 weight="light" css={{marginTop: "2vh", marginLeft: "1vh"}}>Inactive Employees</Text>
-          <RepTable />
-    </Grid>
-    <Grid>
-          <Text h3 weight="light" css={{marginTop: "2vh", marginLeft: "1vh"}}>Placeholder</Text>
-          <Card css={{ minHeight: "40vh", $$cardColor: '$colors$medpurple', minWidth: "40vh" }}>
-            <Card.Body>
-              <Text color="white" weight="normal" h6 size={18} css={{ mt: 0, textAlign: "center" }}>
-                Placeholder
-              </Text>
-            </Card.Body>
-          </Card>
+      {employeeCount > 0 ? <><EmployeeDisplay employees={employees} token={token} company={company} logo={logo} /></> : <></>}
     </Grid>
    </Grid.Container>
    </Container>
