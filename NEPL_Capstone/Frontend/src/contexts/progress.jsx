@@ -13,7 +13,7 @@ export const ProgressContextProvider = ({ children }) => {
 			setProgress(data);
 		}
 		fetchProg();
-	}, [user]);
+	}, []);
 
 	const progressOne = progress?.progress["1"] || 0;
 	const progressPercentOne =
