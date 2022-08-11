@@ -48,7 +48,7 @@ function Simulation() {
         display: "flex ",
         flexDirection: "column",
         backgroundColor: color.platinum,
-        height: "125vh",
+        height: "145vh",
         width: "75%",
         marginTop: "100px",
         marginBottom: "100px",
@@ -79,7 +79,7 @@ function Simulation() {
       <Container
         maxWidth={false}
         sx={{
-          position: "relative",
+         display:"flex",
           backgroundColor: color.languidLavender,
           height: "89vh",
           borderRadius: "2vw",
@@ -136,13 +136,14 @@ function EmailRender() {
           onClick={() => setIsClicked(!isClicked)}
           css={{
             position: "relative",
-            top: "25%",
-            left:"2%",
+            top: "26.4%",
+            left:"16.2%",
             background: "none",
-            width:"120%"
+            width: "90%"
           }}
+          size="xl"
         >
-          <img src={EmailButton} style={{display:"flex",width:"100%"}}/>
+          <img src={EmailButton} style={{display:"flex",height:"auto", width:"2%"}}/>
         </Button>
       ) : null}
       {isClicked ? (
