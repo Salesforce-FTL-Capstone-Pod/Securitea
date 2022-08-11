@@ -105,8 +105,11 @@ class Manager {
 	}
 
 	static async pingUser(userEmail, module) {
-
-		if (!module) return {something: "wrong"}
+		console.log(module);
+		if (!module) {
+			console.log("ruh roh");
+			return { something: "wrong" };
+		}
 		const userToPing = await User.fetchUserByEmail(userEmail);
 		const modulePing = "waspinged" + module;
 		const pingUserQuery = `

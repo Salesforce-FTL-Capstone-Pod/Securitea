@@ -62,26 +62,27 @@ class ApiClient {
 		});
 	}
 
-	async fetchManagerToken(){
+	async fetchManagerToken() {
 		return await this.request({
 			endpoint: `manage/getAccessToken`,
 			method: `GET`,
 		});
 	}
 
-	async fetchEmployees(){
+	async fetchEmployees() {
 		return await this.request({
 			endpoint: `manage/getPeople`,
 			method: `GET`,
-		})
+		});
 	}
 
-	async pingAllEmployees(credentials){
+	async pingAllEmployees(credentials) {
+		console.log("CREDENTIALS ", credentials);
 		return await this.request({
 			endpoint: `manage/pingAll`,
 			method: `PATCH`,
-			data: {"module": credentials},
-		})
+			data: { module: credentials },
+		});
 	}
 }
 
