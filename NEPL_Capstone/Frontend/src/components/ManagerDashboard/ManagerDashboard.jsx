@@ -24,10 +24,10 @@ export default function ManagerDashboard() {
   const navigate = useNavigate()
   const [employees, setEmployees] = useState()
   async function fetchEmployees(){
-    const { data } = await apiClient.fetchEmployees()
+    const { data }  = await apiClient.fetchEmployees()
+    console.log("uhoh:" , data)
     setEmployees(data)
 }
-
 // silly little function to capitalize first letter in company name for simiplicity on the backend
 
 function capitalizeCompany(company){
@@ -51,7 +51,7 @@ console.log(capitalizeCompany(user.company))
                 {/* {selectedTab == "Employee Activity" ? <EmployeeDisplay employees={employees} company={capitalizeCompany(user.company)} logo={user.logo} /> : <></>} */}
                 {selectedTab == "Overview" ? <DashboardOverview employees={employees} token={managerToken} company={capitalizeCompany(user.company)} logo={user.logo} /> : <></>}
                 {selectedTab == "Modules Assigned" ? <AssignedModules employees={employees} logo={user.logo} /> : <></>}
-                {selectedTab == "Token Management" ? <TokenManagement /> : <></>}
+                {/* {selectedTab == "Token Management" ? <TokenManagement /> : <></>} */}
                 {selectedTab == "User Dashboard" ? navigate('/UserDashboard') : <></>}
             </NextContainer>
         </Grid>

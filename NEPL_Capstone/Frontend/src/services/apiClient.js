@@ -76,10 +76,11 @@ class ApiClient {
 		})
 	}
 
-	async pingAllEmployees(){
+	async pingAllEmployees(credentials){
 		return await this.request({
 			endpoint: `manage/pingAll`,
-			method: `PATCH`
+			method: `PATCH`,
+			data: {"module": credentials},
 		})
 	}
 }

@@ -129,6 +129,7 @@ function ModulesComplete({
 						/>
 					</Grid>
 				) : null}
+				{!twoDone && !oneDone ? <><Grid><Text>None completed yet.</Text></Grid></> : <></>}
 			</Grid.Container>
 		</NextContainer>
 	);

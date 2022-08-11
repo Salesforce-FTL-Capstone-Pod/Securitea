@@ -12,10 +12,10 @@ function Sidebar({ selectedTab, setselectedTab, user }) {
         //   key: "Employee Activity",
         //   name: "Employee Activity",
         // },
-        {
-          key: "Token Management",
-          name: "Token Management",
-        },
+        // {
+        //   key: "Token Management",
+        //   name: "Token Management",
+        // },
         {
           key: "Modules Assigned",
           name: "Modules Assigned",

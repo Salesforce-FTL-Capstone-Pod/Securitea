@@ -46,7 +46,7 @@ export function AssignDropdown({ employees, valid, logo, moduleId }){
       </Dropdown.Item>
     </Dropdown.Menu>
     </Dropdown>
-    <ConfirmModal visible={visible} setVisible={setVisible} />
+    <ConfirmModal visible={visible} setVisible={setVisible} moduleId={moduleId} />
     <SelectionModal visible={selectAll} setVisible={setselectAll} employees={employees} valid={valid} logo={logo} moduleId={moduleId} />
     </>
     )
@@ -98,7 +98,7 @@ function ModuleCard({ moduleName, employees, valid, logo, moduleId }){
     );
 }
 
-function ConfirmModal({ visible, setVisible }){
+function ConfirmModal({ visible, setVisible, moduleId }){
   const delay = ms => new Promise(res => setTimeout(res, ms));
 
 
@@ -108,14 +108,14 @@ function ConfirmModal({ visible, setVisible }){
 		setVisible(false);
 	};
 
-    const pressed = (e) => {
+    const pressed = (e, moduleId) => {
         if (e == "cancel"){
             setVisible(false)
         }
         if (e == "confirm"){
             async function ping(){
               setLoading(true)
-              const res = await apiClient.pingAllEmployees()
+              const res = await apiClient.pingAllEmployees(moduleId)
               console.log(res)
               await delay(2000);
               setLoading(false)
@@ -144,7 +144,7 @@ function ConfirmModal({ visible, setVisible }){
                     </Text>
                 </Row>
                 <Row justify='space-between' align="center">
-                <Button auto color="error" key="cancel" onClick={() => pressed("cancel")}>
+                <Button auto color="error" key="cancel" onClick={() => pressed("cancel", moduleId)}>
                     Cancel
                 </Button>
                 <Button auto css={{ background: "green"}} key="confirm" onClick={() => pressed("confirm")}>

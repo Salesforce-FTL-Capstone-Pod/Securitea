@@ -56,27 +56,17 @@ export function Tayble({ employees, valid, logo, showBox }) {
       label: "EMAIL",
     },
     {
-      key: "status1",
-      label: "PING STATUS: MODULE 1",
-    },
-    {
-      key: "status2",
-      label: "PING STATUS: MODULE 2",
+      key: "status",
+      label: "PING STATUS",
     },
   ];
   const rows = []
   if (valid == true){
   for (const employee in employees.info.podProgress){
-    let pingStatus1 = "Not Pinged"
-    let pingStatus2 = "Not Pinged"
-    if (employees.info.podProgress[employee].wasPinged.waspinged1 == true){
-      console.log("hit")
-      pingStatus1 = "Pinged"
+    let pingStatus = "Not Pinged"
+    if (employees.info.podProgress[employee].wasPinged.waspinged == true){
+      pingStatus = "Pinged"
     }
-    if (employees.info.podProgress[employee].wasPinged.waspinged2 == true){
-      pingStatus2 = "Pinged"
-    }
-    console.log(pingStatus1, pingStatus2)
     rows.push({
       key: employee,
       progress: employees.info.podProgress[employee],
@@ -85,8 +75,7 @@ export function Tayble({ employees, valid, logo, showBox }) {
       
       </User>,
       email: employees.info.podProgress[employee].email,
-      pingStatus1: pingStatus1,
-      pingStatus2: pingStatus2,
+      status: pingStatus
     })
   }
   }
@@ -180,8 +169,8 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
 
           <Text id="modal-title" weight="thin" size={15}>
             Email <Text weight="semibold"  size={20} >{employee.email}</Text>
-            <StyledBadge type={employee.module1ping == true ? "active" : "paused"}>PINGED 1 : {employee.module1ping.toString()}</StyledBadge>
-            <StyledBadge type={employee.module2ping == true ? "active" : "paused"}>PINGED 2 : {employee.module2ping.toString()}</StyledBadge>
+            <StyledBadge type={employee.module1ping == true ? "active" : "paused"}>PINGED: {employee.module1ping}</StyledBadge>
+            <StyledBadge type={employee.module2ping == true ? "active" : "paused"}>PINGED: {employee.module2ping}</StyledBadge>
           </Text>
           
           </Card>

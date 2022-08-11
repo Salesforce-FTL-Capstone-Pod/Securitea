@@ -55,6 +55,7 @@ router.patch(
 	async (req, res, next) => {
 		try {
 			console.log(res.locals.user.email);
+			console.log("Moudle: ", req.body)
 			const allPinged = await Manager.pingAll(
 				res.locals.user.email,
 				req.body.module

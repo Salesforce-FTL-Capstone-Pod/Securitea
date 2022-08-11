@@ -4,6 +4,7 @@ import { Grid, Card, Text, Container, Tooltip } from "@nextui-org/react"
 import RepTable from '../EmployeeTable/RepTable.jsx';
 import EmployeeDisplay from '../EmployeeDisplay/EmployeeDisplay.jsx';
 function DashboardOverview({ employees, token, company, logo}) {
+  console.log(employees)
   let employeeCount = 0
   if (employees){
     employeeCount = employees.info.totalMembers
