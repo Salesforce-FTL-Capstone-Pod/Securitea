@@ -104,42 +104,43 @@ class Manager {
 		return response.token;
 	}
 
-	static async pingUser(userEmail) {
-		console.log("email ", userEmail);
+	static async pingUser(userEmail, module) {
 		const userToPing = await User.fetchUserByEmail(userEmail);
+		const modulePing = "waspinged" + module;
 		const pingUserQuery = `
         UPDATE users
-        SET waspinged = true
+        SET ${modulePing} = true
         WHERE id = $1
-        RETURNING waspinged;
+        RETURNING ${modulePing};
         `;
-		console.log("PIN GPING ", userToPing);
+
 		const responseRaw = await db.query(pingUserQuery, [userToPing.id]);
 		const response = responseRaw.rows[0];
-		console.log(response);
 
-		return true;
+		return response;
 	}
 
-	static async unpingUser(userEmail) {
+	static async unpingUser(userEmail, module) {
 		const userToUnping = await User.fetchUserByEmail(userEmail);
+		const moduleName = "waspinged" + module;
 		const unpingUserQuery = `
         UPDATE users
-        SET wasPinged = false
+        SET ${moduleName} = false
         WHERE id = $1;
         `;
 
 		const responseRaw = await db.query(unpingUserQuery, [userToUnping.id]);
 		const response = responseRaw.rows[0];
 
-		return true;
+		return response;
 	}
 
-	static async wasIPinged(email) {
+	static async wasIPinged(email, module) {
 		const user = await User.fetchUserByEmail(email);
+		const wasping = "waspinged" + module;
 
 		const wasIPingedQuery = `
-        SELECT waspinged
+        SELECT ${wasping}
         FROM users
         WHERE id = $1;
         `;
@@ -150,17 +151,14 @@ class Manager {
 		return response;
 	}
 
-	static async pingAll(email) {
+	static async pingAll(email, module) {
 		const userId = await User.fetchUserByEmail(email);
 		const pod = await this.getPod(userId);
-		console.log("POD HERE:", pod);
 		for (let i = 0; i < pod.length; i++) {
 			let id = pod[i];
-			console.log("OD HERE:", id);
 			let user = await User.fetchUserById(id);
-			console.log("This is a user: ", user);
 
-			this.pingUser(user.email);
+			this.pingUser(user.email, module);
 		}
 
 		return true;

@@ -171,6 +171,22 @@ class User {
 
 		const user = userResult.rows[0];
 
+		const addProgress = `
+		INSERT INTO modules_1 (progress, user_id, module_id)
+		VALUES ($1, $2, $3)
+		RETURNING progress, user_id, module_id;
+	  `;
+
+		const moduleStart = await db.query(addProgress, [0, user.id, 1]);
+
+		const addProgress2 = `
+	  INSERT INTO modules_2 (progress, user_id, module_id)
+	  VALUES ($1, $2, $3)
+	  RETURNING progress, user_id, module_id;
+	`;
+
+		const moduleStart2 = await db.query(addProgress2, [0, user.id, 2]);
+
 		const token = createToken(
 			credentials.company,
 			credentials.first_name,
@@ -299,41 +315,66 @@ class User {
 	static async getProgress(id) {
 		const query1 = `SELECT module_id, progress FROM modules_1 WHERE user_id=$1;`;
 		const result1 = await db.query(query1, [id]);
-		const progress1 = result1.rows[0];
+		let progress1 = result1.rows[0];
+
+		const query12 = `SELECT steps FROM modules WHERE id=$1`;
+		const result12 = await db.query(query12, [progress1.module_id]);
+		const steps1 = result12.rows[0];
+
+		progress1.steps = steps1.steps;
 
 		const query2 = `SELECT module_id, progress FROM modules_2 WHERE user_id=$1;`;
 		const result2 = await db.query(query2, [id]);
 		const progress2 = result2.rows[0];
+
+		const query22 = `SELECT steps FROM modules WHERE id=$1`;
+		const result22 = await db.query(query22, [progress2.module_id]);
+		const steps2 = result22.rows[0];
+
+		progress2.steps = steps2.steps;
 
 		const progress = {
 			1: progress1,
 			2: progress2,
 		};
 
+		console.log(progress);
 		return progress;
 	}
 
-	static async login(credentials) {
-		const requiredFields = ["email", "password"];
-		requiredFields.forEach((required) => {
-			if (!credentials.hasOwnProperty(required)) {
-				throw new BadRequestError(`Invalid ${required} provided`);
-			}
-		});
-		const user = await User.fetchUserByEmail(credentials.email.toLowerCase());
+	static async increaseProgress(module_id, user_id) {
+		const moduleName = "modules_" + module_id;
 
-		if (user?.password) {
-			const validPassword = await bcrypt.compare(
-				credentials.password,
-				user.password
-			);
+		const maxProgressQuery = `
+		SELECT steps FROM modules WHERE id = $1;
+		`;
+		const maxProgressRaw = await db.query(maxProgressQuery, [module_id]);
+		const maxProgress = maxProgressRaw.rows[0].steps;
 
-			if (validPassword) {
-				return User.makePublicUser(user);
-			}
+		const currentProgressQuery = `
+		SELECT progress FROM ${moduleName} WHERE user_id=$1;
+		`;
+
+		const progressRaw = await db.query(currentProgressQuery, [user_id]);
+		const progress = progressRaw.rows[0].progress;
+
+		const newProgress = parseInt(progress) + 1;
+
+		if (newProgress > maxProgress) {
+			return "Module already completed!!";
 		}
 
-		throw new UnauthorizedError("Incorrect Credentials");
+		const addProgressQuery = `
+		UPDATE ${moduleName}
+        SET progress = $1
+        WHERE user_id = $2
+        RETURNING progress, module_id;
+		`;
+
+		const newProgRaw = await db.query(addProgressQuery, [newProgress, user_id]);
+		const newProg = newProgRaw.rows[0];
+
+		return newProg;
 	}
 
 	static async fetchUserById(id) {
@@ -363,23 +404,6 @@ class User {
 		if (user.token) userInfo.token = user.token;
 
 		return userInfo;
-	}
-
-	static async getProgress(id) {
-		const query1 = `SELECT module_id, progress FROM modules_1 WHERE user_id=$1;`;
-		const result1 = await db.query(query1, [id]);
-		const progress1 = result1.rows[0];
-
-		const query2 = `SELECT module_id, progress FROM modules_2 WHERE user_id=$1;`;
-		const result2 = await db.query(query2, [id]);
-		const progress2 = result2.rows[0];
-
-		const progress = {
-			1: result1.rows[0],
-			2: result2.rows[0],
-		};
-		console.log(progress)
-		return progress;
 	}
 }
 

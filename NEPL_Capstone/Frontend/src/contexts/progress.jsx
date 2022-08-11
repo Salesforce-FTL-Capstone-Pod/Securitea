@@ -6,23 +6,28 @@ const ProgressContext = createContext(null);
 export const ProgressContextProvider = ({ children }) => {
 	const { user } = useAuthContext();
 	const [loading, setLoading] = useState(false);
-	const [progress, setProgress] = useState({
-		module_id: "",
-		progress: "",
-	});
+	const [progress, setProgress] = useState({ progress: "" });
 	useEffect(() => {
-		if (user?.title) {
-			setLoading(true);
-			const fetchProgress = async () => {
-				const { data } = await apiClient.fetchProgress();
-				console.log(data);
-			};
-			fetchProgress();
-			setLoading(false);
+		async function fetchProg() {
+			const { data } = await apiClient.fetchProgress();
+			setProgress(data);
 		}
+		fetchProg();
 	}, [user]);
 
-	const progressValue = { progress };
+	const progressOne = progress?.progress["1"] || 0;
+	const progressPercentOne =
+		(progressOne?.progress / progressOne?.steps) * 100 || 0;
+
+	const progressTwo = progress?.progress["2"] || 0;
+	const progressPercentTwo =
+		(progressTwo?.progress / progressTwo?.steps) * 100 || 0;
+
+	const progressValue = {
+		progress: progress,
+		percentOne: progressPercentOne,
+		percentTwo: progressPercentTwo,
+	};
 	return (
 		<ProgressContext.Provider value={progressValue}>
 			<>{children}</>

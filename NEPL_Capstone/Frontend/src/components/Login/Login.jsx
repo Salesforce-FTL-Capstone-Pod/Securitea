@@ -39,7 +39,7 @@ const theme = createTheme({
 function Login() {
   const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } =
     useLoginForm();
-
+    const url = "https://slack.com/openid/connect/authorize?scope=openid%20email%20profile&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Flocalhost%3A3000%2Fload&amp;client_id=3765144863393.3898834395927"
   return (
     <Container disableGutters maxWidth={false}>
       <Navbar />
@@ -117,6 +117,7 @@ function Login() {
                   </Link>
                 </Grid>
                 <Grid item>
+                <a href="https://slack.com/openid/connect/authorize?scope=openid%20profile%20email&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Flocalhost%3A5173%2Fslack&amp;client_id=3765144863393.3898834395927" target="_blank" ><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
                   <Typography variant="body2">
                     Don't have an account?
                   </Typography>
