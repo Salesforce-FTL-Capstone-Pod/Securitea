@@ -19,11 +19,11 @@ import ModulePageTips from "../ModulePage/ModulePageTips";
 import Modules from "../Modules/Modules";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import SimulationPage from "../SimulationPage/SimulationPage";
+import PasswordPage from "../PasswordPage/PasswordPage";
 
 import TipsPage from "../InternetTips/InternetTips";
 
 import EmployeeProgress from "../ManagerDashboard/EmployeeProgress/EmployeeProgress";
-
 
 import Skeleton from "../AuthModulePage/Skeleton";
 
@@ -66,10 +66,19 @@ function App() {
           <Route path="/Modules/tips" element={<TipsPage />} />
           <Route path="/Contact-Us" element={<ContactUs />} />
           <Route path="*" element={<PageNotFound />} />
-		      <Route path="/Skeleton" element={<AuthRoute element={<Skeleton /> } /> } />
-		      <Route path="/ManagerDashboard/*" element={<AuthRoute element={<ManagerDashboard />} /> } />
-		      <Route path="/EmployeeProgress" element={<AuthRoute element={<EmployeeProgress />} /> } />
-
+          <Route
+            path="/Skeleton"
+            element={<AuthRoute element={<Skeleton />} />}
+          />
+          <Route
+            path="/ManagerDashboard/*"
+            element={<AuthRoute element={<ManagerDashboard />} />}
+          />
+          <Route
+            path="/EmployeeProgress"
+            element={<AuthRoute element={<EmployeeProgress />} />}
+          />
+          <Route path="/PasswordPage" element={<PasswordPage />} />
         </Routes>
       </BrowserRouter>
     </div>
