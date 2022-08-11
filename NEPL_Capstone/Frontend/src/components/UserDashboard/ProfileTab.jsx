@@ -14,13 +14,7 @@ export default function ProfileTab({ user }){
         Profile
       </Text>
         <Grid>
-          <Text h2 Body>Manager/Company info</Text>
           <AccountInfo user={user} />
-        </Grid>
-       
-      <Grid>
-          <Text h2 Body>Something else</Text>
-          <NotificationInfo user={user}/>
         </Grid>
     </NextContainer>
       </Grid>
@@ -31,27 +25,33 @@ export default function ProfileTab({ user }){
 
   function AccountInfo({user}){
     return(
-        <Card css={{ bg: "$colors$darkpurple", mw: "100%"}}>
-          <Card.Divider />
-          <Card.Body css={{ py: "$10"}}>
-            <Text css={{ color: "$white" }} h3>
-              who's my boss, company i work for, circle of company pic, somethign else
-            </Text>
-          </Card.Body>
-        </Card>
-    )
-  }
+        <Card css={{ bg: "$colors$lightpurple", mw: "100%"}}>
+          <Row justify="left" css={{ marginLeft: "2vh"}}>
+          <Avatar
+                    css={{ size: "$20",}}
+                    src={user.logo}
+                    color="gradient"
+                    bordered
+            />
+          </Row>
+          <Row css={{ marginLeft: "1vh"}}>
 
-  function NotificationInfo({user}){
-    return(
-      <Card css={{ bg: "$colors$darkpurple", mw: "100%"}}>
-      <Card.Divider />
-      <Card.Body css={{ py: "$10"}}>
-        <Text css={{ color: "$white" }} h3>
-          Somethign else important about the user,
-        </Text>
-      </Card.Body>
-    </Card>
+           <Text id="modal-title" weight="thin" size={15}>
+              Name <Text weight="semibold"  size={20} >{user.first}{user.lastName}</Text>
+            </Text>
+  
+            <Text id="modal-title" weight="thin" size={15}>
+              Email <Text weight="semibold"  size={20} >{user.email}</Text>
+            </Text>
+            {user.birthday}
+          </Row>
+
+          <Row>
+            {user.company}
+            <br></br>
+            {user.manager}
+          </Row>
+        </Card>
     )
   }
 

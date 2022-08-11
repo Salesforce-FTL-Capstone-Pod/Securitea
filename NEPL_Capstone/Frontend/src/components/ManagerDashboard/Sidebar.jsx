@@ -8,10 +8,10 @@ function Sidebar({ selectedTab, setselectedTab, user }) {
           key: "Overview",
           name: "Overview",
         },
-        {
-          key: "Employee Activity",
-          name: "Employee Activity",
-        },
+        // {
+        //   key: "Employee Activity",
+        //   name: "Employee Activity",
+        // },
         {
           key: "Token Management",
           name: "Token Management",
