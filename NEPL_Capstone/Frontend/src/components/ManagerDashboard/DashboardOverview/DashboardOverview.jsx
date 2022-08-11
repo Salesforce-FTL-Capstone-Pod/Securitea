@@ -16,7 +16,6 @@ function DashboardOverview({ employees, token, company}) {
           settokenText("View Token")
         }
       }
-      //navigator.clipboard.writeText(this.state.textToCopy)
         return (
           <Card css={{ minHeight: "$24", $$cardColor: '$colors$white', minWidth: "30vh" }}>
             

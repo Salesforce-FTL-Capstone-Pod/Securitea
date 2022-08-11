@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Container, Box} from "@mui/material";
 import { Link } from "react-router-dom";
 import * as color from "../../../assets/colorPalette"
-import { Text, Button, Spacer, Row, Progress, Collapse, Avatar, Grid, Card, Table, Container as NextContainer, Modal } from "@nextui-org/react"
+import { Text, Button, Spacer, Row, Progress, User, Collapse, Avatar, Grid, Card, Table, Container as NextContainer, Modal } from "@nextui-org/react"
 import apiClient from "../../../services/apiClient"
 import { StyledBadge } from "../EmployeeTable/StyledBadge";
 const sizeBox = "65vw";
@@ -77,7 +77,10 @@ export function Tayble({ employees, valid, logo }) {
     rows.push({
       key: employee,
       progress: employees.info.podProgress[employee],
-      name: employees.info.podProgress[employee].name,
+      name: 
+      <User bordered color="success" src={logo} name={employees.info.podProgress[employee].name} css={{ p: 0 }}>
+      
+      </User>,
       email: employees.info.podProgress[employee].email,
       status: pingStatus
     })
@@ -136,7 +139,6 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
     safetyProgress: employees[selectedEmployee].progress[2]
   }
   
-  console.log(employee.safetyProgress)
   return(
     <Modal
     scroll
@@ -185,8 +187,9 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
               <Row justify="space-between">
                 <Text>
                   {employee.phishingProgress.progress} out of {employee.phishingProgress.steps} Steps Completed
+                  <Progress color="gradient" value={10} />
                 </Text>
-                <Button>
+                <Button color="success" >
                   Ping to Complete
                 </Button>
               </Row>
@@ -195,8 +198,9 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
               <Row justify="space-between">
               <Text>
                 {employee.safetyProgress.progress} out of {employee.safetyProgress.steps} Steps Completed
+                <Progress color="gradient" value={100} />
               </Text>
-              <Button>
+              <Button color="success">
                 Ping to Complete
               </Button>
               </Row>

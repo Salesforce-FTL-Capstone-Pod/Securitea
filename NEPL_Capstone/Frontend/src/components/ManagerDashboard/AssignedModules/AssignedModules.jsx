@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import { Link } from "react-router-dom"
-import { Dropdown, Grid, Card, Row, Button, Spacer, Text, Container, Modal, Loading } from "@nextui-org/react"
+import { Dropdown, Grid, Card, Row, Button, Spacer, Text, Container, Modal, Loading, Table } from "@nextui-org/react"
 import apiClient from '../../../services/apiClient';
 function AssignedModules() {
   return (
@@ -18,10 +18,14 @@ export default AssignedModules
 export function AssignDropdown(){
     const [visible, setVisible] = React.useState(false);
     const [selectedTab, setselectedTab] = useState("");
+    const [selectAll, setselectAll] = useState(false)
     function setTab(e){
         setselectedTab(e.currentKey)
         if (e.currentKey == "assignAll"){
             setVisible(true)
+        }
+        if (e.currentKey == "selectAssign"){
+          setselectAll(true)
         }
       }  
     return (
@@ -42,6 +46,7 @@ export function AssignDropdown(){
     </Dropdown.Menu>
     </Dropdown>
     <ConfirmModal visible={visible} setVisible={setVisible} />
+    <SelectionModal visible={selectAll} setVisible={setselectAll} />
     </>
     )
 }
@@ -156,4 +161,75 @@ function ConfirmModal({ visible, setVisible }){
 			</Modal>
 		</div>
 	);
+}
+
+function SelectionModal({ visible, setVisible }){
+  const [selected, setSelected] = useState([])
+  const closeHandler = () => {
+		setVisible(false);
+	};
+
+  function addEmployees(e){
+    setSelected([...selected], e)
+  }
+
+  function test(keys){
+    // console.log("test:", e.entries().forEach((entry) => {console.log(entry)))
+    // for (entry of e.values()){
+    //   console.log(entry)
+    // }
+    console.log(keys)
+    console.log([...keys])
+  }
+  return (
+      <Modal
+				closeButton
+				aria-labelledby="modal-title"
+				open={visible}
+				onClose={closeHandler}
+        autoMargin={true}
+        css={{ minWidth: "50vh"}}
+			>
+				<Modal.Body>
+          <Table
+            aria-label="Example static collection table with multiple selection"
+            css={{
+              height: "auto",
+              minWidth: "100%",
+            }}
+            selectionMode="multiple"
+            onSelectionChange={(e) => test(e)}
+          >
+              <Table.Header>
+                <Table.Column>NAME</Table.Column>
+                <Table.Column>ROLE</Table.Column>
+                <Table.Column>STATUS</Table.Column>
+              </Table.Header>
+              <Table.Body>
+                <Table.Row key="1">
+                  <Table.Cell>Tony Reichert</Table.Cell>
+                  <Table.Cell>CEO</Table.Cell>
+                  <Table.Cell>Active</Table.Cell>
+                </Table.Row>
+                <Table.Row key="2">
+                  <Table.Cell>Zoey Lang</Table.Cell>
+                  <Table.Cell>Technical Lead</Table.Cell>
+                  <Table.Cell>Paused</Table.Cell>
+                </Table.Row>
+                <Table.Row key="3">
+                  <Table.Cell>Jane Fisher</Table.Cell>
+                  <Table.Cell>Senior Developer</Table.Cell>
+                  <Table.Cell>Active</Table.Cell>
+                </Table.Row>
+                <Table.Row key="4">
+                  <Table.Cell>William Howard</Table.Cell>
+                  <Table.Cell>Community Manager</Table.Cell>
+                  <Table.Cell>Vacation</Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
+				</Modal.Body>
+				<Modal.Footer></Modal.Footer>
+			</Modal>
+  )
 }
