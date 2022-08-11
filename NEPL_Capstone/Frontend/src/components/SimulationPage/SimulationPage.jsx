@@ -115,16 +115,6 @@ function Simulation() {
             </Button>
           ) : null}
           {isStarted ? <EmailRender /> : null}
-
-          <img
-            src={Question}
-            style={{
-              position: "absolute",
-              width: "2vw",
-              bottom: "2%",
-              right: "5%",
-            }}
-          />
         </Container>
       </Container>
     </Container>
@@ -146,13 +136,13 @@ function EmailRender() {
           onClick={() => setIsClicked(!isClicked)}
           css={{
             position: "relative",
-            top: " 24.5%",
+            top: "25%",
+            left:"2%",
             background: "none",
-            height:"8%",
-            width:"100%",
+            width:"120%"
           }}
         >
-          <img src={EmailButton} style={{width:"100%"}}/>
+          <img src={EmailButton} style={{display:"flex",width:"100%"}}/>
         </Button>
       ) : null}
       {isClicked ? (
