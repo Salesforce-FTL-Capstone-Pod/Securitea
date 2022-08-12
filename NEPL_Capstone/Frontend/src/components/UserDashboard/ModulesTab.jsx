@@ -30,8 +30,11 @@ function ModulesTab() {
 	const progressVal = progress || 0;
 	const oneDone = progressVal.percentOne === 100;
 	const twoDone = progressVal.percentTwo === 100;
+
+
 	return (
 		<>
+
 			<Grid>
 				<ModuleDisplay
 					oneDone={oneDone}

@@ -82,13 +82,23 @@ class ApiClient {
 			endpoint: `manage/pingAll`,
 			method: `PATCH`,
 			data: { module: credentials },
-
-	async addProgress(module_id) {
-		return await this.request({
-			endpoint: `progress/addProgress`,
-			method: `PATCH`,
-			data: { module_id: module_id },
 		});
+	}
+	async pingEmployee(email, modules){
+		console.log("this is whats being passed: ", email, " ", modules)
+		return await this.request({
+			endpoint: `manage/pingUser`,
+			method: `PATCH`,
+			data: { email: email , module: modules }
+		})
+	}
+
+	async fetchSlackExchange(url, location){
+		return await this.request({
+			endpoint: `auth/slackExchange`,
+			method: `POST`,
+			data: {url, location}
+		})
 	}
 }
 

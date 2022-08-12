@@ -165,7 +165,6 @@ function ConfirmModal({ visible, setVisible, moduleId }) {
 			async function ping() {
 				setLoading(true);
 				const res = await apiClient.pingAllEmployees(moduleId);
-				console.log(res);
 				await delay(2000);
 				setLoading(false);
 				setConfirmation(true);
@@ -261,6 +260,15 @@ function SelectionModal({
 	const pingEmployees = async (selectedEmployee) => {
 		setLoading(true);
 		console.log("pinged:", selectedEmployee);
+		async function pingEmployee(employee, modules) {
+			const res = await apiClient.pingEmployee(employee, modules);
+			console.log(res)
+		}
+
+		for (const employees in selectedEmployee){
+			const employeeArr = selectedEmployee[employees].split(",")
+			pingEmployee(employeeArr[0], employeeArr[1])
+		}
 		await delay(2000);
 		setLoading(false);
 		setConfirmation(true);

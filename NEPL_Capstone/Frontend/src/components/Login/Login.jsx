@@ -1,6 +1,6 @@
 import React from "react";
 import { Link as DomLink } from "react-router-dom";
-
+import { useEffect } from "react";
 import { useLoginForm } from "../../hooks/useLoginForm";
 import "./Login.css";
 import SampleLogo from "../../assets/SampleLogo.svg";
@@ -40,6 +40,7 @@ function Login() {
   const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } =
     useLoginForm();
     const url = "https://slack.com/openid/connect/authorize?scope=openid%20email%20profile&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Flocalhost%3A3000%2Fload&amp;client_id=3765144863393.3898834395927"
+    
   return (
     <Container disableGutters maxWidth={false}>
       <Navbar />
