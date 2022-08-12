@@ -29,6 +29,7 @@ import dots from "../../assets/dots.svg";
 import { StyledBadge } from "../ManagerDashboard/EmployeeTable/StyledBadge";
 import { Modal, Dropdown, Text, Button } from "@nextui-org/react";
 import API from "../../services/apiClient";
+import { useAuthContext } from "../../contexts/auth";
 
 export default function SimulationPage() {
 	return (
@@ -244,13 +245,16 @@ function WrongPopUp({ handler, visible, setVisible }) {
 	);
 }
 function RightAnswer({ handler, visible, setVisible }) {
+	const { user, setUser } = useAuthContext();
+
 	const closeHandler = () => {
 		setVisible(false);
 	};
 
 	const nextHandler = async () => {
 		const respo = await API.addProgress("1");
-		console.log("addded");
+		setUser({ ...user, refresh: true });
+		delete user.refresh;
 	};
 
 	return (
