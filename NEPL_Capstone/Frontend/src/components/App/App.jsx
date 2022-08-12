@@ -2,43 +2,36 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import * as color from "../../assets/colorPalette";
-
 //Components
 import Landing from "../Landing/Landing";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import UserDashboard from "../UserDashboard/UserDashboard";
 import ContactUs from "../ContactUs/ContactUs";
-
 import ModulePage from "../ModulePage/ModulePagePhishing";
 import ResourcePage from "../ResourcePage/ResourcePage";
 import AuthRoute from "../AuthRoute/AuthRoute";
-
 import ModulePagePhishing from "../ModulePage/ModulePagePhishing";
 import ModulePageTips from "../ModulePage/ModulePageTips";
 import Modules from "../Modules/Modules";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import SimulationPage from "../SimulationPage/SimulationPage";
-import EmployeeProgress from "../ManagerDashboard/EmployeeProgress/EmployeeProgress";
-import SimuPage2 from "../SimulationPage/SimuPage2"
-
+import TipsPage from "../InternetTips/InternetTips";
+import PasswordPage from "../PasswordPage/PasswordPage";
 import Skeleton from "../AuthModulePage/Skeleton";
-
 //Libraries
 import { NextUIProvider, createTheme, Progress } from "@nextui-org/react";
-
 //Contexts
 import { AuthContextProvider } from "../../contexts/auth";
 import { ProgressContextProvider } from "../../contexts/progress";
 import ManagerDashboard from "../ManagerDashboard/ManagerDashboard";
-
 export default function AppContainer() {
   return (
     <NextUIProvider theme={theme}>
       <AuthContextProvider>
-		<ProgressContextProvider>
-			<App />
-		</ProgressContextProvider>
+        <ProgressContextProvider>
+          <App />
+        </ProgressContextProvider>
       </AuthContextProvider>
     </NextUIProvider>
   );
@@ -60,7 +53,8 @@ function App() {
           <Route path="/Modules" element={<Modules />} />
           <Route path="/Resources" element={<ResourcePage />} />
           <Route path="/Modules/demo" element={<SimulationPage />} />
-          {/* <Route path="/Modules/tips" element={} */}
+          <Route path="/Modules/tips" element={<TipsPage />} />
+          <Route path="/PasswordPage" element={<PasswordPage />} />
           <Route path="/Contact-Us" element={<ContactUs />} />
           <Route path="*" element={<PageNotFound />} />
           <Route
@@ -71,17 +65,11 @@ function App() {
             path="/ManagerDashboard/*"
             element={<AuthRoute element={<ManagerDashboard />} />}
           />
-          <Route
-            path="/EmployeeProgress"
-            element={<AuthRoute element={<EmployeeProgress />} />}
-          />
-          <Route path="/Sim2" element={<SimuPage2 />} />
         </Routes>
       </BrowserRouter>
     </div>
   );
 }
-
 const theme = createTheme({
   type: "light",
   theme: {
