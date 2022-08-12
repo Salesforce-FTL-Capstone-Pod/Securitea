@@ -62,28 +62,36 @@ class ApiClient {
 		});
 	}
 
-	async fetchManagerToken(){
+	async fetchManagerToken() {
 		return await this.request({
 			endpoint: `manage/getAccessToken`,
 			method: `GET`,
 		});
 	}
 
-	async fetchEmployees(){
+	async fetchEmployees() {
 		return await this.request({
 			endpoint: `manage/getPeople`,
 			method: `GET`,
-		})
+		});
 	}
 
-	async pingAllEmployees(){
+	async pingAllEmployees() {
 		return await this.request({
 			endpoint: `manage/pingAll`,
-			method: `PATCH`
-		})
+			method: `PATCH`,
+		});
+	}
+
+	async addProgress(module_id) {
+		return await this.request({
+			endpoint: `progress/addProgress`,
+			method: `PATCH`,
+			data: { module_id: module_id },
+		});
 	}
 }
 
 const API = new ApiClient("http://localhost:3001");
-
+//TODO: this needs to be changed when deployed
 export default API;
