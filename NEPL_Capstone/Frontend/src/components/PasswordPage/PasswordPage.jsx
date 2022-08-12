@@ -18,22 +18,20 @@ import {
   RadioGroup,
 } from "@mui/material";
 import * as color from "../../assets/colorPalette";
-import { Link } from "react-router-dom";
+
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 
 import Speaker from "../../assets/Speaker.svg";
+// import CheckIcon from "@mui/icons-material/Check";
+import CheckIcon from "@mui/icons-material/TaskAlt";
 import { useLoginForm } from "../../hooks/useLoginForm";
 import PasswordStrengthBar from "react-password-strength-bar";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import right from "../../assets/right.png";
-import wrong from "../../assets/wrong.png";
 
-import Question from "../../assets/Question.svg";
-import { borderRadius } from "@mui/system";
 import { useState } from "react";
-import { useEffect } from "react";
+
 import { Spacer } from "@nextui-org/react";
 
 export default function TipsPage() {
@@ -59,6 +57,7 @@ function PasswordPage() {
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
   const [generatedPassword, setGeneratedPassword] = useState("");
+  const [isFinished, setIsFinished] = useState(false);
 
   const Allowed = {
     Uppers: "QWERTYUIOPASDFGHJKLZXCVBNM",
@@ -82,6 +81,7 @@ function PasswordPage() {
     }
 
     setGeneratedPassword(pwd);
+    setIsFinished(true);
   };
 
   return (
@@ -92,12 +92,29 @@ function PasswordPage() {
         flexDirection: "column",
         backgroundColor: color.platinum,
         height: "100%",
-        width: "75%",
+        width: "85%",
         marginTop: "100px",
         marginBottom: "100px",
       }}
     >
+      <Container
+        maxWidth={false}
+        style={{
+          display: "flex",
+          width: "100%",
+          justifyContent: "right",
+          paddingTop: "2vh",
+          marginBottom: "25px",
+        }}
+      >
+        {isFinished ? (
+          <CheckIcon fontSize={"large"} style={{ color: color.blueBell }} />
+        ) : (
+          <></>
+        )}
+      </Container>
       <h2>Tips to create a strong password:</h2>
+
       <Container style={{ display: "flex", justifyContent: "center" }}>
         <Container style={{ backgroundColor: "#C1E1C1", opacity: "0.8" }}>
           <p style={{ color: "green" }}>DO:</p>
@@ -161,7 +178,7 @@ function PasswordPage() {
           fullWidth
           variant="contained"
           disableRipple
-          color="primary"
+          style={{ background: "#D3CFE2", color: "#0E131F" }}
           sx={{ mt: 3, mb: 2 }}
           onClick={generatePassword}
         >

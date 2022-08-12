@@ -48,7 +48,7 @@ function Simulation() {
         display: "flex ",
         flexDirection: "column",
         backgroundColor: color.platinum,
-        height: "125vh",
+        height: "145vh",
         width: "75%",
         marginTop: "100px",
         marginBottom: "100px",
@@ -79,7 +79,7 @@ function Simulation() {
       <Container
         maxWidth={false}
         sx={{
-          position: "relative",
+          display: "flex",
           backgroundColor: color.languidLavender,
           height: "89vh",
           borderRadius: "2vw",
@@ -115,16 +115,6 @@ function Simulation() {
             </Button>
           ) : null}
           {isStarted ? <EmailRender /> : null}
-
-          <img
-            src={Question}
-            style={{
-              position: "absolute",
-              width: "2vw",
-              bottom: "2%",
-              right: "5%",
-            }}
-          />
         </Container>
       </Container>
     </Container>
@@ -146,13 +136,17 @@ function EmailRender() {
           onClick={() => setIsClicked(!isClicked)}
           css={{
             position: "relative",
-            top: " 24.5%",
+            top: "26.4%",
+            left: "16.2%",
             background: "none",
-            height:"8%",
-            width:"100%",
+            width: "90%",
           }}
+          size="xl"
         >
-          <img src={EmailButton} style={{width:"100%"}}/>
+          <img
+            src={EmailButton}
+            style={{ display: "flex", height: "auto", width: "2%" }}
+          />
         </Button>
       ) : null}
       {isClicked ? (
@@ -182,10 +176,7 @@ function EmailRender() {
             color={color.platinum}
             style={{ position: "relative", left: "94%", bottom: "72.2%" }}
           >
-            <img
-              src={dots}
-              style={{ display: "flex",  }}
-            />
+            <img src={dots} style={{ display: "flex" }} />
           </Dropdown.Button>
           <Dropdown.Menu aria-label="Static Actions">
             <Dropdown.Item>
