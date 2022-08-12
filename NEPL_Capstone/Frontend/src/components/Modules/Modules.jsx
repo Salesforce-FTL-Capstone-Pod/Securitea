@@ -196,8 +196,8 @@ export function PhishingModuleCard({ progress }) {
 					<div>
 						<Progress color="secondary" value={progress.percentOne} />
 						<Text css={{ color: "$black" }}>
-							{progress.progress.progress["1"].progress}/
-							{progress.progress.progress["1"].steps} Steps Complete
+							{progress?.progress?.progress["1"].progress}/
+							{progress?.progress?.progress["1"].steps} Steps Complete
 						</Text>
 					</div>
 				) : (
@@ -289,8 +289,8 @@ export function TipsModuleCard({ progress }) {
 					<div>
 						<Progress color="secondary" value={progress.percentTwo} />
 						<Text css={{ color: "$black" }}>
-							{progress.progress.progress["2"].progress}/
-							{progress.progress.progress["2"].steps} Steps Complete
+							{progress?.progress?.progress["2"].progress}/
+							{progress?.progress?.progress["2"].steps} Steps Complete
 						</Text>
 					</div>
 				) : (
