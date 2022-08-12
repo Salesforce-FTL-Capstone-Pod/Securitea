@@ -26,7 +26,7 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 export default function ModulePagePhishing() {
 	const progress = useProgressContext();
 
-	const progressOne = progress.progress.progress["1"] || 0;
+	const progressOne = progress?.progress?.progress["1"] || 0;
 	return (
 		<Container maxWidth={false} disableGutters>
 			<Navbar />
