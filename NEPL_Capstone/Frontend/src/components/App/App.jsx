@@ -20,6 +20,7 @@ import Modules from "../Modules/Modules";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import SimulationPage from "../SimulationPage/SimulationPage";
 import EmployeeProgress from "../ManagerDashboard/EmployeeProgress/EmployeeProgress";
+import SimuPage2 from "../SimulationPage/SimuPage2"
 
 import Skeleton from "../AuthModulePage/Skeleton";
 
@@ -50,7 +51,10 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/UserDashboard/" element={<AuthRoute element={<UserDashboard />} /> } />
+          <Route
+            path="/UserDashboard/"
+            element={<AuthRoute element={<UserDashboard />} />}
+          />
           <Route path="/ModulePhishing" element={<ModulePagePhishing />} />
           <Route path="/ModuleTips" element={<ModulePageTips />} />
           <Route path="/Modules" element={<Modules />} />
@@ -59,9 +63,19 @@ function App() {
           {/* <Route path="/Modules/tips" element={} */}
           <Route path="/Contact-Us" element={<ContactUs />} />
           <Route path="*" element={<PageNotFound />} />
-		  <Route path="/Skeleton" element={<AuthRoute element={<Skeleton /> } /> } />
-		  <Route path="/ManagerDashboard/*" element={<AuthRoute element={<ManagerDashboard />} /> } />
-		  <Route path="/EmployeeProgress" element={<AuthRoute element={<EmployeeProgress />} /> } />
+          <Route
+            path="/Skeleton"
+            element={<AuthRoute element={<Skeleton />} />}
+          />
+          <Route
+            path="/ManagerDashboard/*"
+            element={<AuthRoute element={<ManagerDashboard />} />}
+          />
+          <Route
+            path="/EmployeeProgress"
+            element={<AuthRoute element={<EmployeeProgress />} />}
+          />
+          <Route path="/Sim2" element={<SimuPage2 />} />
         </Routes>
       </BrowserRouter>
     </div>

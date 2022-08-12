@@ -11,19 +11,18 @@ import {
   TextareaAutosize,
 } from "@mui/material";
 import * as color from "../../assets/colorPalette";
-import { Link, renderMatches, Routes, Route } from "react-router-dom";
+import { Link, renderMatches } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import { useState } from "react";
 
-import Question from "../../assets/Question.svg";
-import EmailSim from "../../assets/EmailSim.svg";
-import PhishingImg from "../../assets/PhishingImg.svg";
-import EmailButton from "../../assets/EmailButton.svg";
-import LinkButton from "../../assets/LinkButton.svg";
+import RealEmailPage from "../../assets/RealEmail.svg";
+import RealEmail from "../../assets/PhishingImg.svg";
+import RealEmailButton from "../../assets/RealEmailButton.svg";
 import Wrong from "../../assets/Wrong.svg";
 import Right from "../../assets/Right.svg";
 import dots from "../../assets/dots.svg";
+import YesButton from "../../assets/YesButton.svg";
 
 import { StyledBadge } from "../ManagerDashboard/EmployeeTable/StyledBadge";
 import { Modal, Dropdown, Text, Button } from "@nextui-org/react";
@@ -78,7 +77,7 @@ function Simulation() {
       <Container
         maxWidth={false}
         sx={{
-          display: "flex",
+         display:"flex",
           backgroundColor: color.languidLavender,
           height: "89vh",
           borderRadius: "2vw",
@@ -113,14 +112,14 @@ function Simulation() {
               Start Simulation
             </Button>
           ) : null}
-          {isStarted ? <EmailRender /> : null}
+          {isStarted ? <RealEmail2 /> : null}
         </Container>
       </Container>
     </Container>
   );
 }
 
-function EmailRender() {
+function RealEmail2() {
   const [isClicked, setIsClicked] = useState(false);
   const [isRight, setIsRight] = useState(false);
   const [isWrong, setIsWrong] = useState(false);
@@ -143,15 +142,15 @@ function EmailRender() {
           size="xl"
         >
           <img
-            src={EmailButton}
+            src={RealEmailButton}
             style={{ display: "flex", height: "auto", width: "2%" }}
           />
         </Button>
       ) : null}
       {isClicked ? (
-        <img src={PhishingImg} style={{ width: "100%" }} />
+        <img src={RealEmail} style={{ width: "100%" }} />
       ) : (
-        <img src={EmailSim} style={{ display: "flex", width: "100%" }} />
+        <img src={RealEmailPage} style={{ display: "flex", width: "100%" }} />
       )}
       {isClicked ? (
         <Button
@@ -164,7 +163,7 @@ function EmailRender() {
           }}
           style={{ background: "none" }}
         >
-          <img src={LinkButton} style={{ display: "flex", size: "100%" }} />
+          <img src={YesButton} style={{ display: "flex", size: "100%" }} />
         </Button>
       ) : null}
 
@@ -244,6 +243,7 @@ function WrongPopUp({ handler, visible, setVisible }) {
 function RightAnswer({ handler, visible, setVisible }) {
   const closeHandler = () => {
     setVisible(false);
+    console.log(".log");
   };
   return (
     <div>
@@ -269,9 +269,8 @@ function RightAnswer({ handler, visible, setVisible }) {
           <Button auto flat color="error" onClick={closeHandler}>
             Close
           </Button>
-
           <Button auto flat color={color.languidLavender}>
-            <Link to="/Sim2"> Next</Link>
+            Next
           </Button>
         </Modal.Footer>
       </Modal>
