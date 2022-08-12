@@ -82,10 +82,16 @@ class ApiClient {
 			endpoint: `manage/pingAll`,
 			method: `PATCH`,
 			data: { module: credentials },
+
+	async addProgress(module_id) {
+		return await this.request({
+			endpoint: `progress/addProgress`,
+			method: `PATCH`,
+			data: { module_id: module_id },
 		});
 	}
 }
 
 const API = new ApiClient("http://localhost:3001");
-
+//TODO: this needs to be changed when deployed
 export default API;
