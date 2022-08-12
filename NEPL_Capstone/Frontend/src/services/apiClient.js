@@ -84,7 +84,6 @@ class ApiClient {
 			data: { module: credentials },
 		});
 	}
-
 	async pingEmployee(email, modules){
 		console.log("this is whats being passed: ", email, " ", modules)
 		return await this.request({
