@@ -8,6 +8,8 @@ export const useRegistrationForm = () => {
 	const { user, setUser } = useAuthContext();
 	const { form, errors, setErrors, handleOnInputChange } =
 		useAuthenticationForm({ user });
+
+
 	const [isProcessing, setIsProcessing] = useState(false);
 	const navigate = useNavigate();
 	const handleOnSubmit = async () => {

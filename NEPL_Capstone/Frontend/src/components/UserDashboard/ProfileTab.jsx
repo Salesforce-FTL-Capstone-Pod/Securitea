@@ -26,30 +26,30 @@ export default function ProfileTab({ user }){
   function AccountInfo({user}){
     return(
         <Card css={{ bg: "$colors$lightpurple", mw: "100%"}}>
-          <Row justify="left" css={{ marginLeft: "2vh"}}>
+          
+          <Row css={{ marginLeft: "1vh"}}>
           <Avatar
-                    css={{ size: "$20",}}
+                    css={{ size: "$20", }}
                     src={user.logo}
                     color="gradient"
                     bordered
             />
-          </Row>
-          <Row css={{ marginLeft: "1vh"}}>
-
            <Text id="modal-title" weight="thin" size={15}>
-              Name <Text weight="semibold"  size={20} >{user.first}{user.lastName}</Text>
+              Name <Text weight="semibold"  size={20} >{user.firstName} {user.lastName}</Text>
             </Text>
   
             <Text id="modal-title" weight="thin" size={15}>
               Email <Text weight="semibold"  size={20} >{user.email}</Text>
             </Text>
-            {user.birthday}
-          </Row>
-
-          <Row>
-            {user.company}
-            <br></br>
-            {user.manager}
+            <Text id="modal-title" weight="thin" size={15}>
+              Birthday <Text weight="semibold"  size={20} >{user.birthday}</Text>
+            </Text>
+            <Text id="modal-title" weight="thin" size={15}>
+              Company <Text weight="semibold"  size={20} >{user.company}</Text>
+            </Text> 
+            <Text id="modal-title" weight="thin" size={15}>
+              Manager <Text weight="semibold"  size={20} >{user.manager}</Text>
+            </Text> 
           </Row>
         </Card>
     )

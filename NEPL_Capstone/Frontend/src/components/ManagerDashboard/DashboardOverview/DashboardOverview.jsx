@@ -3,7 +3,8 @@ import { useState } from 'react'
 import { Grid, Card, Text, Container, Tooltip } from "@nextui-org/react"
 import RepTable from '../EmployeeTable/RepTable.jsx';
 import EmployeeDisplay from '../EmployeeDisplay/EmployeeDisplay.jsx';
-function DashboardOverview({ employees, token, company, logo}) {
+function DashboardOverview({ employees, token, company, logo, setReload }) {
+  console.log(employees)
   let employeeCount = 0
   if (employees){
     employeeCount = employees.info.totalMembers
@@ -48,7 +49,7 @@ function DashboardOverview({ employees, token, company, logo}) {
    </Grid.Container>
    <Grid.Container justify='center'>
     <Grid>
-      {employeeCount > 0 ? <><EmployeeDisplay employees={employees} token={token} company={company} logo={logo} /></> : <></>}
+      {employeeCount > 0 ? <><EmployeeDisplay setReload={setReload} employees={employees} token={token} company={company} logo={logo} /></> : <></>}
     </Grid>
    </Grid.Container>
    </Container>
