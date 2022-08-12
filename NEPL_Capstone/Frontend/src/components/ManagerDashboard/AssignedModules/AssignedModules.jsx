@@ -260,8 +260,8 @@ function SelectionModal({
 	const pingEmployees = async (selectedEmployee) => {
 		setLoading(true);
 		console.log("pinged:", selectedEmployee);
-		async function pingEmployee(employee, module) {
-			const res = await apiClient.pingAllEmployees(moduleId);
+		async function pingEmployee(employee, modules) {
+			const res = await apiClient.pingEmployee(employee, modules);
 			console.log(res)
 		}
 

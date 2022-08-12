@@ -36,9 +36,10 @@ router.patch(
 	"/pingUser",
 	security.requireAuthenticatedUser,
 	async (req, res, next) => {
+		console.log("this is my body: ", req.body)
 		try {
 			const userPinged = await Manager.pingUser(
-				req.body.userEmail,
+				req.body.email,
 				req.body.module
 			);
 

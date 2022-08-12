@@ -85,11 +85,12 @@ class ApiClient {
 		});
 	}
 
-	async pingEmployee(credentials){
+	async pingEmployee(email, modules){
+		console.log("this is whats being passed: ", email, " ", modules)
 		return await this.request({
 			endpoint: `manage/pingUser`,
 			method: `PATCH`,
-			data: { userEmail: credentials.email , module: credentials.module }
+			data: { email: email , module: modules }
 		})
 	}
 

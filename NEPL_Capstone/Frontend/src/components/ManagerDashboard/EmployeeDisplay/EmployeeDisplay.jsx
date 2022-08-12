@@ -133,14 +133,11 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
     phishingProgress: employees[selectedEmployee].progress[1],
     safetyProgress: employees[selectedEmployee].progress[2]
   }
-  console.log(employee.module1ping, employee.module2ping)
-  const sendPings = (email, module) => {
-			async function ping() {
-				const res = await apiClient.pingEmployee({ email, module });
-				setReload(res)
-			}
-			ping();
-		}
+  async function sendPings(email, modules) {
+    console.log("strig" , email, modules)
+    const res = await apiClient.pingEmployee(email, modules);
+    console.log(res)
+  }
 	
 
   return(
