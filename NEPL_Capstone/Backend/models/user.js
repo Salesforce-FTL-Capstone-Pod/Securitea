@@ -62,6 +62,9 @@ class User {
 		if (existingUser && slackRequest == true){
 			return "isUser"
 		}
+		if (!existingUser && slackRequest == true){
+			return "notUser"
+		}
 
 		const hashedPassword = await bcrypt.hash(
 			credentials.password,

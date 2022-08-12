@@ -70,6 +70,7 @@ function App() {
        const response = await apiClient.fetchSlackExchange(url, location)
        if(response.data !== null){
         console.log(response.data)
+        console.log(user)
         setUser(response.data.user);
         apiClient.setToken(response.data.token);
         setInitialized(true)
