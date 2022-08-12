@@ -84,6 +84,22 @@ class ApiClient {
 			data: { module: credentials },
 		});
 	}
+
+	async pingEmployee(credentials){
+		return await this.request({
+			endpoint: `manage/pingUser`,
+			method: `PATCH`,
+			data: { userEmail: credentials.email , module: credentials.module }
+		})
+	}
+
+	async fetchSlackExchange(url, location){
+		return await this.request({
+			endpoint: `auth/slackExchange`,
+			method: `POST`,
+			data: {url, location}
+		})
+	}
 }
 
 const API = new ApiClient("http://localhost:3001");
