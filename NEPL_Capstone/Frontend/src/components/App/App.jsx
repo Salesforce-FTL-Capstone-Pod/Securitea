@@ -16,6 +16,7 @@ import ModulePageTips from "../ModulePage/ModulePageTips";
 import Modules from "../Modules/Modules";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import SimulationPage from "../SimulationPage/SimulationPage";
+import SimulationPage2 from "../SimulationPage/SimulationPage2";
 import TipsPage from "../InternetTips/InternetTips";
 import PasswordPage from "../PasswordPage/PasswordPage";
 import Skeleton from "../AuthModulePage/Skeleton";
@@ -57,8 +58,15 @@ function App() {
           <Route path="/PasswordPage" element={<PasswordPage />} />
           <Route path="/Contact-Us" element={<ContactUs />} />
           <Route path="*" element={<PageNotFound />} />
-          <Route path="/Skeleton" element={<AuthRoute element={<Skeleton /> } /> } />
-          <Route path="/ManagerDashboard/*" element={<AuthRoute element={<ManagerDashboard />} /> } />
+          <Route
+            path="/Skeleton"
+            element={<AuthRoute element={<Skeleton />} />}
+          />
+          <Route
+            path="/ManagerDashboard/*"
+            element={<AuthRoute element={<ManagerDashboard />} />}
+          />
+          <Route path="/Sim2" element={<SimulationPage2 />} />
         </Routes>
       </BrowserRouter>
     </div>
