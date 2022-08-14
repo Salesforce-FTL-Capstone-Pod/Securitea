@@ -18,13 +18,13 @@ import { useState } from "react";
 
 
 import RealEmailPage from "../../assets/RealEmailPage.svg";
-import PhishingImg from "../../assets/PhishingImg.svg";
+import RealEmail from "../../assets/RealEmail.svg";
 import EmailButton from "../../assets/EmailButton.svg";
 import LinkButton from "../../assets/LinkButton.svg";
 import Wrong from "../../assets/Wrong.svg";
-import ReportButton from "../../assets/ReportButton.svg";
 import Right from "../../assets/Right.svg";
 import dots from "../../assets/dots.svg";
+import YesButton from "../../assets/yesButton.svg";
 
 import { StyledBadge } from "../ManagerDashboard/EmployeeTable/StyledBadge";
 import { Modal, Dropdown, Text, Button } from "@nextui-org/react";
@@ -152,7 +152,7 @@ function EmailRender() {
         </Button>
       ) : null}
       {isClicked ? (
-        <img src={PhishingImg} style={{ width: "100%" }} />
+        <img src={RealEmail} style={{ width: "100%" }} />
       ) : (
         <img src={RealEmailPage} style={{ display: "flex", width: "100%" }} />
       )}
@@ -161,13 +161,12 @@ function EmailRender() {
           onClick={() => setVisible(!visible)}
           css={{
             position: "relative",
-            bottom: "46%",
-            left: "40%",
-            width: "30%",
+            bottom: "49%",
+            width: "3%",
           }}
           style={{ background: "none" }}
         >
-          <img src={LinkButton} style={{ display: "flex", size: "100%" }} />
+          <img src={YesButton} style={{ display: "flex", width: "%" }} />
         </Button>
       ) : null}
 
@@ -195,13 +194,13 @@ function EmailRender() {
         </Dropdown>
       ) : null}
 
-      <WrongPopUp
+      <RightAnswer
         handler={handler}
         visible={visible}
         setVisible={setVisible}
         style={{ width: "10%" }}
       />
-      <RightAnswer
+      <WrongPopUp
         handler={handler}
         visible={visible2}
         setVisible={setVisible2}
