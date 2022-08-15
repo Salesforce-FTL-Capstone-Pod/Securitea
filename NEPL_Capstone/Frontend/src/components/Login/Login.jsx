@@ -42,8 +42,9 @@ function Login() {
     const url = "https://slack.com/openid/connect/authorize?scope=openid%20email%20profile&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Flocalhost%3A3000%2Fload&amp;client_id=3765144863393.3898834395927"
     
   return (
+    <>
+    <Navbar />
     <Container disableGutters maxWidth={false} sx={{ backgroundImage: `url(${backgroundImg})`}}>
-      <Navbar />
       <ThemeProvider theme={theme}>
         <Container
           disableGutters
@@ -139,6 +140,7 @@ function Login() {
         </Container>
       </ThemeProvider>
     </Container>
+    </>
   );
 }
 

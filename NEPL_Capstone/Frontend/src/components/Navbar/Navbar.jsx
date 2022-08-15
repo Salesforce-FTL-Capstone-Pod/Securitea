@@ -29,7 +29,7 @@ export default function Navbar() {
 							color: color.platinum,
 							fontFamily: "Roboto, Helvetica,Arial,sans-serif",
 						}}
-						to="/"
+						to={user?.email ? "/UserDashboard" : "/"}
 					>
 						<img src={Logo} width="50vw" style={{ marginRight: "0.5vw" }} />
 						<h3 style={{ margin: "0" }}>SecuriTEA</h3>
