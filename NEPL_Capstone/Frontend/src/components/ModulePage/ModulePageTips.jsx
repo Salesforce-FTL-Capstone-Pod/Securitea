@@ -30,7 +30,7 @@ export default function ModulePageTips() {
 		<Container maxWidth={false} disableGutters>
 			<Navbar />
 			<Overview progress={progress} />
-			<Content />
+			<Content progressTwo={progressTwo} />
 			<Footer />
 		</Container>
 	);
@@ -43,6 +43,13 @@ function Overview({ progress }) {
 	const [visible, setVisible] = React.useState(false);
 	const handler = () => setVisible(true);
 	const { user, handleLogout } = useAuthContext();
+	const handleContinue = () => {
+		if (progress?.progress?.progress["2"].progress === 0) {
+			navigate("/modules/tips");
+		} else if (progress?.progress?.progress["2"].progress === 1) {
+			navigate("../PasswordPage");
+		}
+	};
 
 	return (
 		<Container
@@ -75,16 +82,18 @@ function Overview({ progress }) {
 					Internet Safety Tips
 				</Text>
 				{user?.email ? (
-					<Button color="secondary" css={{ marginTop: "0.5vw", height: "2vw" }}>
-						<Link to="/Modules/demo">
-							<Text
-								h4
-								weight="bold"
-								css={{ color: color.platinum, marginBottom: "0vw" }}
-							>
-								Continue
-							</Text>
-						</Link>
+					<Button
+						color="secondary"
+						onClick={handleContinue}
+						css={{ marginTop: "0.5vw", height: "2vw" }}
+					>
+						<Text
+							h4
+							weight="bold"
+							css={{ color: color.platinum, marginBottom: "0vw" }}
+						>
+							Continue
+						</Text>
 					</Button>
 				) : (
 					<Button
@@ -136,7 +145,15 @@ function Overview({ progress }) {
 	);
 }
 
-function Content() {
+function Content({ progressTwo }) {
+	function getCurrent() {
+		switch (progressTwo?.progress || 0) {
+			case 0:
+				return <IntroToTips />;
+			case 1:
+				return <PasswordCheckerPage />;
+		}
+	}
 	return (
 		<Container
 			sx={{ display: "flex", minHeight: "100vh", marginBottom: "10vh" }}
@@ -146,18 +163,14 @@ function Content() {
 				<Text h1 css={{ marginTop: "1vw" }}>
 					Current Unit
 				</Text>
-				<Collapse.Group splitted>
-					<IntroToPhishing />
-				</Collapse.Group>
+				<Collapse.Group splitted>{getCurrent()}</Collapse.Group>
 
 				<Text h1 css={{ marginTop: "1vw" }}>
 					Curriculum
 				</Text>
 				<Collapse.Group splitted accordion={true}>
-					<IntroToPhishing />
-					<PhishingFirstSim />
-					<PhishingSecondSim />
-					<PhishingThirdSim />
+					<IntroToTips />
+					<PasswordCheckerPage />
 				</Collapse.Group>
 
 				<Text h1 css={{ marginTop: "1vw" }}>
@@ -186,45 +199,23 @@ function Content() {
 	);
 }
 
-function IntroToPhishing() {
+function IntroToTips() {
 	return (
-		<Collapse title="Intro to Phishing">
+		<Collapse title="Internet Safety Tips">
 			<Text>
-				This unit will give you a comprehensive explanation of what Phishing is
-				and how you detect it so that you may be safe on the internet.
+				This unit has tips on internet safety and how to safely navigate the
+				web.
 			</Text>
 		</Collapse>
 	);
 }
 
-function PhishingFirstSim() {
+function PasswordCheckerPage() {
 	return (
-		<Collapse title="Phishing: Quiz 1">
+		<Collapse title="Password Checker">
 			<Text>
-				This quiz will test your knowledge of phishing and how to be safe while
-				checking your emails.
-			</Text>
-		</Collapse>
-	);
-}
-
-function PhishingSecondSim() {
-	return (
-		<Collapse title="Phishing: Quiz 2">
-			<Text>
-				This quiz will test your knowledge of phishing and how to be safe while
-				checking your emails.
-			</Text>
-		</Collapse>
-	);
-}
-
-function PhishingThirdSim() {
-	return (
-		<Collapse title="Phishing: Quiz 3">
-			<Text>
-				This quiz will test your knowledge of phishing and how to be safe while
-				checking your emails.
+				This unit will show you how to check the strength of your passwords and
+				some examples of very strong passwords.
 			</Text>
 		</Collapse>
 	);

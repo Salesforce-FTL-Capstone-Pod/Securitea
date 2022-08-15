@@ -30,20 +30,30 @@ export default function ModulePagePhishing() {
 	return (
 		<Container maxWidth={false} disableGutters>
 			<Navbar />
-			<Overview progressPercent={progress.percentOne} />
+			<Overview progressPercent={progress.percentOne} progress={progress} />
 			<Content progressOne={progressOne} />
 			<Footer />
 		</Container>
 	);
 }
 
-function Overview({ progressPercent }) {
+function Overview({ progressPercent, progress }) {
 	const navigate = useNavigate();
 	const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } =
 		useLoginForm();
 	const [visible, setVisible] = React.useState(false);
 	const handler = () => setVisible(true);
 	const { user, handleLogout } = useAuthContext();
+
+	const handleContinue = () => {
+		if (progress?.progress?.progress["1"].progress === 0) {
+			navigate("/modules/demo");
+		} else if (progress?.progress?.progress["1"].progress === 1) {
+			navigate("../Sim2");
+		} else if (progress?.progress?.progress["1"].progress === 2) {
+			navigate("../Sim3");
+		}
+	};
 
 	return (
 		<Container
@@ -76,16 +86,18 @@ function Overview({ progressPercent }) {
 					Phishing
 				</Text>
 				{user?.email ? (
-					<Button color="secondary" css={{ marginTop: "0.5vw", height: "2vw" }}>
-						<Link to="/Modules/demo">
-							<Text
-								h4
-								weight="bold"
-								css={{ color: color.platinum, marginBottom: "0vw" }}
-							>
-								Continue
-							</Text>
-						</Link>
+					<Button
+						color="secondary"
+						onClick={handleContinue}
+						css={{ marginTop: "0.5vw", height: "2vw" }}
+					>
+						<Text
+							h4
+							weight="bold"
+							css={{ color: color.platinum, marginBottom: "0vw" }}
+						>
+							Continue
+						</Text>
 					</Button>
 				) : (
 					<Button
