@@ -7,7 +7,7 @@ import * as color from "../../../assets/colorPalette"
 import { Text, Button, Spacer, Row, Progress, User, Collapse, Avatar, Grid, Card, Table, Container as NextContainer, Modal } from "@nextui-org/react"
 import apiClient from "../../../services/apiClient"
 import { StyledBadge } from "../EmployeeTable/StyledBadge";
-
+import { useAuthContext } from "../../../contexts/auth";
 export default function EmployeeDisplay({ employees, company, logo }) {
 
   return (
@@ -33,16 +33,6 @@ function Content({ employees, company, logo }) {
    </Grid.Container>
    </NextContainer>
   )
-
-  // return (
-  //   <Container sx={{ display: "flex", minHeight: "100vh", marginBottom: "10vh"}} disableGutters>
-  //     <Container>
-
-  //     <Button onClick={fetchEmployees}>Fetch Employees</Button>
-  //     <Tayble employees={employees} valid={valid} />
-  //     </Container>
-  //   </Container>
-  // );
 }
 
 export function Tayble({ employees, valid, logo, showBox }) {
@@ -56,17 +46,28 @@ export function Tayble({ employees, valid, logo, showBox }) {
       label: "EMAIL",
     },
     {
-      key: "status",
-      label: "PING STATUS",
+      key: "pingStatus1",
+      label: "PING STATUS: MODULE 1",
+    },
+    {
+      key: "pingStatus2",
+      label: "PING STATUS: MODULE 2",
     },
   ];
   const rows = []
+  let status2 = "Not Pinged"
+  let status1 = "Not Pinged"
   if (valid == true){
   for (const employee in employees.info.podProgress){
-    let pingStatus = "Not Pinged"
-    if (employees.info.podProgress[employee].wasPinged.waspinged == true){
-      pingStatus = "Pinged"
+    status1 = employees?.info.podProgress[employee].wasPinged.waspinged1;
+    status2 = employees?.info.podProgress[employee].wasPinged.waspinged2;
+    if (employees.info.podProgress[employee].wasPinged.waspinged1 == true){
+      // status1 = "Pinged"
     }
+    if (employees.info.podProgress[employee].wasPinged.waspinged2 == true){
+      // status2 = "Pinged"
+    }
+
     rows.push({
       key: employee,
       progress: employees.info.podProgress[employee],
@@ -75,7 +76,8 @@ export function Tayble({ employees, valid, logo, showBox }) {
       
       </User>,
       email: employees.info.podProgress[employee].email,
-      status: pingStatus
+      pingStatus1: <StyledBadge type={employees.info.podProgress[employee].wasPinged.waspinged1 == true ? "active" : "paused"}>{status1.toString()}</StyledBadge>,
+      pingStatus2: <StyledBadge type={employees.info.podProgress[employee].wasPinged.waspinged2 == true ? "active" : "paused"}>{status2.toString()}</StyledBadge>,
     })
   }
   }
@@ -123,15 +125,25 @@ export function Tayble({ employees, valid, logo, showBox }) {
 }
 
 
-export function EmployeeModal({ visible, setVisible, employees, selectedEmployee, logo}){
+export function EmployeeModal({ visible, setVisible, employees, selectedEmployee, logo }){
+  const {user, setUser} = useAuthContext()
   const employee = {
     name: employees[selectedEmployee].progress.name,
     email: employees[selectedEmployee].progress.email,
-    pingStatus: employees[selectedEmployee].progress.wasPinged.waspinged.toString(),
+    module1ping: employees[selectedEmployee].progress.wasPinged.waspinged1,
+    module2ping: employees[selectedEmployee].progress.wasPinged.waspinged2,
     phishingProgress: employees[selectedEmployee].progress[1],
     safetyProgress: employees[selectedEmployee].progress[2]
   }
-  
+  async function sendPings(email, modules) {
+    console.log("strig" , email, modules)
+    const res = await apiClient.pingEmployee(email, modules);
+    console.log(res)
+    setUser({...user, refresh: true})
+    delete user.refresh
+  }
+	
+
   return(
     <Modal
     scroll
@@ -168,7 +180,8 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
 
           <Text id="modal-title" weight="thin" size={15}>
             Email <Text weight="semibold"  size={20} >{employee.email}</Text>
-            <StyledBadge type={employee.pingStatus == "true" ? "active" : "paused"}>PINGED: {employee.pingStatus}</StyledBadge>
+            <StyledBadge type={employee.module1ping == true ? "active" : "paused"}>Phishing Module: {employee.module1ping.toString()}</StyledBadge>
+            <StyledBadge type={employee.module2ping == true ? "active" : "paused"}>Safety Tips Module: {employee.module1ping.toString()}</StyledBadge>
           </Text>
           
           </Card>
@@ -182,7 +195,7 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
                   {employee.phishingProgress.progress} out of {employee.phishingProgress.steps} Steps Completed
                   <Progress color="gradient" value={10} />
                 </Text>
-                <Button color="success" >
+                <Button color="success" onClick={() => sendPings(employee.email, 1)}>
                   Ping to Complete
                 </Button>
               </Row>
@@ -191,9 +204,9 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
               <Row justify="space-between">
               <Text>
                 {employee.safetyProgress.progress} out of {employee.safetyProgress.steps} Steps Completed
-                <Progress color="gradient" value={100} />
+                <Progress color="gradient" value={10} />
               </Text>
-              <Button color="success">
+              <Button color="success" onClick={() => sendPings(employee.email, 2)}>
                 Ping to Complete
               </Button>
               </Row>

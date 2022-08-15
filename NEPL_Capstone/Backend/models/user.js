@@ -5,7 +5,7 @@ const { BadRequestError, UnauthorizedError } = require("../utils/errors");
 const { createToken } = require("../utils/logicFunctions");
 
 class User {
-	static async register(credentials) {
+	static async register(credentials, slackRequest) {
 		const requiredFields = [
 			"email",
 			"password",
@@ -54,10 +54,16 @@ class User {
 		}
 
 		const existingUser = await User.fetchUserByEmail(credentials.email);
-		if (existingUser) {
+		if (existingUser && slackRequest == false) {
 			throw new BadRequestError(
 				`A user already exists with the email ${credentials.email}`
 			);
+		}
+		if (existingUser && slackRequest == true) {
+			return "isUser";
+		}
+		if (!existingUser && slackRequest == true) {
+			return "notUser";
 		}
 
 		const hashedPassword = await bcrypt.hash(
@@ -349,7 +355,7 @@ class User {
 		SELECT steps FROM modules WHERE id = $1;
 		`;
 		const maxProgressRaw = await db.query(maxProgressQuery, [module_id]);
-
+		console.log(maxProgressRaw);
 		const maxProgress = maxProgressRaw.rows[0].steps;
 
 		const currentProgressQuery = `

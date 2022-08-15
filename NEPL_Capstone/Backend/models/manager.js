@@ -29,7 +29,7 @@ class Manager {
         `;
 
 		const areTheyPingedQuery = `
-        SELECT wasPinged
+        SELECT waspinged1, waspinged2
         FROM users
         WHERE id = $1;
         `;
@@ -105,6 +105,11 @@ class Manager {
 	}
 
 	static async pingUser(userEmail, module) {
+		console.log(module);
+		if (!module) {
+			console.log("ruh roh");
+			return { something: "wrong" };
+		}
 		const userToPing = await User.fetchUserByEmail(userEmail);
 		const modulePing = "waspinged" + module;
 		const pingUserQuery = `

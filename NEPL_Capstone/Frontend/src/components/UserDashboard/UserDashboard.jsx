@@ -32,7 +32,6 @@ import { useNavigate } from "react-router-dom";
 
 function UserDashboard() {
 	const { user } = useAuthContext();
-  console.log(user)
 	const [selectedTab, setselectedTab] = useState("Modules");
 	const navigate = useNavigate();
 	return (
@@ -170,9 +169,6 @@ function Sidebar({ selectedTab, setselectedTab, user }) {
 				<Table.Body>
 					<Table.Row key="Settings">
 						<Table.Cell>Settings</Table.Cell>
-					</Table.Row>
-					<Table.Row key="Progress">
-						<Table.Cell>Progress</Table.Cell>
 					</Table.Row>
 					<Table.Row key="Profile">
 						<Table.Cell>Profile</Table.Cell>
