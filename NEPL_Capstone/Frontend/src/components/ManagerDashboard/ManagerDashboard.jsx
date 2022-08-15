@@ -20,7 +20,6 @@ const sizeBox = "65vw";
 
 export default function ManagerDashboard() {
   const {user, managerToken} = useAuthContext()
-  const [reload, setReload] = useState(1)
   const [selectedTab, setselectedTab] = useState("Overview");
   const navigate = useNavigate()
   const [employees, setEmployees] = useState()
@@ -50,7 +49,7 @@ console.log(capitalizeCompany(user.company))
         <Grid css={{ marginLeft: "1vh"}}>
             <NextContainer css={{ minWidth: "100vh" }} fluid>
                 {/* {selectedTab == "Employee Activity" ? <EmployeeDisplay employees={employees} company={capitalizeCompany(user.company)} logo={user.logo} /> : <></>} */}
-                {selectedTab == "Overview" ? <DashboardOverview setReload={1} employees={employees} token={managerToken} company={capitalizeCompany(user.company)} logo={user.logo} /> : <></>}
+                {selectedTab == "Overview" ? <DashboardOverview employees={employees} token={managerToken} company={capitalizeCompany(user.company)} logo={user.logo} /> : <></>}
                 {selectedTab == "Modules Assigned" ? <AssignedModules employees={employees} logo={user.logo} /> : <></>}
                 {/* {selectedTab == "Token Management" ? <TokenManagement /> : <></>} */}
                 {selectedTab == "User Dashboard" ? navigate('/UserDashboard') : <></>}

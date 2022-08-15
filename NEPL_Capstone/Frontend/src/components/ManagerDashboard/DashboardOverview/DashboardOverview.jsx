@@ -49,7 +49,7 @@ function DashboardOverview({ employees, token, company, logo }) {
    </Grid.Container>
    <Grid.Container justify='center'>
     <Grid>
-      {employeeCount > 0 ? <><EmployeeDisplay setReload={setReload} employees={employees} token={token} company={company} logo={logo} /></> : <></>}
+      {employeeCount > 0 ? <><EmployeeDisplay employees={employees} token={token} company={company} logo={logo} /></> : <></>}
     </Grid>
    </Grid.Container>
    </Container>

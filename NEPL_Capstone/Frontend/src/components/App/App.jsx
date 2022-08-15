@@ -23,7 +23,6 @@ import Skeleton from "../AuthModulePage/Skeleton";
 //Libraries
 import { NextUIProvider, createTheme, Progress, Container, Text, Card } from "@nextui-org/react";
 import apiClient from "../../services/apiClient";
-import { NextUIProvider, createTheme, Progress } from "@nextui-org/react";
 //Contexts
 import { AuthContextProvider } from "../../contexts/auth";
 import { ProgressContextProvider } from "../../contexts/progress";
