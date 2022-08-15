@@ -59,11 +59,11 @@ class User {
 				`A user already exists with the email ${credentials.email}`
 			);
 		}
-		if (existingUser && slackRequest == true){
-			return "isUser"
+		if (existingUser && slackRequest == true) {
+			return "isUser";
 		}
-		if (!existingUser && slackRequest == true){
-			return "notUser"
+		if (!existingUser && slackRequest == true) {
+			return "notUser";
 		}
 
 		const hashedPassword = await bcrypt.hash(
@@ -355,7 +355,7 @@ class User {
 		SELECT steps FROM modules WHERE id = $1;
 		`;
 		const maxProgressRaw = await db.query(maxProgressQuery, [module_id]);
-
+		console.log(maxProgressRaw);
 		const maxProgress = maxProgressRaw.rows[0].steps;
 
 		const currentProgressQuery = `
