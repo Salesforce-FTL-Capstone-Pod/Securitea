@@ -23,11 +23,14 @@ import Wrong from "../../assets/Wrong.svg";
 import Right from "../../assets/Right.svg";
 import dots from "../../assets/dots.svg";
 import replyButton from "../../assets/replyButton.svg";
+import Certificate from "../../assets/Certificate.jpg";
 
 import { StyledBadge } from "../ManagerDashboard/EmployeeTable/StyledBadge";
 import { Modal, Dropdown, Text, Button } from "@nextui-org/react";
 import API from "../../services/apiClient";
 import { useAuthContext } from "../../contexts/auth";
+
+  import { saveAs } from "file-saver";
 
 export default function SimulationPage() {
   return (
