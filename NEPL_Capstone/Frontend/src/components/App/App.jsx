@@ -22,6 +22,8 @@ import ModulePageTips from "../ModulePage/ModulePageTips";
 import Modules from "../Modules/Modules";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import SimulationPage from "../SimulationPage/SimulationPage";
+import SimulationPage2 from "../SimulationPage/SimulationPage2";
+import SimulationPage3 from "../SimulationPage/SimulationPage3";
 import TipsPage from "../InternetTips/InternetTips";
 import PasswordPage from "../PasswordPage/PasswordPage";
 import Skeleton from "../AuthModulePage/Skeleton";
@@ -53,6 +55,7 @@ export default function AppContainer() {
 	);
 }
 function App() {
+
 	function Slack() {
 		const navigate = useNavigate();
 		const { user, setUser, setInitialized } = useAuthContext();
@@ -134,6 +137,8 @@ function App() {
 						element={<AuthRoute element={<ManagerDashboard />} />}
 					/>
 					<Route path="/Slack" element={<Slack />} />
+              <Route path="/Sim2" element={<SimulationPage2 />} />
+          <Route path="/Sim3" element={<SimulationPage3 />} />
 				</Routes>
 			</BrowserRouter>
 		</div>
