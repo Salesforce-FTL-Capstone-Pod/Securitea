@@ -24,7 +24,6 @@ export default function ProfileTab({ user }){
 
 
   function AccountInfo({user}){
-    console.log(typeof user.manager)
     const fullName = `${user.firstName} ${user.lastName}`
     return(
         <Card css={{ bg: "$colors$lightpurple", mw: "100%"}}>
@@ -37,13 +36,16 @@ export default function ProfileTab({ user }){
                     color="gradient"
                     bordered
             />
-
+        {user?.manager ? 
+        <>
         <Text css={{ color: "$black" }} h3>
          Your Manager at {user.company}:
         </Text>
         <Text id="modal-title" weight="thin" size={15}> Manager </Text>
         <Text weight="normal" size={20} > Name: {user.manager.split(",")[0]}</Text> 
-        <Text weight="normal" size={20} > Email: {user.manager.split(",")[1]}</Text> 
+        <Text weight="normal" size={20} > Email: {user.manager.split(",")[1]}</Text>
+        </>
+        : <></>}
         <Spacer></Spacer>
         <Text css={{ color: "$black" }} h3>
           Your Account Information
