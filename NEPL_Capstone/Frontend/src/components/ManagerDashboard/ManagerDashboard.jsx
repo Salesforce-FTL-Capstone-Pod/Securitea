@@ -38,7 +38,7 @@ console.log(capitalizeCompany(user.company))
 
   useEffect(() => {
     fetchEmployees()
-  }, [selectedTab])
+  }, [user])
   return (
     <Container maxWidth={false} disableGutters>
       <Navbar />
