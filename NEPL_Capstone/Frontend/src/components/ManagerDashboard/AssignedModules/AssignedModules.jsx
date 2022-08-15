@@ -31,6 +31,7 @@ function AssignedModules({ employees, valid, logo }) {
 export default AssignedModules;
 
 export function AssignDropdown({ employees, valid, logo, moduleId }) {
+	console.log("EMPLOYEE", employees)
 	const [visible, setVisible] = React.useState(false);
 	const [selectedTab, setselectedTab] = useState("");
 	const [selectAll, setselectAll] = useState(false);
@@ -39,7 +40,7 @@ export function AssignDropdown({ employees, valid, logo, moduleId }) {
 		if (e.currentKey == "assignAll") {
 			setVisible(true);
 		}
-		if (e.currentKey == "selectAssign") {
+		if (e.currentKey == "selectAssign" && employees !== null) {
 			setselectAll(true);
 		}
 	}

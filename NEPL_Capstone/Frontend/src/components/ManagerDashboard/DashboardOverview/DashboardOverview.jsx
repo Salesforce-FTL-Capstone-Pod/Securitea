@@ -49,7 +49,10 @@ function DashboardOverview({ employees, token, company, logo }) {
    </Grid.Container>
    <Grid.Container justify='center'>
     <Grid>
-      {employeeCount > 0 ? <><EmployeeDisplay employees={employees} token={token} company={company} logo={logo} /></> : <></>}
+      {employeeCount > 0 ? <><EmployeeDisplay employees={employees} token={token} company={company} logo={logo} /></> : <>
+      <Text size={30}>{company} Employees Under Your Management </Text>
+      <Text size={18} weight="normal" css={{ marginLeft: "16vh"}}> You currently have no employees.</Text>
+      </>}
     </Grid>
    </Grid.Container>
    </Container>
