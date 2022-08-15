@@ -7,15 +7,15 @@ import * as color from "../../../assets/colorPalette"
 import { Text, Button, Spacer, Row, Progress, User, Collapse, Avatar, Grid, Card, Table, Container as NextContainer, Modal } from "@nextui-org/react"
 import apiClient from "../../../services/apiClient"
 import { StyledBadge } from "../EmployeeTable/StyledBadge";
-
-export default function EmployeeDisplay({ employees, company, logo, setReload }) {
+import { useAuthContext } from "../../../contexts/auth";
+export default function EmployeeDisplay({ employees, company, logo }) {
 
   return (
-    <Content setReload={setReload} employees={employees} company={company} logo={logo} />
+    <Content employees={employees} company={company} logo={logo} />
   );
 }
 
-function Content({ employees, company, logo, setReload }) {
+function Content({ employees, company, logo }) {
   return (
     <NextContainer css={{marginBototm: "10vh", minWidth: "100vh" }} fluid>
       <Spacer></Spacer>
@@ -28,14 +28,14 @@ function Content({ employees, company, logo, setReload }) {
           {company} Employees Under Your Management
       </Text>
       </Row>
-          <Tayble setReload={setReload} employees={employees} valid={true} logo={logo} showBox={false} />
+          <Tayble employees={employees} valid={true} logo={logo} showBox={false} />
     </Grid>
    </Grid.Container>
    </NextContainer>
   )
 }
 
-export function Tayble({ employees, valid, logo, showBox, setReload }) {
+export function Tayble({ employees, valid, logo, showBox }) {
   const columns = [
     {
       key: "name",
@@ -59,13 +59,15 @@ export function Tayble({ employees, valid, logo, showBox, setReload }) {
   let status1 = "Not Pinged"
   if (valid == true){
   for (const employee in employees.info.podProgress){
+    status1 = employees?.info.podProgress[employee].wasPinged.waspinged1;
+    status2 = employees?.info.podProgress[employee].wasPinged.waspinged2;
     if (employees.info.podProgress[employee].wasPinged.waspinged1 == true){
-      status1 = "Pinged"
+      // status1 = "Pinged"
     }
     if (employees.info.podProgress[employee].wasPinged.waspinged2 == true){
-      status2 = "Pinged"
+      // status2 = "Pinged"
     }
-    console.log(pingStatus1, pingStatus2)
+
     rows.push({
       key: employee,
       progress: employees.info.podProgress[employee],
@@ -74,8 +76,8 @@ export function Tayble({ employees, valid, logo, showBox, setReload }) {
       
       </User>,
       email: employees.info.podProgress[employee].email,
-      pingStatus1: <StyledBadge type={employees.info.podProgress[employee].wasPinged.waspinged1 == true ? "active" : "paused"}>{status2}</StyledBadge>,
-      pingStatus2: <StyledBadge type={employees.info.podProgress[employee].wasPinged.waspinged2 == true ? "active" : "paused"}>{status2}</StyledBadge>,
+      pingStatus1: <StyledBadge type={employees.info.podProgress[employee].wasPinged.waspinged1 == true ? "active" : "paused"}>{status1.toString()}</StyledBadge>,
+      pingStatus2: <StyledBadge type={employees.info.podProgress[employee].wasPinged.waspinged2 == true ? "active" : "paused"}>{status2.toString()}</StyledBadge>,
     })
   }
   }
@@ -117,15 +119,14 @@ export function Tayble({ employees, valid, logo, showBox, setReload }) {
         )}
       </Table.Body>
     </Table>
-    {selectedEmployee == undefined ? <></> : <><EmployeeModal setReload={setReload} pingStatus1={status1} pingStatus2={status2} visible={visible} setVisible={setVisible} employees={rows} selectedEmployee={selectedEmployee} logo={logo} /></>}
+    {selectedEmployee == undefined ? <></> : <><EmployeeModal visible={visible} setVisible={setVisible} employees={rows} selectedEmployee={selectedEmployee} logo={logo} /></>}
     </>
   );
 }
 
 
-export function EmployeeModal({ visible, setVisible, employees, selectedEmployee, logo, pingStatus1, pingStatus2, setReload }){
-  
-
+export function EmployeeModal({ visible, setVisible, employees, selectedEmployee, logo }){
+  const {user, setUser} = useAuthContext()
   const employee = {
     name: employees[selectedEmployee].progress.name,
     email: employees[selectedEmployee].progress.email,
@@ -138,6 +139,8 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
     console.log("strig" , email, modules)
     const res = await apiClient.pingEmployee(email, modules);
     console.log(res)
+    setUser({...user, refresh: true})
+    delete user.refresh
   }
 	
 
