@@ -48,27 +48,31 @@ function Simulation() {
         marginBottom: "100px",
       }}
     >
-      <h1>Email Phishing</h1>
-      <Container style={{ display: "flex", flexDirection: "row" }}>
-        <Container sx={{ margin: "0" }}>
-          <p style={{ fontWeight: "bold", color: "green" }}>Do's</p>
-          <li>something</li>
-          <li>something</li>
-          <li>something</li>
-        </Container>
-        <Container style={{ marginLeft: "0vw" }}>
-          <p style={{ fontWeight: "bold", color: "red" }}>Don'ts</p>
-          <li>something</li>
-          <li>something</li>
-          <li>something</li>
-        </Container>
-      </Container>
-      <p>What you wil be doing :</p>
+      <h1>Quiz 2</h1>
+      <h2>What is going on :</h2>
       <p style={{ marginTop: "0vw" }}>
-        SOMETHING SOMETHINGSOMETHING SOMETHINGSOMETHING SOMETHINGSOMETHING
-        SOMETSOMETHING SOMETHINGSOMETHING SOMETHINGSOMETHING SOMETHINGSOMETHING
-        SOMETSOMETHING SOMETHINGSOMETHING SOMETHINGSOMETHING SOMETHINGSOMETHING
-        SOMET
+        - You have been sent an email invitation to a google meet to prep for
+        Demo Day
+      </p>
+      <h2>What are you doing :</h2>
+      <p style={{ marginTop: "0%" }}>
+        - In order to complete this quiz you need to click on the unread email,
+        read the content, and make the decision if this is a good email, or a
+        phishing email
+      </p>
+      <p style={{marginTop:"-1%"}}>
+        Your answer choices for this simulation consist of:
+        <li style={{ fontWeight: "bold" }}>
+          A button that accepts invite ={" "}
+          <img src={YesButton} style={{ marginLeft: "1%", width: "6%" }} />
+        </li>
+        <li style={{ fontWeight: "bold" }}>
+          A report button located on the dropdown menu =
+          <img src={dots} style={{ marginLeft: "1%" }} />
+        </li>
+      </p>
+      <p style={{ marginTop: "0%" }}>
+        Click the NEXT button once the question is correctly answered
       </p>
       <Container
         maxWidth={false}
@@ -228,10 +232,10 @@ function WrongPopUp({ handler, visible, setVisible }) {
               flexDirection: "column",
             }}
           >
-            <h1 style={{ fontSize: "200%", color: "red" }}>Not Quite right</h1>
-            <p>
-            There is nothing wrong with this email, please try again
-            </p>
+            <h1 style={{ fontSize: "200%", color: color.errorRed }}>
+              Not Quite right
+            </h1>
+            <p>There is nothing wrong with this email, please try again</p>
           </Text>
         </Modal.Body>
         <Modal.Footer>
@@ -285,9 +289,6 @@ function RightAnswer({ handler, visible, setVisible }) {
           </Text>
         </Modal.Body>
         <Modal.Footer>
-          <Button auto flat color="error" onClick={closeHandler}>
-            Close
-          </Button>
           <Button auto flat color={color.languidLavender} onClick={nextHandler}>
             <Link to="/Sim3">Next</Link>
           </Button>
