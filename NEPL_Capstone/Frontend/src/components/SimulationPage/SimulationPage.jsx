@@ -1,5 +1,6 @@
 import React from "react";
 import {
+	colors,
 	Container,
 } from "@mui/material";
 import * as color from "../../assets/colorPalette";
@@ -22,6 +23,7 @@ import { StyledBadge } from "../ManagerDashboard/EmployeeTable/StyledBadge";
 import { Modal, Dropdown, Text, Button } from "@nextui-org/react";
 import API from "../../services/apiClient";
 import { useAuthContext } from "../../contexts/auth";
+
 
 export default function SimulationPage() {
 	return (
@@ -208,33 +210,43 @@ function WrongPopUp({ handler, visible, setVisible }) {
 		setVisible(false);
 	};
 	return (
-		<div>
-			<Modal
-				closeButton
-				aria-labelledby="modal-title"
-				open={visible}
-				onClose={closeHandler}
-				width="35%"
-				css={{ display: "flex", justifyContent: "center" }}
-			>
-				<Modal.Header></Modal.Header>
-				<Modal.Body>
-					<img
-						src={Wrong}
-						style={{
-							display: "flex",
-							justifyContent: "center",
-						}}
-					/>
-				</Modal.Body>
-				<Modal.Footer>
-					<Button auto flat color="error" onClick={closeHandler}>
-						Close
-					</Button>
-				</Modal.Footer>
-			</Modal>
-		</div>
-	);
+    <div>
+      <Modal
+        closeButton
+        aria-labelledby="modal-title"
+        open={visible}
+        onClose={closeHandler}
+        width="35%"
+        css={{ display: "flex", justifyContent: "center" }}
+      >
+        <Modal.Header></Modal.Header>
+        <Modal.Body>
+          <Text
+            css={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+            }}
+          >
+            <h1 style={{ fontSize: "200%", color:color.errorRed }}>Not Quite right</h1>
+            <p>
+              This link could have lead to a virus installation on your device
+              and caused a lot of trouble.
+            </p>
+            <p>
+              The best way to check if a link is safe is to use a Link scanner
+              such as: <a href="https://www.urlvoid.com/" target="_blank">URLVOID</a>
+            </p>
+          </Text>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button auto flat color="error" onClick={closeHandler}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
 }
 function RightAnswer({ handler, visible, setVisible }) {
 	const { user, setUser } = useAuthContext();
@@ -261,13 +273,26 @@ function RightAnswer({ handler, visible, setVisible }) {
       >
         <Modal.Header></Modal.Header>
         <Modal.Body>
-          <img
-            src={Right}
-            style={{
+          <Text
+            css={{
               display: "flex",
               justifyContent: "center",
+              flexDirection: "column",
             }}
-          />
+          >
+            <h1 style={{ fontSize: "200%", color: "green" }}>Good Job</h1>
+            <p>
+              Great catch, this email is a phishing email because the address
+              stated in the message is not the same as an actual salesforce
+              address
+            </p>
+            <p style={{ fontWeight: "bold" }}>
+              Salesforce Email: username@salesforce.com ✅
+            </p>
+            <p style={{ fontWeight: "bold" }}>
+              Fake Email: naner@salesforc3.com ❌
+            </p>
+          </Text>
         </Modal.Body>
         <Modal.Footer>
           <Button auto flat color="error" onClick={closeHandler}>

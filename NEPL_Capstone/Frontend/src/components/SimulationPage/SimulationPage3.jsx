@@ -228,13 +228,22 @@ function WrongPopUp({ handler, visible, setVisible }) {
       >
         <Modal.Header></Modal.Header>
         <Modal.Body>
-          <img
-            src={Wrong}
-            style={{
+          <Text
+            css={{
               display: "flex",
               justifyContent: "center",
+              flexDirection: "column",
             }}
-          />
+          >
+            <h1 style={{ fontSize: "200%", color: "red" }}>Not Quite right</h1>
+            <p>Woah there, this is not the way to go </p>
+            <p style={{fontWeight: "bold"}}>There are many signs this is a Phising email:</p>
+            <Text css={{marginTop:"-5%"}}>
+              <p>- The subject of the email is very agressive </p>
+              <p>- The email address is not a salesforce address </p>
+              <p>- There are some grammer and spelling mistakes </p>
+            </Text>
+          </Text>
         </Modal.Body>
         <Modal.Footer>
           <Button auto flat color="error" onClick={closeHandler}>
@@ -270,13 +279,18 @@ function RightAnswer({ handler, visible, setVisible }) {
       >
         <Modal.Header></Modal.Header>
         <Modal.Body>
-          <img
-            src={Right}
-            style={{
+          <Text
+            css={{
               display: "flex",
               justifyContent: "center",
+              flexDirection: "column",
             }}
-          />
+          >
+            <h1 style={{ fontSize: "200%", color: "green" }}>Good Job</h1>
+            <p>
+             This is your cup of tea. No one can catch you lacking!!!
+            </p>
+          </Text>
         </Modal.Body>
         <Modal.Footer>
           <Button auto flat color="error" onClick={closeHandler}>

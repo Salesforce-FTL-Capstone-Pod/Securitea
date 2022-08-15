@@ -144,7 +144,7 @@ function EmailRender() {
         </Button>
       ) : null}
       {isClicked ? (
-        <img src={RealEmail} style={{ width: "100%" }} />
+        <img src={RealEmail} style={{ width: "100%", display: "flex",}} />
       ) : (
         <img src={RealEmailPage} style={{ display: "flex", width: "100%" }} />
       )}
@@ -221,13 +221,18 @@ function WrongPopUp({ handler, visible, setVisible }) {
       >
         <Modal.Header></Modal.Header>
         <Modal.Body>
-          <img
-            src={Wrong}
-            style={{
+          <Text
+            css={{
               display: "flex",
               justifyContent: "center",
+              flexDirection: "column",
             }}
-          />
+          >
+            <h1 style={{ fontSize: "200%", color: "red" }}>Not Quite right</h1>
+            <p>
+            There is nothing wrong with this email, please try again
+            </p>
+          </Text>
         </Modal.Body>
         <Modal.Footer>
           <Button auto flat color="error" onClick={closeHandler}>
@@ -263,13 +268,21 @@ function RightAnswer({ handler, visible, setVisible }) {
       >
         <Modal.Header></Modal.Header>
         <Modal.Body>
-          <img
-            src={Right}
-            style={{
+          <Text
+            css={{
               display: "flex",
               justifyContent: "center",
+              flexDirection: "column",
             }}
-          />
+          >
+            <h1 style={{ fontSize: "200%", color: "green" }}>Good Job</h1>
+            <p>YOU GOT IT!!</p>
+            <p>
+              There is nothing wrong with this email. The individual sending the
+              email has the correct salesforce email address and other keen
+              detials such as specificity of the email make this legit. ✅
+            </p>
+          </Text>
         </Modal.Body>
         <Modal.Footer>
           <Button auto flat color="error" onClick={closeHandler}>
