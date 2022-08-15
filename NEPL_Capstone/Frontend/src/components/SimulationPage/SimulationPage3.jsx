@@ -1,6 +1,14 @@
 import React from "react";
 import {
-  Container
+  Grid,
+  Container,
+  Box,
+  AppBar,
+  Toolbar,
+  Typography,
+  Stack,
+  colors,
+  TextareaAutosize,
 } from "@mui/material";
 import * as color from "../../assets/colorPalette";
 import { Link, renderMatches } from "react-router-dom";
@@ -8,15 +16,13 @@ import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import { useState } from "react";
 
-
-import RealEmailPage from "../../assets/RealEmailPage.svg";
-import RealEmail from "../../assets/RealEmail.svg";
-import EmailButton from "../../assets/EmailButton.svg";
-import LinkButton from "../../assets/LinkButton.svg";
+import ScammerEmail from "../../assets/ScammerEmail.svg";
+import ScammerEmailButton from "../../assets/ScammerEmailButton.svg";
+import ScammerEmailPage from "../../assets/ScammerEmailPage.svg";
 import Wrong from "../../assets/Wrong.svg";
 import Right from "../../assets/Right.svg";
 import dots from "../../assets/dots.svg";
-import YesButton from "../../assets/yesButton.svg";
+import replyButton from "../../assets/replyButton.svg";
 
 import { StyledBadge } from "../ManagerDashboard/EmployeeTable/StyledBadge";
 import { Modal, Dropdown, Text, Button } from "@nextui-org/react";
@@ -138,28 +144,31 @@ function EmailRender() {
           size="xl"
         >
           <img
-            src={EmailButton}
+            src={ScammerEmailButton}
             style={{ display: "flex", height: "auto", width: "2%" }}
           />
         </Button>
       ) : null}
       {isClicked ? (
-        <img src={RealEmail} style={{ width: "100%" }} />
+        <img src={ScammerEmail} style={{ width: "100%" }} />
       ) : (
-        <img src={RealEmailPage} style={{ display: "flex", width: "100%" }} />
+        <img
+          src={ScammerEmailPage}
+          style={{ display: "flex", width: "100%" }}
+        />
       )}
       {isClicked ? (
         <Button
           onClick={() => setVisible(!visible)}
           css={{
             position: "relative",
-            left:"26%",
-            bottom: "48.7%",
-            width: "3%",
+            left:"22%",
+            bottom: "38%",
+            width: "1%",
           }}
           style={{ background: "none" }}
         >
-          <img src={YesButton} style={{ display: "flex", width: "59%" }} />
+          <img src={replyButton} style={{ display: "flex", width: "60%" }} />
         </Button>
       ) : null}
 
@@ -168,7 +177,7 @@ function EmailRender() {
           <Dropdown.Button
             size="xs"
             color={color.platinum}
-            style={{ position: "relative", left: "94%", bottom: "72.2%" }}
+            style={{ position: "relative", left: "89.7%", bottom: "72.2%" }}
           >
             <img src={dots} style={{ display: "flex" }} />
           </Dropdown.Button>
@@ -187,13 +196,13 @@ function EmailRender() {
         </Dropdown>
       ) : null}
 
-      <RightAnswer
+      <WrongPopUp
         handler={handler}
         visible={visible}
         setVisible={setVisible}
         style={{ width: "10%" }}
       />
-      <WrongPopUp
+      <RightAnswer
         handler={handler}
         visible={visible2}
         setVisible={setVisible2}

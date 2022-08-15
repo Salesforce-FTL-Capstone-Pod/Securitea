@@ -1,14 +1,6 @@
 import React from "react";
 import {
-	Grid,
 	Container,
-	Box,
-	AppBar,
-	Toolbar,
-	Typography,
-	Stack,
-	colors,
-	TextareaAutosize,
 } from "@mui/material";
 import * as color from "../../assets/colorPalette";
 import { Link, renderMatches } from "react-router-dom";
