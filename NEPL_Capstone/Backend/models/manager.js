@@ -141,6 +141,7 @@ class Manager {
 	}
 
 	static async wasIPinged(email, module) {
+		console.log(email, module)
 		const user = await User.fetchUserByEmail(email);
 		const wasping = "waspinged" + module;
 

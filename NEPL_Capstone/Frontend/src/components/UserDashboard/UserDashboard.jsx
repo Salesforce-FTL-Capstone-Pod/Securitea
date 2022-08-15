@@ -29,7 +29,7 @@ import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import ManagerDashboard from "../ManagerDashboard/ManagerDashboard";
 import { useNavigate } from "react-router-dom";
-
+import backgroundImg from '../../assets/SecuriTEA-bg3.svg'
 function UserDashboard() {
 	const { user } = useAuthContext();
 	const [selectedTab, setselectedTab] = useState("Modules");
@@ -41,7 +41,7 @@ function UserDashboard() {
 			<Container
 				maxWidth={false}
 				disableGutters
-				sx={{ display: "flex", justifyContent: "center", minHeight: "100vh" }}
+				sx={{ display: "flex", justifyContent: "center", minHeight: "100vh", backgroundImage: `url(${backgroundImg})` }}
 			>
 				<Sidebar
 					user={user}

@@ -344,7 +344,7 @@ class User {
 			2: progress2,
 		};
 
-		console.log(progress);
+	
 		return progress;
 	}
 

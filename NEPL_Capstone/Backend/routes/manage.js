@@ -84,7 +84,7 @@ router.patch(
 	}
 );
 
-router.get(
+router.patch(
 	// This is for the user to see if he is pinged
 	"/amIPinged",
 	security.requireAuthenticatedUser,
@@ -92,9 +92,9 @@ router.get(
 		try {
 			const amPinged = await Manager.wasIPinged(
 				res.locals.user.email,
-				req.body.module
+				req.body.module.module
 			);
-
+			
 			return res.status(200).json({ amPinged });
 		} catch (err) {
 			next(err);

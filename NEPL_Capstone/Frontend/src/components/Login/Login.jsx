@@ -19,7 +19,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import backgroundImg from '../../assets/SecuriTEA-bg1.svg'
 const theme = createTheme({
   palette: {
     primary: {
@@ -42,7 +42,7 @@ function Login() {
     const url = "https://slack.com/openid/connect/authorize?scope=openid%20email%20profile&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Flocalhost%3A3000%2Fload&amp;client_id=3765144863393.3898834395927"
     
   return (
-    <Container disableGutters maxWidth={false}>
+    <Container disableGutters maxWidth={false} sx={{ backgroundImage: `url(${backgroundImg})`}}>
       <Navbar />
       <ThemeProvider theme={theme}>
         <Container
@@ -145,7 +145,7 @@ function Login() {
 function Footer(props) {
   return (
     <Typography variant="body2" align="center" {...props}>
-      {"Made with ❤️ by "}
+      {"Made with ♡ by "}
       <Link color="inherit" href="https://github.com/">
         NEPL
       </Link>{" "}
