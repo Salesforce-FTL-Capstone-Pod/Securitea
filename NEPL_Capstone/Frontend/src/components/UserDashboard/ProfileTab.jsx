@@ -24,33 +24,58 @@ export default function ProfileTab({ user }){
 
 
   function AccountInfo({user}){
+    console.log(typeof user.manager)
+    const fullName = `${user.firstName} ${user.lastName}`
     return(
         <Card css={{ bg: "$colors$lightpurple", mw: "100%"}}>
-          
-          <Row css={{ marginLeft: "1vh"}}>
-          <Avatar
+        <Card css={{ bg: "$colors$lightpurple", mw: "100%"}}>
+        <Card.Divider />
+       <Card.Body css={{ py: "$10"}}>
+        <Avatar
                     css={{ size: "$20", }}
                     src={user.logo}
                     color="gradient"
                     bordered
             />
-           <Text id="modal-title" weight="thin" size={15}>
-              Name <Text weight="semibold"  size={20} >{user.firstName} {user.lastName}</Text>
-            </Text>
-  
-            <Text id="modal-title" weight="thin" size={15}>
-              Email <Text weight="semibold"  size={20} >{user.email}</Text>
-            </Text>
-            <Text id="modal-title" weight="thin" size={15}>
-              Birthday <Text weight="semibold"  size={20} >{user.birthday}</Text>
-            </Text>
-            <Text id="modal-title" weight="thin" size={15}>
-              Company <Text weight="semibold"  size={20} >{user.company}</Text>
-            </Text> 
-            <Text id="modal-title" weight="thin" size={15}>
-              Manager <Text weight="semibold"  size={20} >{user.manager}</Text>
-            </Text> 
+
+        <Text css={{ color: "$black" }} h3>
+         Your Manager at {user.company}:
+        </Text>
+        <Text id="modal-title" weight="thin" size={15}> Manager </Text>
+        <Text weight="normal" size={20} > Name: {user.manager.split(",")[0]}</Text> 
+        <Text weight="normal" size={20} > Email: {user.manager.split(",")[1]}</Text> 
+        <Spacer></Spacer>
+        <Text css={{ color: "$black" }} h3>
+          Your Account Information
+
+          <Row justify="space-between">
+          <Row>
+            <Text weight="normal" size={20}>Name</Text> <Spacer></Spacer>
+            <Textarea disabled  status="primary" placeholder={fullName} rows={1}/>
           </Row>
+          <Spacer></Spacer>
+          <Row>
+            <Text weight="normal" size={20}>Company</Text> <Spacer></Spacer>
+            <Textarea disabled  status="primary" placeholder={user.company} rows={1}/>
+          </Row>
+          </Row>
+          <Spacer></Spacer>
+          <Row justify="space-between">
+          <Row>
+            <Text weight="normal" size={20}>Email</Text> <Spacer></Spacer>
+            <Textarea disabled  status="primary" placeholder={user.email} rows={1}/>
+          </Row>
+          <Spacer></Spacer>
+          <Row>
+            <Text weight="normal" size={20}>Birthday</Text> <Spacer></Spacer>
+            <Textarea disabled  status="primary" placeholder={user.birthday} rows={2}/>
+          </Row>
+          </Row>
+
+
+        </Text>
+        </Card.Body>
+        </Card>
         </Card>
     )
   }
