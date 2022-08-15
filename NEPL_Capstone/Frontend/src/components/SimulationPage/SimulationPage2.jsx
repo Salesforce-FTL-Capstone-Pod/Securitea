@@ -150,16 +150,18 @@ function EmailRender() {
       )}
       {isClicked ? (
         <Button
+      
+          size="xxs"
           onClick={() => setVisible(!visible)}
-          css={{
-            position: "relative",
-            left:"26%",
-            bottom: "48.7%",
-            width: "3%",
+          style={{
+            display:"flex",
+            background: "none",
+            // position: "relative",
+            left: "30%",
+            bottom: "48.9%",
           }}
-          style={{ background: "none" }}
         >
-          <img src={YesButton} style={{ display: "flex", width: "59%" }} />
+          <img src={YesButton} style={{ display: "flex", width: "55.2%" }} />
         </Button>
       ) : null}
 
@@ -168,7 +170,7 @@ function EmailRender() {
           <Dropdown.Button
             size="xs"
             color={color.platinum}
-            style={{ position: "relative", left: "94%", bottom: "72.2%" }}
+            style={{ position: "relative", left: "89.7%", bottom: "71.5%" }}
           >
             <img src={dots} style={{ display: "flex" }} />
           </Dropdown.Button>

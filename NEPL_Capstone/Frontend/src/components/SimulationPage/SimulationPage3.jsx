@@ -177,7 +177,7 @@ function EmailRender() {
           <Dropdown.Button
             size="xs"
             color={color.platinum}
-            style={{ position: "relative", left: "89.7%", bottom: "72.2%" }}
+            style={{ position: "relative", left: "89.7%", bottom: "72%" }}
           >
             <img src={dots} style={{ display: "flex" }} />
           </Dropdown.Button>
