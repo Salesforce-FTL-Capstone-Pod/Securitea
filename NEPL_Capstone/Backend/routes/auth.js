@@ -29,7 +29,6 @@ router.post("/register", async (req, res, next) => {
         isAdmin: false,
       });
     } else {
-		console.log(req.body)
       user = await User.register({ ...req.body, isAdmin: false });
     }
 
@@ -92,7 +91,6 @@ router.post('/slackExchange', async (req, res, next) => {
 		}
 		
 		const verifyUser = await User.register({ ...userObj}, slackRequest)
-		console.log(verifyUser)
 		if (verifyUser == "isUser"){
 			const user = await User.login({
 				email: userObj.email,
@@ -103,13 +101,10 @@ router.post('/slackExchange', async (req, res, next) => {
 			res.locals.user = user;
 			return res.status(201).json({ user, token });
 		} else {
-			console.log("NOT AN EXISTING USER ")
 			const user = await User.register({ ...userObj})
-			console.log(user)
 			const token = createUser(user);
 			res.locals.token = token;
 			res.locals.user = user;
-			console.log(user, token)
 			return res.status(201).json({ user, token });
 		}
 	} catch (err){

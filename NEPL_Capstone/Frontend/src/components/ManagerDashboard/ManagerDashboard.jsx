@@ -25,7 +25,6 @@ export default function ManagerDashboard() {
   const [employees, setEmployees] = useState()
   async function fetchEmployees(){
     const { data }  = await apiClient.fetchEmployees()
-    console.log("uhoh:" , data)
     setEmployees(data)
 }
 // silly little function to capitalize first letter in company name for simiplicity on the backend
@@ -33,7 +32,6 @@ export default function ManagerDashboard() {
 function capitalizeCompany(company){
   return company.charAt(0).toUpperCase() + company.slice(1);
 }
-console.log(capitalizeCompany(user.company))
 
   useEffect(() => {
     fetchEmployees()

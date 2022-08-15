@@ -136,7 +136,6 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
     safetyProgress: employees[selectedEmployee].progress[2]
   }
   async function sendPings(email, modules) {
-    console.log("strig" , email, modules)
     const res = await apiClient.pingEmployee(email, modules);
     console.log(res)
     setUser({...user, refresh: true})

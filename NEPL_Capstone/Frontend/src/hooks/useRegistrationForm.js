@@ -74,7 +74,6 @@ export const useRegistrationForm = () => {
 		}
 		if (error && !skipRest) {
 			setErrors((e) => ({ ...e, form: error }));
-			console.log(errors);
 		}
 
 		setIsProcessing(false);
