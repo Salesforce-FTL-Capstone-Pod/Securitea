@@ -12,7 +12,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
 export default function Navbar() {
-	const { user, handleLogout, pings} = useAuthContext();
+	const { user, handleLogout, mod1ping, mod2ping} = useAuthContext();
+	console.log(mod1ping, mod2ping)
 	const [visible, setVisible] = React.useState(false);
 	const [pingsVisible, setPingsVisible] = React.useState(false)
 	const handler = () => setVisible(true);
@@ -55,13 +56,11 @@ export default function Navbar() {
 				<div>
 					{user?.email ? (
 						<Row justify="space-between" css={{ alignItems: "center" }}>
-							<NotificationsIcon fontSize="large" onClick={pingHandler} sx={{ color: pings?.pinged1 !== true || pings?.pinged2 !== true ? "white" : color.blueBell }}/>
+							<NotificationsIcon fontSize="large" onClick={pingHandler} sx={{ color: mod1ping || mod2ping  ? color.blueBell : "white" }}/>
 							<NotificationsModal 
-								pings={pings}
 								handler={pingHandler}
 								visible={pingsVisible}
 								setVisible={setPingsVisible}
-								user={user}
 							/>
 							<Spacer></Spacer>
 							<SettingsIcon fontSize="large" onClick={handler} />

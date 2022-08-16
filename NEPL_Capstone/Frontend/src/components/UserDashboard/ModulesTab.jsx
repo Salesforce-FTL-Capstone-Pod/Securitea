@@ -201,10 +201,12 @@ function AuthModuleCard({
 					<Button size="sm" bordered color="secondary">
 						Learn More
 					</Button>
-					<Spacer></Spacer>]
-					<Button size="sm" color="secondary" onClick={continueHandler}>
-						Continue
-					</Button>
+					<Spacer></Spacer>
+					<Link to={moduleName == "Phishing" ? "/ModulePhishing" : "/ModuleTips"}>
+						<Button size="sm" color="secondary">
+							Continue
+						</Button>
+					</Link>
 				</Row>
 			</Card.Footer>
 		</Card>
