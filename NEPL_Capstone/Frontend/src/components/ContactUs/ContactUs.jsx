@@ -4,10 +4,13 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Link } from "react-router-dom";
 import * as color from "../../assets/colorPalette";
-
+import { ContactCard } from "./ContactCard";
+import backgroundImg from '../../assets/SecuriTEA-bg3.svg'
+import Footer from "../Footer/Footer";
 export default function ContactUs() {
 	return (
-		<Container maxWidth={false} disableGutters>
+		<>
+		<Container maxWidth={false} disableGutters sx={{ minWidth: "100vh", minHeight: "100vh", backgroundImage: `url(${backgroundImg})`}}>
 			<Navbar />
 			<Container maxWidth={false}>
 				<h1 style={{ textAlign: "center" }}>Contact Us</h1>
@@ -170,10 +173,16 @@ export default function ContactUs() {
 									<LinkedInIcon />
 								</a>
 							</Container>
+
 						</Container>
 					</Container>
 				</Container>
+				
 			</Container>
+			
 		</Container>
+		
+		<Footer />
+		</>
 	);
 }
