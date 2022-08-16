@@ -20,6 +20,7 @@ import SignInModal from "../SignInModal/SignInModal";
 import { useAuthContext } from "../../contexts/auth";
 import { useProgressContext } from "../../contexts/progress";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import backgroundImg from '../../assets/SecuriTEA-bg4.svg'
 
 export default function ModulePageTips() {
 	const progress = useProgressContext();
@@ -27,7 +28,7 @@ export default function ModulePageTips() {
 	const progressTwo = progress.progress.progress["2"] || 0;
 
 	return (
-		<Container maxWidth={false} disableGutters>
+		<Container maxWidth={false} disableGutters sx={{backgroundImage: `url(${backgroundImg})`}} >
 			<Navbar />
 			<Overview progress={progress} />
 			<Content progressTwo={progressTwo} />
@@ -59,10 +60,11 @@ function Overview({ progress }) {
 				backgroundColor: color.richBlackFogra,
 				display: "flex",
 				justifyContent: "center",
+			
 			}}
 		>
 			<Container
-				style={{ marginBottom: "4vw", marginTop: "1vw", width: sizeBox }}
+				style={{ marginBottom: "4vw", marginTop: "1vw", width: sizeBox,}}
 			>
 				<Text
 					h3
