@@ -85,7 +85,7 @@ export function Hero() {
 							style={{
 								width: "5.5vw",
 								height: "2.5vw",
-								fontSize: "120%",
+								fontSize: "100%",
 								background: "#A39EDA",
 								color: "#FFFFFF",
 								marginTop: "2vw",
@@ -101,7 +101,7 @@ export function Hero() {
 								style={{
 									width: "5.5vw",
 									height: "2.5vw",
-									fontSize: "120%",
+									fontSize: "100%",
 									background: "#A39EDA",
 									color: "#FFFFFF",
 									marginTop: "2vw",
