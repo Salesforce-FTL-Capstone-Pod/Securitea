@@ -69,6 +69,7 @@ function RegisterNew() {
 	const [managerForm, setmanagerForm] = useState(false);
 	return (
 		<>
+
 			<Navbar />
 			<Container
 				disableGutters
@@ -289,6 +290,7 @@ function RegisterNew() {
 					</Card.Footer>
 				</Card>
 			</Container>
+
 		</>
 	);
 }

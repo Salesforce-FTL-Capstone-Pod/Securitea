@@ -1,183 +1,299 @@
 import React from "react";
 import {
-	Button,
-	Grid,
-	Container,
-	Box,
-	AppBar,
-	Toolbar,
-	Typography,
-	Stack,
-	colors,
-	TextField,
-	InputAdornment,
-	IconButton,
-	Radio,
-	FormControlLabel,
-	FormControl,
-	RadioGroup,
+  Button,
+  Container,
+  Radio,
+  FormControlLabel,
+  FormControl,
+  RadioGroup,
+  Typography,
 } from "@mui/material";
+import { Modal } from "@nextui-org/react";
+import Right from "../../assets/Right.svg";
+import Wrong from "../../assets/Wrong.svg";
 import * as color from "../../assets/colorPalette";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import { useAuthContext } from "../../contexts/auth";
+import API from "../../services/apiClient";
 
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
-import { Link } from "react-router-dom";
+import ControlContainer from "../ControlContainer/ControlContainer";
+import OutputContainer from "../OutputContainer/OutputContainer";
+import { Link, useNavigate } from "react-router-dom";
 
-import Speaker from "../../assets/Speaker.svg";
+import {
+  canPlayAudioFormat,
+  getSearchParams,
+} from "../../../../Backend/utils/ttsUtils";
 import { useLoginForm } from "../../hooks/useLoginForm";
 import right from "../../assets/right.png";
 import wrong from "../../assets/wrong.png";
 
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
-import { Spacer } from "@nextui-org/react";
-import { useAuthContext } from "../../contexts/auth";
-import API from "../../services/apiClient";
+import { useState, useRef } from "react";
 
 export default function TipsPage() {
-	return (
-		<>
-			<Navbar />
-			<InternetTips />
-			<Footer />
-		</>
-	);
+  return (
+    <>
+      <Navbar />
+      <InternetTips />
+      <Footer />
+    </>
+  );
 }
 
-// const speak = (evt) => {
-//   //Add tts functionality here
-//   console.log("here");
-// };
-
 export function InternetTips() {
-	const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } =
-		useLoginForm();
+  const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } =
+    useLoginForm();
 
-	const [isRight, setIsRight] = useState();
+  const [isRight, setIsRight] = useState();
 
-	const [answer, setAnswer] = useState("");
-	const [successMessage, setSuccessMessage] = useState("");
-	const { user, setUser } = useAuthContext();
+  const [answer, setAnswer] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-	const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [visible, setVisible] = React.useState(false);
+  const [visible2, setVisible2] = React.useState(false);
+  const handler = () => setVisible(true);
 
-	function handleSubmit() {
-		if (answer === "right") {
-			setIsRight(true);
-			setSuccessMessage("");
-		} else if (answer === "wrong") {
-			setIsRight(false);
-			setSuccessMessage("Try Again!");
-		}
-	}
+  const tipsText =
+    "Internet Tips. The best way to keep your companies and your personal data secure is by  following these tips :. Do not step away from your workstation without locking it. Make sure websites you visit have 'https and a lock beside it. NEVER open weird or out of the ordinary links and attachments. Create strong passwords with help from the next module!";
 
-	const nextHandler = async () => {
-		const respo = await API.addProgress("2");
-		setUser({ ...user, refresh: true });
-		delete user.refresh;
+  function handleSubmit() {
+    if (answer === "right") {
+      setIsRight(true);
+      setVisible2(true);
+      setVisible(false);
+      setSuccessMessage("");
+    } else if (answer === "wrong") {
+      setIsRight(false);
+      setVisible2(false);
+      setVisible(true);
+      setSuccessMessage("Try Again!");
+    }
+  }
 
-		navigate("../PasswordPage");
-	};
+  //Text-To-Speech functions
+  let audioElementRef = useRef(null);
 
-	return (
-		<Container
-			maxWidth={false}
-			style={{
-				display: "flex ",
-				flexDirection: "column",
-				backgroundColor: color.platinum,
-				height: "100%",
-				width: "75%",
-				marginTop: "100px",
-				marginBottom: "100px",
-			}}
-		>
-			<h1>Internet Tips</h1>
-			<p>
-				The best way to keep your companies and your personal data secure is by
-				following these following tips:
-			</p>
-			<Container>
-				<li>Do not step away from your workstation without locking it</li>
-				<li>Make sure websites you visit have "https" and a lock beside it</li>
-				<li>NEVER open weird or out of the ordinary links and attachments</li>
-				<li>Create strong passwords with the next steps</li>
-			</Container>
+  const getSynthesizeUrl = (text, voice) => {
+    try {
+      const params = getSearchParams();
 
-			<Container
-				style={{
-					display: "flex",
-					justifyContent: "center",
-					flexDirection: "column",
-				}}
-			>
-				<FormControl>
-					<RadioGroup>
-						<Container
-							style={{
-								opacity: "0.8",
-								justifyContent: "center",
-							}}
-						>
-							<img src={right} width={"400vh"} height={"50vh"} />
-						</Container>
-						<FormControlLabel
-							control={<Radio onChange={() => setAnswer("right")} />}
-							value="right"
-						/>
+      params.set("text", text);
+      params.set("voice", voice.id);
 
-						<Container style={{ width: "25%" }}></Container>
+      let accept;
+      if (canPlayAudioFormat("audio/mp3", audioElementRef.current)) {
+        accept = "audio/mp3";
+      } else if (
+        canPlayAudioFormat("audio/ogg;codec=opus", audioElementRef.current)
+      ) {
+        accept = "audio/ogg;codec=opus";
+      } else if (canPlayAudioFormat("audio/wav", audioElementRef.current)) {
+        accept = "audio/wav";
+      }
+      if (accept) {
+        params.set("accept", accept);
+      }
 
-						<Container
-							style={{
-								opacity: "0.8",
-								justifyContent: "center",
-							}}
-						>
-							<img src={wrong} width={"400vh"} height={"50vh"} />
-						</Container>
-						<FormControlLabel
-							control={<Radio onChange={() => setAnswer("wrong")} />}
-							value="wrong"
-						/>
-					</RadioGroup>
-				</FormControl>
+      //CHANGE LOCAL HOST
+      return `http://localhost:3001/tts/api/synthesize?${params.toString()}`;
+    } catch (err) {}
+  };
 
-				<Button onClick={handleSubmit}>Submit</Button>
-			</Container>
+  const onSynthesize = async (text, voice) => {
+    try {
+      audioElementRef.current.setAttribute(
+        "src",
+        getSynthesizeUrl(text, voice)
+      );
 
-			<br></br>
-			<br></br>
+      await audioElementRef.current.play();
+    } catch (err) {}
+  };
 
-			{isRight ? (
-				<>
-					<Container
-						maxWidth={false}
-						style={{
-							background: "#C1E1C1",
-							justifyContent: "center",
-							alignItems: "center",
-							display: "flex",
-							flexWrap: "row",
-							height: "100%",
-							width: "100%",
-						}}
-					>
-						<Typography>
-							Correct! Please click the button to continue!
-						</Typography>
-						<Spacer />
+  return (
+    <>
+      <Container
+        maxWidth={false}
+        style={{
+          display: "flex ",
+          backgroundColor: color.platinum,
+          height: "100%",
+          width: "75%",
+          marginTop: "100px",
+        }}
+      >
+        <ControlContainer onSynthesize={onSynthesize} inputText={tipsText} />
+        <OutputContainer audioElementRef={audioElementRef} />
+      </Container>
+      <Container
+        maxWidth={false}
+        style={{
+          display: "flex ",
+          flexDirection: "column",
+          backgroundColor: color.platinum,
+          height: "100%",
+          width: "75%",
+          marginBottom: "100px",
+        }}
+        className="service-container"
+      >
+        <h1>Internet Tips</h1>
 
-						<Button onClick={nextHandler}>
-							<ArrowCircleRightIcon />
-						</Button>
-					</Container>
-				</>
-			) : (
-				<Typography>{successMessage}</Typography>
-			)}
-		</Container>
-	);
+        {/* FIX THIS  */}
+
+        <p>
+          The best way to keep your companies and your personal data secure is
+          by following these following tips:
+        </p>
+        <Container>
+          <li>Do not step away from your workstation without locking it</li>
+          <li>
+            Make sure websites you visit have "https" and a lock beside it
+          </li>
+          <li>NEVER open weird or out of the ordinary links and attachments</li>
+          <li>Create strong passwords with the next steps</li>
+        </Container>
+
+        <Container
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+        >
+          <FormControl>
+            <RadioGroup>
+              <Container
+                style={{
+                  opacity: "0.8",
+                  justifyContent: "center",
+                }}
+              >
+                <img src={right} width={"400vh"} height={"50vh"} />
+              </Container>
+              <FormControlLabel
+                control={<Radio onChange={() => setAnswer("right")} />}
+                value="right"
+              />
+
+              <Container style={{ width: "25%" }}></Container>
+
+              <Container
+                style={{
+                  opacity: "0.8",
+                  justifyContent: "center",
+                }}
+              >
+                <img src={wrong} width={"400vh"} height={"50vh"} />
+              </Container>
+              <FormControlLabel
+                control={<Radio onChange={() => setAnswer("wrong")} />}
+                value="wrong"
+              />
+            </RadioGroup>
+          </FormControl>
+
+          <Button onClick={handleSubmit}>Submit</Button>
+        </Container>
+
+        <br></br>
+        <br></br>
+
+        <RightAnswer
+          handler={handler}
+          visible={visible2}
+          setVisible={setVisible2}
+          style={{ width: "10%" }}
+        />
+
+        <WrongPopUp
+          handler={handler}
+          visible={visible}
+          setVisible={setVisible}
+          style={{ width: "10%" }}
+        />
+      </Container>
+    </>
+  );
+}
+
+export function WrongPopUp({ handler, visible, setVisible }) {
+  const closeHandler = () => {
+    setVisible(false);
+  };
+  return (
+    <div>
+      <Modal
+        closeButton
+        aria-labelledby="modal-title"
+        open={visible}
+        onClose={closeHandler}
+        width="35%"
+        css={{ display: "flex", justifyContent: "center" }}
+      >
+        <Modal.Header></Modal.Header>
+        <Modal.Body>
+          <img
+            src={Wrong}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button auto flat color="error" onClick={closeHandler}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
+}
+export function RightAnswer({ handler, visible, setVisible }) {
+  const { user, setUser } = useAuthContext();
+
+  const closeHandler = () => {
+    setVisible(false);
+  };
+
+  const nextHandler = async () => {
+    const respo = await API.addProgress("2");
+    setUser({ ...user, refresh: true });
+    delete user.refresh;
+  };
+
+  return (
+    <div>
+      <Modal
+        closeButton
+        aria-labelledby="modal-title"
+        open={visible}
+        onClose={closeHandler}
+        width="35%"
+        css={{ display: "flex", justifyContent: "center" }}
+      >
+        <Modal.Header></Modal.Header>
+        <Modal.Body>
+          <img
+            src={Right}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button color="error" onClick={closeHandler}>
+            Close
+          </Button>
+          <Button onClick={nextHandler}>
+            <Link to="/PasswordPage">Next</Link>
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
 }

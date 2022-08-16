@@ -6,12 +6,13 @@ const { NotFoundError } = require("./utils/errors");
 const authRoutes = require("./routes/auth");
 const progressAuth = require("./routes/progress");
 const managerRoutes = require("./routes/manage");
+const apiRoutes = require("./routes/tts");
 const security = require("./middleware/security");
 
 const app = express();
 
 app.listen(PORT, () => {
-	console.log(`🚀 Server listening on port ` + PORT);
+  console.log(`🚀 Server listening on port ` + PORT);
 });
 
 app.use(morgan("tiny"));
@@ -21,20 +22,21 @@ app.use(security.extractUserFromJwt);
 app.use("/auth", authRoutes);
 app.use("/progress", progressAuth);
 app.use("/manage", managerRoutes);
+app.use("/tts", apiRoutes);
 
 app.get("/", (req, res) => {
-	res.status(200).send({ server_is: "up" });
+  res.status(200).send({ server_is: "up" });
 });
 
 app.use((req, res, next) => {
-	return next(new NotFoundError("Not Found!!"));
+  return next(new NotFoundError("Not Found!!"));
 });
 
 app.use((error, req, res, next) => {
-	const status = error.status || 500;
-	const message = error.message;
+  const status = error.status || 500;
+  const message = error.message;
 
-	return res.status(status).json({
-		error: { message, status },
-	});
+  return res.status(status).json({
+    error: { message, status },
+  });
 });
