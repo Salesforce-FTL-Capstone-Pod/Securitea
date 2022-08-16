@@ -23,7 +23,7 @@ import { useAuthContext } from "../../contexts/auth";
 import { useProgressContext } from "../../contexts/progress";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import backgroundImg from '../../assets/SecuriTEA-bg4.svg'
+import backgroundImg from '../../assets/SecuriTEA-bg2.svg'
 
 export default function ModulePagePhishing() {
 	const progress = useProgressContext();
@@ -212,7 +212,7 @@ function Content({ progressOne }) {
 
 function IntroToPhishing(progressOne) {
 	return (
-		<Collapse contentLeft={progressOne > 0 ? <CheckCircleOutlineIcon/> : <></>} title="Intro to Phishing">
+		<Collapse contentLeft={progressOne?.progressOne?.progress > 0 ? <CheckCircleOutlineIcon/> : <></>} title="Intro to Phishing">
 			<Text>
 				This unit will give you a comprehensive explanation of what Phishing is
 				and how you detect it so that you may be safe on the internet.
@@ -223,7 +223,7 @@ function IntroToPhishing(progressOne) {
 
 function PhishingFirstSim(progressOne) {
 	return (
-		<Collapse  contentLeft={progressOne > 0 ? <CheckCircleOutlineIcon/> : <></>} title="Phishing: Quiz 1">
+		<Collapse  contentLeft={progressOne?.progressOne?.progress  > 0 ? <CheckCircleOutlineIcon/> : <></>} title="Phishing: Quiz 1">
 			<Text>
 				This quiz will test your knowledge of phishing and how to be safe while
 				checking your emails.
@@ -234,7 +234,7 @@ function PhishingFirstSim(progressOne) {
 
 function PhishingSecondSim(progressOne) {
 	return (
-		<Collapse contentLeft={progressOne > 1 ? <CheckCircleOutlineIcon/> : <></>} title="Phishing: Quiz 2">
+		<Collapse contentLeft={progressOne?.progressOne?.progress  > 2 ? <CheckCircleOutlineIcon/> : <></>} title="Phishing: Quiz 2">
 			<Text>
 				This quiz will test your knowledge of phishing and how to be safe while
 				checking your emails.
@@ -245,7 +245,7 @@ function PhishingSecondSim(progressOne) {
 
 function PhishingThirdSim(progressOne) {
 	return (
-		<Collapse contentLeft={progressOne > 2 ? <CheckCircleOutlineIcon/> : <></>} title="Phishing: Quiz 3">
+		<Collapse contentLeft={progressOne?.progressOne?.progress  > 3 ? <CheckCircleOutlineIcon/> : <></>} title="Phishing: Quiz 3">
 			<Text>
 				This quiz will test your knowledge of phishing and how to be safe while
 				checking your emails.

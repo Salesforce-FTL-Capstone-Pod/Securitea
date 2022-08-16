@@ -6,10 +6,6 @@ const AuthContext = createContext(null);
 export const AuthContextProvider = ({ children }) => {
 	const [initialized, setInitialized] = useState(false);
 	const [user, setUser] = useState({});
-	const [pings, setPings] = useState({
-		pinged1: false,
-		pinged2: false,
-	});
 	const [managerToken, setmanagerToken] = useState();
 	const [mod1ping, setmod1ping] = useState(false)
 	const [mod2ping, setmod2ping] = useState(false)
@@ -42,6 +38,8 @@ export const AuthContextProvider = ({ children }) => {
 					const token = await apiClient.fetchManagerToken();
 					setmanagerToken(token.data.managerToken);
 				}
+				fetchPingStatus(1)
+				fetchPingStatus(2)		
 			}
 			setInitialized(true);
 		};
@@ -57,21 +55,25 @@ export const AuthContextProvider = ({ children }) => {
 			const { data } = await apiClient.fetchPingStatus({
 				module: module
 			})
+
 			if (data){
-				setPings({ pinged1: data?.amPinged?.waspinged2, pinged2: data?.amPinged?.waspinged2})
+				if (data.amPinged?.waspinged1){
+					setmod1ping(data.amPinged.waspinged1)
+				}
+				if (data.amPinged?.waspinged2){
+					setmod2ping(data.amPinged.waspinged2)
+				}
 			}
 
 		}
-		fetchPingStatus(1)
-		fetchPingStatus(2)
+	}, [initialized]);
 
-	}, [setUser]);
 	const handleLogout = async () => {
 		await apiClient.logoutUser();
 		setUser({});
 	};
 
-	const authValue = { user, setUser, handleLogout, initialized, setInitialized, managerToken, pings };
+	const authValue = { user, setUser, handleLogout, initialized, setInitialized, managerToken, mod1ping, mod2ping };
 
 	return (
 		<AuthContext.Provider value={authValue}>

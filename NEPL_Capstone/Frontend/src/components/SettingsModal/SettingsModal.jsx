@@ -35,20 +35,12 @@ function SettingsModal({ handler, visible, setVisible }) {
 				</Modal.Header>
 				<Modal.Body>
 					<Row justify="space-between">
-						<Text>Dark Mode </Text>
+						<Text>Dark Mode</Text>
 						<Switch color="secondary" checked={checked} onChange={testCheck} />
 					</Row>
 					<Row justify="space-between">
-						<Text>Some setting again </Text>
+						<Text>Something</Text>
 						<Switch color="secondary" checked={true} />
-					</Row>
-					<Row justify="space-between">
-						<Text>Some other setting</Text>
-						<Switch color="secondary" checked={false} />
-					</Row>
-					<Row justify="space-between">
-						<Text>Some setting </Text>
-						<Switch color="secondary" checked={false} />
 					</Row>
 				</Modal.Body>
 				<Modal.Footer></Modal.Footer>
