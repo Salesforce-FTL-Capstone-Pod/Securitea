@@ -78,7 +78,7 @@ function Overview({ progress }) {
 				</Text>
 				{user?.email ? (
 					<Button color="secondary" css={{ marginTop: "0.5vw", height: "2vw" }}>
-						<Link to="/Modules/demo">
+						<Link to="/Modules/tips/">
 							<Text
 								h4
 								weight="bold"

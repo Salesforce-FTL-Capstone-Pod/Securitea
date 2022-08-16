@@ -180,8 +180,8 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
 
           <Text id="modal-title" weight="thin" size={15}>
             Email <Text weight="semibold"  size={20} >{employee.email}</Text>
-            <StyledBadge type={employee.module1ping == true ? "active" : "paused"}>Phishing Module: {employee.module1ping.toString()}</StyledBadge>
-            <StyledBadge type={employee.module2ping == true ? "active" : "paused"}>Safety Tips Module: {employee.module1ping.toString()}</StyledBadge>
+            <StyledBadge type={employee.module1ping == true ? "active" : "paused"}>Phishing Module - Pinged: {employee.module1ping.toString()}</StyledBadge>
+            <StyledBadge type={employee.module2ping == true ? "active" : "paused"}>Internet Safety Tips Module - Pinged: {employee.module1ping.toString()}</StyledBadge>
           </Text>
           
           </Card>

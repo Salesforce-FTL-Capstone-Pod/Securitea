@@ -41,7 +41,7 @@ export default function Navbar() {
 						<Button color="inherit" to="/Resources" component={Link}>
 							Resources
 						</Button>
-						<Button color="inherit" to="/Contact-us" component={Link}>
+						<Button color="inherit" to="/Contact-Us" component={Link}>
 							Contact Us
 						</Button>
 					</Stack>
