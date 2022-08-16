@@ -27,6 +27,7 @@ import SimulationPage3 from "../SimulationPage/SimulationPage3";
 import TipsPage from "../InternetTips/InternetTips";
 import PasswordPage from "../PasswordPage/PasswordPage";
 import Skeleton from "../AuthModulePage/Skeleton";
+import RegisterNew from "../Register/RegisterNew";
 //Libraries
 import {
 	NextUIProvider,
@@ -70,7 +71,7 @@ function App() {
 			code: searchParams.get("code"),
 			redirect_uri: "https://localhost:5173/slack",
 		}).toString();
-
+    
 		useEffect(() => {
 			setslackCode(searchParams.get("code"));
 			const url = "https://slack.com/api/openid.connect.token?" + params;
@@ -135,8 +136,9 @@ function App() {
 						element={<AuthRoute element={<ManagerDashboard />} />}
 					/>
 					<Route path="/Slack" element={<Slack />} />
-              <Route path="/Sim2" element={<SimulationPage2 />} />
+          <Route path="/Sim2" element={<SimulationPage2 />} />
           <Route path="/Sim3" element={<SimulationPage3 />} />
+          <Route path="/RegisterNew" element={<RegisterNew /> } />
 				</Routes>
 			</BrowserRouter>
 		</div>

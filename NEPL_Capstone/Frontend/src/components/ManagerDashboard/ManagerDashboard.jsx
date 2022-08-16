@@ -16,6 +16,7 @@ import TokenManagement from "./TokenManagement/TokenManagement.jsx";
 import EmployeeDisplay from "./EmployeeDisplay/EmployeeDisplay.jsx";
 import apiClient from "../../services/apiClient"
 import { useEffect } from "react";
+import backgroundImg from '../../assets/SecuriTEA-bg2.svg'
 const sizeBox = "65vw";
 
 export default function ManagerDashboard() {
@@ -37,7 +38,7 @@ function capitalizeCompany(company){
     fetchEmployees()
   }, [user])
   return (
-    <Container maxWidth={false} disableGutters>
+    <Container maxWidth={false} disableGutters sx={{ backgroundImage: `url(${backgroundImg})` }}>
       <Navbar />
       <Overview user={user}/>
       <Grid.Container css={{flexDirection: "row"}}>

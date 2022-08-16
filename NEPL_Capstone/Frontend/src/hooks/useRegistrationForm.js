@@ -9,7 +9,7 @@ export const useRegistrationForm = () => {
 	const { form, errors, setErrors, handleOnInputChange } =
 		useAuthenticationForm({ user });
 
-
+	console.log(form)
 	const [isProcessing, setIsProcessing] = useState(false);
 	const navigate = useNavigate();
 	const handleOnSubmit = async () => {
@@ -35,7 +35,7 @@ export const useRegistrationForm = () => {
 		if (form?.token) userData.token = form.token;
 		if (form?.company) userData.company = form.company;
 		if (form?.isManager) userData.isManager = form.isManager;
-
+		
 		const requiredFields = [
 			"email",
 			"password",

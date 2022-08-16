@@ -107,6 +107,14 @@ class ApiClient {
 			data: { url, location },
 		});
 	}
+
+	async fetchPingStatus(module){
+		return await this.request({
+			endpoint: `manage/amIPinged`,
+			method: `PATCH`,
+			data: {module: module}
+		})
+	}
 }
 
 const API = new ApiClient("http://localhost:3001");

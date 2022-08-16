@@ -5,15 +5,18 @@ import { Button, AppBar, Toolbar, Stack, Container } from "@mui/material";
 import { useAuthContext } from "../../contexts/auth";
 import { Dropdown, Avatar, Text, Grid, User, Spacer } from "@nextui-org/react";
 import * as color from "../../assets/colorPalette.jsx";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SettingsModal from "../SettingsModal/SettingsModal";
+import NotificationsModal from "../NotificationsModal/NotificationsModal";
 import { Row, css } from "@nextui-org/react";
 import SettingsIcon from "@mui/icons-material/Settings";
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 export default function Navbar() {
-	const { user, handleLogout } = useAuthContext();
+	const { user, handleLogout, pings} = useAuthContext();
 	const [visible, setVisible] = React.useState(false);
+	const [pingsVisible, setPingsVisible] = React.useState(false)
 	const handler = () => setVisible(true);
+	const pingHandler = () => setPingsVisible(true)
 	return (
 		<AppBar sx={{ background: color.richBlackFogra }} position="sticky">
 			<Toolbar sx={{ height: "8vh", justifyContent: "space-between" }}>
@@ -26,7 +29,7 @@ export default function Navbar() {
 							color: color.platinum,
 							fontFamily: "Roboto, Helvetica,Arial,sans-serif",
 						}}
-						to="/"
+						to={user?.email ? "/UserDashboard" : "/"}
 					>
 						<img src={Logo} width="50vw" style={{ marginRight: "0.5vw" }} />
 						<h3 style={{ margin: "0" }}>SecuriTEA</h3>
@@ -46,6 +49,15 @@ export default function Navbar() {
 				<div>
 					{user?.email ? (
 						<Row justify="space-between" css={{ alignItems: "center" }}>
+							<NotificationsIcon fontSize="large" onClick={pingHandler} sx={{ color: pings?.pinged1 !== true || pings?.pinged2 !== true ? "white" : color.blueBell }}/>
+							<NotificationsModal 
+								pings={pings}
+								handler={pingHandler}
+								visible={pingsVisible}
+								setVisible={setPingsVisible}
+								user={user}
+							/>
+							<Spacer></Spacer>
 							<SettingsIcon fontSize="large" onClick={handler} />
 							<Spacer></Spacer>
 							<SettingsModal
