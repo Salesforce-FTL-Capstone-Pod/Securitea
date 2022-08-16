@@ -81,9 +81,9 @@ export default function Navbar() {
 								bordered
 								size='sm'
 								ghost
-								color="secondary"
+								color='secondary'
 								css={{
-									color: "secondary",
+									color: 'white',
 								}}
 							>
 								Login
@@ -92,7 +92,7 @@ export default function Navbar() {
 							<a href='/register'>
 							<NButton
 								size='sm'
-								color="gradient"
+								color="secondary"
 								css={{
 									color: "white",
 								}}

@@ -177,8 +177,13 @@ function RegisterNew() {
             <Button color="secondary" onClick={handleOnSubmit} css={{ marginTop: "0.5vw", height: "2vw", width: "15vw", marginBottom: "0.3vw", marginLeft: "10vw"}}>
               {isProcessing == false ? <>Register</> : <><Loading type="default" /></>}
             </Button>
+
+			<Text>Have an account? <DomLink to='/login'>Sign In</DomLink></Text>
           </Grid>
 
+
+		  
+		  
 		  <Card.Divider></Card.Divider>
 
 		<Grid>
