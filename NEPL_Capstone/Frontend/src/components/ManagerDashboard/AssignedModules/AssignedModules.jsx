@@ -31,7 +31,6 @@ function AssignedModules({ employees, valid, logo }) {
 export default AssignedModules;
 
 export function AssignDropdown({ employees, valid, logo, moduleId }) {
-	console.log("EMPLOYEE", employees)
 	const [visible, setVisible] = React.useState(false);
 	const [selectedTab, setselectedTab] = useState("");
 	const [selectAll, setselectAll] = useState(false);
@@ -260,10 +259,8 @@ function SelectionModal({
 
 	const pingEmployees = async (selectedEmployee) => {
 		setLoading(true);
-		console.log("pinged:", selectedEmployee);
 		async function pingEmployee(employee, modules) {
 			const res = await apiClient.pingEmployee(employee, modules);
-			console.log(res)
 		}
 
 		for (const employees in selectedEmployee){

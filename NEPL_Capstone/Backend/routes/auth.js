@@ -29,7 +29,6 @@ router.post("/register", async (req, res, next) => {
         isAdmin: false,
       });
     } else {
-		console.log(req.body)
       user = await User.register({ ...req.body, isAdmin: false });
     }
 

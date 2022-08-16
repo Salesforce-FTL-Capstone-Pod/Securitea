@@ -63,10 +63,6 @@ export function InternetTips() {
 
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		console.log("Answer", answer);
-	}, [answer]);
-
 	function handleSubmit() {
 		if (answer === "right") {
 			setIsRight(true);

@@ -33,7 +33,6 @@ export default function ManagerDashboard() {
 function capitalizeCompany(company){
   return company.charAt(0).toUpperCase() + company.slice(1);
 }
-console.log(capitalizeCompany(user.company))
 
   useEffect(() => {
     fetchEmployees()

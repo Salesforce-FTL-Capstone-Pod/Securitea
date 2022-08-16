@@ -344,7 +344,6 @@ class User {
 			2: progress2,
 		};
 
-	
 		return progress;
 	}
 
@@ -355,7 +354,6 @@ class User {
 		SELECT steps FROM modules WHERE id = $1;
 		`;
 		const maxProgressRaw = await db.query(maxProgressQuery, [module_id]);
-		console.log(maxProgressRaw);
 		const maxProgress = maxProgressRaw.rows[0].steps;
 
 		const currentProgressQuery = `
@@ -391,7 +389,6 @@ class User {
 		const query = `SELECT * FROM users WHERE id=$1`;
 		const result = await db.query(query, [id]);
 		const user = result.rows[0];
-		console.log(user);
 		return user;
 	}
 

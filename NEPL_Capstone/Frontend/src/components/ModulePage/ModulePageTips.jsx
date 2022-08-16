@@ -25,7 +25,7 @@ import backgroundImg from '../../assets/SecuriTEA-bg4.svg'
 export default function ModulePageTips() {
 	const progress = useProgressContext();
 
-	const progressTwo = progress.progress.progress["2"] || 0;
+	const progressTwo = progress?.progress?.progress["2"] || 0;
 
 	return (
 		<Container maxWidth={false} disableGutters sx={{backgroundImage: `url(${backgroundImg})`}} >
