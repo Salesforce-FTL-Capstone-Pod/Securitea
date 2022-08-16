@@ -23,11 +23,14 @@ import Wrong from "../../assets/Wrong.svg";
 import Right from "../../assets/Right.svg";
 import dots from "../../assets/dots.svg";
 import replyButton from "../../assets/replyButton.svg";
+import Certificate from "../../assets/Certificate.jpg";
 
 import { StyledBadge } from "../ManagerDashboard/EmployeeTable/StyledBadge";
 import { Modal, Dropdown, Text, Button } from "@nextui-org/react";
 import API from "../../services/apiClient";
 import { useAuthContext } from "../../contexts/auth";
+
+  import { saveAs } from "file-saver";
 
 export default function SimulationPage() {
   return (
@@ -54,27 +57,32 @@ function Simulation() {
         marginBottom: "100px",
       }}
     >
-      <h1>Email Phishing</h1>
-      <Container style={{ display: "flex", flexDirection: "row" }}>
-        <Container sx={{ margin: "0" }}>
-          <p style={{ fontWeight: "bold", color: "green" }}>Do's</p>
-          <li>something</li>
-          <li>something</li>
-          <li>something</li>
-        </Container>
-        <Container style={{ marginLeft: "0vw" }}>
-          <p style={{ fontWeight: "bold", color: "red" }}>Don'ts</p>
-          <li>something</li>
-          <li>something</li>
-          <li>something</li>
-        </Container>
-      </Container>
-      <p>What you wil be doing :</p>
+      <h1>Quiz 3</h1>
+      <h2>What is going on :</h2>
       <p style={{ marginTop: "0vw" }}>
-        SOMETHING SOMETHINGSOMETHING SOMETHINGSOMETHING SOMETHINGSOMETHING
-        SOMETSOMETHING SOMETHINGSOMETHING SOMETHINGSOMETHING SOMETHINGSOMETHING
-        SOMETSOMETHING SOMETHINGSOMETHING SOMETHINGSOMETHING SOMETHINGSOMETHING
-        SOMET
+        - You have been sent an email by someone who claims your laptop will
+        shut down, and in order for this to not happen, you password needs to be
+        sent to them through a replied meessage.
+      </p>
+      <h2>What are you doing :</h2>
+      <p style={{ marginTop: "0%" }}>
+        - In order to complete this quiz you need to click on the unread email,
+        read the content, and make the decision if this is a good email, or a
+        phishing email
+      </p>
+      <p style={{marginTop:"-1%"}}>
+        Your answer choices for this simulation consist of:
+        <li style={{ fontWeight: "bold" }}>
+          A reply button ={" "}
+          <img src={replyButton} style={{ marginLeft: "1%", width: "6%" }} />
+        </li>
+        <li style={{ fontWeight: "bold" }}>
+          A report button located on the dropdown menu =
+          <img src={dots} style={{ marginLeft: "1%" }} />
+        </li>
+      </p>
+      <p style={{ marginTop: "0%" }}>
+        Click the NEXT button once the question is correctly answered
       </p>
       <Container
         maxWidth={false}
@@ -228,13 +236,26 @@ function WrongPopUp({ handler, visible, setVisible }) {
       >
         <Modal.Header></Modal.Header>
         <Modal.Body>
-          <img
-            src={Wrong}
-            style={{
+          <Text
+            css={{
               display: "flex",
               justifyContent: "center",
+              flexDirection: "column",
             }}
-          />
+          >
+            <h1 style={{ fontSize: "200%", color: color.errorRed }}>
+              Not Quite right
+            </h1>
+            <p>Woah there, this is not the way to go </p>
+            <p style={{ fontWeight: "bold" }}>
+              There are many signs this is a Phising email:
+            </p>
+            <Text css={{ marginTop: "-5%" }}>
+              <p>- The subject of the email is very agressive </p>
+              <p>- The email address is not a salesforce address </p>
+              <p>- There are some grammer and spelling mistakes </p>
+            </Text>
+          </Text>
         </Modal.Body>
         <Modal.Footer>
           <Button auto flat color="error" onClick={closeHandler}>
@@ -270,13 +291,18 @@ function RightAnswer({ handler, visible, setVisible }) {
       >
         <Modal.Header></Modal.Header>
         <Modal.Body>
-          <img
-            src={Right}
-            style={{
+          <Text
+            css={{
               display: "flex",
               justifyContent: "center",
+              flexDirection: "column",
             }}
-          />
+          >
+            <h1 style={{ fontSize: "200%", color: "green" }}>Good Job</h1>
+            <p>
+             This is your cup of tea. No one can catch you lacking!!!
+            </p>
+          </Text>
         </Modal.Body>
         <Modal.Footer>
           <Button auto flat color="error" onClick={closeHandler}>
