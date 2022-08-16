@@ -177,7 +177,7 @@ function RegisterNew() {
 									width="16vw"
 									color="secondary"
 									name="birthday"
-									label="Select your birth date"
+									label={<Text size={16} color="secondary">Select your birth date</Text>}
 									type="date"
 									onChange={(e) => handleOnInputChange(e)}
 								/>
@@ -185,7 +185,7 @@ function RegisterNew() {
 
 							<Grid>
 								<TitleSelection
-									label="Select your preferred title"
+									label={<Text size={16} color="secondary">Select your preferred title</Text>}
 									handleOnInputChange={handleOnInputChange}
 								/>
 							</Grid>
@@ -321,7 +321,7 @@ function CompanySelection({ handleOnInputChange }) {
 	return (
 		<>
 			<span>
-				<Text>Hey</Text>
+				<Text size={16} color="secondary">Select your company</Text>
 			</span>
 			<Dropdown>
 				<Dropdown.Button
