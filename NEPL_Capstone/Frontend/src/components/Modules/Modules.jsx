@@ -24,6 +24,7 @@ import * as color from "../../assets/colorPalette";
 import AuthRoute from "../AuthRoute/AuthRoute";
 import Lock from "../../assets/Lock.svg";
 import { useProgressContext } from "../../contexts/progress";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme({
 	type: "light",
@@ -167,6 +168,17 @@ export function PhishingModuleCard({ progress }) {
 		useLoginForm();
 	const [visible, setVisible] = React.useState(false);
 	const handler = () => setVisible(true);
+	const navigate = useNavigate();
+
+	const handleContinue = () => {
+		if (progress?.progress?.progress["1"].progress === 0) {
+			navigate("/modules/demo");
+		} else if (progress?.progress?.progress["1"].progress === 1) {
+			navigate("../Sim2");
+		} else if (progress?.progress?.progress["1"].progress === 2) {
+			navigate("../Sim3");
+		}
+	};
 	return (
 		<Card
 			isHoverable
@@ -196,8 +208,8 @@ export function PhishingModuleCard({ progress }) {
 					<div>
 						<Progress color="secondary" value={progress.percentOne} />
 						<Text css={{ color: "$black" }}>
-							{progress.progress.progress["1"].progress}/
-							{progress.progress.progress["1"].steps} Steps Complete
+							{progress?.progress?.progress["1"].progress}/
+							{progress?.progress?.progress["1"].steps} Steps Complete
 						</Text>
 					</div>
 				) : (
@@ -217,11 +229,9 @@ export function PhishingModuleCard({ progress }) {
 						</Link>
 
 						<Spacer></Spacer>
-						<Link to="/Modules/demo">
-							<Button size="sm" color="secondary">
-								Continue
-							</Button>
-						</Link>
+						<Button size="sm" color="secondary" onClick={handleContinue}>
+							Continue
+						</Button>
 					</Row>
 				</Card.Footer>
 			) : (
@@ -258,6 +268,15 @@ export function TipsModuleCard({ progress }) {
 		useLoginForm();
 	const [visible, setVisible] = React.useState(false);
 	const handler = () => setVisible(true);
+	const navigate = useNavigate();
+
+	const handleContinue = () => {
+		if (progress?.progress?.progress["2"].progress === 0) {
+			navigate("/modules/tips");
+		} else if (progress?.progress?.progress["2"].progress === 1) {
+			navigate("../PasswordPage");
+		}
+	};
 
 	return (
 		<Card
@@ -289,8 +308,8 @@ export function TipsModuleCard({ progress }) {
 					<div>
 						<Progress color="secondary" value={progress.percentTwo} />
 						<Text css={{ color: "$black" }}>
-							{progress.progress.progress["2"].progress}/
-							{progress.progress.progress["2"].steps} Steps Complete
+							{progress?.progress?.progress["2"].progress}/
+							{progress?.progress?.progress["2"].steps} Steps Complete
 						</Text>
 					</div>
 				) : (
@@ -310,12 +329,9 @@ export function TipsModuleCard({ progress }) {
 						</Link>
 
 						<Spacer></Spacer>
-						<Link to="/Modules/tips">
-							{" "}
-							<Button size="sm" color="secondary">
-								Continue{" "}
-							</Button>{" "}
-						</Link>
+						<Button size="sm" color="secondary" onClick={handleContinue}>
+							Continue
+						</Button>
 					</Row>
 				</Card.Footer>
 			) : (

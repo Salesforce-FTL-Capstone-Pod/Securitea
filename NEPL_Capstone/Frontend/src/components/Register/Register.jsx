@@ -1,6 +1,6 @@
 import React from "react";
-import { useState } from "react";
-import { Link as DomLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link as DomLink, useLocation } from "react-router-dom";
 import { useRegistrationForm } from "../../hooks/useRegistrationForm";
 import "./Register.css";
 import SampleLogo from "../../assets/SampleLogo.svg";
@@ -229,6 +229,7 @@ function Register() {
 								>
 									<b style={{ color: color.platinum }}>Sign Up</b>
 								</Button>
+								<a href="https://slack.com/openid/connect/authorize?scope=openid%20profile%20email&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Flocalhost%3A5173%2Fslack&amp;client_id=3765144863393.3898834395927" target="_blank" ><img alt="Sign up with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
 							</Container>
 							<Grid container>
 								<Grid item>

@@ -6,7 +6,13 @@ const AuthContext = createContext(null);
 export const AuthContextProvider = ({ children }) => {
 	const [initialized, setInitialized] = useState(false);
 	const [user, setUser] = useState({});
-	const [managerToken, setmanagerToken] = useState()
+	const [pings, setPings] = useState({
+		pinged1: false,
+		pinged2: false,
+	});
+	const [managerToken, setmanagerToken] = useState();
+	const [mod1ping, setmod1ping] = useState(false)
+	const [mod2ping, setmod2ping] = useState(false)
 	var logo =
 		"https://www.nicepng.com/png/detail/16-160412_teacup-png-clipart-tea-coffee-clip-art-tea.png";
 	if (user?.company) {
@@ -32,9 +38,9 @@ export const AuthContextProvider = ({ children }) => {
 
 			if (data) {
 				setUser(data.publicUser);
-				if(data.publicUser.isManager == true){
-				const token = await apiClient.fetchManagerToken();
-				setmanagerToken(token.data.managerToken)
+				if (data.publicUser.isManager == true) {
+					const token = await apiClient.fetchManagerToken();
+					setmanagerToken(token.data.managerToken);
 				}
 			}
 			setInitialized(true);
@@ -47,14 +53,25 @@ export const AuthContextProvider = ({ children }) => {
 		} else {
 			setInitialized(true);
 		}
-	}, [setUser]);
+		const fetchPingStatus = async (module) => {
+			const { data } = await apiClient.fetchPingStatus({
+				module: module
+			})
+			if (data){
+				setPings({ pinged1: data?.amPinged?.waspinged2, pinged2: data?.amPinged?.waspinged2})
+			}
 
+		}
+		fetchPingStatus(1)
+		fetchPingStatus(2)
+
+	}, [setUser]);
 	const handleLogout = async () => {
 		await apiClient.logoutUser();
 		setUser({});
 	};
 
-	const authValue = { user, setUser, handleLogout, initialized, managerToken };
+	const authValue = { user, setUser, handleLogout, initialized, setInitialized, managerToken, pings };
 
 	return (
 		<AuthContext.Provider value={authValue}>

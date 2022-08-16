@@ -38,7 +38,7 @@ router.patch(
 	async (req, res, next) => {
 		try {
 			const userPinged = await Manager.pingUser(
-				req.body.userEmail,
+				req.body.email,
 				req.body.module
 			);
 
@@ -54,7 +54,6 @@ router.patch(
 	security.requireAuthenticatedUser,
 	async (req, res, next) => {
 		try {
-			console.log(res.locals.user.email);
 			const allPinged = await Manager.pingAll(
 				res.locals.user.email,
 				req.body.module
@@ -82,7 +81,7 @@ router.patch(
 	}
 );
 
-router.get(
+router.patch(
 	// This is for the user to see if he is pinged
 	"/amIPinged",
 	security.requireAuthenticatedUser,
@@ -90,9 +89,9 @@ router.get(
 		try {
 			const amPinged = await Manager.wasIPinged(
 				res.locals.user.email,
-				req.body.module
+				req.body.module.module
 			);
-
+			
 			return res.status(200).json({ amPinged });
 		} catch (err) {
 			next(err);

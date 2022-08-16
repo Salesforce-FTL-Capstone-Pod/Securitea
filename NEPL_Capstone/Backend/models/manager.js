@@ -8,8 +8,6 @@ class Manager {
 		const userId = await User.fetchUserByEmail(email);
 
 		const pod = await this.getPod(userId);
-		console.log("here");
-
 		var membersAndProgress = {};
 		const getFirstProgress = `
         SELECT progress
@@ -29,7 +27,7 @@ class Manager {
         `;
 
 		const areTheyPingedQuery = `
-        SELECT wasPinged
+        SELECT waspinged1, waspinged2
         FROM users
         WHERE id = $1;
         `;
@@ -41,7 +39,6 @@ class Manager {
 
 			let rawProgressOne = await db.query(getFirstProgress, [id]);
 			let progressOne = rawProgressOne.rows[0];
-			console.log("p one: ", progressOne);
 
 			let rawProgressTwo = await db.query(getSecondProgress, [id]);
 			let progressTwo = rawProgressTwo.rows[0];
@@ -105,6 +102,9 @@ class Manager {
 	}
 
 	static async pingUser(userEmail, module) {
+		if (!module) {
+			return { something: "wrong" };
+		}
 		const userToPing = await User.fetchUserByEmail(userEmail);
 		const modulePing = "waspinged" + module;
 		const pingUserQuery = `
@@ -136,6 +136,7 @@ class Manager {
 	}
 
 	static async wasIPinged(email, module) {
+		console.log(email, module)
 		const user = await User.fetchUserByEmail(email);
 		const wasping = "waspinged" + module;
 

@@ -62,28 +62,61 @@ class ApiClient {
 		});
 	}
 
-	async fetchManagerToken(){
+	async fetchManagerToken() {
 		return await this.request({
 			endpoint: `manage/getAccessToken`,
 			method: `GET`,
 		});
 	}
 
-	async fetchEmployees(){
+	async fetchEmployees() {
 		return await this.request({
 			endpoint: `manage/getPeople`,
 			method: `GET`,
-		})
+		});
 	}
 
-	async pingAllEmployees(){
+	async pingAllEmployees(credentials) {
+		console.log("CREDENTIALS ", credentials);
 		return await this.request({
 			endpoint: `manage/pingAll`,
-			method: `PATCH`
+			method: `PATCH`,
+			data: { module: credentials },
+		});
+	}
+	async pingEmployee(email, modules) {
+		return await this.request({
+			endpoint: `manage/pingUser`,
+			method: `PATCH`,
+			data: { email: email, module: modules },
+		});
+	}
+
+	async addProgress(module) {
+		return await this.request({
+			endpoint: `progress/addProgress`,
+			method: `PATCH`,
+			data: { module: module },
+		});
+	}
+
+	async fetchSlackExchange(url, location) {
+		return await this.request({
+			endpoint: `auth/slackExchange`,
+			method: `POST`,
+			data: { url, location },
+		});
+	}
+
+	async fetchPingStatus(module){
+		return await this.request({
+			endpoint: `manage/amIPinged`,
+			method: `PATCH`,
+			data: {module: module}
 		})
 	}
 }
 
 const API = new ApiClient("http://localhost:3001");
-
+//TODO: this needs to be changed when deployed
 export default API;
