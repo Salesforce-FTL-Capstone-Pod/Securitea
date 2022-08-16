@@ -20,6 +20,7 @@ import SimulationPage from "../SimulationPage/SimulationPage";
 import TipsPage from "../InternetTips/InternetTips";
 import PasswordPage from "../PasswordPage/PasswordPage";
 import Skeleton from "../AuthModulePage/Skeleton";
+import RegisterNew from "../Register/RegisterNew";
 //Libraries
 import { NextUIProvider, createTheme, Progress, Container, Text, Card } from "@nextui-org/react";
 import apiClient from "../../services/apiClient";
@@ -113,6 +114,8 @@ function App() {
 		      <Route path="/Skeleton" element={<AuthRoute element={<Skeleton /> } /> } />
 		      <Route path="/ManagerDashboard/*" element={<AuthRoute element={<ManagerDashboard />} /> } />
           <Route path="/Slack" element={<Slack /> } />
+
+          <Route path="/RegisterNew" element={<RegisterNew /> } />
         </Routes>
       </BrowserRouter>
     </div>

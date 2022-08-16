@@ -6,7 +6,7 @@ import "./Login.css";
 import Navbar from "../Navbar/Navbar";
 import * as color from "../../assets/colorPalette";
 import Logo from "../../assets/Logo.svg";
-
+import Footer from "../Footer/Footer";
 import Link from "@mui/material/Link";;
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -41,7 +41,7 @@ function Login() {
     <>
     <Navbar />
     <Container disableGutters maxWidth={false} sx={{ display: "flex", justifyContent: 'center', minWidth: "100vw", minHeight: "100vh", backgroundImage: `url(${backgroundImg})`}}>
-    <Card css={{ width: "20vw", bg: "white", marginTop: "15vh", marginBottom: "45vh"}} variant="bordered" borderWeight="normal">
+    <Card css={{ width: "22vw", bg: "white", marginTop: "15vh", marginBottom: "45vh"}} variant="bordered" borderWeight="normal">
 
 			<Card.Header css={{ textAlign: "center" , justifyContent: "center"}}>
 				<Text css={{ textAlign: "center", color: "$colors$black" }} weight="thin" size={30} b>
@@ -116,14 +116,16 @@ function Login() {
           </Grid>
         </Grid.Container>
 			</Card.Body>
-
+      <Card.Footer css={{ marginTop: "-1vh", justifyContent: "center", opacity: "0.4"}}>
+        <CredFooter />
+      </Card.Footer>
 		</Card>
     </Container>
     </>
   );
 }
 
-function Footer(props) {
+function CredFooter(props) {
   return (
     <Typography variant="body2" align="center" {...props}>
       {"Made with ♡ by "}
