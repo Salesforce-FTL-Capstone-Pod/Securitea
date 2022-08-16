@@ -84,18 +84,16 @@ function Overview({ progress }) {
 					Internet Safety Tips
 				</Text>
 				{user?.email ? (
-					<Button
-						color="secondary"
-						onClick={handleContinue}
-						css={{ marginTop: "0.5vw", height: "2vw" }}
-					>
-						<Text
-							h4
-							weight="bold"
-							css={{ color: color.platinum, marginBottom: "0vw" }}
-						>
-							Continue
-						</Text>
+					<Button color="secondary" css={{ marginTop: "0.5vw", height: "2vw" }}>
+						<Link to="/Modules/tips/">
+							<Text
+								h4
+								weight="bold"
+								css={{ color: color.platinum, marginBottom: "0vw" }}
+							>
+								Continue
+							</Text>
+						</Link>
 					</Button>
 				) : (
 					<Button

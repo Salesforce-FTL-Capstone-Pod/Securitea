@@ -28,6 +28,7 @@ import TipsPage from "../InternetTips/InternetTips";
 import PasswordPage from "../PasswordPage/PasswordPage";
 import Skeleton from "../AuthModulePage/Skeleton";
 import RegisterNew from "../Register/RegisterNew";
+import Skele from "../Skele/Skele";
 //Libraries
 import {
 	NextUIProvider,
@@ -90,54 +91,44 @@ function App() {
 			navigate("/UserDashboard");
 		}
 
-		return (
-			<Container fluid>
-				<Card css={{ background: "white", marginTop: "15vh" }} variant="flat">
-					<Text size={35} weight="normal" css={{ textAlign: "center" }}>
-						Setting up your account {`;)`}
-					</Text>
-					<Progress
-						size="sm"
-						indeterminated
-						value={20}
-						color="gradient"
-					></Progress>
-				</Card>
-			</Container>
-		);
-	}
+    return(
+      <Container fluid>
+        <Card css={{ background: "white", marginTop: "15vh"}} variant="flat">
+        <Text size={35} weight="normal" css={{ textAlign: "center"}}>
+          Setting up your account  {`;)`}
+        </Text>
+        <Progress size="sm" indeterminated value={20} color="gradient"></Progress>
+        </Card>
+      </Container>
+    )
+  }
 
-	return (
-		<div className="App">
-			<BrowserRouter>
-				<Routes>
-					<Route path="/" element={<Landing />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/register" element={<Register />} />
-					<Route
-						path="/UserDashboard/"
-						element={<AuthRoute element={<UserDashboard />} />}
-					/>
-					<Route path="/ModulePhishing" element={<ModulePagePhishing />} />
-					<Route path="/ModuleTips" element={<ModulePageTips />} />
-					<Route path="/Modules" element={<Modules />} />
-					<Route path="/Resources" element={<ResourcePage />} />
-					<Route path="/Modules/demo" element={<SimulationPage />} />
-					<Route path="/Modules/tips" element={<TipsPage />} />
-					<Route path="/PasswordPage" element={<PasswordPage />} />
-					<Route path="/Contact-Us" element={<ContactUs />} />
-					<Route path="*" element={<PageNotFound />} />
-					<Route
-						path="/Skeleton"
-						element={<AuthRoute element={<Skeleton />} />}
-					/>
-					<Route
-						path="/ManagerDashboard/*"
-						element={<AuthRoute element={<ManagerDashboard />} />}
-					/>
-					<Route path="/Slack" element={<Slack />} />
-          <Route path="/Sim2" element={<SimulationPage2 />} />
-          <Route path="/Sim3" element={<SimulationPage3 />} />
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/UserDashboard/"
+            element={<AuthRoute element={<UserDashboard />} />}
+          />
+          <Route path="/ModulePhishing" element={<ModulePagePhishing />} />
+          <Route path="/ModuleTips" element={<ModulePageTips />} />
+          <Route path="/Modules" element={<Modules />} />
+          <Route path="/Resources" element={<ResourcePage />} />
+          <Route path="/Modules/demo" element={<SimulationPage />} />
+          <Route path="/Modules/tips" element={<TipsPage />} />
+          <Route path="/PasswordPage" element={<PasswordPage />} />
+          <Route path="/Contact-Us" element={<ContactUs />} />
+          <Route path="*" element={<PageNotFound />} />
+		      <Route path="/Skeleton" element={<AuthRoute element={<Skeleton /> } /> } />
+		      <Route path="/ManagerDashboard/*" element={<AuthRoute element={<ManagerDashboard />} /> } />
+          <Route path="/Slack" element={<Slack /> } />
+          <Route path="/Skele" element={<Skele /> } /> 
+          {/* <Route path="/Sim2" element={<SimulationPage2 />} />
+          <Route path="/Sim3" element={<SimulationPage3 />} /> */}
           <Route path="/RegisterNew" element={<RegisterNew /> } />
 				</Routes>
 			</BrowserRouter>
