@@ -6,7 +6,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Link } from "react-router-dom";
 import { Text, Button, Progress, Collapse, Row, Grid, Card, Container as NextContainer } from "@nextui-org/react"
 import * as color from "../../assets/colorPalette";
-import backgroundImg from '../../assets/SecuriTEA-bg3.svg'
+import backgroundImg from '../../assets/SecuriTEA-bg2.svg'
 import Footer from "../Footer/Footer";
 const sizeBox = "65vw";
 
@@ -51,7 +51,7 @@ function Content() {
 	return (
 	  <Container sx={{ display: "flex", minHeight: "100vh", marginBottom: "10vh"}} disableGutters>
 		<Container>
-            <Text>Whatever Here</Text>
+            <Text size={30}>Whatever Here</Text>
 	    </Container>
 	  </Container>
 )

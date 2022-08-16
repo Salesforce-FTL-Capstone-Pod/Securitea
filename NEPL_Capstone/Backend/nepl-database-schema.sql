@@ -51,7 +51,7 @@ CREATE TABLE manager (
 INSERT INTO
   modules (name, category, steps)
 VALUES
-  ('Phishing', 'Scam', 4);
+  ('Phishing', 'Scam', 3);
 
 INSERT INTO
   modules (name, category, steps)
