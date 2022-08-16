@@ -9,15 +9,23 @@ import * as color from "../../assets/colorPalette";
 import Navbar from "../Navbar/Navbar";
 
 //MUI Components
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
+import {
+	Textarea,
+	Card,
+	Row,
+	Spacer,
+	Text,
+	Button,
+	Grid,
+	Input,
+	Loading,
+	Checkbox,
+	Dropdown,
+	Container as NextContainer,
+} from "@nextui-org/react";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
@@ -27,7 +35,9 @@ import { InputLabel } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import SlackLogo from "../../assets/slack.svg";
 
+import backgroundImg from "../../assets/SecuriTEA-bg1.svg";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -46,243 +56,246 @@ const theme = createTheme({
 	},
 });
 
-function Register() {
-	const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } =
-		useRegistrationForm();
+function RegisterNew() {
+	const {
+		form,
+		setForm,
+		errors,
+		isProcessing,
+		handleOnInputChange,
+		handleOnSubmit,
+	} = useRegistrationForm();
 
+	const [managerForm, setmanagerForm] = useState(false);
 	return (
-		<Container disableGutters maxWidth={false}>
+		<>
 			<Navbar />
-			<ThemeProvider theme={theme}>
-				<Container
-					component="main"
-					sx={{
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "center",
-						alignItems: "center",
+			<Container
+				disableGutters
+				maxWidth={false}
+				sx={{
+					display: "flex",
+					justifyContent: "center",
+					minWidth: "100vw",
+					minHeight: "100vh",
+					backgroundImage: `url(${backgroundImg})`,
+				}}
+			>
+				<Card
+					css={{
+						width: "40vw",
+						minHeight: "60vh",
+						bg: "white",
+						marginTop: "15vh",
+						marginBottom: "45vh",
 					}}
+					variant="bordered"
+					borderWeight="normal"
 				>
-					<CssBaseline />
-					<Box
-						sx={{
-							marginTop: 15,
-							display: "flex",
-							flexDirection: "column",
-							alignItems: "center",
+					<Card.Header css={{ textAlign: "center", justifyContent: "center" }}>
+						<Text
+							css={{ textAlign: "center", color: "$colors$black" }}
+							weight="thin"
+							size={30}
+							b
+						>
+							Create an account for <b>SecuriTEA</b> 🍵
+						</Text>
+					</Card.Header>
+					<Card.Divider></Card.Divider>
+					<Card.Body css={{ py: "$10", marginBottom: "-2vh" }}>
+						<Grid.Container gap={2}>
+							<Grid>
+								<Input
+									width="17vw"
+									size="lg"
+									clearable
+									name="first_name"
+									color="secondary"
+									label="First Name"
+									placeholder="Enter your first name"
+									onChange={handleOnInputChange}
+								/>
+							</Grid>
+
+							<Grid>
+								<Input
+									width="17vw"
+									size="lg"
+									clearable
+									name="last_name"
+									color="secondary"
+									label="Last Name"
+									placeholder="Enter your last name"
+									onChange={handleOnInputChange}
+								/>
+							</Grid>
+
+							<Grid>
+								<Input
+									width="35.5vw"
+									size="lg"
+									clearable
+									name="email"
+									type="email"
+									color="secondary"
+									label="Email"
+									placeholder="Enter your email"
+									onChange={handleOnInputChange}
+								/>
+							</Grid>
+
+							<Grid>
+								<Input.Password
+									width="17vw"
+									size="lg"
+									clearable
+									name="password"
+									color="secondary"
+									label="Password"
+									placeholder="Create a password"
+									onChange={handleOnInputChange}
+								/>
+							</Grid>
+
+							<Grid>
+								<Input.Password
+									disabled={!form?.password}
+									name="passwordConfirm"
+									width="17vw"
+									size="lg"
+									clearable
+									color="secondary"
+									label="Confirm Password"
+									placeholder="Confirm your password"
+									onChange={handleOnInputChange}
+								/>
+							</Grid>
+
+							<Grid>
+								<Input
+									width="16vw"
+									color="secondary"
+									name="birthday"
+									label="Select your birth date"
+									type="date"
+									onChange={(e) => handleOnInputChange(e)}
+								/>
+							</Grid>
+
+							<Grid>
+								<TitleSelection
+									label="Select your preferred title"
+									handleOnInputChange={handleOnInputChange}
+								/>
+							</Grid>
+
+							<Grid>
+								<Checkbox
+									css={{ width: "17vw" }}
+									defaultSelected={false}
+									color="gradient"
+									name="isManagerName"
+									size="sm"
+									onChange={(e) => {
+										setmanagerForm(e);
+										handleOnInputChange({ isManager: e });
+									}}
+								>
+									I am a manager
+								</Checkbox>
+							</Grid>
+
+							<Grid>
+								{managerForm == true ? (
+									<CompanySelection handleOnInputChange={handleOnInputChange} />
+								) : (
+									<>
+										<Input
+											css={{ marginLeft: "0.5vh" }}
+											name="token"
+											width="17vw"
+											size="lg"
+											clearable
+											color="secondary"
+											label="Manager Token"
+											placeholder="Enter your token (optional)"
+											onChange={handleOnInputChange}
+										/>
+									</>
+								)}
+							</Grid>
+
+							<Grid>
+								<Button
+									color="secondary"
+									onClick={handleOnSubmit}
+									css={{
+										marginTop: "0.5vw",
+										height: "2vw",
+										width: "15vw",
+										marginBottom: "0.3vw",
+										marginLeft: "10vw",
+									}}
+								>
+									{isProcessing == false ? (
+										<>Register</>
+									) : (
+										<>
+											<Loading type="default" />
+										</>
+									)}
+								</Button>
+							</Grid>
+
+							<Card.Divider></Card.Divider>
+
+							<Grid>
+								<Link
+									color="inherit"
+									href="https://slack.com/openid/connect/authorize?scope=openid%20profile%20email&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Flocalhost%3A5173%2Fslack&amp;client_id=3765144863393.3898834395927"
+									target="_blank"
+								>
+									<Button
+										color="secondary"
+										css={{
+											height: "2vw",
+											marginTop: "0.3vw",
+											width: "15vw",
+											background: "#4A154B",
+											marginLeft: "10vw",
+										}}
+										disabled={isProcessing == true ? true : false}
+									>
+										<img
+											src={SlackLogo}
+											width="20vw"
+											style={{ marginRight: "0.5vw" }}
+										/>
+										Sign in with Slack
+									</Button>
+								</Link>
+							</Grid>
+						</Grid.Container>
+					</Card.Body>
+					<Card.Footer
+						css={{
+							marginTop: "-1vh",
 							justifyContent: "center",
-							backgroundColor: color.platinum,
-							padding: "5vw",
-							borderRadius: "10px",
-							height: "50vh",
-							width: "40vw",
+							opacity: "0.4",
 						}}
 					>
-						<DomLink to="/">
-							<Avatar sx={{ m: 2 }}></Avatar>
-						</DomLink>
-						<Typography component="h1" variant="h5">
-							Create an account for SecuritTEA
-						</Typography>
-						<Box noValidate sx={{ mt: 1 }}>
-							<Grid container spacing={2}>
-								<Grid item xs={12} sm={6}>
-									<TextField
-										name="first_name"
-										required
-										fullWidth
-										label="First Name"
-										color="primary"
-										autoFocus
-										onChange={handleOnInputChange}
-									/>
-								</Grid>
-								<Grid item xs={12} sm={6}>
-									<TextField
-										required
-										fullWidth
-										color="primary"
-										label="Last Name"
-										name="last_name"
-										onChange={handleOnInputChange}
-									/>
-								</Grid>
-								<Grid item xs={12}>
-									<TextField
-										required
-										fullWidth
-										color="primary"
-										id="email"
-										label="Email Address"
-										name="email"
-										onChange={handleOnInputChange}
-										error={Boolean(errors?.email)}
-										helperText={errors?.email}
-									/>
-								</Grid>
-								<Grid item xs={12} sm={6}>
-									<TextField
-										name="password"
-										required
-										fullWidth
-										color="primary"
-										label="Password"
-										onChange={handleOnInputChange}
-										error={Boolean(errors?.passwordConfirm)}
-										type="password"
-									/>
-								</Grid>
-								<Grid item xs={12} sm={6}>
-									<TextField
-										required
-										color="primary"
-										fullWidth
-										label="Confirm Password"
-										name="passwordConfirm"
-										disabled={form.password?.length == 0}
-										onChange={handleOnInputChange}
-										type="password"
-										error={Boolean(errors?.passwordConfirm)}
-										helperText={errors?.passwordConfirm}
-									/>
-								</Grid>
-
-								<Grid item xs={12} sm={6}>
-									<FormControl required fullWidth>
-										<LocalizationProvider dateAdapter={AdapterDateFns}>
-											<DatePicker
-												label="Birthday"
-												name="birthday"
-												value={form.birthday || null}
-												disableFuture
-												mask="__/__/____"
-												onChange={(evt) => {
-													handleOnInputChange(evt);
-												}}
-												renderInput={(params) => <TextField {...params} />}
-											/>
-										</LocalizationProvider>
-									</FormControl>
-								</Grid>
-								<Grid item xs={6}>
-									<FormControl required fullWidth>
-										<InputLabel id="pref-title">Preferred Title</InputLabel>
-										<Select
-											labelId="pref-title"
-											id="title"
-											name="title"
-											value={form.title || ""}
-											label="Preferred Title"
-											onChange={handleOnInputChange}
-										>
-											<MenuItem value={"Mr."}>Mr.</MenuItem>
-											<MenuItem value={"Ms."}>Ms.</MenuItem>
-											<MenuItem value={"Mx."}>Mx.</MenuItem>
-											<MenuItem value={"Mrs."}>Mrs.</MenuItem>
-											<MenuItem value={"Miss"}>Miss</MenuItem>
-										</Select>
-									</FormControl>
-								</Grid>
-								<Grid item xs={6}>
-									<FormControlLabel
-										control={
-											<Checkbox
-												color="primary"
-												name="isManagerName"
-												onChange={handleOnInputChange}
-											/>
-										}
-										label="I am a manager"
-									/>
-								</Grid>
-								<Grid item xs={12} sm={6}>
-									{form.isManager ? (
-										<ManagerRegisterExtra
-											form={form}
-											handleOnInputChange={handleOnInputChange}
-										/>
-									) : (
-										<RegularRegisterExtra
-											handleOnInputChange={handleOnInputChange}
-										/>
-									)}
-								</Grid>
-							</Grid>
-							<Container
-								disableGutters
-								sx={{
-									marginTop: "2vh",
-									display: "flex",
-									flexDirection: "column",
-									textAlign: "center",
-								}}
-							>
-								<div style={{ color: color.errorRed }}>{errors.form}</div>
-								<Button
-									type="submit"
-									fullWidth
-									variant="contained"
-									disableRipple
-									color="primary"
-									sx={{ mt: 3, mb: 2 }}
-									onClick={handleOnSubmit}
-								>
-									<b style={{ color: color.platinum }}>Sign Up</b>
-								</Button>
-								<a href="https://slack.com/openid/connect/authorize?scope=openid%20profile%20email&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Flocalhost%3A5173%2Fslack&amp;client_id=3765144863393.3898834395927" target="_blank" ><img alt="Sign up with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
-							</Container>
-							<Grid container>
-								<Grid item>
-									<Typography variant="body2">Have an account?</Typography>
-									<Link href="/Login" variant="body2">
-										{" Sign In"}
-									</Link>
-								</Grid>
-							</Grid>
-						</Box>
-					</Box>
-					<Footer sx={{ mt: 8, mb: 4 }} />
-				</Container>
-			</ThemeProvider>
-		</Container>
+						<CredFooter />
+					</Card.Footer>
+				</Card>
+			</Container>
+		</>
 	);
 }
 
-export default Register;
+export default RegisterNew;
 
-function ManagerRegisterExtra(props) {
-	return (
-		<FormControl required fullWidth>
-			<InputLabel id="company-name">Company Name</InputLabel>
-			<Select
-				labelId="company-name"
-				id="company"
-				name="company"
-				value={props.form.company || ""}
-				label="Company Name"
-				onChange={props.handleOnInputChange}
-			>
-				<MenuItem value={"salesforce"}>Salesforce</MenuItem>
-				<MenuItem value={"codepath"}>Codepath</MenuItem>
-				<MenuItem value={"workday"}>Workday</MenuItem>
-			</Select>
-		</FormControl>
-	);
-}
-
-function RegularRegisterExtra(props) {
-	return (
-		<TextField
-			fullWidth
-			color="primary"
-			label="Manager Token (optional)"
-			name="token"
-			onChange={props.handleOnInputChange}
-		/>
-	);
-}
-
-function Footer(props) {
+function CredFooter(props) {
 	return (
 		<Typography variant="body2" align="center" {...props}>
 			{"Made with ❤️ by "}
@@ -292,5 +305,89 @@ function Footer(props) {
 			{new Date().getFullYear()}
 			{"."}
 		</Typography>
+	);
+}
+
+function CompanySelection({ handleOnInputChange }) {
+	const [selected, setSelected] = React.useState(new Set(["Select Company"]));
+
+	const selectedValue = React.useMemo(() => {
+		handleOnInputChange({
+			company: Array.from(selected).join(", ").replaceAll("_", " "),
+		});
+		return Array.from(selected).join(", ").replaceAll("_", " ");
+	}, [selected]);
+
+	return (
+		<>
+			<span>
+				<Text>Hey</Text>
+			</span>
+			<Dropdown>
+				<Dropdown.Button
+					flat
+					color="secondary"
+					css={{ tt: "capitalize", width: "17vw", marginLeft: "0.5vh" }}
+				>
+					{selectedValue}
+				</Dropdown.Button>
+				<Dropdown.Menu
+					aria-label="Company Selection"
+					color="secondary"
+					name="company"
+					disallowEmptySelection
+					selectionMode="single"
+					selectedKeys={selected}
+					onSelectionChange={setSelected}
+					label
+				>
+					<Dropdown.Item key="salesforce">Salesforce</Dropdown.Item>
+					<Dropdown.Item key="codepath">Codepath</Dropdown.Item>
+					<Dropdown.Item key="workday">Workday</Dropdown.Item>
+				</Dropdown.Menu>
+			</Dropdown>
+		</>
+	);
+}
+
+function TitleSelection({ label, handleOnInputChange }) {
+	const [selected, setSelected] = React.useState(new Set(["Preferred Title"]));
+	const selectedValue = React.useMemo(() => {
+		handleOnInputChange({
+			title: Array.from(selected).join(", ").replaceAll("_", " "),
+		});
+		return Array.from(selected).join(", ").replaceAll("_", " ");
+	}, [selected]);
+
+	return (
+		<NextContainer>
+			<Text size={15} color="secondary">
+				{label}
+			</Text>
+			<Dropdown>
+				<Dropdown.Button
+					flat
+					color="secondary"
+					css={{ tt: "capitalize", width: "17vw" }}
+				>
+					{selectedValue}
+				</Dropdown.Button>
+				<Dropdown.Menu
+					aria-label="Title selection"
+					color="secondary"
+					name="title"
+					disallowEmptySelection
+					selectionMode="single"
+					selectedKeys={selected}
+					onSelectionChange={setSelected}
+				>
+					<Dropdown.Item key="Mr.">Mr.</Dropdown.Item>
+					<Dropdown.Item key="Ms.">Ms.</Dropdown.Item>
+					<Dropdown.Item key="Mx.">Mx.</Dropdown.Item>
+					<Dropdown.Item key="Mrs.">Mrs.</Dropdown.Item>
+					<Dropdown.Item key="Miss">Miss</Dropdown.Item>
+				</Dropdown.Menu>
+			</Dropdown>
+		</NextContainer>
 	);
 }
