@@ -21,6 +21,7 @@ import SimulationPage3 from "../SimulationPage/SimulationPage3";
 import TipsPage from "../InternetTips/InternetTips";
 import PasswordPage from "../PasswordPage/PasswordPage";
 import Skeleton from "../AuthModulePage/Skeleton";
+import CertificatePage from "../SimulationPage/CertificatePage"
 //Libraries
 import { NextUIProvider, createTheme, Progress } from "@nextui-org/react";
 //Contexts
@@ -69,6 +70,7 @@ function App() {
           />
           <Route path="/Sim2" element={<SimulationPage2 />} />
           <Route path="/Sim3" element={<SimulationPage3 />} />
+          <Route path="/Done" element={<CertificatePage />} />
         </Routes>
       </BrowserRouter>
     </div>
