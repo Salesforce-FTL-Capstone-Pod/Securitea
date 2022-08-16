@@ -39,7 +39,6 @@ export const ControlContainer = ({ onSynthesize, inputText }) => {
       style={{
         display: "flex",
         justifyContent: "right",
-        display: "flex",
       }}
     >
       <Button

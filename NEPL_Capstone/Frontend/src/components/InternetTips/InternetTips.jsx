@@ -260,7 +260,7 @@ export function RightAnswer({ handler, visible, setVisible }) {
   };
 
   const nextHandler = async () => {
-    const respo = await API.addProgress("1");
+    const respo = await API.addProgress("2");
     setUser({ ...user, refresh: true });
     delete user.refresh;
   };
