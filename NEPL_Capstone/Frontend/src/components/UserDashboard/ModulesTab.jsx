@@ -92,6 +92,11 @@ export function ModuleDisplay({
 				My Modules
 			</Text>
 			<Grid.Container gap={2}>
+				{oneDone && twoDone ? <><>
+					<Grid>
+						<Text>You finished all of modules available!</Text>
+					</Grid>
+				</></> : <></>}
 				{!oneDone ? (
 					<Grid>
 						<AuthModuleCard
