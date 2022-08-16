@@ -37,13 +37,22 @@ function Simulation() {
         display: "flex ",
         flexDirection: "column",
         backgroundColor: color.platinum,
-        height: "145vh",
+        height: "175vh",
         width: "75%",
         marginTop: "100px",
         marginBottom: "100px",
       }}
     >
       <h1>Quiz 1</h1>
+      <p style={{fontSize:"130%"}}>
+        Phishing is a type of online scam that targets consumers by sending them
+        an e-mail that appears to be from a well-known source – an internet
+        service provider, a bank, or a mortgage company, for example. It asks
+        the consumer to provide personal identifying information. Then a scammer
+        uses the information to open new accounts, or invade the consumer’s
+        existing accounts.
+      </p>
+      <p style={{marginTop:"-1%", fontWeight:"bold"}}>While taking this quiz,look out for clues that stand out, email address, questionable request, and so on </p>
       <h2>What is going on :</h2>
       <p style={{ marginTop: "0vw" }}>
         - You have an email that is sent to you by someone who supposedly works
@@ -57,13 +66,13 @@ function Simulation() {
         phishing email
       </p>
 
-      <p style={{marginTop:"-1%"}}>
+      <p style={{ marginTop: "-1%" }}>
         Your answer choices for this simulation consist of:
         <li style={{ fontWeight: "bold" }}>
           A link = <img src={LinkButton} style={{ marginLeft: "1%" }} />
         </li>
         <li style={{ fontWeight: "bold" }}>
-          A report button located on the dropdown menu =ot
+          A report button located on the dropdown menu =
           <img src={dots} style={{ marginLeft: "1%" }} />
         </li>
       </p>
