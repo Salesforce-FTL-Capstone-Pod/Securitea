@@ -1,14 +1,6 @@
 import React from "react";
 import {
-	Grid,
 	Container,
-	Box,
-	AppBar,
-	Toolbar,
-	Typography,
-	Stack,
-	colors,
-	TextareaAutosize,
 } from "@mui/material";
 import * as color from "../../assets/colorPalette";
 import { Link, renderMatches } from "react-router-dom";
@@ -176,7 +168,7 @@ function EmailRender() {
 					<Dropdown.Button
 						size="xs"
 						color={color.platinum}
-						style={{ position: "relative", left: "94%", bottom: "72.2%" }}
+						style={{ position: "relative", left: "94%", bottom: "72.1%" }}
 					>
 						<img src={dots} style={{ display: "flex" }} />
 					</Dropdown.Button>
@@ -258,34 +250,34 @@ function RightAnswer({ handler, visible, setVisible }) {
 	};
 
 	return (
-		<div>
-			<Modal
-				closeButton
-				aria-labelledby="modal-title"
-				open={visible}
-				onClose={closeHandler}
-				width="35%"
-				css={{ display: "flex", justifyContent: "center" }}
-			>
-				<Modal.Header></Modal.Header>
-				<Modal.Body>
-					<img
-						src={Right}
-						style={{
-							display: "flex",
-							justifyContent: "center",
-						}}
-					/>
-				</Modal.Body>
-				<Modal.Footer>
-					<Button auto flat color="error" onClick={closeHandler}>
-						Close
-					</Button>
-					<Button auto flat color={color.languidLavender} onClick={nextHandler}>
-						Next
-					</Button>
-				</Modal.Footer>
-			</Modal>
-		</div>
-	);
+    <div>
+      <Modal
+        closeButton
+        aria-labelledby="modal-title"
+        open={visible}
+        onClose={closeHandler}
+        width="35%"
+        css={{ display: "flex", justifyContent: "center" }}
+      >
+        <Modal.Header></Modal.Header>
+        <Modal.Body>
+          <img
+            src={Right}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button auto flat color="error" onClick={closeHandler}>
+            Close
+          </Button>
+          <Button auto flat color={color.languidLavender} onClick={nextHandler}>
+            <Link to="/Sim2">Next</Link>
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
 }
