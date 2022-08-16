@@ -16,6 +16,7 @@ import TokenManagement from "./TokenManagement/TokenManagement.jsx";
 import EmployeeDisplay from "./EmployeeDisplay/EmployeeDisplay.jsx";
 import apiClient from "../../services/apiClient"
 import { useEffect } from "react";
+import backgroundImg from '../../assets/SecuriTEA-bg2.svg'
 const sizeBox = "65vw";
 
 export default function ManagerDashboard() {
@@ -24,22 +25,20 @@ export default function ManagerDashboard() {
   const navigate = useNavigate()
   const [employees, setEmployees] = useState()
   async function fetchEmployees(){
-    const { data } = await apiClient.fetchEmployees()
+    const { data }  = await apiClient.fetchEmployees()
     setEmployees(data)
 }
-
 // silly little function to capitalize first letter in company name for simiplicity on the backend
 
 function capitalizeCompany(company){
   return company.charAt(0).toUpperCase() + company.slice(1);
 }
-console.log(capitalizeCompany(user.company))
 
   useEffect(() => {
     fetchEmployees()
-  }, [selectedTab])
+  }, [user])
   return (
-    <Container maxWidth={false} disableGutters>
+    <Container maxWidth={false} disableGutters sx={{ backgroundImage: `url(${backgroundImg})` }}>
       <Navbar />
       <Overview user={user}/>
       <Grid.Container css={{flexDirection: "row"}}>
@@ -51,7 +50,7 @@ console.log(capitalizeCompany(user.company))
                 {/* {selectedTab == "Employee Activity" ? <EmployeeDisplay employees={employees} company={capitalizeCompany(user.company)} logo={user.logo} /> : <></>} */}
                 {selectedTab == "Overview" ? <DashboardOverview employees={employees} token={managerToken} company={capitalizeCompany(user.company)} logo={user.logo} /> : <></>}
                 {selectedTab == "Modules Assigned" ? <AssignedModules employees={employees} logo={user.logo} /> : <></>}
-                {selectedTab == "Token Management" ? <TokenManagement /> : <></>}
+                {/* {selectedTab == "Token Management" ? <TokenManagement /> : <></>} */}
                 {selectedTab == "User Dashboard" ? navigate('/UserDashboard') : <></>}
             </NextContainer>
         </Grid>
@@ -82,41 +81,3 @@ function Overview({ user }) {
   );
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/*
-        <EmployeeTable company={company} />
-
-<Collapse.Group splitted>
-<Collapse  title="Intro to Phishing" subtitle="2 Lessons, 1 Quiz, 2 Additional Resources">
-  <Text>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-    enim ad minim veniam, quis nostrud exercitation ullamco laboris
-    nisi ut aliquip ex ea commodo consequat.
-  </Text>
-</Collapse>
-</Collapse.Group> */}
-
-// <Collapse css={{ backgroundColor: "#ECEBEB"}} title={<><Text h3 b css={{ marginLeft: "1vw" }}>Intro to Phishing</Text></>} 
-// subtitle={<><Text h4 css={{ marginLeft: "1vw" }}>2 Lessons 1 Quiz, 2 Additional Resources</Text></>} >
-//     <Text css={{ marginLeft: "1vw"}}>
-//       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-//       eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-//       enim ad minim veniam, quis nostrud exercitation ullamco laboris
-//       nisi ut aliquip ex ea commodo consequat.
-//     </Text>
-//   </Collapse>

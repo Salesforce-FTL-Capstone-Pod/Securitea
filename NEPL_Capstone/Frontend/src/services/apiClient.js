@@ -76,19 +76,44 @@ class ApiClient {
 		});
 	}
 
-	async pingAllEmployees() {
+	async pingAllEmployees(credentials) {
+		console.log("CREDENTIALS ", credentials);
 		return await this.request({
 			endpoint: `manage/pingAll`,
 			method: `PATCH`,
+			data: { module: credentials },
+		});
+	}
+	async pingEmployee(email, modules) {
+		return await this.request({
+			endpoint: `manage/pingUser`,
+			method: `PATCH`,
+			data: { email: email, module: modules },
 		});
 	}
 
-	async addProgress(module_id) {
+	async addProgress(module) {
 		return await this.request({
 			endpoint: `progress/addProgress`,
 			method: `PATCH`,
-			data: { module_id: module_id },
+			data: { module: module },
 		});
+	}
+
+	async fetchSlackExchange(url, location) {
+		return await this.request({
+			endpoint: `auth/slackExchange`,
+			method: `POST`,
+			data: { url, location },
+		});
+	}
+
+	async fetchPingStatus(module){
+		return await this.request({
+			endpoint: `manage/amIPinged`,
+			method: `PATCH`,
+			data: {module: module}
+		})
 	}
 }
 

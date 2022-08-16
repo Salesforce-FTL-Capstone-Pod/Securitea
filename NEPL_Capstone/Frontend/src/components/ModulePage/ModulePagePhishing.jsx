@@ -22,28 +22,40 @@ import { Button as MUIButton } from "@mui/material";
 import { useAuthContext } from "../../contexts/auth";
 import { useProgressContext } from "../../contexts/progress";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import backgroundImg from '../../assets/SecuriTEA-bg4.svg'
 
 export default function ModulePagePhishing() {
 	const progress = useProgressContext();
 
 	const progressOne = progress?.progress?.progress["1"] || 0;
 	return (
-		<Container maxWidth={false} disableGutters>
+		<Container maxWidth={false} disableGutters sx={{backgroundImage: `url(${backgroundImg})`}}>
 			<Navbar />
-			<Overview progressPercent={progress.percentOne} />
+			<Overview progressPercent={progress.percentOne} progress={progress} />
 			<Content progressOne={progressOne} />
 			<Footer />
 		</Container>
 	);
 }
 
-function Overview({ progressPercent }) {
+function Overview({ progressPercent, progress }) {
 	const navigate = useNavigate();
 	const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } =
 		useLoginForm();
 	const [visible, setVisible] = React.useState(false);
 	const handler = () => setVisible(true);
 	const { user, handleLogout } = useAuthContext();
+
+	const handleContinue = () => {
+		if (progress?.progress?.progress["1"].progress === 0) {
+			navigate("/modules/demo");
+		} else if (progress?.progress?.progress["1"].progress === 1) {
+			navigate("../Sim2");
+		} else if (progress?.progress?.progress["1"].progress === 2) {
+			navigate("../Sim3");
+		}
+	};
 
 	return (
 		<Container
@@ -76,16 +88,18 @@ function Overview({ progressPercent }) {
 					Phishing
 				</Text>
 				{user?.email ? (
-					<Button color="secondary" css={{ marginTop: "0.5vw", height: "2vw" }}>
-						<Link to="/Modules/demo">
-							<Text
-								h4
-								weight="bold"
-								css={{ color: color.platinum, marginBottom: "0vw" }}
-							>
-								Continue
-							</Text>
-						</Link>
+					<Button
+						color="secondary"
+						onClick={handleContinue}
+						css={{ marginTop: "0.5vw", height: "2vw" }}
+					>
+						<Text
+							h4
+							weight="bold"
+							css={{ color: color.platinum, marginBottom: "0vw" }}
+						>
+							Continue
+						</Text>
 					</Button>
 				) : (
 					<Button
@@ -140,13 +154,13 @@ function Content({ progressOne }) {
 	function getCurrent() {
 		switch (progressOne?.progress || 0) {
 			case 0:
-				return <IntroToPhishing />;
+				return <IntroToPhishing progressOne={progressOne} />;
 			case 1:
-				return <PhishingFirstSim />;
+				return <PhishingFirstSim progressOne={progressOne} />;
 			case 2:
-				return <PhishingSecondSim />;
+				return <PhishingSecondSim progressOne={progressOne} />;
 			case 3:
-				return <PhishingThirdSim />;
+				return <PhishingThirdSim progressOne={progressOne} />;
 		}
 	}
 	return (
@@ -164,10 +178,10 @@ function Content({ progressOne }) {
 					Curriculum
 				</Text>
 				<Collapse.Group splitted accordion={true}>
-					<IntroToPhishing />
-					<PhishingFirstSim />
-					<PhishingSecondSim />
-					<PhishingThirdSim />
+					<IntroToPhishing progressOne={progressOne} />
+					<PhishingFirstSim progressOne={progressOne} />
+					<PhishingSecondSim progressOne={progressOne} />
+					<PhishingThirdSim progressOne={progressOne} />
 				</Collapse.Group>
 
 				<Text h1 css={{ marginTop: "1vw" }}>
@@ -196,9 +210,9 @@ function Content({ progressOne }) {
 	);
 }
 
-function IntroToPhishing() {
+function IntroToPhishing(progressOne) {
 	return (
-		<Collapse title="Intro to Phishing">
+		<Collapse contentLeft={progressOne > 0 ? <CheckCircleOutlineIcon/> : <></>} title="Intro to Phishing">
 			<Text>
 				This unit will give you a comprehensive explanation of what Phishing is
 				and how you detect it so that you may be safe on the internet.
@@ -207,9 +221,9 @@ function IntroToPhishing() {
 	);
 }
 
-function PhishingFirstSim() {
+function PhishingFirstSim(progressOne) {
 	return (
-		<Collapse title="Phishing: Quiz 1">
+		<Collapse  contentLeft={progressOne > 0 ? <CheckCircleOutlineIcon/> : <></>} title="Phishing: Quiz 1">
 			<Text>
 				This quiz will test your knowledge of phishing and how to be safe while
 				checking your emails.
@@ -218,9 +232,9 @@ function PhishingFirstSim() {
 	);
 }
 
-function PhishingSecondSim() {
+function PhishingSecondSim(progressOne) {
 	return (
-		<Collapse title="Phishing: Quiz 2">
+		<Collapse contentLeft={progressOne > 1 ? <CheckCircleOutlineIcon/> : <></>} title="Phishing: Quiz 2">
 			<Text>
 				This quiz will test your knowledge of phishing and how to be safe while
 				checking your emails.
@@ -229,9 +243,9 @@ function PhishingSecondSim() {
 	);
 }
 
-function PhishingThirdSim() {
+function PhishingThirdSim(progressOne) {
 	return (
-		<Collapse title="Phishing: Quiz 3">
+		<Collapse contentLeft={progressOne > 2 ? <CheckCircleOutlineIcon/> : <></>} title="Phishing: Quiz 3">
 			<Text>
 				This quiz will test your knowledge of phishing and how to be safe while
 				checking your emails.

@@ -3,17 +3,20 @@ import Logo from "../../assets/Logo.svg";
 import { Link } from "react-router-dom";
 import { Button, AppBar, Toolbar, Stack, Container } from "@mui/material";
 import { useAuthContext } from "../../contexts/auth";
-import { Dropdown, Avatar, Text, Grid, User, Spacer } from "@nextui-org/react";
+import { Dropdown, Avatar, Text, Grid, User, Spacer, Button as NButton } from "@nextui-org/react";
 import * as color from "../../assets/colorPalette.jsx";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SettingsModal from "../SettingsModal/SettingsModal";
+import NotificationsModal from "../NotificationsModal/NotificationsModal";
 import { Row, css } from "@nextui-org/react";
 import SettingsIcon from "@mui/icons-material/Settings";
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 export default function Navbar() {
-	const { user, handleLogout } = useAuthContext();
+	const { user, handleLogout, pings} = useAuthContext();
 	const [visible, setVisible] = React.useState(false);
+	const [pingsVisible, setPingsVisible] = React.useState(false)
 	const handler = () => setVisible(true);
+	const pingHandler = () => setPingsVisible(true)
 	return (
 		<AppBar sx={{ background: color.richBlackFogra }} position="sticky">
 			<Toolbar sx={{ height: "8vh", justifyContent: "space-between" }}>
@@ -26,26 +29,41 @@ export default function Navbar() {
 							color: color.platinum,
 							fontFamily: "Roboto, Helvetica,Arial,sans-serif",
 						}}
-						to="/"
+						to={user?.email ? "/UserDashboard" : "/"}
 					>
 						<img src={Logo} width="50vw" style={{ marginRight: "0.5vw" }} />
 						<h3 style={{ margin: "0" }}>SecuriTEA</h3>
 					</Link>
 					<Stack direction="row" spacing={3}>
 						<Button color="inherit" to="/Modules" component={Link}>
+							<Text color="white" size={20} weight="normal">
 							Modules
+							</Text>
 						</Button>
 						<Button color="inherit" to="/Resources" component={Link}>
+							<Text color="white" size={20} weight="normal">
 							Resources
+							</Text>
 						</Button>
-						<Button color="inherit" to="/Contact-us" component={Link}>
+						<Button color="inherit" to="/Contact-Us" component={Link}>
+							<Text color="white" size={20} weight="normal">
 							Contact Us
+							</Text>
 						</Button>
 					</Stack>
 				</div>
 				<div>
 					{user?.email ? (
 						<Row justify="space-between" css={{ alignItems: "center" }}>
+							<NotificationsIcon fontSize="large" onClick={pingHandler} sx={{ color: pings?.pinged1 !== true || pings?.pinged2 !== true ? "white" : color.blueBell }}/>
+							<NotificationsModal 
+								pings={pings}
+								handler={pingHandler}
+								visible={pingsVisible}
+								setVisible={setPingsVisible}
+								user={user}
+							/>
+							<Spacer></Spacer>
 							<SettingsIcon fontSize="large" onClick={handler} />
 							<Spacer></Spacer>
 							<SettingsModal
@@ -57,30 +75,32 @@ export default function Navbar() {
 						</Row>
 					) : (
 						<>
-							<Button
-								color="inherit"
-								to="/Login"
-								component={Link}
-								sx={{
-									border: `2px solid ${color.languidLavender}`,
-									marginRight: "1vw",
-									paddingLeft: "1vw",
-									paddingRight: "1vw",
+						<Row gap={1} justify='space-between'>
+							<a href="/login">
+							<NButton
+								bordered
+								size='sm'
+								ghost
+								color='secondary'
+								css={{
+									color: 'white',
 								}}
 							>
 								Login
-							</Button>
-							<Button
-								variant="contained"
-								to="/Register"
-								component={Link}
-								sx={{
-									backgroundColor: color.languidLavender,
-									color: color.richBlackFogra,
+							</NButton>
+							</a>
+							<a href='/register'>
+							<NButton
+								size='sm'
+								color="secondary"
+								css={{
+									color: "white",
 								}}
 							>
 								Sign Up
-							</Button>
+							</NButton>
+							</a>
+						</Row>
 						</>
 					)}
 				</div>

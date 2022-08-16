@@ -16,6 +16,7 @@ import {
 } from "@nextui-org/react";
 import { useProgressContext } from "../../contexts/progress";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function ModulesTab() {
 	const descriptionPhishing = `Phishing is a type of social engineering where an attacker send s a
@@ -30,6 +31,24 @@ function ModulesTab() {
 	const progressVal = progress || 0;
 	const oneDone = progressVal.percentOne === 100;
 	const twoDone = progressVal.percentTwo === 100;
+	const navigate = useNavigate();
+	const handleContinuePhish = () => {
+		if (progress?.progress?.progress["1"].progress === 0) {
+			navigate("/modules/demo");
+		} else if (progress?.progress?.progress["1"].progress === 1) {
+			navigate("../Sim2");
+		} else if (progress?.progress?.progress["1"].progress === 2) {
+			navigate("../Sim3");
+		}
+	};
+	const handleContinueTips = () => {
+		if (progress?.progress?.progress["2"].progress === 0) {
+			navigate("/modules/tips");
+		} else if (progress?.progress?.progress["2"].progress === 1) {
+			navigate("../PasswordPage");
+		}
+	};
+
 	return (
 		<>
 			<Grid>
@@ -39,6 +58,8 @@ function ModulesTab() {
 					progressVal={progressVal}
 					descriptionPhishing={descriptionPhishing}
 					descriptionTips={descriptionTips}
+					continueHandlerPhish={handleContinuePhish}
+					continueHandlerTips={handleContinueTips}
 				/>
 			</Grid>
 			<Grid>
@@ -48,6 +69,8 @@ function ModulesTab() {
 					progressVal={progressVal}
 					descriptionPhishing={descriptionPhishing}
 					descriptionTips={descriptionTips}
+					continueHandlerPhish={handleContinuePhish}
+					continueHandlerTips={handleContinueTips}
 				/>
 			</Grid>
 		</>
@@ -60,6 +83,8 @@ export function ModuleDisplay({
 	progressVal,
 	descriptionPhishing,
 	descriptionTips,
+	continueHandlerPhish,
+	continueHandlerTips,
 }) {
 	return (
 		<NextContainer fluid>
@@ -74,7 +99,7 @@ export function ModuleDisplay({
 							progressPercent={progressVal?.percentOne}
 							progress={progressVal?.progress?.progress["1"]}
 							description={descriptionPhishing}
-							route="/ModulePhishing"
+							continueHandler={continueHandlerPhish}
 						/>
 					</Grid>
 				) : null}
@@ -85,7 +110,7 @@ export function ModuleDisplay({
 							progressPercent={progressVal?.percentTwo}
 							progress={progressVal?.progress?.progress["2"]}
 							description={descriptionTips}
-							route="/ModuleTips"
+							continueHandler={continueHandlerTips}
 						/>
 					</Grid>
 				) : null}
@@ -100,6 +125,8 @@ function ModulesComplete({
 	progressVal,
 	descriptionPhishing,
 	descriptionTips,
+	continueHandlerPhish,
+	continueHandlerTips,
 }) {
 	return (
 		<NextContainer fluid>
@@ -114,7 +141,7 @@ function ModulesComplete({
 							progressPercent={progressVal?.percentOne}
 							progress={progressVal?.progress?.progress["1"]}
 							description={descriptionPhishing}
-							route="/ModulePhishing"
+							continueHandler={continueHandlerPhish}
 						/>
 					</Grid>
 				) : null}
@@ -125,10 +152,19 @@ function ModulesComplete({
 							progressPercent={progressVal?.percentTwo}
 							progress={progressVal?.progress?.progress["2"]}
 							description={descriptionTips}
-							route="/ModuleTips"
+							continueHandler={continueHandlerTips}
 						/>
 					</Grid>
 				) : null}
+				{!twoDone && !oneDone ? (
+					<>
+						<Grid>
+							<Text>None completed yet.</Text>
+						</Grid>
+					</>
+				) : (
+					<></>
+				)}
 			</Grid.Container>
 		</NextContainer>
 	);
@@ -139,7 +175,7 @@ function AuthModuleCard({
 	progress,
 	progressPercent,
 	description,
-	route,
+	continueHandler,
 }) {
 	return (
 		<Card isHoverable css={{ mw: "350px", bg: "$black" }}>
@@ -165,12 +201,10 @@ function AuthModuleCard({
 					<Button size="sm" bordered color="secondary">
 						Learn More
 					</Button>
-					<Spacer></Spacer>
-					<Link to={route || "/"} style={{ color: "#FFF" }}>
-						<Button size="sm" color="secondary">
-							Continue
-						</Button>
-					</Link>
+					<Spacer></Spacer>]
+					<Button size="sm" color="secondary" onClick={continueHandler}>
+						Continue
+					</Button>
 				</Row>
 			</Card.Footer>
 		</Card>
