@@ -136,8 +136,8 @@ function App() {
 					/>
 					<Route path="/Slack" element={<Slack />} />
 					<Route path="/Skele" element={<Skele />} />
-					{/* <Route path="/Sim2" element={<SimulationPage2 />} />
-          <Route path="/Sim3" element={<SimulationPage3 />} /> */}
+					<Route path="/Sim2" element={<SimulationPage2 />} />
+          <Route path="/Sim3" element={<SimulationPage3 />} />
 				</Routes>
 			</BrowserRouter>
 		</div>
