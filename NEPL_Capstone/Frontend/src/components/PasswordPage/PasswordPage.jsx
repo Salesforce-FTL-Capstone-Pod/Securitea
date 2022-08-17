@@ -334,14 +334,16 @@ function PasswordPage() {
                 <Container
                   style={{ justifyContent: "center", display: "flex" }}
                 >
-                  <Button
-                    sx={{
-                      color: color.blueBell,
-                      width: "10%",
-                    }}
-                  >
-                    <ArrowForwardIosIcon />
-                  </Button>
+                  <Link to="/UserDashboard">
+                    <Button
+                      sx={{
+                        color: color.blueBell,
+                        width: "10%",
+                      }}
+                    >
+                      <ArrowForwardIosIcon />
+                    </Button>
+                  </Link>
                 </Container>
               </Container>
             </Card>
