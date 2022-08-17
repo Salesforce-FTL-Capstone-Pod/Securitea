@@ -68,7 +68,7 @@ function App() {
             client_id: clientID,
             client_secret: clientSecret,
             code: searchParams.get("code"),
-            redirect_uri: "https://localhost:5173/slack",
+            redirect_uri: "https://securitea.surge.sh/slack",
         }).toString();
         useEffect(() => {
             setslackCode(searchParams.get("code"));
