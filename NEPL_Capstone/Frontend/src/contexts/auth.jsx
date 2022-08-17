@@ -15,7 +15,7 @@ export const AuthContextProvider = ({ children }) => {
 		switch (user.company) {
 			case "salesforce":
 				logo =
-					"https://logos-world.net/wp-content/uploads/2020/10/Salesforce-Emblem.png";
+					"https://www.salesforce.com/news/wp-content/uploads/sites/3/2021/05/Salesforce-logo.jpg";
 				break;
 			case "workday":
 				logo =
