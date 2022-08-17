@@ -24,8 +24,6 @@ import {
   canPlayAudioFormat,
   getSearchParams,
 } from "../../../../Backend/utils/ttsUtils";
-import { useAuthContext } from "../../contexts/auth";
-import API from "../../services/apiClient";
 import ControlContainer from "../ControlContainer/ControlContainer";
 import OutputContainer from "../OutputContainer/OutputContainer";
 

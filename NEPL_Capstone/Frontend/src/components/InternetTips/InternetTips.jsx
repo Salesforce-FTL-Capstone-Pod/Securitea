@@ -392,19 +392,8 @@ export function WrongPopUp({ handler, visible, setVisible }) {
             }}
           >
             <h1 style={{ fontSize: "200%", color: color.errorRed }}>
-              Not Quite right
+              Not Quite right, try again! :)
             </h1>
-            <p>
-              This link could have lead to a virus installation on your device
-              and caused a lot of trouble.
-            </p>
-            <p>
-              The best way to check if a link is safe is to use a Link scanner
-              such as:{" "}
-              <a href="https://www.urlvoid.com/" target="_blank">
-                URLVOID
-              </a>
-            </p>
           </Text>
         </Modal.Body>
         <Modal.Footer>
@@ -450,15 +439,8 @@ export function RightAnswer({ handler, visible, setVisible }) {
           >
             <h1 style={{ fontSize: "200%", color: "green" }}>Good Job</h1>
             <p>
-              Great catch, this email is a phishing email because the address
-              stated in the message is not the same as an actual salesforce
-              address
-            </p>
-            <p style={{ fontWeight: "bold" }}>
-              Salesforce Email: username@salesforce.com ✅
-            </p>
-            <p style={{ fontWeight: "bold" }}>
-              Fake Email: naner@salesforc3.com ❌
+              Correct! Making sure the lock and the "https" is included in the
+              link will help you stay on safe internet pages!
             </p>
           </Text>
         </Modal.Body>
