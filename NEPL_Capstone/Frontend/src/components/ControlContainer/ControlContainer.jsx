@@ -49,7 +49,7 @@ export const ControlContainer = ({ onSynthesize, inputText }) => {
           onSynthesize(text, selectedVoice);
         }}
       >
-        <img src={Speaker} />
+        <img src={Speaker} style={{ marginRight: "6px" }} />
       </Button>
     </Container>
   );

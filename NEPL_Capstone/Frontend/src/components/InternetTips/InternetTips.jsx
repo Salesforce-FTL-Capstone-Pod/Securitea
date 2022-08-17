@@ -8,12 +8,23 @@ import {
   RadioGroup,
   Typography,
 } from "@mui/material";
+import {
+  Text,
+  Progress,
+  Collapse,
+  Row,
+  Grid,
+  Card,
+  Spacer,
+  Container as NextContainer,
+} from "@nextui-org/react";
 import { Modal } from "@nextui-org/react";
 import Right from "../../assets/Right.svg";
 import Wrong from "../../assets/Wrong.svg";
 import * as color from "../../assets/colorPalette";
 import { useAuthContext } from "../../contexts/auth";
 import API from "../../services/apiClient";
+import backgroundImg from "../../assets/SecuriTEA-bg2.svg";
 
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
@@ -30,6 +41,7 @@ import right from "../../assets/right.png";
 import wrong from "../../assets/wrong.png";
 
 import { useState, useRef } from "react";
+import { Box } from "@mui/system";
 
 export default function TipsPage() {
   return (
@@ -41,7 +53,8 @@ export default function TipsPage() {
   );
 }
 
-export function InternetTips() {
+export function InternetTips({ progressPercent, progress }) {
+  const sizeBox = "65vw";
   const { form, errors, isProcessing, handleOnInputChange, handleOnSubmit } =
     useLoginForm();
 
@@ -97,6 +110,7 @@ export function InternetTips() {
       }
 
       //CHANGE LOCAL HOST
+      console.log(params.toString());
       return `http://localhost:3001/tts/api/synthesize?${params.toString()}`;
     } catch (err) {}
   };
@@ -116,106 +130,241 @@ export function InternetTips() {
     <>
       <Container
         maxWidth={false}
-        style={{
-          display: "flex ",
-          backgroundColor: color.platinum,
-          height: "100%",
-          width: "75%",
-          marginTop: "100px",
+        disableGutters
+        sx={{
+          minWidth: "100vh",
+          minHeight: "100vh",
+          backgroundImage: `url(${backgroundImg})`,
         }}
       >
-        <ControlContainer onSynthesize={onSynthesize} inputText={tipsText} />
-        <OutputContainer audioElementRef={audioElementRef} />
-      </Container>
-      <Container
-        maxWidth={false}
-        style={{
-          display: "flex ",
-          flexDirection: "column",
-          backgroundColor: color.platinum,
-          height: "100%",
-          width: "75%",
-          marginBottom: "100px",
-        }}
-        className="service-container"
-      >
-        <h1>Internet Tips</h1>
+        <Container
+          maxWidth={false}
+          disableGutters
+          sx={{
+            backgroundColor: color.richBlackFogra,
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Container
+            maxWidth={false}
+            style={{
+              marginBottom: "4vw",
+              marginTop: "1vw",
 
-        {/* FIX THIS  */}
+              width: "77.1%",
+            }}
+          >
+            <Text
+              h3
+              weight="light"
+              css={{
+                color: color.platinum,
+                marginBottom: "0vw",
+              }}
+            >
+              Module
+            </Text>
+            <Text
+              h1
+              css={{
+                color: color.platinum,
+                marginTop: "-0.5vw",
+                marginBottom: "0vw",
+              }}
+            >
+              INTERNET SAFETY TIPS
+            </Text>
 
-        <p>
-          The best way to keep your companies and your personal data secure is
-          by following these following tips:
-        </p>
-        <Container>
-          <li>Do not step away from your workstation without locking it</li>
-          <li>
-            Make sure websites you visit have "https" and a lock beside it
-          </li>
-          <li>NEVER open weird or out of the ordinary links and attachments</li>
-          <li>Create strong passwords with the next steps</li>
+            <Text
+              h3
+              css={{
+                color: color.platinum,
+                marginTop: "1vw",
+                marginBottom: "1vw",
+              }}
+              weight="light"
+            >
+              Learn how to protect yourself on the internet!
+            </Text>
+          </Container>
         </Container>
 
+        {/* DROPDOWN */}
+
+        <CurrUnit />
         <Container
+          maxWidth={false}
           style={{
             display: "flex",
             justifyContent: "center",
-            flexDirection: "column",
           }}
         >
-          <FormControl>
-            <RadioGroup>
-              <Container
-                style={{
-                  opacity: "0.8",
-                  justifyContent: "center",
-                }}
-              >
-                <img src={right} width={"400vh"} height={"50vh"} />
-              </Container>
-              <FormControlLabel
-                control={<Radio onChange={() => setAnswer("right")} />}
-                value="right"
-              />
-
-              <Container style={{ width: "25%" }}></Container>
-
-              <Container
-                style={{
-                  opacity: "0.8",
-                  justifyContent: "center",
-                }}
-              >
-                <img src={wrong} width={"400vh"} height={"50vh"} />
-              </Container>
-              <FormControlLabel
-                control={<Radio onChange={() => setAnswer("wrong")} />}
-                value="wrong"
-              />
-            </RadioGroup>
-          </FormControl>
-
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Card
+            maxWidth={false}
+            style={{
+              display: "flex ",
+              backgroundColor: color.platinum,
+              height: "100%",
+              width: "74.3%",
+              marginTop: "100px",
+              borderRadius: "15px 15px 0px 0px",
+            }}
+          >
+            <ControlContainer
+              onSynthesize={onSynthesize}
+              inputText={tipsText}
+            />
+            <OutputContainer audioElementRef={audioElementRef} />
+          </Card>
         </Container>
 
-        <br></br>
-        <br></br>
+        <Container
+          maxWidth={false}
+          style={{
+            width: "75%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Card
+            maxWidth={false}
+            style={{
+              display: "flex ",
+              flexDirection: "column",
+              backgroundColor: color.platinum,
+              height: "100%",
+              borderRadius: "0px 0px 15px 15px",
+              marginBottom: "100px",
+            }}
+            className="service-container"
+          >
+            {/* FIX THIS  */}
 
-        <RightAnswer
-          handler={handler}
-          visible={visible2}
-          setVisible={setVisible2}
-          style={{ width: "10%" }}
-        />
+            <Text h2>How can you stay safe on the internet?</Text>
+            <Text h3>
+              Following these simple tips will better your chances of staying
+              safe online!
+            </Text>
+            <Container
+              maxWidth={false}
+              style={{
+                display: "flex",
+                width: "100%",
+                marginLeft: "-1.8vh",
+                marginTop: "-3vh",
+              }}
+            >
+              <Row gap={1}>
+                <Collapse css={{ width: "25%" }} shadow title="Tip 1">
+                  Do not step away from your workstation without locking it
+                </Collapse>
+                <Spacer></Spacer>
+                <Collapse css={{ width: "25%" }} shadow title="Tip 2">
+                  NEVER open weird or out of the ordinary links and attachments
+                </Collapse>
+                <Spacer></Spacer>
+                <Collapse css={{ width: "25%" }} shadow title="Tip 3">
+                  Make sure websites you visit have "https" and a lock beside it
+                </Collapse>
+                <Spacer></Spacer>
+                <Collapse css={{ width: "25%" }} shadow title="Tip 4">
+                  Create strong passwords with the next steps
+                </Collapse>
+              </Row>
+            </Container>
 
-        <WrongPopUp
-          handler={handler}
-          visible={visible}
-          setVisible={setVisible}
-          style={{ width: "10%" }}
-        />
+            <Container
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+              }}
+            >
+              <FormControl>
+                <RadioGroup>
+                  <Container
+                    style={{
+                      opacity: "0.8",
+                      justifyContent: "center",
+                      display: "flex",
+                    }}
+                  >
+                    <img src={right} width={"400vh"} height={"50vh"} />
+                  </Container>
+                  <FormControlLabel
+                    control={<Radio onChange={() => setAnswer("right")} />}
+                    value="right"
+                    style={{ display: "flex", justifyContent: "center" }}
+                  />
+
+                  <Container
+                    style={{
+                      opacity: "0.8",
+                      justifyContent: "center",
+                      display: "flex",
+                    }}
+                  >
+                    <img src={wrong} width={"400vh"} height={"50vh"} />
+                  </Container>
+                  <FormControlLabel
+                    control={<Radio onChange={() => setAnswer("wrong")} />}
+                    value="wrong"
+                    style={{ display: "flex", justifyContent: "center" }}
+                  />
+                </RadioGroup>
+              </FormControl>
+
+              <Button
+                onClick={handleSubmit}
+                style={{ background: color.blueBell, color: "black" }}
+              >
+                Submit
+              </Button>
+            </Container>
+
+            <br></br>
+            <br></br>
+
+            <RightAnswer
+              handler={handler}
+              visible={visible2}
+              setVisible={setVisible2}
+              style={{ width: "10%" }}
+            />
+
+            <WrongPopUp
+              handler={handler}
+              visible={visible}
+              setVisible={setVisible}
+              style={{ width: "10%" }}
+            />
+          </Card>
+        </Container>
       </Container>
     </>
+  );
+}
+
+export function CurrUnit({ progressOne }) {
+  return (
+    <Container maxWidth={false} style={{ width: "77.1%" }}>
+      <Text h1 css={{ marginTop: "1vw" }}>
+        Overview
+      </Text>
+      <Collapse.Group splitted>
+        <Collapse title="Summary" shadow sx={{}}>
+          <Text>
+            Web security is important to keeping hackers and cyber-thieves from
+            accessing sensitive information. Without a proactive security
+            strategy, businesses risk the spread and escalation of malware,
+            attacks on other websites, networks, and other IT infrastructures.
+            If a hacker is successful, attacks can spread from computer to
+            computer, making it difficult to find the origin.
+          </Text>
+        </Collapse>
+      </Collapse.Group>
+    </Container>
   );
 }
 
@@ -235,13 +384,28 @@ export function WrongPopUp({ handler, visible, setVisible }) {
       >
         <Modal.Header></Modal.Header>
         <Modal.Body>
-          <img
-            src={Wrong}
-            style={{
+          <Text
+            css={{
               display: "flex",
               justifyContent: "center",
+              flexDirection: "column",
             }}
-          />
+          >
+            <h1 style={{ fontSize: "200%", color: color.errorRed }}>
+              Not Quite right
+            </h1>
+            <p>
+              This link could have lead to a virus installation on your device
+              and caused a lot of trouble.
+            </p>
+            <p>
+              The best way to check if a link is safe is to use a Link scanner
+              such as:{" "}
+              <a href="https://www.urlvoid.com/" target="_blank">
+                URLVOID
+              </a>
+            </p>
+          </Text>
         </Modal.Body>
         <Modal.Footer>
           <Button auto flat color="error" onClick={closeHandler}>
@@ -260,7 +424,7 @@ export function RightAnswer({ handler, visible, setVisible }) {
   };
 
   const nextHandler = async () => {
-    const respo = await API.addProgress("2");
+    const respo = await API.addProgress("1");
     setUser({ ...user, refresh: true });
     delete user.refresh;
   };
@@ -277,19 +441,29 @@ export function RightAnswer({ handler, visible, setVisible }) {
       >
         <Modal.Header></Modal.Header>
         <Modal.Body>
-          <img
-            src={Right}
-            style={{
+          <Text
+            css={{
               display: "flex",
               justifyContent: "center",
+              flexDirection: "column",
             }}
-          />
+          >
+            <h1 style={{ fontSize: "200%", color: "green" }}>Good Job</h1>
+            <p>
+              Great catch, this email is a phishing email because the address
+              stated in the message is not the same as an actual salesforce
+              address
+            </p>
+            <p style={{ fontWeight: "bold" }}>
+              Salesforce Email: username@salesforce.com ✅
+            </p>
+            <p style={{ fontWeight: "bold" }}>
+              Fake Email: naner@salesforc3.com ❌
+            </p>
+          </Text>
         </Modal.Body>
         <Modal.Footer>
-          <Button color="error" onClick={closeHandler}>
-            Close
-          </Button>
-          <Button onClick={nextHandler}>
+          <Button auto flat onClick={nextHandler}>
             <Link to="/PasswordPage">Next</Link>
           </Button>
         </Modal.Footer>
