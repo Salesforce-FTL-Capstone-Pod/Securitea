@@ -8,6 +8,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { Card, Collapse, Text } from "@nextui-org/react";
+import { Link } from "react-router-dom";
 import * as color from "../../assets/colorPalette";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
