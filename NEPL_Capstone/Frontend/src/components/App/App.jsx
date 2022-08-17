@@ -27,7 +27,9 @@ import SimulationPage3 from "../SimulationPage/SimulationPage3";
 import TipsPage from "../InternetTips/InternetTips";
 import PasswordPage from "../PasswordPage/PasswordPage";
 import Skeleton from "../AuthModulePage/Skeleton";
+
 import Skele from "../Skele/Skele";
+
 //Libraries
 import {
 	NextUIProvider,
@@ -56,6 +58,7 @@ export default function AppContainer() {
 	);
 }
 function App() {
+
 	function Slack() {
 		const navigate = useNavigate();
 		const { user, setUser, setInitialized } = useAuthContext();
@@ -142,6 +145,7 @@ function App() {
 			</BrowserRouter>
 		</div>
 	);
+
 }
 const theme = createTheme({
 	type: "light",

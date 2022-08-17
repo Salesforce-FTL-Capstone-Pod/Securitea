@@ -91,6 +91,14 @@ function Simulation() {
       }}
     >
       <h1>Quiz 2</h1>
+      <p style={{ fontSize: "130%" }}>
+       Most emails are not hard to see as real emails. A good way to know is if the email
+        in question is from a company domain, if the email is from someone within the company, try contacting them throught the companies global contacting system.
+      </p>
+      <p style={{ marginTop: "-1%", fontWeight: "bold" }}>
+        While taking this quiz,look out for clues that stand out, email address,
+        questionable request, and so on{" "}
+      </p>
       <h2>What is going on :</h2>
       <p style={{ marginTop: "0vw" }}>
         - You have been sent an email invitation to a google meet to prep for
@@ -102,7 +110,7 @@ function Simulation() {
         read the content, and make the decision if this is a good email, or a
         phishing email
       </p>
-      <p style={{marginTop:"-1%"}}>
+      <p style={{ marginTop: "-1%" }}>
         Your answer choices for this simulation consist of:
         <li style={{ fontWeight: "bold" }}>
           A button that accepts invite ={" "}
