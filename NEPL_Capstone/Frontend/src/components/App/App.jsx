@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useSearchParams,
+	BrowserRouter,
+	Routes,
+	Route,
+	useSearchParams,
 } from "react-router-dom";
 import "./App.css";
 import axios from "axios";
@@ -32,12 +32,12 @@ import Skele from "../Skele/Skele";
 
 //Libraries
 import {
-  NextUIProvider,
-  createTheme,
-  Progress,
-  Container,
-  Text,
-  Card,
+	NextUIProvider,
+	createTheme,
+	Progress,
+	Container,
+	Text,
+	Card,
 } from "@nextui-org/react";
 import apiClient from "../../services/apiClient";
 //Contexts
@@ -46,34 +46,18 @@ import { ProgressContextProvider } from "../../contexts/progress";
 import ManagerDashboard from "../ManagerDashboard/ManagerDashboard";
 import { useAuthContext } from "../../contexts/auth";
 import { useNavigate } from "react-router-dom";
-import Skele from "../TryingStyling/Skele";
 export default function AppContainer() {
-  return (
-    <NextUIProvider theme={theme}>
-      <AuthContextProvider>
-        <ProgressContextProvider>
-          <App />
-        </ProgressContextProvider>
-      </AuthContextProvider>
-    </NextUIProvider>
-  );
+	return (
+		<NextUIProvider theme={theme}>
+			<AuthContextProvider>
+				<ProgressContextProvider>
+					<App />
+				</ProgressContextProvider>
+			</AuthContextProvider>
+		</NextUIProvider>
+	);
 }
 function App() {
-  function Slack() {
-    const navigate = useNavigate();
-    const { user, setUser, setInitialized } = useAuthContext();
-    const [test, setTest] = useState();
-    let [searchParams, setSearchParams] = useSearchParams();
-    const [slackCode, setslackCode] = useState();
-    let clientID = "3765144863393.3898834395927";
-    let clientSecret = "30d55b4db0a30e1bedd5cb6c478b60e9";
-    const params = new URLSearchParams({
-      client_id: clientID,
-      client_secret: clientSecret,
-      code: searchParams.get("code"),
-      redirect_uri: "https://localhost:5173/slack",
-    }).toString();
-
 
 	function Slack() {
 		const navigate = useNavigate();
@@ -108,24 +92,22 @@ function App() {
 			navigate("/UserDashboard");
 		}
 
-
-    return (
-      <Container fluid>
-        <Card css={{ background: "white", marginTop: "15vh" }} variant="flat">
-          <Text size={35} weight="normal" css={{ textAlign: "center" }}>
-            Setting up your account {`;)`}
-          </Text>
-          <Progress
-            size="sm"
-            indeterminated
-            value={20}
-            color="gradient"
-          ></Progress>
-        </Card>
-      </Container>
-    );
-  }
-
+		return (
+			<Container fluid>
+				<Card css={{ background: "white", marginTop: "15vh" }} variant="flat">
+					<Text size={35} weight="normal" css={{ textAlign: "center" }}>
+						Setting up your account {`;)`}
+					</Text>
+					<Progress
+						size="sm"
+						indeterminated
+						value={20}
+						color="gradient"
+					></Progress>
+				</Card>
+			</Container>
+		);
+	}
 
 	return (
 		<div className="App">
@@ -164,22 +146,21 @@ function App() {
 		</div>
 	);
 
-
 }
 const theme = createTheme({
-  type: "light",
-  theme: {
-    colors: {
-      platinum: color.platinum,
-      black: color.richBlackFogra,
-      lightpurple: color.languidLavender,
-      medpurple: color.blueBell,
-      darkpurple: color.maximumBluePurple,
-    },
-    space: {},
-    fonts: {
-      wee: "Roboto",
-      mono: "Open Sans",
-    },
-  },
+	type: "light",
+	theme: {
+		colors: {
+			platinum: color.platinum,
+			black: color.richBlackFogra,
+			lightpurple: color.languidLavender,
+			medpurple: color.blueBell,
+			darkpurple: color.maximumBluePurple,
+		},
+		space: {},
+		fonts: {
+			wee: "Roboto",
+			mono: "Open Sans",
+		},
+	},
 });
