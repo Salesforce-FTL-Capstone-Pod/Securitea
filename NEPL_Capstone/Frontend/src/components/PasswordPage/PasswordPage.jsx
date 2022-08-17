@@ -97,7 +97,7 @@ function PasswordPage() {
       }
 
       //CHANGE LOCAL HOST
-      return `http://localhost:3001/tts/api/synthesize?${params.toString()}`;
+      return `https://securitea.herokuapp.com/tts/api/synthesize?${params.toString()}`;
     } catch (err) {}
   };
 

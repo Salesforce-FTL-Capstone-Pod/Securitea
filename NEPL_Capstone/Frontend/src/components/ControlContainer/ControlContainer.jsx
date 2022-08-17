@@ -16,7 +16,7 @@ export const ControlContainer = ({ onSynthesize, inputText }) => {
 
   //FIX AXIOS REQ
   useEffect(() => {
-    axios("http://localhost:3001/tts/api/voices")
+    axios("https://securitea.herokuapp.com/tts/api/voices")
       .then(({ data }) => setVoices(data.voices))
       .catch((err) => {})
       .finally(setIsLoading(false));
