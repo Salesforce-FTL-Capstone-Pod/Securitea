@@ -3,11 +3,25 @@ import { useState } from 'react'
 import { Grid, Card, Text, Container, Tooltip } from "@nextui-org/react"
 import RepTable from '../EmployeeTable/RepTable.jsx';
 import EmployeeDisplay from '../EmployeeDisplay/EmployeeDisplay.jsx';
-function DashboardOverview({ employees, token, company, logo }) {
+import { useEffect } from 'react';
+import apiClient from '../../../services/apiClient.js';
+function DashboardOverview({ employees, company, logo }) {
+  const [token, setToken] = useState('')
   let employeeCount = 0
   if (employees){
     employeeCount = employees.info.totalMembers
   }
+
+  useEffect(() => {
+    if (company){
+      async function getToken(){
+      const mangToken = await apiClient.fetchManagerToken();
+      console.log(mangToken)
+      setToken(mangToken.data.managerToken);
+      }
+      getToken()
+    }
+  })
     const OverviewCard = ({ header, content, type }) => {
       const [tokenText, settokenText] = useState("View Token")
       function changeText(e){

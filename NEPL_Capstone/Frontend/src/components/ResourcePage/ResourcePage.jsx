@@ -14,7 +14,7 @@ import * as color from "../../assets/colorPalette";
 import { Link } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
-
+import { Button as NButton } from "@nextui-org/react"
 import Microsoft from "../../assets/Microsoft.svg";
 import ACCC from "../../assets/ACCC.svg";
 import FTC from "../../assets/FTC.svg";
@@ -77,13 +77,9 @@ function Resources() {
 							law enforcement, advocacy, and education without unduly burdening
 							legitimate business activity.
 						</p>
-						<Button
-							variant="contained"
-							sx={{
-								backgroundColor: color.languidLavender,
-								color: color.languidLavender,
-								marginTop: "1vw",
-							}}
+						<NButton
+							auto
+							css={{ color: "white" }}
 						>
 							<a
 								href="https://www.ftc.gov/news-events/topics/identity-theft/phishing-scams"
@@ -91,7 +87,7 @@ function Resources() {
 							>
 								VIEW MORE
 							</a>
-						</Button>
+						</NButton>
 					</Container>
 				</Container>
 				<hr style={{ backgroundColor: "#B7B5E4" }}></hr>
@@ -106,12 +102,9 @@ function Resources() {
 							consumers, small businesses and industry in understanding and
 							preventing harm from scams.
 						</p>
-						<Button
-							variant="contained"
-							sx={{
-								backgroundColor: color.languidLavender,
-								marginTop: "1vw",
-							}}
+						<NButton
+							auto
+							css={{ color: "white" }}
 						>
 							<a
 								href="https://www.scamwatch.gov.au/types-of-scams/attempts-to-gain-your-personal-information/phishing"
@@ -119,7 +112,7 @@ function Resources() {
 							>
 								VIEW MORE
 							</a>
-						</Button>
+						</NButton>
 					</Container>
 				</Container>
 				<hr style={{ backgroundColor: "#B7B5E4" }} />
@@ -136,12 +129,9 @@ function Resources() {
 							headquartered at the Microsoft Redmond campus located in Redmond,
 							Washington, United States.
 						</p>
-						<Button
-							variant="contained"
-							sx={{
-								backgroundColor: color.languidLavender,
-								marginTop: "1vw",
-							}}
+						<NButton
+							auto
+							css={{ color: "white" }}
 						>
 							<a
 								href="https://support.microsoft.com/en-us/windows/protect-yourself-from-phishing-0c7ea947-ba98-3bd9-7184-430e1f860a44"
@@ -149,7 +139,7 @@ function Resources() {
 							>
 								VIEW MORE
 							</a>
-						</Button>
+						</NButton>
 					</Container>
 				</Container>
 			</Container>

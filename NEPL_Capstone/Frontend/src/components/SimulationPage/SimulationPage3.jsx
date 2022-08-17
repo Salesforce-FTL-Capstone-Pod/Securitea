@@ -291,12 +291,12 @@ function WrongPopUp({ handler, visible, setVisible }) {
             </h1>
             <p>Woah there, this is not the way to go </p>
             <p style={{ fontWeight: "bold" }}>
-              There are many signs this is a Phising email:
+              There are many signs this is a Phishing email:
             </p>
             <Text css={{ marginTop: "-5%" }}>
               <p>- The subject of the email is very agressive </p>
               <p>- The email address is not a salesforce address </p>
-              <p>- There are some grammer and spelling mistakes </p>
+              <p>- There are some grammar and spelling mistakes </p>
             </Text>
           </Text>
         </Modal.Body>
