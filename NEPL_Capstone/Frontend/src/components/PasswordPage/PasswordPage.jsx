@@ -8,6 +8,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { Card, Collapse, Text } from "@nextui-org/react";
+import { Link } from "react-router-dom";
 import * as color from "../../assets/colorPalette";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
@@ -334,14 +335,16 @@ function PasswordPage() {
                 <Container
                   style={{ justifyContent: "center", display: "flex" }}
                 >
-                  <Button
-                    sx={{
-                      color: color.blueBell,
-                      width: "10%",
-                    }}
-                  >
-                    <ArrowForwardIosIcon />
-                  </Button>
+                  <Link to="/UserDashboard">
+                    <Button
+                      sx={{
+                        color: color.blueBell,
+                        width: "10%",
+                      }}
+                    >
+                      <ArrowForwardIosIcon />
+                    </Button>
+                  </Link>
                 </Container>
               </Container>
             </Card>
