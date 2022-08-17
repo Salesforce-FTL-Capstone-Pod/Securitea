@@ -11,6 +11,7 @@ import { Card, Collapse, Text } from "@nextui-org/react";
 import * as color from "../../assets/colorPalette";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import backgroundImg from "../../assets/SecuriTEA-bg2.svg";
 import Speaker from "../../assets/Speaker.svg";
 import { useLoginForm } from "../../hooks/useLoginForm";
@@ -19,6 +20,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useState, useRef } from "react";
 import { Spacer } from "@nextui-org/react";
+import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 
 import {
   canPlayAudioFormat,
@@ -188,7 +190,7 @@ function PasswordPage() {
             style={{
               display: "flex",
               justifyContent: "center",
-
+              marginBottom: "100px",
               flexDirection: "column",
               alignItems: "center",
             }}
@@ -219,7 +221,6 @@ function PasswordPage() {
                 height: "100%",
                 width: "74.3%",
                 borderRadius: "0px 0px 15px 15px",
-                marginBottom: "100px",
               }}
               className="service-container"
             >
@@ -324,9 +325,24 @@ function PasswordPage() {
                   onClick={() =>
                     navigator.clipboard.writeText(generatedPassword)
                   }
+                  style={{ color: color.richBlackFogra }}
                 >
+                  <ContentPasteIcon />
+                  <Spacer></Spacer>
                   Copy to Clipboard
                 </Button>
+                <Container
+                  style={{ justifyContent: "center", display: "flex" }}
+                >
+                  <Button
+                    sx={{
+                      color: color.blueBell,
+                      width: "10%",
+                    }}
+                  >
+                    <ArrowForwardIosIcon />
+                  </Button>
+                </Container>
               </Container>
             </Card>
           </Container>
