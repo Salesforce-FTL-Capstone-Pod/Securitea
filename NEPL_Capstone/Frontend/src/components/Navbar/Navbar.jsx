@@ -3,21 +3,28 @@ import Logo from "../../assets/Logo.svg";
 import { Link } from "react-router-dom";
 import { Button, AppBar, Toolbar, Stack, Container } from "@mui/material";
 import { useAuthContext } from "../../contexts/auth";
-import { Dropdown, Avatar, Text, Grid, User, Spacer, Button as NButton } from "@nextui-org/react";
+import {
+	Dropdown,
+	Avatar,
+	Text,
+	Grid,
+	User,
+	Spacer,
+	Button as NButton,
+} from "@nextui-org/react";
 import * as color from "../../assets/colorPalette.jsx";
 import SettingsModal from "../SettingsModal/SettingsModal";
 import NotificationsModal from "../NotificationsModal/NotificationsModal";
 import { Row, css } from "@nextui-org/react";
 import SettingsIcon from "@mui/icons-material/Settings";
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
 export default function Navbar() {
 	const { user, handleLogout, mod1ping, mod2ping} = useAuthContext();
-	console.log(mod1ping, mod2ping)
 	const [visible, setVisible] = React.useState(false);
-	const [pingsVisible, setPingsVisible] = React.useState(false)
+	const [pingsVisible, setPingsVisible] = React.useState(false);
 	const handler = () => setVisible(true);
-	const pingHandler = () => setPingsVisible(true)
+	const pingHandler = () => setPingsVisible(true);
 	return (
 		<AppBar sx={{ background: color.richBlackFogra }} position="sticky">
 			<Toolbar sx={{ height: "8vh", justifyContent: "space-between" }}>
@@ -38,17 +45,17 @@ export default function Navbar() {
 					<Stack direction="row" spacing={3}>
 						<Button color="inherit" to="/Modules" component={Link}>
 							<Text color="white" size={20} weight="normal">
-							Modules
+								Modules
 							</Text>
 						</Button>
 						<Button color="inherit" to="/Resources" component={Link}>
 							<Text color="white" size={20} weight="normal">
-							Resources
+								Resources
 							</Text>
 						</Button>
 						<Button color="inherit" to="/Contact-Us" component={Link}>
 							<Text color="white" size={20} weight="normal">
-							Contact Us
+								Contact Us
 							</Text>
 						</Button>
 					</Stack>
@@ -74,32 +81,32 @@ export default function Navbar() {
 						</Row>
 					) : (
 						<>
-						<Row gap={1} justify='space-between'>
-							<a href="/login">
-							<NButton
-								bordered
-								size='sm'
-								ghost
-								color='secondary'
-								css={{
-									color: 'white',
-								}}
-							>
-								Login
-							</NButton>
-							</a>
-							<a href='/register'>
-							<NButton
-								size='sm'
-								color="secondary"
-								css={{
-									color: "white",
-								}}
-							>
-								Sign Up
-							</NButton>
-							</a>
-						</Row>
+							<Row gap={1} justify="space-between">
+								<Link to="/login">
+									<NButton
+										bordered
+										size="sm"
+										ghost
+										color="secondary"
+										css={{
+											color: "white",
+										}}
+									>
+										Login
+									</NButton>
+								</Link>
+								<Link to="/register">
+									<NButton
+										size="sm"
+										color="secondary"
+										css={{
+											color: "white",
+										}}
+									>
+										Sign Up
+									</NButton>
+								</Link>
+							</Row>
 						</>
 					)}
 				</div>
