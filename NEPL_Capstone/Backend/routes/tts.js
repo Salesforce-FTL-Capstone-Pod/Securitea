@@ -6,9 +6,8 @@ const security = require("../middleware/security");
 const router = express.Router();
 
 const apiKey = process.env.TEXT_TO_SPEECH_APIKEY;
-console.log(process.env.TEXT_TO_SPEECH_APIKEY);
-const url =
-  "https://api.us-south.text-to-speech.watson.cloud.ibm.com/instances/c3b8b3c2-7209-43cb-ac1c-2cd5ccdf7f74";
+
+const url = process.env.TEXT_TO_SPEECH_URL;
 
 if (apiKey) {
   process.env.TEXT_TO_SPEECH_APIKEY = apiKey;
