@@ -192,7 +192,7 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
               <Row justify="space-between">
                 <Text>
                   {employee.phishingProgress.progress} out of {employee.phishingProgress.steps} Steps Completed
-                  <Progress color="gradient" value={10} />
+                  <Progress color="gradient" value={employee.phishingProgress.progress} max={employee.phishingProgress.steps} />
                 </Text>
                 <Button color="success" onClick={() => sendPings(employee.email, 1)}>
                   Ping to Complete
@@ -203,7 +203,7 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
               <Row justify="space-between">
               <Text>
                 {employee.safetyProgress.progress} out of {employee.safetyProgress.steps} Steps Completed
-                <Progress color="gradient" value={10} />
+                <Progress color="gradient" value={employee.safetyProgress.progress} max={employee.safetyProgress.steps} />
               </Text>
               <Button color="success" onClick={() => sendPings(employee.email, 2)}>
                 Ping to Complete

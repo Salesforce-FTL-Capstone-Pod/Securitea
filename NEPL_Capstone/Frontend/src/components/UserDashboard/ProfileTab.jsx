@@ -26,8 +26,8 @@ export default function ProfileTab({ user }){
   function AccountInfo({user}){
     const fullName = `${user.firstName} ${user.lastName}`
     return(
-        <Card css={{ bg: "$colors$lightpurple", mw: "100%"}}>
-        <Card css={{ bg: "$colors$lightpurple", mw: "100%"}}>
+        <Card css={{ bg: "$colors$darkpurple", mw: "100%"}}>
+        <Card css={{ bg: "$colors$darkpurple", mw: "100%"}}>
         <Card.Divider />
        <Card.Body css={{ py: "$10"}}>
         <Avatar

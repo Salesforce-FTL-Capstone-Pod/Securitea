@@ -21,6 +21,7 @@ import { useAuthContext } from "../../contexts/auth";
 import { useProgressContext } from "../../contexts/progress";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import backgroundImg from '../../assets/SecuriTEA-bg4.svg'
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 export default function ModulePageTips() {
 	const progress = useProgressContext();
@@ -169,8 +170,8 @@ function Content({ progressTwo }) {
 					Curriculum
 				</Text>
 				<Collapse.Group splitted accordion={true}>
-					<IntroToTips />
-					<PasswordCheckerPage />
+					<IntroToTips progressTwo={progressTwo} />
+					<PasswordCheckerPage progressTwo={progressTwo} />
 				</Collapse.Group>
 
 				<Text h1 css={{ marginTop: "1vw" }}>
@@ -199,9 +200,9 @@ function Content({ progressTwo }) {
 	);
 }
 
-function IntroToTips() {
+function IntroToTips({ progressTwo }) {
 	return (
-		<Collapse title="Internet Safety Tips">
+		<Collapse contentLeft={progressTwo?.progress  > 0 ? <CheckCircleOutlineIcon/> : <></>} title="Internet Safety Tips">
 			<Text>
 				This unit has tips on internet safety and how to safely navigate the
 				web.
@@ -210,9 +211,9 @@ function IntroToTips() {
 	);
 }
 
-function PasswordCheckerPage() {
+function PasswordCheckerPage({ progressTwo }) {
 	return (
-		<Collapse title="Password Checker">
+		<Collapse contentLeft={progressTwo?.progress  > 1 ? <CheckCircleOutlineIcon/> : <></>} title="Password Checker">
 			<Text>
 				This unit will show you how to check the strength of your passwords and
 				some examples of very strong passwords.
