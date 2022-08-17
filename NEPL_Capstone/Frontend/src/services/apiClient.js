@@ -117,6 +117,6 @@ class ApiClient {
 	}
 }
 
-const API = new ApiClient("http://localhost:3001");
+const API = new ApiClient("https://securitea.herokuapp.com");
 //TODO: this needs to be changed when deployed
 export default API;
