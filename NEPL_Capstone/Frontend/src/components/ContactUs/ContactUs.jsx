@@ -57,11 +57,10 @@ function Content() {
 				<Grid xs={5}>
 					<Card isHoverable variant="bordered" borderWeight="extrabold" css={{ borderColor: "$colors$medpurple" }}>
 					<Card.Header css={{ justifyContent: "center",}}>
-						<Tooltip content={"Something"}>
+						<Tooltip content={"I like Frontend"}>
 							<User
 							src="https://media-exp1.licdn.com/dms/image/C5603AQEQyzB4K7pjAw/profile-displayphoto-shrink_200_200/0/1654102529794?e=2147483647&v=beta&t=6LyaJZe6PIdd20imLxg8cHAvdhC_Ai3XJQTaDjeYpT4"
 							name={<Text size={22} weight="">Nana Kofi Okae</Text>}
-							description="something"
 							size="xl"
 							/>
 						</Tooltip>
@@ -87,11 +86,10 @@ function Content() {
 				<Grid xs={5}>
 					<Card isHoverable variant="bordered" borderWeight="extrabold" css={{ borderColor: "$colors$medpurple" }}>
 					<Card.Header css={{ justifyContent: "center",}}>
-						<Tooltip content={"Something"}>
+						<Tooltip content={"I like Backend"}>
 							<User
 							src="https://media-exp1.licdn.com/dms/image/C4E03AQFrY7pBAFmg5Q/profile-displayphoto-shrink_400_400/0/1639864498341?e=1666224000&v=beta&t=tXfW-j5tbP1NrhLNFRG9YoEdgrtjdrs21cLsHvE_0oc"
 							name={<Text size={22} weight="">Lucas Ribeiro Vidal</Text>}
-							description="something"
 							size="xl"
 							/>
 						</Tooltip>
@@ -117,11 +115,10 @@ function Content() {
 				<Grid xs={5}>
 					<Card isHoverable variant="bordered" borderWeight="extrabold" css={{ borderColor: "$colors$medpurple" }}>
 					<Card.Header css={{ justifyContent: "center",}}>
-						<Tooltip content={"I like UI"}>
+						<Tooltip content={"I like UI & Frontend"}>
 							<User
 							src="https://media-exp1.licdn.com/dms/image/C4E03AQEOKsox7kjeCA/profile-displayphoto-shrink_400_400/0/1633040329995?e=1666224000&v=beta&t=0TfHtFdJ9n3XgRfuOnbUVhid8rWVVZLa0Yj8qWlyyjo"
 							name={<Text size={22} weight="">Paul Hazzim Franco</Text>}
-							description="Something here"
 							size="xl"
 							/>
 						</Tooltip>
@@ -146,11 +143,10 @@ function Content() {
 				<Grid xs={5}>
 					<Card isHoverable variant="bordered" borderWeight="extrabold" css={{ borderColor: "$colors$medpurple" }}>
 					<Card.Header css={{ justifyContent: "center",}}>
-						<Tooltip content={"Something"}>
+						<Tooltip content={"I like Backend & Cybersecurity"}>
 							<User
 							src="https://media-exp1.licdn.com/dms/image/D4E03AQHw_6urdUWrNA/profile-displayphoto-shrink_400_400/0/1648924288729?e=1666224000&v=beta&t=W1mm0cf27prQNniW5WsrMXjFSSCNAfE5ErxUlHnkkAk"
 							name={<Text size={22} weight="">Enrique Rico</Text>}
-							description="something"
 							size="xl"
 							/>
 						</Tooltip>

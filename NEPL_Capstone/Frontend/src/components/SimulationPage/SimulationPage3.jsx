@@ -26,20 +26,61 @@ import replyButton from "../../assets/replyButton.svg";
 import Certificate from "../../assets/Certificate.jpg";
 
 import { StyledBadge } from "../ManagerDashboard/EmployeeTable/StyledBadge";
-import { Modal, Dropdown, Text, Button } from "@nextui-org/react";
+import { Modal, Dropdown } from "@nextui-org/react";
 import API from "../../services/apiClient";
 import { useAuthContext } from "../../contexts/auth";
 
-  import { saveAs } from "file-saver";
+import { Text, Button, Progress, Collapse, Row, Card, Container as NextContainer } from "@nextui-org/react"
+import backgroundImg from '../../assets/SecuriTEA-bg2.svg'
+
+
+const sizeBox = "65vw";
 
 export default function SimulationPage() {
-  return (
-    <>
-      <Navbar />
-      <Simulation />
-      <Footer />
-    </>
-  );
+	return (
+		<>
+		<Navbar />
+		<Container maxWidth={false} disableGutters sx={{ minWidth: "100vh", minHeight: "100vh", backgroundImage: `url(${backgroundImg})`}}>
+			<Overview />
+			<Content />
+		</Container>
+		<Footer />
+		</>
+	);
+}
+
+
+
+function Overview() {
+	return (
+	  <Container
+		maxWidth={false}
+		disableGutters
+		sx={{
+		  backgroundColor: color.richBlackFogra,
+		  display: "flex",
+		  justifyContent: "center",
+	  }}
+	  >
+		<Container
+		  style={{ marginBottom: "2vw", marginTop: "1vw", width: sizeBox }}
+		>
+			<Text h3 weight="light" css={{ color: "$colors$platinum", marginBottom: "0vw"}}><Link style={{ color: '#FFF'}} to="/ModulePhishing">Module: Phishing</Link></Text>
+			<Text h1 css={{ color: "$colors$platinum", marginTop: "-0.5vw", marginBottom: "0vw"}}>Email Simulation</Text>
+		</Container>
+	  </Container>
+	);
+  }
+
+
+function Content() {
+	return (
+	  <Container sx={{ display: "flex", minHeight: "100vh", marginBottom: "10vh"}} disableGutters>
+		<Container>
+            <Simulation />
+	    </Container>
+	  </Container>
+)
 }
 
 function Simulation() {
@@ -52,9 +93,7 @@ function Simulation() {
         flexDirection: "column",
         backgroundColor: color.platinum,
         height: "145vh",
-        width: "75%",
-        marginTop: "100px",
-        marginBottom: "100px",
+        marginTop: "50px",
       }}
     >
       <h1>Quiz 3</h1>
@@ -88,7 +127,6 @@ function Simulation() {
         maxWidth={false}
         sx={{
           display: "flex",
-          backgroundColor: color.languidLavender,
           height: "89vh",
           borderRadius: "2vw",
           width: "100%",
