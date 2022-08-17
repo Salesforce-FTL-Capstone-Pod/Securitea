@@ -18,6 +18,7 @@ import {
 } from "@nextui-org/react";
 import apiClient from "../../../services/apiClient";
 import { Tayble } from "../EmployeeDisplay/EmployeeDisplay";
+import { StyledBadge } from "../EmployeeTable/StyledBadge";
 function AssignedModules({ employees, valid, logo }) {
 	return (
 		<>
@@ -124,10 +125,8 @@ function ModuleCard({ moduleName, employees, valid, logo, moduleId }) {
 			<Card.Divider />
 			<Card.Body css={{ py: "$10" }}>
 				<Text css={{ color: "$colors$black" }}>
-					Something about the module. Something about the module. Something
-					about the module. Something about the module. Something about the
-					module. Something about the module. Something about the module.
-					Something about the module. Something about the module.
+					{moduleId == 1 ? <>Phishing is a type of social engineering where an attacker send s a fradulent message designed to trick a person into revealing sensitive information to the attacker or to deploy malicious software on the victim's machine.</> : 
+					<>In this module you will find basic tips on how to keep your data and your companies data safe and secure on the internet! Using these tips will make it easier for you to keep your and your companies data private and secure!</>}
 				</Text>
 				<Spacer></Spacer>
 			</Card.Body>
@@ -267,7 +266,7 @@ function SelectionModal({
 			const employeeArr = selectedEmployee[employees].split(",")
 			pingEmployee(employeeArr[0], employeeArr[1])
 		}
-		await delay(2000);
+		await delay(1500);
 		setLoading(false);
 		setConfirmation(true);
 	};
@@ -387,9 +386,13 @@ export function EmployeeSelection({
 			label: "EMAIL",
 		},
 		{
-			key: "status",
-			label: "PING STATUS",
-		},
+			key: "pingStatus1",
+			label: "PING STATUS: MODULE 1",
+		  },
+		  {
+			key: "pingStatus2",
+			label: "PING STATUS: MODULE 2",
+		  },
 	];
 	const rows = [];
 	if (valid == true) {
@@ -411,7 +414,8 @@ export function EmployeeSelection({
 					></User>
 				),
 				email: employees.info.podProgress[employee].email,
-				status: pingStatus,
+				pingStatus1: <StyledBadge type={employees.info.podProgress[employee].wasPinged.waspinged1 == true ? "active" : "paused"}>{employees.info.podProgress[employee].wasPinged.waspinged1.toString()}</StyledBadge>,
+				pingStatus2: <StyledBadge type={employees.info.podProgress[employee].wasPinged.waspinged2 == true ? "active" : "paused"}>{employees.info.podProgress[employee].wasPinged.waspinged1.toString()}</StyledBadge>,
 			});
 		}
 	}

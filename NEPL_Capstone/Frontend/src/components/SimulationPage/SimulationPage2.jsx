@@ -19,19 +19,63 @@ import dots from "../../assets/dots.svg";
 import YesButton from "../../assets/yesButton.svg";
 
 import { StyledBadge } from "../ManagerDashboard/EmployeeTable/StyledBadge";
-import { Modal, Dropdown, Text, Button } from "@nextui-org/react";
+import { Modal, Dropdown } from "@nextui-org/react";
 import API from "../../services/apiClient";
 import { useAuthContext } from "../../contexts/auth";
 
+import { Text, Button, Progress, Collapse, Row, Grid, Card, Container as NextContainer } from "@nextui-org/react"
+import backgroundImg from '../../assets/SecuriTEA-bg2.svg'
+
+
+const sizeBox = "65vw";
+
 export default function SimulationPage() {
-  return (
-    <>
-      <Navbar />
-      <Simulation />
-      <Footer />
-    </>
-  );
+	return (
+		<>
+		<Navbar />
+		<Container maxWidth={false} disableGutters sx={{ minWidth: "100vh", minHeight: "100vh", backgroundImage: `url(${backgroundImg})`}}>
+			<Overview />
+			<Content />
+		</Container>
+		<Footer />
+		</>
+	);
 }
+
+
+
+function Overview() {
+	return (
+	  <Container
+		maxWidth={false}
+		disableGutters
+		sx={{
+		  backgroundColor: color.richBlackFogra,
+		  display: "flex",
+		  justifyContent: "center",
+	  }}
+	  >
+		<Container
+		  style={{ marginBottom: "2vw", marginTop: "1vw", width: sizeBox }}
+		>
+			<Text h3 weight="light" css={{ color: "$colors$platinum", marginBottom: "0vw"}}><Link style={{ color: '#FFF'}} to="/ModulePhishing">Module: Phishing</Link></Text>
+			<Text h1 css={{ color: "$colors$platinum", marginTop: "-0.5vw", marginBottom: "0vw"}}>Email Simulation</Text>
+		</Container>
+	  </Container>
+	);
+  }
+
+
+function Content() {
+	return (
+	  <Container sx={{ display: "flex", minHeight: "100vh", marginBottom: "10vh"}} disableGutters>
+		<Container>
+            <Simulation />
+	    </Container>
+	  </Container>
+)
+}
+
 
 function Simulation() {
   const [isStarted, setIsStarted] = useState(false);
@@ -43,12 +87,18 @@ function Simulation() {
         flexDirection: "column",
         backgroundColor: color.platinum,
         height: "145vh",
-        width: "75%",
-        marginTop: "100px",
-        marginBottom: "100px",
+        marginTop: "50px",
       }}
     >
       <h1>Quiz 2</h1>
+      <p style={{ fontSize: "130%" }}>
+       Most emails are not hard to see as real emails. A good way to know is if the email
+        in question is from a company domain, if the email is from someone within the company, try contacting them throught the companies global contacting system.
+      </p>
+      <p style={{ marginTop: "-1%", fontWeight: "bold" }}>
+        While taking this quiz,look out for clues that stand out, email address,
+        questionable request, and so on{" "}
+      </p>
       <h2>What is going on :</h2>
       <p style={{ marginTop: "0vw" }}>
         - You have been sent an email invitation to a google meet to prep for
@@ -60,7 +110,7 @@ function Simulation() {
         read the content, and make the decision if this is a good email, or a
         phishing email
       </p>
-      <p style={{marginTop:"-1%"}}>
+      <p style={{ marginTop: "-1%" }}>
         Your answer choices for this simulation consist of:
         <li style={{ fontWeight: "bold" }}>
           A button that accepts invite ={" "}
@@ -78,7 +128,6 @@ function Simulation() {
         maxWidth={false}
         sx={{
           display: "flex",
-          backgroundColor: color.languidLavender,
           height: "89vh",
           borderRadius: "2vw",
           width: "100%",

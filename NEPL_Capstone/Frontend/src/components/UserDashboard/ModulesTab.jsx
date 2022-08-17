@@ -92,6 +92,11 @@ export function ModuleDisplay({
 				My Modules
 			</Text>
 			<Grid.Container gap={2}>
+				{oneDone && twoDone ? <><>
+					<Grid>
+						<Text>You finished all of modules available!</Text>
+					</Grid>
+				</></> : <></>}
 				{!oneDone ? (
 					<Grid>
 						<AuthModuleCard
@@ -131,7 +136,7 @@ function ModulesComplete({
 	return (
 		<NextContainer fluid>
 			<Text h1 b>
-				Modules completed
+				Modules Completed
 			</Text>
 			<Grid.Container gap={2}>
 				{oneDone ? (
@@ -178,18 +183,18 @@ function AuthModuleCard({
 	continueHandler,
 }) {
 	return (
-		<Card isHoverable css={{ mw: "350px", bg: "$black" }}>
+		<Card isHoverable css={{ mw: "350px", bg: "$colors$medpurple" }}>
 			<Card.Header css={{ textAlign: "center" }}>
-				<Text css={{ textAlign: "center", color: "$white" }} size={30} b>
+				<Text css={{ textAlign: "center", color: "$black" }} size={30} b>
 					{moduleName}
 				</Text>
 			</Card.Header>
 			<Card.Divider />
 			<Card.Body css={{ py: "$10" }}>
-				<Text css={{ color: "$white" }}>{description}</Text>
+				<Text css={{ color: "$black" }}>{description}</Text>
 				<Spacer></Spacer>
 				<Progress color="gradient" value={progressPercent} />
-				<Text css={{ color: "$white" }}>
+				<Text css={{ color: "$black" }}>
 					{progress?.progress}/{progress?.steps} Steps Complete
 				</Text>
 			</Card.Body>
@@ -201,10 +206,12 @@ function AuthModuleCard({
 					<Button size="sm" bordered color="secondary">
 						Learn More
 					</Button>
-					<Spacer></Spacer>]
-					<Button size="sm" color="secondary" onClick={continueHandler}>
-						Continue
-					</Button>
+					<Spacer></Spacer>
+					<Link to={moduleName == "Phishing" ? "/ModulePhishing" : "/ModuleTips"}>
+						<Button size="sm" color="secondary">
+							Continue
+						</Button>
+					</Link>
 				</Row>
 			</Card.Footer>
 		</Card>

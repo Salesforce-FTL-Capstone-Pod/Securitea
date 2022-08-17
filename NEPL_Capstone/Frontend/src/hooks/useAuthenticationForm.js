@@ -27,12 +27,14 @@ export const useAuthenticationForm = ({ user }) => {
 		return String(email).toLowerCase().match(emailRegex);
 	}
 	const handleOnInputChange = (event) => {
-		if (event.target?.name == "isManagerName") {
-			setForm((f) => ({ ...f, isManager: event.target.checked }));
+		console.log(event);
+
+		if (event?.isManager != null) {
+			setForm((f) => ({ ...f, isManager: event.isManager }));
 
 			//Resets the fields that are exclusive to a type of user
-			if (!event.target.checked) setForm((f) => ({ ...f, ["company"]: "" })); //If user, reset company
-			if (event.target.checked) setForm((f) => ({ ...f, ["token"]: "" })); //If manager, reset token
+			if (!event.isManager) setForm((f) => ({ ...f, ["company"]: "" })); //If user, reset company
+			if (event.isManager) setForm((f) => ({ ...f, ["token"]: "" })); //If manager, reset token
 		}
 
 		if (event.constructor.name == "Date") {
@@ -60,7 +62,16 @@ export const useAuthenticationForm = ({ user }) => {
 			}
 		}
 
+		if (event?.title && event.title != "Preferred Title") {
+			setForm((f) => ({ ...f, title: event.title }));
+		}
+		if (event?.company && event.company != "Select Company") {
+			setForm((f) => ({ ...f, company: event.company }));
+		}
+
 		setForm((f) => ({ ...f, [event.target?.name]: event.target?.value }));
+
+		console.log("Form Set!");
 	};
 
 	return {

@@ -27,7 +27,9 @@ import SimulationPage3 from "../SimulationPage/SimulationPage3";
 import TipsPage from "../InternetTips/InternetTips";
 import PasswordPage from "../PasswordPage/PasswordPage";
 import Skeleton from "../AuthModulePage/Skeleton";
-import RegisterNew from "../Register/RegisterNew";
+
+import Skele from "../Skele/Skele";
+
 //Libraries
 import {
   NextUIProvider,
@@ -72,23 +74,40 @@ function App() {
       redirect_uri: "https://localhost:5173/slack",
     }).toString();
 
-    useEffect(() => {
-      setslackCode(searchParams.get("code"));
-      const url = "https://slack.com/api/openid.connect.token?" + params;
-      setTest(url);
-      async function fetchResponse() {
-        const response = await apiClient.fetchSlackExchange(url, location);
-        if (response.data !== null) {
-          setUser(response.data.user);
-          apiClient.setToken(response.data.token);
-          setInitialized(true);
-        }
-      }
-      fetchResponse();
-    }, [setUser]);
-    if (Object.keys(user).length > 0) {
-      navigate("/UserDashboard");
-    }
+
+	function Slack() {
+		const navigate = useNavigate();
+		const { user, setUser, setInitialized } = useAuthContext();
+		const [test, setTest] = useState();
+		let [searchParams, setSearchParams] = useSearchParams();
+		const [slackCode, setslackCode] = useState();
+		let clientID = "3765144863393.3898834395927";
+		let clientSecret = "30d55b4db0a30e1bedd5cb6c478b60e9";
+		const params = new URLSearchParams({
+			client_id: clientID,
+			client_secret: clientSecret,
+			code: searchParams.get("code"),
+			redirect_uri: "https://localhost:5173/slack",
+		}).toString();
+
+		useEffect(() => {
+			setslackCode(searchParams.get("code"));
+			const url = "https://slack.com/api/openid.connect.token?" + params;
+			setTest(url);
+			async function fetchResponse() {
+				const response = await apiClient.fetchSlackExchange(url, location);
+				if (response.data !== null) {
+					setUser(response.data.user);
+					apiClient.setToken(response.data.token);
+					setInitialized(true);
+				}
+			}
+			fetchResponse();
+		}, [setUser]);
+		if (Object.keys(user).length > 0) {
+			navigate("/UserDashboard");
+		}
+
 
     return (
       <Container fluid>
@@ -107,44 +126,45 @@ function App() {
     );
   }
 
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/UserDashboard/"
-            element={<AuthRoute element={<UserDashboard />} />}
-          />
-          <Route path="/ModulePhishing" element={<ModulePagePhishing />} />
-          <Route path="/ModuleTips" element={<ModulePageTips />} />
-          <Route path="/Modules" element={<Modules />} />
-          <Route path="/Resources" element={<ResourcePage />} />
-          <Route path="/Modules/demo" element={<SimulationPage />} />
-          <Route path="/Modules/tips" element={<TipsPage />} />
-          <Route path="/PasswordPage" element={<PasswordPage />} />
-          <Route path="/Contact-Us" element={<ContactUs />} />
-          <Route path="*" element={<PageNotFound />} />
-          <Route
-            path="/Skeleton"
-            element={<AuthRoute element={<Skeleton />} />}
-          />
-          <Route
-            path="/ManagerDashboard/*"
-            element={<AuthRoute element={<ManagerDashboard />} />}
-          />
-          <Route path="/Slack" element={<Slack />} />
-          <Route path="/Sim2" element={<SimulationPage2 />} />
+
+	return (
+		<div className="App">
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Landing />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/register" element={<Register />} />
+					<Route
+						path="/UserDashboard/"
+						element={<AuthRoute element={<UserDashboard />} />}
+					/>
+					<Route path="/ModulePhishing" element={<ModulePagePhishing />} />
+					<Route path="/ModuleTips" element={<ModulePageTips />} />
+					<Route path="/Modules" element={<Modules />} />
+					<Route path="/Resources" element={<ResourcePage />} />
+					<Route path="/Modules/demo" element={<SimulationPage />} />
+					<Route path="/Modules/tips" element={<TipsPage />} />
+					<Route path="/PasswordPage" element={<PasswordPage />} />
+					<Route path="/Contact-Us" element={<ContactUs />} />
+					<Route path="*" element={<PageNotFound />} />
+					<Route
+						path="/Skeleton"
+						element={<AuthRoute element={<Skeleton />} />}
+					/>
+					<Route
+						path="/ManagerDashboard/*"
+						element={<AuthRoute element={<ManagerDashboard />} />}
+					/>
+					<Route path="/Slack" element={<Slack />} />
+					<Route path="/Skele" element={<Skele />} />
+					<Route path="/Sim2" element={<SimulationPage2 />} />
           <Route path="/Sim3" element={<SimulationPage3 />} />
-          <Route path="/RegisterNew" element={<RegisterNew />} />
-          {/* DELETE THIS LINE UNDER, ONLY FOR TESTING */}
-          <Route path="Trying" element={<Skele />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+				</Routes>
+			</BrowserRouter>
+		</div>
+	);
+
+
 }
 const theme = createTheme({
   type: "light",

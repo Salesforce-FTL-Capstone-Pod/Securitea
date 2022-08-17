@@ -33,7 +33,7 @@ function Sidebar({ selectedTab, setselectedTab, user }) {
       setselectedTab("Overview")
     }
     return (
-      <NextContainer css={{ marginLeft: "0px", background: "$colors$darkpurple", minHeight: "100vh", width: "25vh"}} fluid>
+      <NextContainer css={{ marginLeft: "0px", background: "$colors$darkpurple", height: "100vh", minHeight: "100%", width: "25vh"}} fluid>
       <Table
       
       defaultSelectedKeys={[selectedTab]}

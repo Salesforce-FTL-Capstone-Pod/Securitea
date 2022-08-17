@@ -179,8 +179,8 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
 
           <Text id="modal-title" weight="thin" size={15}>
             Email <Text weight="semibold"  size={20} >{employee.email}</Text>
-            <StyledBadge type={employee.module1ping == true ? "active" : "paused"}>Phishing Module: {employee.module1ping.toString()}</StyledBadge>
-            <StyledBadge type={employee.module2ping == true ? "active" : "paused"}>Safety Tips Module: {employee.module1ping.toString()}</StyledBadge>
+            <StyledBadge type={employee.module1ping == true ? "active" : "paused"}>Phishing Module - Pinged: {employee.module1ping.toString()}</StyledBadge>
+            <StyledBadge type={employee.module2ping == true ? "active" : "paused"}>Internet Safety Tips Module - Pinged: {employee.module1ping.toString()}</StyledBadge>
           </Text>
           
           </Card>
@@ -192,7 +192,7 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
               <Row justify="space-between">
                 <Text>
                   {employee.phishingProgress.progress} out of {employee.phishingProgress.steps} Steps Completed
-                  <Progress color="gradient" value={10} />
+                  <Progress color="gradient" value={employee.phishingProgress.progress} max={employee.phishingProgress.steps} />
                 </Text>
                 <Button color="success" onClick={() => sendPings(employee.email, 1)}>
                   Ping to Complete
@@ -203,7 +203,7 @@ export function EmployeeModal({ visible, setVisible, employees, selectedEmployee
               <Row justify="space-between">
               <Text>
                 {employee.safetyProgress.progress} out of {employee.safetyProgress.steps} Steps Completed
-                <Progress color="gradient" value={10} />
+                <Progress color="gradient" value={employee.safetyProgress.progress} max={employee.safetyProgress.steps} />
               </Text>
               <Button color="success" onClick={() => sendPings(employee.email, 2)}>
                 Ping to Complete

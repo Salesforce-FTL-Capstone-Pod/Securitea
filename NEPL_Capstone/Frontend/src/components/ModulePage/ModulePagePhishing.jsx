@@ -22,6 +22,7 @@ import { Button as MUIButton } from "@mui/material";
 import { useAuthContext } from "../../contexts/auth";
 import { useProgressContext } from "../../contexts/progress";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
+
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import backgroundImg from "../../assets/SecuriTEA-bg4.svg";
 
@@ -215,57 +216,47 @@ function Content({ progressOne }) {
 }
 
 function IntroToPhishing(progressOne) {
-  return (
-    <Collapse
-      contentLeft={progressOne > 0 ? <CheckCircleOutlineIcon /> : <></>}
-      title="Intro to Phishing"
-    >
-      <Text>
-        This unit will give you a comprehensive explanation of what Phishing is
-        and how you detect it so that you may be safe on the internet.
-      </Text>
-    </Collapse>
-  );
+
+	return (
+		<Collapse contentLeft={progressOne?.progressOne?.progress > 0 ? <CheckCircleOutlineIcon/> : <></>} title="Intro to Phishing">
+			<Text>
+				This unit will give you a comprehensive explanation of what Phishing is
+				and how you detect it so that you may be safe on the internet.
+			</Text>
+		</Collapse>
+	);
 }
 
 function PhishingFirstSim(progressOne) {
-  return (
-    <Collapse
-      contentLeft={progressOne > 0 ? <CheckCircleOutlineIcon /> : <></>}
-      title="Phishing: Quiz 1"
-    >
-      <Text>
-        This quiz will test your knowledge of phishing and how to be safe while
-        checking your emails.
-      </Text>
-    </Collapse>
-  );
+	return (
+		<Collapse  contentLeft={progressOne?.progressOne?.progress  > 0 ? <CheckCircleOutlineIcon/> : <></>} title="Phishing: Quiz 1">
+			<Text>
+				This quiz will test your knowledge of phishing and how to be safe while
+				checking your emails.
+			</Text>
+		</Collapse>
+	);
 }
 
 function PhishingSecondSim(progressOne) {
-  return (
-    <Collapse
-      contentLeft={progressOne > 1 ? <CheckCircleOutlineIcon /> : <></>}
-      title="Phishing: Quiz 2"
-    >
-      <Text>
-        This quiz will test your knowledge of phishing and how to be safe while
-        checking your emails.
-      </Text>
-    </Collapse>
-  );
+	return (
+		<Collapse contentLeft={progressOne?.progressOne?.progress  > 2 ? <CheckCircleOutlineIcon/> : <></>} title="Phishing: Quiz 2">
+			<Text>
+				This quiz will test your knowledge of phishing and how to be safe while
+				checking your emails.
+			</Text>
+		</Collapse>
+	);
 }
 
 function PhishingThirdSim(progressOne) {
-  return (
-    <Collapse
-      contentLeft={progressOne > 2 ? <CheckCircleOutlineIcon /> : <></>}
-      title="Phishing: Quiz 3"
-    >
-      <Text>
-        This quiz will test your knowledge of phishing and how to be safe while
-        checking your emails.
-      </Text>
-    </Collapse>
-  );
+	return (
+		<Collapse contentLeft={progressOne?.progressOne?.progress  > 3 ? <CheckCircleOutlineIcon/> : <></>} title="Phishing: Quiz 3">
+			<Text>
+				This quiz will test your knowledge of phishing and how to be safe while
+				checking your emails.
+			</Text>
+		</Collapse>
+	);
+
 }

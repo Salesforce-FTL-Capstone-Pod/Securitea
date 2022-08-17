@@ -13,10 +13,13 @@ import {
     Spacer,
 } from "@nextui-org/react";
 import { useState } from "react";
+import { useAuthContext } from "../../contexts/auth";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { Link } from "react-router-dom"
 
-function NotificationsModal({ handler, visible, setVisible, pings, user }) {
+function NotificationsModal({ handler, visible, setVisible }) {
+	const { user } =  useAuthContext();
+	const { mod1ping, mod2ping } = useAuthContext();
 	const [checked, setChecked] = useState(false);
 	const closeHandler = () => {
 		setVisible(false);
@@ -35,14 +38,14 @@ function NotificationsModal({ handler, visible, setVisible, pings, user }) {
 					</Text>
 				</Modal.Header>
 				<Modal.Body>
-                {pings?.pinged1 == true || pings?.pinged2 == true ? <><Text css={{ textAlign: "center", marginBottom: "1vh"}} size={18} weight="normal">You were pinged to complete:</Text></> : <><Text css={{ textAlign: "center", marginBottom: "1vh"}} size={18} weight="normal">You have no notifications currently.</Text></>}
+                {mod1ping || mod2ping ? <><Text css={{ textAlign: "center", marginBottom: "1vh"}} size={18} weight="normal">You were pinged to complete:</Text></> : <><Text css={{ textAlign: "center", marginBottom: "1vh"}} size={18} weight="normal">You have no notifications currently.</Text></>}
                 <Collapse.Group bordered>
-                    {pings?.pinged1 == true ? <><Collapse contentLeft={<ErrorOutlineIcon color="secondary" /> } title="Module 1: Phishing">
+                    {mod1ping ? <><Collapse contentLeft={<ErrorOutlineIcon color="secondary" /> } title="Module 1: Phishing">
                         <Text>
                         You were pinged by your manager <b>{user.manager.split(",")[0]}</b> to complete this <Link to="/ModulePhishing">module.</Link>
                         </Text>
                     </Collapse></> : <></>}
-                    {pings?.pinged2 == true ? <><Collapse contentLeft={<ErrorOutlineIcon color="secondary" /> } title="Module 2: Safety Tips">
+                    {mod2ping ? <><Collapse contentLeft={<ErrorOutlineIcon color="secondary" /> } title="Module 2: Safety Tips">
                         <Text>
                         You were pinged by your manager <b>{user.manager.split(",")[0]}</b> to complete this <Link to="/ModuleTips">module.</Link>
                         </Text>
