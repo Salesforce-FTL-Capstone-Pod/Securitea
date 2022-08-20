@@ -3,7 +3,7 @@
 
 SITE Course Year: **2022**
 
-Cohort: **Add Company Sponsor Name**
+Cohort: **Salesforce FTL**
 
 Team Member Names:**Insert Team Member Names**
 
