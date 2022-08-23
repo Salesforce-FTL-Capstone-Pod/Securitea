@@ -16,7 +16,7 @@ Features:
 * Users can learn how to create strong passwords and other internet tips.
 * Users can register with a token given by their Manager and be placed in their pod.
 * Users under a manager can be pinged to complete modules.
-* Managers can view progress of each user under them, along with the ability to ping their employees/users in various ways.1
+* Managers can view progress of each user under them, along with the ability to ping their employees/users in various ways.
 
 https://user-images.githubusercontent.com/69439997/186255857-2ab320c1-7718-4a5d-a4b2-bba5bcc1f0eb.mp4
 
