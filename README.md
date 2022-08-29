@@ -1,6 +1,6 @@
 <div id="top"></div>
 
-[![LinkedIn][linkedin-shield]][linkedin-url]
+
 
 ![userdashb](https://user-images.githubusercontent.com/69439997/186255680-8685a0d6-0b76-4106-b995-b4383b205ce7.PNG)
 
